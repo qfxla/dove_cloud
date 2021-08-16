@@ -13,6 +13,7 @@
     <modules>
         <module>pigeon_cloud_authority</module>
         <module>pigeon_cloud_common</module>
+        <module>pigeon_cloud_breed</module>
     </modules>
 
     <properties>
