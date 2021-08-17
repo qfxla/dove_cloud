@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>dove_cloud_common</artifactId>
+    <artifactId>pigeon_cloud_common</artifactId>
 
     <dependencies>
 
