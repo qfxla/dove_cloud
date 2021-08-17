@@ -14,6 +14,7 @@
         <module>pigeon_cloud_authority</module>
         <module>pigeon_cloud_common</module>
         <module>pigeon_cloud_breed</module>
+        <module>pigeon_cloud_processing</module>
     </modules>
 
     <properties>
