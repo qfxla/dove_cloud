@@ -82,9 +82,4 @@ public class ProcessingTechnology extends Model<ProcessingTechnology> {
     private Integer version;
 
 
-    @Override
-    protected Serializable pkVal() {
-        return this.technologyId;
-    }
-
 }

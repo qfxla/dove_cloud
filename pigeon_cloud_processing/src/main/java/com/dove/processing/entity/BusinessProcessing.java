@@ -86,10 +86,4 @@ public class BusinessProcessing extends Model<BusinessProcessing> {
     @Version
     private Integer version;
 
-
-    @Override
-    protected Serializable pkVal() {
-        return this.id;
-    }
-
 }

@@ -92,9 +92,4 @@ public class ProcessingBatch extends Model<ProcessingBatch> {
     private Integer version;
 
 
-    @Override
-    protected Serializable pkVal() {
-        return this.batchId;
-    }
-
 }

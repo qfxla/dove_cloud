@@ -31,7 +31,7 @@ import javax.annotation.Resource;
 @Slf4j
 @Api(tags = "加工厂出库单表")
 @RestController
-@RequestMapping("/processing/outProcessingBill")
+@RequestMapping("/processing/out-processingbill")
 public class OutProcessingBillController {
 
     @Resource
@@ -41,7 +41,7 @@ public class OutProcessingBillController {
     private ConvertUtil convertUtil;
 
     @ApiOperation(value = "新增")
-    @PostMapping("/save")
+    @PostMapping("/")
     public Result save(@RequestBody OutProcessingBillDto outProcessingBillDto){
         OutProcessingBill outProcessingBill = convertUtil.convert(outProcessingBillDto, OutProcessingBill.class);
         boolean addInfo = outProcessingBillService.save(outProcessingBill);
@@ -49,14 +49,14 @@ public class OutProcessingBillController {
     }
 
     @ApiOperation(value = "根据表id删除")
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/deletion/{id}")
     public Result delete(@PathVariable("id") long id){
         boolean deleteById = outProcessingBillService.removeById(id);
         return deleteById ? Result.success("删除成功") : Result.error("删除失败");
     }
 
     @ApiOperation(value = "条件查询")
-    @PostMapping("/get")
+    @GetMapping("/info")
     public Result list(@RequestBody OutProcessingBillDto outProcessingBillDto){
         OutProcessingBill outProcessingBill = convertUtil.convert(outProcessingBillDto, OutProcessingBill.class);
         List<OutProcessingBill> outProcessingBillList = outProcessingBillService.list(new QueryWrapper<>(outProcessingBill));
@@ -64,7 +64,7 @@ public class OutProcessingBillController {
     }
 
     @ApiOperation(value = "列表（分页）")
-    @GetMapping("/list/{pageNum}/{pageSize}")
+    @GetMapping("/page/{pageNum}/{pageSize}")
     public Object list(@PathVariable("pageNum")Long pageNum, @PathVariable("pageSize")Long pageSize){
         IPage<OutProcessingBill> page = outProcessingBillService.page(
         new Page<>(pageNum, pageSize), null);
@@ -72,14 +72,14 @@ public class OutProcessingBillController {
     }
 
     @ApiOperation(value = "详情")
-    @GetMapping("/get/{id}")
+    @GetMapping("/information/{id}")
     public Result get(@PathVariable("id") long id){
         OutProcessingBill outProcessingBill = outProcessingBillService.getById(id);
         return outProcessingBill != null ? Result.success("查询详情成功").data(outProcessingBill) : Result.error("查询失败");
     }
 
     @ApiOperation(value = "根据id修改")
-    @PostMapping("/update/{id}")
+    @PutMapping("/update/{id}")
     public Result update(@PathVariable("id") long id, @RequestBody OutProcessingBillDto outProcessingBillDto){
         OutProcessingBill outProcessingBill = convertUtil.convert(outProcessingBillDto, OutProcessingBill.class);
         outProcessingBill.setId(id);

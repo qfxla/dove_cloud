@@ -31,7 +31,7 @@ import javax.annotation.Resource;
 @Slf4j
 @Api(tags = "加工产品类型表")
 @RestController
-@RequestMapping("/processing/processingType")
+@RequestMapping("/processing/processing-type")
 public class ProcessingTypeController {
 
     @Resource
@@ -41,7 +41,7 @@ public class ProcessingTypeController {
     private ConvertUtil convertUtil;
 
     @ApiOperation(value = "新增")
-    @PostMapping("/save")
+    @PostMapping("/")
     public Result save(@RequestBody ProcessingTypeDto processingTypeDto){
         ProcessingType processingType = convertUtil.convert(processingTypeDto, ProcessingType.class);
         boolean addInfo = processingTypeService.save(processingType);
@@ -49,14 +49,14 @@ public class ProcessingTypeController {
     }
 
     @ApiOperation(value = "根据表id删除")
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/deletion/{id}")
     public Result delete(@PathVariable("id") long id){
         boolean deleteById = processingTypeService.removeById(id);
         return deleteById ? Result.success("删除成功") : Result.error("删除失败");
     }
 
     @ApiOperation(value = "条件查询")
-    @PostMapping("/get")
+    @GetMapping("/condition")
     public Result list(@RequestBody ProcessingTypeDto processingTypeDto){
         ProcessingType processingType = convertUtil.convert(processingTypeDto, ProcessingType.class);
         List<ProcessingType> processingTypeList = processingTypeService.list(new QueryWrapper<>(processingType));
@@ -64,7 +64,7 @@ public class ProcessingTypeController {
     }
 
     @ApiOperation(value = "列表（分页）")
-    @GetMapping("/list/{pageNum}/{pageSize}")
+    @GetMapping("/page/{pageNum}/{pageSize}")
     public Object list(@PathVariable("pageNum")Long pageNum, @PathVariable("pageSize")Long pageSize){
         IPage<ProcessingType> page = processingTypeService.page(
         new Page<>(pageNum, pageSize), null);
@@ -72,14 +72,14 @@ public class ProcessingTypeController {
     }
 
     @ApiOperation(value = "详情")
-    @GetMapping("/get/{id}")
+    @GetMapping("/infomation/{id}")
     public Result get(@PathVariable("id") long id){
         ProcessingType processingType = processingTypeService.getById(id);
         return processingType != null ? Result.success("查询详情成功").data(processingType) : Result.error("查询失败");
     }
 
     @ApiOperation(value = "根据id修改")
-    @PostMapping("/update/{id}")
+    @PutMapping("/update/{id}")
     public Result update(@PathVariable("id") long id, @RequestBody ProcessingTypeDto processingTypeDto){
         ProcessingType processingType = convertUtil.convert(processingTypeDto, ProcessingType.class);
         processingType.setTypeId(id);

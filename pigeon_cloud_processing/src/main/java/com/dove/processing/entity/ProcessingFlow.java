@@ -82,9 +82,4 @@ public class ProcessingFlow extends Model<ProcessingFlow> {
     private Integer version;
 
 
-    @Override
-    protected Serializable pkVal() {
-        return this.processId;
-    }
-
 }

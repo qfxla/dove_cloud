@@ -56,5 +56,4 @@ public class OutProcessingBillDto extends Model<OutProcessingBillDto> {
     private Long guige;
 
 
-
 }

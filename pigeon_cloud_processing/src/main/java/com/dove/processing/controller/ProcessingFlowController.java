@@ -31,7 +31,7 @@ import javax.annotation.Resource;
 @Slf4j
 @Api(tags = "加工流程表")
 @RestController
-@RequestMapping("/processing/processingFlow")
+@RequestMapping("/processing/processing-flow")
 public class ProcessingFlowController {
 
     @Resource
@@ -41,7 +41,7 @@ public class ProcessingFlowController {
     private ConvertUtil convertUtil;
 
     @ApiOperation(value = "新增")
-    @PostMapping("/save")
+    @PostMapping("/")
     public Result save(@RequestBody ProcessingFlowDto processingFlowDto){
         ProcessingFlow processingFlow = convertUtil.convert(processingFlowDto, ProcessingFlow.class);
         boolean addInfo = processingFlowService.save(processingFlow);
@@ -49,14 +49,14 @@ public class ProcessingFlowController {
     }
 
     @ApiOperation(value = "根据表id删除")
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/deletion/{id}")
     public Result delete(@PathVariable("id") long id){
         boolean deleteById = processingFlowService.removeById(id);
         return deleteById ? Result.success("删除成功") : Result.error("删除失败");
     }
 
     @ApiOperation(value = "条件查询")
-    @PostMapping("/get")
+    @GetMapping("/condition")
     public Result list(@RequestBody ProcessingFlowDto processingFlowDto){
         ProcessingFlow processingFlow = convertUtil.convert(processingFlowDto, ProcessingFlow.class);
         List<ProcessingFlow> processingFlowList = processingFlowService.list(new QueryWrapper<>(processingFlow));
@@ -64,7 +64,7 @@ public class ProcessingFlowController {
     }
 
     @ApiOperation(value = "列表（分页）")
-    @GetMapping("/list/{pageNum}/{pageSize}")
+    @GetMapping("/page/{pageNum}/{pageSize}")
     public Object list(@PathVariable("pageNum")Long pageNum, @PathVariable("pageSize")Long pageSize){
         IPage<ProcessingFlow> page = processingFlowService.page(
         new Page<>(pageNum, pageSize), null);
@@ -72,14 +72,14 @@ public class ProcessingFlowController {
     }
 
     @ApiOperation(value = "详情")
-    @GetMapping("/get/{id}")
+    @GetMapping("/infomation/{id}")
     public Result get(@PathVariable("id") long id){
         ProcessingFlow processingFlow = processingFlowService.getById(id);
         return processingFlow != null ? Result.success("查询详情成功").data(processingFlow) : Result.error("查询失败");
     }
 
     @ApiOperation(value = "根据id修改")
-    @PostMapping("/update/{id}")
+    @PutMapping("/update/{id}")
     public Result update(@PathVariable("id") long id, @RequestBody ProcessingFlowDto processingFlowDto){
         ProcessingFlow processingFlow = convertUtil.convert(processingFlowDto, ProcessingFlow.class);
         processingFlow.setProcessId(id);

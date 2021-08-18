@@ -31,7 +31,7 @@ import javax.annotation.Resource;
 @Slf4j
 @Api(tags = "加工厂表")
 @RestController
-@RequestMapping("/processing/doveProcessing")
+@RequestMapping("/processing/dove-processing")
 public class DoveProcessingController {
 
     @Resource
@@ -41,7 +41,7 @@ public class DoveProcessingController {
     private ConvertUtil convertUtil;
 
     @ApiOperation(value = "新增")
-    @PostMapping("/save")
+    @PostMapping("/")
     public Result save(@RequestBody DoveProcessingDto doveProcessingDto){
         DoveProcessing doveProcessing = convertUtil.convert(doveProcessingDto, DoveProcessing.class);
         boolean addInfo = doveProcessingService.save(doveProcessing);
@@ -49,14 +49,14 @@ public class DoveProcessingController {
     }
 
     @ApiOperation(value = "根据表id删除")
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/deletion/{id}")
     public Result delete(@PathVariable("id") long id){
         boolean deleteById = doveProcessingService.removeById(id);
         return deleteById ? Result.success("删除成功") : Result.error("删除失败");
     }
 
     @ApiOperation(value = "条件查询")
-    @PostMapping("/get")
+    @GetMapping("/condition")
     public Result list(@RequestBody DoveProcessingDto doveProcessingDto){
         DoveProcessing doveProcessing = convertUtil.convert(doveProcessingDto, DoveProcessing.class);
         List<DoveProcessing> doveProcessingList = doveProcessingService.list(new QueryWrapper<>(doveProcessing));
@@ -64,7 +64,7 @@ public class DoveProcessingController {
     }
 
     @ApiOperation(value = "列表（分页）")
-    @GetMapping("/list/{pageNum}/{pageSize}")
+    @GetMapping("/page/{pageNum}/{pageSize}")
     public Object list(@PathVariable("pageNum")Long pageNum, @PathVariable("pageSize")Long pageSize){
         IPage<DoveProcessing> page = doveProcessingService.page(
         new Page<>(pageNum, pageSize), null);
@@ -72,20 +72,19 @@ public class DoveProcessingController {
     }
 
     @ApiOperation(value = "详情")
-    @GetMapping("/get/{id}")
+    @GetMapping("/info/{id}")
     public Result get(@PathVariable("id") long id){
         DoveProcessing doveProcessing = doveProcessingService.getById(id);
         return doveProcessing != null ? Result.success("查询详情成功").data(doveProcessing) : Result.error("查询失败");
     }
 
     @ApiOperation(value = "根据id修改")
-    @PostMapping("/update/{id}")
+    @PutMapping("/update/{id}")
     public Result update(@PathVariable("id") long id, @RequestBody DoveProcessingDto doveProcessingDto){
         DoveProcessing doveProcessing = convertUtil.convert(doveProcessingDto, DoveProcessing.class);
         doveProcessing.setProcessingId(id);
         boolean updateInfo = doveProcessingService.updateById(doveProcessing);
         return updateInfo ? Result.success("修改成功") : Result.error("修改失败");
     }
-
 
 }

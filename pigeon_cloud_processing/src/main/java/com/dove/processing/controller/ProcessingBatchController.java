@@ -31,7 +31,7 @@ import javax.annotation.Resource;
 @Slf4j
 @Api(tags = "加工批次表")
 @RestController
-@RequestMapping("/processing/processingBatch")
+@RequestMapping("/processing/processing-batch")
 public class ProcessingBatchController {
 
     @Resource
@@ -41,7 +41,7 @@ public class ProcessingBatchController {
     private ConvertUtil convertUtil;
 
     @ApiOperation(value = "新增")
-    @PostMapping("/save")
+    @PostMapping("/")
     public Result save(@RequestBody ProcessingBatchDto processingBatchDto){
         ProcessingBatch processingBatch = convertUtil.convert(processingBatchDto, ProcessingBatch.class);
         boolean addInfo = processingBatchService.save(processingBatch);
@@ -49,14 +49,14 @@ public class ProcessingBatchController {
     }
 
     @ApiOperation(value = "根据表id删除")
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/deletion/{id}")
     public Result delete(@PathVariable("id") long id){
         boolean deleteById = processingBatchService.removeById(id);
         return deleteById ? Result.success("删除成功") : Result.error("删除失败");
     }
 
     @ApiOperation(value = "条件查询")
-    @PostMapping("/get")
+    @GetMapping("/condition")
     public Result list(@RequestBody ProcessingBatchDto processingBatchDto){
         ProcessingBatch processingBatch = convertUtil.convert(processingBatchDto, ProcessingBatch.class);
         List<ProcessingBatch> processingBatchList = processingBatchService.list(new QueryWrapper<>(processingBatch));
@@ -64,7 +64,7 @@ public class ProcessingBatchController {
     }
 
     @ApiOperation(value = "列表（分页）")
-    @GetMapping("/list/{pageNum}/{pageSize}")
+    @GetMapping("/page/{pageNum}/{pageSize}")
     public Object list(@PathVariable("pageNum")Long pageNum, @PathVariable("pageSize")Long pageSize){
         IPage<ProcessingBatch> page = processingBatchService.page(
         new Page<>(pageNum, pageSize), null);
@@ -72,14 +72,14 @@ public class ProcessingBatchController {
     }
 
     @ApiOperation(value = "详情")
-    @GetMapping("/get/{id}")
+    @GetMapping("/info/{id}")
     public Result get(@PathVariable("id") long id){
         ProcessingBatch processingBatch = processingBatchService.getById(id);
         return processingBatch != null ? Result.success("查询详情成功").data(processingBatch) : Result.error("查询失败");
     }
 
     @ApiOperation(value = "根据id修改")
-    @PostMapping("/update/{id}")
+    @PutMapping("/update/{id}")
     public Result update(@PathVariable("id") long id, @RequestBody ProcessingBatchDto processingBatchDto){
         ProcessingBatch processingBatch = convertUtil.convert(processingBatchDto, ProcessingBatch.class);
         processingBatch.setBatchId(id);
@@ -87,5 +87,5 @@ public class ProcessingBatchController {
         return updateInfo ? Result.success("修改成功") : Result.error("修改失败");
     }
 
-
 }
+

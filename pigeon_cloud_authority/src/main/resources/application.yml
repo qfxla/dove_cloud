@@ -60,11 +60,12 @@ spring:
     authority-invoke-key: AUTHORITY_INVOKE_KEY #服务调用加密
 
 
-  cloud:
-    nacos:
-      discovery:
-        server-addr: 120.77.156.205:8848
-        ip: 120.77.156.205
+
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: 120.77.156.205:8848
+#        ip: 120.77.156.205
 
 
   jackson:

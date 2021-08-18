@@ -13,7 +13,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import org.springframework.web.bind.annotation.RestController;
+
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -29,7 +30,7 @@ import javax.annotation.Resource;
 @Slf4j
 @Api(tags = "商家表")
 @RestController
-@RequestMapping("/processing/businessProcessing")
+@RequestMapping("/processing/business-processing")
 public class BusinessProcessingController {
 
     @Resource
@@ -39,7 +40,7 @@ public class BusinessProcessingController {
     private ConvertUtil convertUtil;
 
     @ApiOperation(value = "新增")
-    @PostMapping("/save")
+    @PostMapping("/")
     public Result save(@RequestBody BusinessProcessingDto businessProcessingDto){
         BusinessProcessing businessProcessing = convertUtil.convert(businessProcessingDto, BusinessProcessing.class);
         boolean addInfo = businessProcessingService.save(businessProcessing);
@@ -47,14 +48,14 @@ public class BusinessProcessingController {
     }
 
     @ApiOperation(value = "根据表id删除")
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/deletion/{id}")
     public Result delete(@PathVariable("id") long id){
         boolean deleteById = businessProcessingService.removeById(id);
         return deleteById ? Result.success("删除成功") : Result.error("删除失败");
     }
 
     @ApiOperation(value = "条件查询")
-    @PostMapping("/get")
+    @GetMapping("/query")
     public Result list(@RequestBody BusinessProcessingDto businessProcessingDto){
         BusinessProcessing businessProcessing = convertUtil.convert(businessProcessingDto, BusinessProcessing.class);
         List<BusinessProcessing> businessProcessingList = businessProcessingService.list(new QueryWrapper<>(businessProcessing));
@@ -62,7 +63,7 @@ public class BusinessProcessingController {
     }
 
     @ApiOperation(value = "列表（分页）")
-    @GetMapping("/list/{pageNum}/{pageSize}")
+    @GetMapping("/page/{pageNum}/{pageSize}")
     public Object list(@PathVariable("pageNum")Long pageNum, @PathVariable("pageSize")Long pageSize){
         IPage<BusinessProcessing> page = businessProcessingService.page(
         new Page<>(pageNum, pageSize), null);
@@ -70,14 +71,14 @@ public class BusinessProcessingController {
     }
 
     @ApiOperation(value = "详情")
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
     public Result get(@PathVariable("id") long id){
         BusinessProcessing businessProcessing = businessProcessingService.getById(id);
         return businessProcessing != null ? Result.success("查询详情成功").data(businessProcessing) : Result.error("查询失败");
     }
 
     @ApiOperation(value = "根据id修改")
-    @PostMapping("/update/{id}")
+    @PutMapping("/update/{id}")
     public Result update(@PathVariable("id") long id, @RequestBody BusinessProcessingDto businessProcessingDto){
         BusinessProcessing businessProcessing = convertUtil.convert(businessProcessingDto, BusinessProcessing.class);
         businessProcessing.setId(id);

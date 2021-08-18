@@ -87,9 +87,5 @@ public class ProcessingType extends Model<ProcessingType> {
     private Integer version;
 
 
-    @Override
-    protected Serializable pkVal() {
-        return this.typeId;
-    }
 
 }

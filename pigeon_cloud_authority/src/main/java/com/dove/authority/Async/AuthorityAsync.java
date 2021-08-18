@@ -63,8 +63,6 @@ public class AuthorityAsync {
     }
 
 
-
-
     public void updateAuthorityOfUser(Long userId, CountDownLatch count){
 
         executorService.submit(()->{

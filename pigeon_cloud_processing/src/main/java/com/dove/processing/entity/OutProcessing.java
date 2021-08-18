@@ -97,9 +97,4 @@ public class OutProcessing extends Model<OutProcessing> {
     private Integer version;
 
 
-    @Override
-    protected Serializable pkVal() {
-        return this.outId;
-    }
-
 }

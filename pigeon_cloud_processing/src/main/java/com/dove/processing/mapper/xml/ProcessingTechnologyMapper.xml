@@ -2,17 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dove.processing.mapper.ProcessingTechnologyMapper">
 
-    <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.dove.processing.entity.ProcessingTechnology">
-        <id column="technology_id" property="technologyId" />
-        <result column="technology_name" property="technologyName" />
-        <result column="technology_describe" property="technologyDescribe" />
-        <result column="process_id" property="processId" />
-        <result column="guige" property="guige" />
-        <result column="gmt_create" property="gmtCreate" />
-        <result column="gmt_modified" property="gmtModified" />
-        <result column="is_deleted" property="isDeleted" />
-        <result column="version" property="version" />
-    </resultMap>
+
 
 </mapper>

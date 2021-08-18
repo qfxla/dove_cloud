@@ -86,10 +86,4 @@ public class OutProcessingBill extends Model<OutProcessingBill> {
     @Version
     private Integer version;
 
-
-    @Override
-    protected Serializable pkVal() {
-        return this.id;
-    }
-
 }

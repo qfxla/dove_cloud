@@ -112,9 +112,4 @@ public class DoveProcessing extends Model<DoveProcessing> {
     private Integer version;
 
 
-    @Override
-    protected Serializable pkVal() {
-        return this.processingId;
-    }
-
 }

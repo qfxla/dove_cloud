@@ -25,12 +25,8 @@ spring:
 server:
   port: 9610
 
-  jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
-    time-zone: GMT+8
-
   redis:
-    host: 120.77.156.205
+    host: 119.23.218.131
     port: 6666
     password: 711711711.com
     database: 15
@@ -50,13 +46,11 @@ pigeon:
       keep-alive-time: 18000  #空闲线程存活的时间18s
 
 mybatis-plus:
-  mapper-locations: classpath:com/dove/processing/mapper/xml/*.xml
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-    map-underscore-to-camel-case: true
   global-config:
     db-config:
       logic-delete-field: is_deleted  # 全局逻辑删除的实体字段名(since 3.3.0,配置后可以忽略不配置步骤2)
       logic-delete-value: 1 # 逻辑已删除值(默认为 1)
       logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
-
+  mapper-locations: classpath:com/dove/processing/mapper/xml/*.xml
