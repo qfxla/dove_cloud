@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dove.breed.mapper.DovecoteEntryBaseMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.dove.breed.entity.DovecoteEntryBase">
+        <id column="id" property="id" />
+        <result column="dovecote_entry_bill" property="dovecoteEntryBill" />
+        <result column="type" property="type" />
+        <result column="supplier_id" property="supplierId" />
+        <result column="unit_price" property="unitPrice" />
+        <result column="amount" property="amount" />
+        <result column="total" property="total" />
+        <result column="remark" property="remark" />
+        <result column="guige" property="guige" />
+        <result column="gmt_create" property="gmtCreate" />
+        <result column="gmt_modified" property="gmtModified" />
+        <result column="is_deleted" property="deleted" />
+        <result column="version" property="version" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, dovecote_entry_bill, type, supplier_id, unit_price, amount, total, remark, guige, gmt_create, gmt_modified, is_deleted, version
+    </sql>
+
+</mapper>

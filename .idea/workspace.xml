@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="bc151016-0e83-4d7b-bb94-972cf3162840" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_authority/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_common/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/pigeon/config/ConvertConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/dove/config/ConvertConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/pigeon/config/RedisConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/dove/config/RedisConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/pigeon/config/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/dove/config/WebSecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/pigeon/entity/ConstantValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/dove/entity/ConstantValue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/pigeon/entity/GlobalException.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/dove/entity/GlobalException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/pigeon/entity/MySimpleGrantedAuthority.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/dove/entity/MySimpleGrantedAuthority.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/pigeon/entity/Result.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/dove/entity/Result.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/pigeon/entity/StatusCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/dove/entity/StatusCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/pigeon/entity/UserDetailsImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/dove/entity/UserDetailsImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/pigeon/filter/InjectSecurityContextFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/dove/filter/InjectSecurityContextFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/pigeon/handler/AbstractExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/dove/handler/AbstractExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/pigeon/handler/AccessDeniedExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/dove/handler/AccessDeniedExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/pigeon/handler/BadCredentialsExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/dove/handler/BadCredentialsExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/pigeon/handler/ExceptionHandlerChain.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/dove/handler/ExceptionHandlerChain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/pigeon/handler/ExceptionHandlerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/dove/handler/ExceptionHandlerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/pigeon/handler/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/dove/handler/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/pigeon/handler/UsernameNotFoundExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/dove/handler/UsernameNotFoundExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/pigeon/util/ApplicationContextUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/dove/util/ApplicationContextUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/pigeon/util/SecurityContextUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/dove/util/SecurityContextUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="ProjectId" id="1weT7lpIED8WFLtC2BVeOeLX8eP" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.1019368" />
+    <property name="project.structure.side.proportion" value="0.30576715" />
+    <property name="settings.editor.selected.configurable" value="File.Encoding" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed" />
+      <recent name="D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\resources" />
+      <recent name="D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\test\java" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.dove.breed.config" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.BreedApplication">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BreedApplication.test1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="pigeon_cloud_breed" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.dove.breed.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.dove.breed" />
+      <option name="MAIN_CLASS_NAME" value="com.dove.breed.BreedApplication" />
+      <option name="METHOD_NAME" value="test1" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CodeGenerator.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="pigeon_cloud_breed" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="CodeGenerator" />
+      <option name="METHOD_NAME" value="test" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CodeGenerator.test1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="pigeon_cloud_breed" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="CodeGenerator" />
+      <option name="METHOD_NAME" value="test1" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GenerateApplicationTests.generateMybatisPlusTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="pigeon_cloud_breed" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="generate.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="generate" />
+      <option name="MAIN_CLASS_NAME" value="generate.GenerateApplicationTests" />
+      <option name="METHOD_NAME" value="generateMybatisPlusTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BreedApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="pigeon_cloud_breed" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.dove.breed.BreedApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.GenerateApplicationTests.generateMybatisPlusTest" />
+        <item itemvalue="JUnit.CodeGenerator.test" />
+        <item itemvalue="JUnit.CodeGenerator.test1" />
+        <item itemvalue="JUnit.BreedApplication.test1" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="bc151016-0e83-4d7b-bb94-972cf3162840" name="Default Changelist" comment="" />
+      <created>1628817891084</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1628817891084</updated>
+      <workItem from="1628817893246" duration="8184000" />
+      <workItem from="1629030719385" duration="594000" />
+      <workItem from="1629118609000" duration="270000" />
+      <workItem from="1629118889857" duration="976000" />
+      <workItem from="1629119883726" duration="191000" />
+      <workItem from="1629120083639" duration="9212000" />
+      <workItem from="1629204748288" duration="581000" />
+      <workItem from="1629205344213" duration="12348000" />
+      <workItem from="1629255810843" duration="1531000" />
+      <workItem from="1629257377097" duration="180000" />
+      <workItem from="1629257566007" duration="17718000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

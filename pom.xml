@@ -11,7 +11,6 @@
     <name>pigeon_cloud</name>
 
     <modules>
-        <module>pigeon_cloud_authority</module>
         <module>pigeon_cloud_common</module>
         <module>pigeon_cloud_breed</module>
     </modules>
@@ -44,11 +43,11 @@
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>3.0.0</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-project-info-reports-plugin</artifactId>-->
+<!--                <version>3.0.0</version>-->
+<!--            </dependency>-->
             <!--spring boot 2.2.2-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>

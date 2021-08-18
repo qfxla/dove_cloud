@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/pigeon_cloud.iml" filepath="$PROJECT_DIR$/.idea/pigeon_cloud.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pigeon_cloud_breed/pigeon_cloud_breed.iml" filepath="$PROJECT_DIR$/pigeon_cloud_breed/pigeon_cloud_breed.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pigeon_cloud_common/pigeon_cloud_common.iml" filepath="$PROJECT_DIR$/pigeon_cloud_common/pigeon_cloud_common.iml" />
+    </modules>
+  </component>
+</project>

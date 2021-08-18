@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dove.breed.mapper.DovecoteMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.dove.breed.entity.Dovecote">
+        <id column="dovecote_id" property="dovecoteId" />
+        <result column="dovecote_number" property="dovecoteNumber" />
+        <result column="base_id" property="baseId" />
+        <result column="enterprise_id" property="enterpriseId" />
+        <result column="director" property="director" />
+        <result column="contact_number" property="contactNumber" />
+        <result column="living_conditions" property="livingConditions" />
+        <result column="picture" property="picture" />
+        <result column="video" property="video" />
+        <result column="into_production" property="intoProduction" />
+        <result column="cage_amount" property="cageAmount" />
+        <result column="cage_empty" property="cageEmpty" />
+        <result column="guige" property="guige" />
+        <result column="gmt_create" property="gmtCreate" />
+        <result column="gmt_modified" property="gmtModified" />
+        <result column="is_deleted" property="deleted" />
+        <result column="version" property="version" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        dovecote_id, dovecote_number, base_id, enterprise_id, director, contact_number, living_conditions, picture, video, into_production, cage_amount, cage_empty, guige, gmt_create, gmt_modified, is_deleted, version
+    </sql>
+
+</mapper>
