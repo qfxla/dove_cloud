@@ -5,8 +5,8 @@ package ${package.Controller};
 import ${package.Service}.${table.serviceName};
 import ${package.Entity}.${entity};
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.pigeon.entity.Result;
-import com.pigeon.entity.StatusCode;
+import com.dove.entity.Result;
+import com.dove.entity.StatusCode;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
@@ -66,8 +66,8 @@ public class ${table.controllerName} {
     @ApiOperation(value = "根据表id删除")
     @PostMapping("/delete/{id}")
     public Result delete(@PathVariable("id") long id){
-        boolean deleteByid = ${table.entityPath}Service.removeById(id);
-        return deleteByid ? Result.success("删除成功") : Result.error("删除失败");
+        boolean deleteById = ${table.entityPath}Service.removeById(id);
+        return deleteById ? Result.success("删除成功") : Result.error("删除失败");
     }
 
     @ApiOperation(value = "条件查询")

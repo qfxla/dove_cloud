@@ -1,7 +1,7 @@
-package com.pigeon.handler;
+package com.dove.handler;
 
-import com.pigeon.entity.GlobalException;
-import com.pigeon.entity.Result;
+import com.dove.entity.GlobalException;
+import com.dove.entity.Result;
 import org.springframework.stereotype.Component;
 
 @Component

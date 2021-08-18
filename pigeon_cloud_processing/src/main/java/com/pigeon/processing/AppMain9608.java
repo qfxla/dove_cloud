@@ -10,6 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
  */
 
 @SpringBootApplication
+//@EnableDiscoveryClient
 @ComponentScan("com.pigeon")
 public class AppMain9608 {
     public static void main(String[] args) {

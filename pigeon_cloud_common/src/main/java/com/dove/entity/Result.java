@@ -1,4 +1,4 @@
-package com.pigeon.entity;
+package com.dove.entity;
 
 import java.util.Map;
 

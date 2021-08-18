@@ -6,18 +6,18 @@ import com.pigeon.processing.entity.Dto.ProcessingBatchDto;
 import com.pigeon.processing.service.ProcessingBatchService;
 import com.pigeon.processing.entity.ProcessingBatch;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.pigeon.entity.Result;
-import com.pigeon.entity.StatusCode;
+import com.dove.entity.Result;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pigeon.processing.utils.ConvertUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
     import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 /**
 * <p>
@@ -31,13 +31,13 @@ import java.util.List;
 @Slf4j
 @Api(tags = "加工批次表")
 @RestController
-@RequestMapping("//processingBatch")
+@RequestMapping("/processing/processingBatch")
 public class ProcessingBatchController {
 
-    @Autowired
+    @Resource
     private ProcessingBatchService processingBatchService;
 
-    @Autowired
+    @Resource
     private ConvertUtil convertUtil;
 
     @ApiOperation(value = "新增")
@@ -51,8 +51,8 @@ public class ProcessingBatchController {
     @ApiOperation(value = "根据表id删除")
     @PostMapping("/delete/{id}")
     public Result delete(@PathVariable("id") long id){
-        boolean deleteByid = processingBatchService.removeById(id);
-        return deleteByid ? Result.success("删除成功") : Result.error("删除失败");
+        boolean deleteById = processingBatchService.removeById(id);
+        return deleteById ? Result.success("删除成功") : Result.error("删除失败");
     }
 
     @ApiOperation(value = "条件查询")

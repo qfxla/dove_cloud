@@ -6,18 +6,18 @@ import com.pigeon.processing.entity.Dto.ProcessingFlowDto;
 import com.pigeon.processing.service.ProcessingFlowService;
 import com.pigeon.processing.entity.ProcessingFlow;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.pigeon.entity.Result;
-import com.pigeon.entity.StatusCode;
+import com.dove.entity.Result;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pigeon.processing.utils.ConvertUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
     import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 /**
 * <p>
@@ -31,13 +31,13 @@ import java.util.List;
 @Slf4j
 @Api(tags = "加工流程表")
 @RestController
-@RequestMapping("//processingFlow")
+@RequestMapping("/processing/processingFlow")
 public class ProcessingFlowController {
 
-    @Autowired
+    @Resource
     private ProcessingFlowService processingFlowService;
 
-    @Autowired
+    @Resource
     private ConvertUtil convertUtil;
 
     @ApiOperation(value = "新增")
@@ -51,8 +51,8 @@ public class ProcessingFlowController {
     @ApiOperation(value = "根据表id删除")
     @PostMapping("/delete/{id}")
     public Result delete(@PathVariable("id") long id){
-        boolean deleteByid = processingFlowService.removeById(id);
-        return deleteByid ? Result.success("删除成功") : Result.error("删除失败");
+        boolean deleteById = processingFlowService.removeById(id);
+        return deleteById ? Result.success("删除成功") : Result.error("删除失败");
     }
 
     @ApiOperation(value = "条件查询")
@@ -86,6 +86,5 @@ public class ProcessingFlowController {
         boolean updateInfo = processingFlowService.updateById(processingFlow);
         return updateInfo ? Result.success("修改成功") : Result.error("修改失败");
     }
-
 
 }

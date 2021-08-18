@@ -1,4 +1,4 @@
-package com.pigeon.entity;
+package com.dove.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

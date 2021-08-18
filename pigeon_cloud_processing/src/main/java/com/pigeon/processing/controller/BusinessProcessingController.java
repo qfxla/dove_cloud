@@ -1,23 +1,21 @@
 package com.pigeon.processing.controller;
 
-
-
 import com.pigeon.processing.entity.Dto.BusinessProcessingDto;
 import com.pigeon.processing.service.BusinessProcessingService;
 import com.pigeon.processing.entity.BusinessProcessing;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.pigeon.entity.Result;
-import com.pigeon.entity.StatusCode;
+import com.dove.entity.Result;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pigeon.processing.utils.ConvertUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-    import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 /**
 * <p>
@@ -31,13 +29,13 @@ import java.util.List;
 @Slf4j
 @Api(tags = "商家表")
 @RestController
-@RequestMapping("//businessProcessing")
+@RequestMapping("/processing/businessProcessing")
 public class BusinessProcessingController {
 
-    @Autowired
+    @Resource
     private BusinessProcessingService businessProcessingService;
 
-    @Autowired
+    @Resource
     private ConvertUtil convertUtil;
 
     @ApiOperation(value = "新增")
@@ -51,8 +49,8 @@ public class BusinessProcessingController {
     @ApiOperation(value = "根据表id删除")
     @PostMapping("/delete/{id}")
     public Result delete(@PathVariable("id") long id){
-        boolean deleteByid = businessProcessingService.removeById(id);
-        return deleteByid ? Result.success("删除成功") : Result.error("删除失败");
+        boolean deleteById = businessProcessingService.removeById(id);
+        return deleteById ? Result.success("删除成功") : Result.error("删除失败");
     }
 
     @ApiOperation(value = "条件查询")
@@ -86,6 +84,5 @@ public class BusinessProcessingController {
         boolean updateInfo = businessProcessingService.updateById(businessProcessing);
         return updateInfo ? Result.success("修改成功") : Result.error("修改失败");
     }
-
 
 }

@@ -2,8 +2,8 @@ package com.pigeon.processing.utils;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.pigeon.entity.GlobalException;
-import com.pigeon.entity.StatusCode;
+import com.dove.entity.GlobalException;
+import com.dove.entity.StatusCode;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 

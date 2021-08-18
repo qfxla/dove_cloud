@@ -2,7 +2,6 @@ package com.pigeon.processing.mapper;
 
 import com.pigeon.processing.entity.OutProcessing;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
@@ -12,7 +11,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @author WTL
  * @since 2021-08-17
  */
-@Mapper
+
 public interface OutProcessingMapper extends BaseMapper<OutProcessing> {
 
 }

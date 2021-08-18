@@ -1,10 +1,10 @@
-package com.pigeon.filter;
+package com.dove.filter;
 
-import com.pigeon.entity.ConstantValue;
-import com.pigeon.entity.Result;
-import com.pigeon.entity.UserDetailsImpl;
-import com.pigeon.util.ApplicationContextUtil;
-import com.pigeon.util.SecurityContextUtil;
+import com.dove.entity.ConstantValue;
+import com.dove.entity.Result;
+import com.dove.entity.UserDetailsImpl;
+import com.dove.util.ApplicationContextUtil;
+import com.dove.util.SecurityContextUtil;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
