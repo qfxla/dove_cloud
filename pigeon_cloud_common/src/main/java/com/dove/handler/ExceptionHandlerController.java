@@ -1,6 +1,6 @@
-package com.pigeon.handler;
+package com.dove.handler;
 
-import com.pigeon.entity.Result;
+import com.dove.entity.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

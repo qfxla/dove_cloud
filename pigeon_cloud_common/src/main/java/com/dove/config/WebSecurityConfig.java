@@ -1,6 +1,6 @@
-package com.pigeon.config;
+package com.dove.config;
 
-import com.pigeon.filter.InjectSecurityContextFilter;
+import com.dove.filter.InjectSecurityContextFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

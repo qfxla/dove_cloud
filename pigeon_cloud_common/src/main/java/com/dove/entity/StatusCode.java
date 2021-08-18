@@ -1,4 +1,4 @@
-package com.pigeon.entity;
+package com.dove.entity;
 
 /**
  * 响应状态枚举类

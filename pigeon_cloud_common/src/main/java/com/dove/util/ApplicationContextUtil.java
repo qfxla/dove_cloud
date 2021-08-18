@@ -1,4 +1,4 @@
-package com.pigeon.util;
+package com.dove.util;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
