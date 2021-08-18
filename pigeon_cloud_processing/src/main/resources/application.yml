@@ -23,7 +23,7 @@ spring:
       connection-test-query: SELECT 1
 
 server:
-  port: 9608
+  port: 9610
 
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
@@ -50,7 +50,7 @@ pigeon:
       keep-alive-time: 18000  #空闲线程存活的时间18s
 
 mybatis-plus:
-  mapper-locations: classpath:com/pigeon/processing/mapper/xml/*.xml
+  mapper-locations: classpath:com/dove/processing/mapper/xml/*.xml
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true

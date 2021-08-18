@@ -44,7 +44,8 @@ public class InjectSecurityContextFilter extends BasicAuthenticationFilter {
 				!request.getRequestURI().contains("/invoke") &&
 				!request.getRequestURI().contains("/trace")) {
 
-			String userId = request.getHeader(ConstantValue.REQUEST_USER_ID);
+//			String userId = request.getHeader(ConstantValue.REQUEST_USER_ID);
+			String userId = "1367409141675012099";
 
 			//在redis中拿到用户标识id
 			UserDetailsImpl userDetails = (UserDetailsImpl) redisTemplate.opsForValue()

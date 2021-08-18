@@ -1,0 +1,92 @@
+server:
+  port: 9601
+
+spring:
+  application:
+    name: dove-authority-service
+
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://120.77.156.205:3306/dove_cloud_authority?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+    username: root
+    password: cnjson!@#456
+    hikari:
+      max-lifetime: 30000
+      minimum-idle: 5
+      maximum-pool-size: 30
+
+  redis:
+    host: 120.77.156.205
+    port: 6666
+    password: 711711711.com
+    database: 15
+    timeout: 1800000
+    lettuce:
+      pool:
+        max-active: 20
+        max-wait: -1
+        max-idle: 5
+        min-idle: 0
+
+    max-count:
+      access:
+        captcha: 10
+
+      error:
+        phone: 5
+        captcha: 5
+        password: 5
+
+
+    expire-time:
+      phone: 1800 #手机验证码有效期30分钟
+      captcha: 1800 #图片验证码有效期30分钟
+      invite-code: 3600 #企业邀请码有效期一小时
+
+    content-key:
+      user-details: REDIS_USER_KEY_
+      captcha: CODE_CAPTCHA_
+      invite-code: INVITE_CODE_
+
+    count-key:
+      access:
+        captcha: ACCESS_COUNT_CAPTCHA_
+      error:
+        captcha: ERROR_COUNT_CAPTCHA_
+        phone: ERROR_COUNT_PHONE_
+        password: ERROR_COUNT_PASSWORD_
+
+
+    authority-invoke-key: AUTHORITY_INVOKE_KEY #服务调用加密
+
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 120.77.156.205:8848
+        ip: 120.77.156.205
+
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+  mapper-locations: classpath:com/dove/authority/mapper/xml/*.xml
+
+
+#设置feign客户端超时时间(OpenFeign默认支持ribbon)
+ribbon:
+  #指的是建立连接所用的时间，适用于网络状况正常的情况下,两端连接所用的时间
+  ReadTimeout: 5000
+  #指的是建立连接后从服务器读取到可用资源所用的时间
+  ConnectTimeout: 5000
+
+jwt:
+  expire-time: 7200  #jwt过期时间两个小时
+  salt: suyuan711!@#$%^ #密钥
+
+  request-user-id: REQUEST_USER_ID
