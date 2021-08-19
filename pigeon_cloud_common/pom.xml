@@ -12,10 +12,18 @@
     <artifactId>pigeon_cloud_common</artifactId>
 
     <dependencies>
-
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.tus.java.client</groupId>
+            <artifactId>tus-java-client</artifactId>
+            <version>0.4.0</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
