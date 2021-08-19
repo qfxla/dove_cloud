@@ -30,9 +30,7 @@ public class RedisConfig extends CachingConfigurerSupport {
 	public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
 		RedisTemplate<String, Object> template = new RedisTemplate<>();
 		RedisSerializer<String> redisSerializer = new StringRedisSerializer();
-		//自定义json解析器，可以深入底层看看，抛弃默认的解析器
 		Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
-		//ObjectMapper可以从字符串、流或文件解析JSON，并创建Java对象或对象图来表示已解析的JSON
 		ObjectMapper om = new ObjectMapper();
 		om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
 		om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);

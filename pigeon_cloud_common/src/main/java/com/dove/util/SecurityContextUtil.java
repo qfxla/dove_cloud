@@ -21,7 +21,6 @@ public class SecurityContextUtil {
 	}
 
 	public static UserDetailsImpl getUserDetails() {
-		//返回用户id
 		return (UserDetailsImpl) getSecurityContext().getAuthentication().getPrincipal();
 	}
 }

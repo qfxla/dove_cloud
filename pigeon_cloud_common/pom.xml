@@ -4,18 +4,26 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>pigeon_cloud</artifactId>
-        <groupId>com.pigeon</groupId>
+        <groupId>com.dove</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>dove_cloud_common</artifactId>
+    <artifactId>pigeon_cloud_common</artifactId>
 
     <dependencies>
-
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.tus.java.client</groupId>
+            <artifactId>tus-java-client</artifactId>
+            <version>0.4.0</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>

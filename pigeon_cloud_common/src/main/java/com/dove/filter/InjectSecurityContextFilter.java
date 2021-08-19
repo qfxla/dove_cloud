@@ -28,7 +28,6 @@ public class InjectSecurityContextFilter extends BasicAuthenticationFilter {
 		injectBeans();
 	}
 
-	//获取到自定义的redisTemplate模板
 	public void injectBeans() {
 		redisTemplate = ApplicationContextUtil.getApplicationContext().getBean("redisTemplate", RedisTemplate.class);
 	}
@@ -47,7 +46,6 @@ public class InjectSecurityContextFilter extends BasicAuthenticationFilter {
 //			String userId = request.getHeader(ConstantValue.REQUEST_USER_ID);
 			Long userId = 1367409141675012099L;
 
-			//在redis中拿到用户标识id
 			UserDetailsImpl userDetails = (UserDetailsImpl) redisTemplate.opsForValue()
 																	.get(ConstantValue.REDIS_USER_KEY + '_' + userId);
 
