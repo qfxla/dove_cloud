@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 /**
@@ -17,17 +19,15 @@ import lombok.experimental.Accessors;
  * @since 2021-08-17
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-@TableName("t_processing_flow")
-@ApiModel(value = "ProcessingFlow对象", description = "加工流程表")
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProcessingFlowVo extends Model<ProcessingFlowVo> {
 
     private static final long serialVersionUID = 1L;
 
     //加工流程id
     @ApiModelProperty(value = "加工流程id")
-    @TableId(value = "process_id", type = IdType.ASSIGN_UUID)
+    @TableId(value = "process_id")
     private Long processId;
 
     //所属加工厂id
@@ -44,11 +44,6 @@ public class ProcessingFlowVo extends Model<ProcessingFlowVo> {
     @ApiModelProperty(value = "加工流程描述")
     @TableField("process_describe")
     private String processDescribe;
-
-    //所属企业id
-    @ApiModelProperty(value = "所属企业id")
-    @TableField("guige")
-    private Long guige;
 
 
 }

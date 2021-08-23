@@ -2,5 +2,46 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dove.processing.mapper.BusinessProcessingMapper">
 
+<sql id="selectAllBusinessProcessing">
+    select id,name,phone,contacts,type
+    from t_business_processing
+    where is_deleted=0
+</sql>
+    <select id="getBusiInfo" resultType="com.dove.processing.entity.Vo.BusinessProcessingVo">
+        <include refid="selectAllBusinessProcessing"/>
+        order by gmt_create desc
+        limit ${no},${size}
+    </select>
+
+    <select id="getBusiByLikeSearch" resultType="com.dove.processing.entity.Vo.BusinessProcessingVo">
+        <include refid="selectAllBusinessProcessing"/>
+        <if test="value != null and value!='' and value!='null'">
+            and concat(name,contacts) like '%${value}%'
+        </if>
+        order by gmt_create desc
+        limit ${no},${size}
+    </select>
+
+    <select id="getBusinessProcessingCountByLike" resultType="java.lang.Long">
+        select count(*) from t_business_processing
+        <if test="value != null and value!='' and value!='null'">
+            and concat(name,contacts) like '%${value}%'
+        </if>
+    </select>
+
+    <select id="getProductsByPage" resultType="com.dove.processing.entity.Vo.OutProcessingVo">
+        select t.out_id,t.processing_id,t.processing_type,t.amount,t.unit_price,t.price
+        from t_out_processing t
+        <if test="id != null and id != 0">
+        inner join
+        (
+            select out_id from t_out_processing_bill where consignee = ${id} and is_deleted = 0)
+        ) p
+        on t.out_id = p.out_id
+        </if>
+        where t.is_deleted =0
+        order by gmt_create desc
+        limit ${no},${size}
+    </select>
 
 </mapper>

@@ -4,9 +4,13 @@ import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -17,17 +21,15 @@ import lombok.experimental.Accessors;
  * @since 2021-08-17
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-@TableName("t_dove_processing")
-@ApiModel(value = "DoveProcessing对象", description = "加工厂表")
+@AllArgsConstructor
+@NoArgsConstructor
 public class DoveProcessingVo extends Model<DoveProcessingVo> {
 
     private static final long serialVersionUID = 1L;
 
     //加工厂id
     @ApiModelProperty(value = "加工厂id")
-    @TableId(value = "processing_id", type = IdType.ASSIGN_UUID)
+    @TableId(value = "processing_id")
     private Long processingId;
 
     //加工厂所属企业id
@@ -52,8 +54,8 @@ public class DoveProcessingVo extends Model<DoveProcessingVo> {
 
     //加工厂所在省份（默认广东省）
     @ApiModelProperty(value = "加工厂所在省份（默认广东省）")
-    @TableField("provice")
-    private String provice;
+    @TableField("province")
+    private String province;
 
     //加工厂所在市区（默认梅州市）
     @ApiModelProperty(value = "加工厂所在市区（默认梅州市）")
@@ -74,12 +76,6 @@ public class DoveProcessingVo extends Model<DoveProcessingVo> {
     @ApiModelProperty(value = "加工厂视频")
     @TableField("video")
     private String video;
-
-    //所属企业id
-    @ApiModelProperty(value = "所属企业id")
-    @TableField("guige")
-    private Long guige;
-
 
 
 }

@@ -1,5 +1,6 @@
 package com.dove.processing.utils;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.FatalBeanException;
@@ -97,6 +98,20 @@ public class DataUtil {
 		return copyProperties(source, c, allowNull, null, null);
 	}
 
+	public static <T extends Object> Page getPage(int current, int size, long total, Future<T> future) {
+		Page<T> page = new Page<>(current, size);
+		page.setTotal(total);
+		page.setPages(total / size + total % size == 0 ? 0 : 1);
+		try {
+			page.setRecords((List<T>) future.get());
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		}
+		return page;
+	}
+
 	public static <T extends Object> Page getPage(int current, int size,Future<T> future) {
 		Page<T> page = new Page<>(current, size);
 		try {
@@ -109,8 +124,9 @@ public class DataUtil {
 		}
 		return page;
 	}
-
-
-
 }
+
+
+
+
 

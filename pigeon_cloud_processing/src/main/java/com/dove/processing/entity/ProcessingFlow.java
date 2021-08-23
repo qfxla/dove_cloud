@@ -1,21 +1,16 @@
 package com.dove.processing.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotation.Version;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableField;
-import java.io.Serializable;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * <p>
@@ -23,7 +18,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author WTL
- * @since 2021-08-17
+ * @since 2021-08-23
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -36,7 +31,7 @@ public class ProcessingFlow extends Model<ProcessingFlow> {
 
     //加工流程id
     @ApiModelProperty(value = "加工流程id")
-    @TableId(value = "process_id", type = IdType.ASSIGN_UUID)
+    @TableId(value = "process_id", type = IdType.ASSIGN_ID)
     private Long processId;
 
     //所属加工厂id
@@ -54,30 +49,25 @@ public class ProcessingFlow extends Model<ProcessingFlow> {
     @TableField("process_describe")
     private String processDescribe;
 
-    //所属企业id
-    @ApiModelProperty(value = "所属企业id")
-    @TableField("guige")
-    private Long guige;
-
     //创建时间
     @ApiModelProperty(value = "创建时间")
     @TableField(value = "gmt_create", fill = FieldFill.INSERT)
-    private Date gmtCreate;
+    private LocalDateTime gmtCreate;
 
     //修改时间
     @ApiModelProperty(value = "修改时间")
     @TableField(value = "gmt_modified", fill = FieldFill.INSERT_UPDATE)
-    private Date gmtModified;
+    private LocalDateTime gmtModified;
 
     //逻辑删除
     @ApiModelProperty(value = "逻辑删除")
-    @TableField("is_deleted")
+    @TableField(value = "is_deleted",fill = FieldFill.INSERT)
     @TableLogic
     private Integer isDeleted;
 
     //乐观锁(版本号)
     @ApiModelProperty(value = "乐观锁(版本号)")
-    @TableField("version")
+    @TableField(value = "version",fill = FieldFill.INSERT)
     @Version
     private Integer version;
 

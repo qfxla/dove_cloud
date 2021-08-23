@@ -1,16 +1,21 @@
 package com.dove.filter;
 
 import com.dove.entity.ConstantValue;
+import com.dove.entity.GlobalException;
 import com.dove.entity.Result;
 import com.dove.entity.UserDetailsImpl;
 import com.dove.util.ApplicationContextUtil;
 import com.dove.util.SecurityContextUtil;
+import jdk.nashorn.internal.ir.debug.JSONWriter;
+import jdk.nashorn.internal.parser.JSONParser;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.codec.Utf8;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
+import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -28,7 +33,6 @@ public class InjectSecurityContextFilter extends BasicAuthenticationFilter {
 		injectBeans();
 	}
 
-	//获取到自定义的redisTemplate模板
 	public void injectBeans() {
 		redisTemplate = ApplicationContextUtil.getApplicationContext().getBean("redisTemplate", RedisTemplate.class);
 	}
@@ -45,9 +49,9 @@ public class InjectSecurityContextFilter extends BasicAuthenticationFilter {
 				!request.getRequestURI().contains("/trace")) {
 
 //			String userId = request.getHeader(ConstantValue.REQUEST_USER_ID);
-			Long userId = 1367409141675012099L;
 
-			//在redis中拿到用户标识id
+			String userId = "1367409141675012099";
+
 			UserDetailsImpl userDetails = (UserDetailsImpl) redisTemplate.opsForValue()
 																	.get(ConstantValue.REDIS_USER_KEY + '_' + userId);
 

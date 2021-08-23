@@ -1,7 +1,12 @@
 package com.dove.processing.mapper;
 
-import com.dove.processing.entity.BusinessProcessing;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.dove.processing.entity.BusinessProcessing;
+import com.dove.processing.entity.Vo.BusinessProcessingVo;
+import com.dove.processing.entity.Vo.ProcessingTypeVo;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -14,4 +19,13 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 public interface BusinessProcessingMapper extends BaseMapper<BusinessProcessing> {
 
+    List<BusinessProcessingVo> getBusiInfo(@Param("no") int no,@Param("size") int size);
+
+
+    List<BusinessProcessingVo> getBusiByLikeSearch(@Param("value") String value,@Param("no") int no,@Param("size") int size);
+
+    long getBusinessProcessingCountByLike(@Param("value") String value);
+
+
+    List<ProcessingTypeVo> getProductsByPage(@Param("id") Long id,@Param("no")int no,@Param("size")int size);
 }

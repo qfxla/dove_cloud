@@ -3,9 +3,9 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/pigeon_cloud_processor?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+    url: jdbc:mysql://120.77.156.205:3306/dove_cloud_processing2?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
     username: root
-    password: root
+    password: cnjson!@#456
     hikari:
       minimum-idle: 5
       # 空闲连接存活最大时间，默认600000（10分钟）
@@ -22,11 +22,8 @@ spring:
       connection-timeout: 30000
       connection-test-query: SELECT 1
 
-server:
-  port: 9610
-
   redis:
-    host: 119.23.218.131
+    host: 120.77.156.205
     port: 6666
     password: 711711711.com
     database: 15
@@ -34,9 +31,13 @@ server:
     lettuce:
       pool:
         max-active: 20
-        max-wait: 5
+        max-wait: -1
         max-idle: 5
         min-idle: 0
+
+server:
+    port: 9806
+
 
 pigeon:
   thread:

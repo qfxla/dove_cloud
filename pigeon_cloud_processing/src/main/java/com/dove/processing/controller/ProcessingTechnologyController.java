@@ -3,8 +3,8 @@ package com.dove.processing.controller;
 
 
 import com.dove.processing.entity.Dto.ProcessingTechnologyDto;
-import com.dove.processing.service.ProcessingTechnologyService;
 import com.dove.processing.entity.ProcessingTechnology;
+import com.dove.processing.service.ProcessingTechnologyService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dove.entity.Result;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -12,8 +12,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dove.processing.utils.ConvertUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 import java.util.List;
     import org.springframework.web.bind.annotation.RestController;
 
@@ -30,6 +33,7 @@ import javax.annotation.Resource;
 
 @Slf4j
 @Api(tags = "加工工艺表")
+@CrossOrigin
 @RestController
 @RequestMapping("/processing/processing-technology")
 public class ProcessingTechnologyController {
@@ -55,8 +59,16 @@ public class ProcessingTechnologyController {
         return deleteById ? Result.success("删除成功") : Result.error("删除失败");
     }
 
+    @ApiOperation(value = "批量删除（根据主键id）")
+    @DeleteMapping("/deletion/batch")
+    public Result deleteProcessBatchById(@ApiParam("id数组") @RequestParam("ids") ArrayList<Long> ids) {
+        boolean deleteBatchByIds = processingTechnologyService.removeByIds(ids);
+        return deleteBatchByIds ? Result.success("删除成功") : Result.error("删除失败");
+    }
+
+
     @ApiOperation(value = "条件查询")
-    @GetMapping("/condition")
+    @PostMapping("/condition")
     public Result list(@RequestBody ProcessingTechnologyDto processingTechnologyDto){
         ProcessingTechnology processingTechnology = convertUtil.convert(processingTechnologyDto, ProcessingTechnology.class);
         List<ProcessingTechnology> processingTechnologyList = processingTechnologyService.list(new QueryWrapper<>(processingTechnology));
@@ -65,7 +77,7 @@ public class ProcessingTechnologyController {
 
     @ApiOperation(value = "列表（分页）")
     @GetMapping("/page/{pageNum}/{pageSize}")
-    public Object list(@PathVariable("pageNum")Long pageNum, @PathVariable("pageSize")Long pageSize){
+    public Object list(@PathVariable("pageNum")int pageNum, @PathVariable("pageSize")int pageSize){
         IPage<ProcessingTechnology> page = processingTechnologyService.page(
         new Page<>(pageNum, pageSize), null);
         return page.getTotal() > 0 ? Result.success("分页成功").data(page) : Result.error();

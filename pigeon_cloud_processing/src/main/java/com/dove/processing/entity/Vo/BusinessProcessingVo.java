@@ -4,9 +4,14 @@ import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+
+import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * <p>
@@ -17,17 +22,15 @@ import lombok.experimental.Accessors;
  * @since 2021-08-17
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-@TableName("t_business_processing")
-@ApiModel(value = "BusinessProcessing对象", description = "商家表")
+@AllArgsConstructor
+@NoArgsConstructor
 public class BusinessProcessingVo extends Model<BusinessProcessingVo> {
 
     private static final long serialVersionUID = 1L;
 
     //商家id
     @ApiModelProperty(value = "商家id")
-    @TableId(value = "id", type = IdType.ASSIGN_UUID)
+    @TableId(value = "id")
     private Long id;
 
     //商家名称
@@ -49,10 +52,5 @@ public class BusinessProcessingVo extends Model<BusinessProcessingVo> {
     @ApiModelProperty(value = "商家类型（供应商或者销售客户）")
     @TableField("type")
     private String type;
-
-    //所属企业id
-    @ApiModelProperty(value = "所属企业id")
-    @TableField("guige")
-    private Long guige;
 
 }

@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 /**
@@ -17,18 +19,12 @@ import lombok.experimental.Accessors;
  * @since 2021-08-17
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-@TableName("t_processing_type")
-@ApiModel(value = "ProcessingType对象", description = "加工产品类型表")
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProcessingTypeDto extends Model<ProcessingTypeDto> {
 
     private static final long serialVersionUID = 1L;
 
-    //id
-    @ApiModelProperty(value = "id")
-    @TableId(value = "type_id", type = IdType.ASSIGN_UUID)
-    private Long typeId;
 
     //所属加工厂id
     @ApiModelProperty(value = "所属加工厂id")
@@ -40,8 +36,8 @@ public class ProcessingTypeDto extends Model<ProcessingTypeDto> {
     @TableField("process_id")
     private Long processId;
 
-    //加工产品类型名（红烧卤水）
-    @ApiModelProperty(value = "加工产品类型名（红烧卤水）")
+    //加工产品类型名（红烧 卤水）
+    @ApiModelProperty(value = "加工产品类型名（红烧 卤水）")
     @TableField("processing_type")
     private String processingType;
 
@@ -49,11 +45,6 @@ public class ProcessingTypeDto extends Model<ProcessingTypeDto> {
     @ApiModelProperty(value = "规格")
     @TableField("specifications")
     private String specifications;
-
-    //所属企业id
-    @ApiModelProperty(value = "所属企业id")
-    @TableField("guige")
-    private Long guige;
 
 
 

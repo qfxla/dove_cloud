@@ -2,7 +2,6 @@ package com.dove.processing;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
@@ -11,8 +10,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 
 @SpringBootApplication(scanBasePackages = "com.dove")
-public class AppMain9610 {
+@EnableSwagger2 //注意要在启动类上加上这个注解
+public class AppMain9806 {
     public static void main(String[] args) {
-        SpringApplication.run(AppMain9610.class,args);
+        SpringApplication.run(AppMain9806.class,args);
     }
 }

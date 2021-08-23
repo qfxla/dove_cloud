@@ -1,7 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dove.processing.mapper.OutProcessingMapper">
+<sql id="selectAllProcessing">
+    select out_id,processing_id,type_id,id,processing_type,amount,unit_price,price,remark,processing_type
+    from t_out_processing
+    where is_deleted =0
+</sql>
 
+    <select id="getProcessingByPage" resultType="com.dove.processing.entity.Vo.OutProcessingVo">
+        <include refid="selectAllProcessing"/>
+        <if test="no !=null and size != null">
+            limit ${no},${size}
+        </if>
+    </select>
 
+    <select id="getFactoryInfoByBossId" resultType="com.dove.processing.entity.Vo.DoveProcessingVo">
+        select processing_id,enterprise_id,name,principal_name,introduction,province,city,
+        detailed_address,picture,video
+        from t_dove_processing
+        <if test="consignee != null and consignee != 0">
+            inner join t_dove_processing p
+            on t.processing_id = p.processing_id
+            where p.processing_id = ${consignee} and p.is_deleted = 0
+        </if>
+        order by gmt_create desc
+        limit ${no},${size}
+    </select>
+
+    <select id="getProcessingByLikeSearch" resultType="com.dove.processing.entity.Vo.DoveProcessingVo">
+        <include refid="selectAllProcessing"/>
+        <if test="value != null and value!='' and value!='null'">
+            and processing_type like '%${value}%'
+        </if>
+        order by gmt_create desc
+        limit ${no},${size}
+    </select>
 
 </mapper>

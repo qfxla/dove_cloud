@@ -3,8 +3,8 @@ package com.dove.processing.controller;
 
 
 import com.dove.processing.entity.Dto.ProcessingTypeDto;
-import com.dove.processing.service.ProcessingTypeService;
 import com.dove.processing.entity.ProcessingType;
+import com.dove.processing.service.ProcessingTypeService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dove.entity.Result;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -12,8 +12,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dove.processing.utils.ConvertUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 import java.util.List;
     import org.springframework.web.bind.annotation.RestController;
 
@@ -30,6 +33,7 @@ import javax.annotation.Resource;
 
 @Slf4j
 @Api(tags = "加工产品类型表")
+@CrossOrigin
 @RestController
 @RequestMapping("/processing/processing-type")
 public class ProcessingTypeController {
@@ -55,8 +59,16 @@ public class ProcessingTypeController {
         return deleteById ? Result.success("删除成功") : Result.error("删除失败");
     }
 
+    @ApiOperation(value = "批量删除（根据主键id）")
+    @DeleteMapping("/deletion/batch")
+    public Result deleteProcessBatchById(@ApiParam("id数组") @RequestParam("ids") ArrayList<Long> ids) {
+        boolean deleteBatchByIds = processingTypeService.removeByIds(ids);
+        return deleteBatchByIds ? Result.success("删除成功") : Result.error("删除失败");
+    }
+
+
     @ApiOperation(value = "条件查询")
-    @GetMapping("/condition")
+    @PostMapping("/condition")
     public Result list(@RequestBody ProcessingTypeDto processingTypeDto){
         ProcessingType processingType = convertUtil.convert(processingTypeDto, ProcessingType.class);
         List<ProcessingType> processingTypeList = processingTypeService.list(new QueryWrapper<>(processingType));
@@ -65,7 +77,7 @@ public class ProcessingTypeController {
 
     @ApiOperation(value = "列表（分页）")
     @GetMapping("/page/{pageNum}/{pageSize}")
-    public Object list(@PathVariable("pageNum")Long pageNum, @PathVariable("pageSize")Long pageSize){
+    public Object list(@PathVariable("pageNum")int pageNum, @PathVariable("pageSize")int pageSize){
         IPage<ProcessingType> page = processingTypeService.page(
         new Page<>(pageNum, pageSize), null);
         return page.getTotal() > 0 ? Result.success("分页成功").data(page) : Result.error();
@@ -86,6 +98,5 @@ public class ProcessingTypeController {
         boolean updateInfo = processingTypeService.updateById(processingType);
         return updateInfo ? Result.success("修改成功") : Result.error("修改失败");
     }
-
 
 }

@@ -1,7 +1,7 @@
 package com.dove.processing.mapper;
 
-import com.dove.processing.entity.ProcessingTechnology;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.dove.processing.entity.ProcessingTechnology;
 
 /**
  * <p>
