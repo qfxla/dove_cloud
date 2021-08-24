@@ -103,15 +103,11 @@ public class CageDaily extends Model<CageDaily> {
     //创建时间
     @ApiModelProperty(value = "创建时间")
     @TableField(value = "gmt_create", fill = FieldFill.INSERT)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date gmtCreate;
 
     //修改时间
     @ApiModelProperty(value = "修改时间")
     @TableField(value = "gmt_modified", fill = FieldFill.INSERT_UPDATE)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date gmtModified;
 
     //逻辑删除

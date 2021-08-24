@@ -1,10 +1,15 @@
 package com.dove.breed.service.impl;
 
 import com.dove.breed.entity.ShipmentOutBase;
+import com.dove.breed.entity.vo.ShipmentOutBaseVo;
 import com.dove.breed.mapper.ShipmentOutBaseMapper;
 import com.dove.breed.service.ShipmentOutBaseService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -16,5 +21,11 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ShipmentOutBaseServiceImpl extends ServiceImpl<ShipmentOutBaseMapper, ShipmentOutBase> implements ShipmentOutBaseService {
+    @Autowired
+    private ShipmentOutBaseMapper shipmentOutBaseMapper;
 
+    @Override
+    public List<ShipmentOutBaseVo> findBaseByFarmBatch(Long farmBatch) {
+        return shipmentOutBaseMapper.findBaseByFarmBatch(farmBatch);
+    }
 }

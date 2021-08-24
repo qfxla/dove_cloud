@@ -7,6 +7,8 @@
         <id column="id" property="id" />
         <result column="dovecote_entry_bill" property="dovecoteEntryBill" />
         <result column="type" property="type" />
+        <result column="type_id" property="typeId"/>
+        <result column="type_name" property="typeName"/>
         <result column="supplier_id" property="supplierId" />
         <result column="unit_price" property="unitPrice" />
         <result column="amount" property="amount" />
@@ -21,7 +23,19 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, dovecote_entry_bill, type, supplier_id, unit_price, amount, total, remark, guige, gmt_create, gmt_modified, is_deleted, version
+        id, dovecote_entry_bill, type, type_id,type_name, supplier_id, unit_price, amount, total, remark, guige, gmt_create, gmt_modified, is_deleted, version
     </sql>
+
+
+    <select id="getFeedEntryOfMonth" resultType="com.dove.breed.entity.vo.DovecoteEntryBaseVo">
+        SELECT base.`amount`,base.`dovecote_entry_bill`,base.`gmt_create`,base.`gmt_modified`,base.`id`,base.`remark`,base.`supplier_id`,base.`total`,base.`type`,base.`type_id`,base.`type_name`,base.`unit_price`
+        FROM t_dovecote_entry_bill bill LEFT OUTER JOIN t_dovecote_entry_base base
+        ON bill.`id` = base.`dovecote_entry_bill`
+        WHERE bill.`base_name` LIKE CONCAT(CONCAT('%',#{baseName,jdbcType=VARCHAR}),'%')
+        AND base.`type` = '饲料'
+        AND bill.`dovecote_number` = #{dovecoteNumber}
+        AND YEAR(bill.`gmt_create`) = #{year} AND MONTH(bill.`gmt_create`) = #{month};
+    </select>
+
 
 </mapper>

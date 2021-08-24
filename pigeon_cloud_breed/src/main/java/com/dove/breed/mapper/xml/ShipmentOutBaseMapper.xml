@@ -7,6 +7,8 @@
         <id column="id" property="id" />
         <result column="farm_batch" property="farmBatch" />
         <result column="type" property="type" />
+        <result column="type_id" property="typeId"/>
+        <result column="type_name" property="typeName"/>
         <result column="unit_price" property="unitPrice" />
         <result column="amount" property="amount" />
         <result column="total" property="total" />
@@ -20,7 +22,18 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, farm_batch, type, unit_price, amount, total, remark, guige, gmt_create, gmt_modified, is_deleted, version
+        id, farm_batch, type, type_id,type_name, unit_price, amount, total, remark,gmt_create, gmt_modified, is_deleted, version
     </sql>
+
+    <sql id="ShipmentOutBaseVo">
+        id, farm_batch, type, type_id,type_name, unit_price, amount, total, remark, guige, gmt_create, gmt_modified
+    </sql>
+
+    <select id="findBaseByFarmBatch" resultType="com.dove.breed.entity.vo.ShipmentOutBaseVo">
+        select
+        <include refid="ShipmentOutBaseVo"/>
+        from t_shipment_out_base
+        where farm_batch = #{farmBatch}
+    </select>
 
 </mapper>

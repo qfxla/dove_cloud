@@ -8,12 +8,16 @@ import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.dove.breed.BreedApplication;
+import com.dove.breed.entity.vo.ShipmentEntryBillVo;
+import com.dove.breed.mapper.ShipmentEntryBillMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
 
 /**
  * @author zcj
@@ -92,4 +96,5 @@ public class CodeGenerator {
         // 6、执行
         mpg.execute();
     }
+
 }

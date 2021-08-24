@@ -12,7 +12,7 @@
         <result column="contact_number" property="contactNumber" />
         <result column="living_conditions" property="livingConditions" />
         <result column="picture" property="picture" />
-        <result column="video" property="video" />
+        <result column="video" property="video" typeHandler="com.dove.breed.config.BlobTypeHandler"/>
         <result column="into_production" property="intoProduction" />
         <result column="cage_amount" property="cageAmount" />
         <result column="cage_empty" property="cageEmpty" />
@@ -27,5 +27,9 @@
     <sql id="Base_Column_List">
         dovecote_id, dovecote_number, base_id, enterprise_id, director, contact_number, living_conditions, picture, video, into_production, cage_amount, cage_empty, guige, gmt_create, gmt_modified, is_deleted, version
     </sql>
+    
+    <insert id="insert">
+        insert into t_dovecote (dovecote_id, dovecote_number, base_id, enterprise_id, director, contact_number, living_conditions, picture, video, into_production, cage_amount, cage_empty, guige)values
+    </insert>
 
 </mapper>

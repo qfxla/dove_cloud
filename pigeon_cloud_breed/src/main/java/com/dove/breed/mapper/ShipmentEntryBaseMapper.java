@@ -2,7 +2,12 @@ package com.dove.breed.mapper;
 
 import com.dove.breed.entity.ShipmentEntryBase;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.dove.breed.entity.vo.ShipmentEntryBaseVo;
+import com.dove.breed.entity.vo.ShipmentEntryBillVo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -14,5 +19,5 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface ShipmentEntryBaseMapper extends BaseMapper<ShipmentEntryBase> {
-
+    List<ShipmentEntryBaseVo> findBaseByBill(@Param("billId")Long billId);
 }

@@ -46,6 +46,11 @@ public class ShipmentOutType extends Model<ShipmentOutType> {
     @TableField("name")
     private String name;
 
+    //类型
+    @ApiModelProperty(value = "类型")
+    @TableField("type")
+    private String type;
+
     //规格
     @ApiModelProperty(value = "规格")
     @TableField("specifications")
@@ -59,15 +64,11 @@ public class ShipmentOutType extends Model<ShipmentOutType> {
     //创建时间
     @ApiModelProperty(value = "创建时间")
     @TableField(value = "gmt_create", fill = FieldFill.INSERT)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date gmtCreate;
 
     //修改时间
     @ApiModelProperty(value = "修改时间")
     @TableField(value = "gmt_modified", fill = FieldFill.INSERT_UPDATE)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date gmtModified;
 
     //逻辑删除

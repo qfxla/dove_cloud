@@ -51,6 +51,17 @@ public class ShipmentEntryBase extends Model<ShipmentEntryBase> {
     @TableField("type")
     private String type;
 
+    //产品编号
+    @ApiModelProperty(value = "产品编号")
+    @TableField("type_id")
+    private Long typeId;
+
+    //名称
+    @ApiModelProperty(value = "名称")
+    @TableField("type_name")
+    private String typeName;
+
+
     //单价
     @ApiModelProperty(value = "单价")
     @TableField("unit_price")
@@ -84,15 +95,11 @@ public class ShipmentEntryBase extends Model<ShipmentEntryBase> {
     //创建时间
     @ApiModelProperty(value = "创建时间")
     @TableField(value = "gmt_create", fill = FieldFill.INSERT)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date gmtCreate;
 
     //修改时间
     @ApiModelProperty(value = "修改时间")
     @TableField(value = "gmt_modified", fill = FieldFill.INSERT_UPDATE)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date gmtModified;
 
     //逻辑删除

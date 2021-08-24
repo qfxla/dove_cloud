@@ -46,10 +46,21 @@ public class ShipmentOutBase extends Model<ShipmentOutBase> {
     @TableField("farm_batch")
     private Long farmBatch;
 
-    //类型(五两鸽..灰鸽)
-    @ApiModelProperty(value = "类型(五两鸽..灰鸽)")
+    //类型
+    @ApiModelProperty(value = "类型")
     @TableField("type")
     private String type;
+
+    //产品编号
+    @ApiModelProperty(value = "产品编号")
+    @TableField("type_id")
+    private Long typeId;
+
+    //名称
+    @ApiModelProperty(value = "名称")
+    @TableField("type_name")
+    private String typeName;
+
 
     //单价
     @ApiModelProperty(value = "单价")
@@ -79,15 +90,11 @@ public class ShipmentOutBase extends Model<ShipmentOutBase> {
     //创建时间
     @ApiModelProperty(value = "创建时间")
     @TableField(value = "gmt_create", fill = FieldFill.INSERT)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date gmtCreate;
 
     //修改时间
     @ApiModelProperty(value = "修改时间")
     @TableField(value = "gmt_modified", fill = FieldFill.INSERT_UPDATE)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date gmtModified;
 
     //逻辑删除

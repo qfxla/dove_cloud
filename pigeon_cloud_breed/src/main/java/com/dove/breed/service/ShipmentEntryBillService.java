@@ -2,6 +2,10 @@ package com.dove.breed.service;
 
 import com.dove.breed.entity.ShipmentEntryBill;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.dove.breed.entity.vo.ShipmentEntryBillVo;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +16,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2021-08-18
  */
 public interface ShipmentEntryBillService extends IService<ShipmentEntryBill> {
+    List<ShipmentEntryBillVo>  findBillByShipmentId(Long shipmentId);
 
+    List<ShipmentEntryBillVo> findBillByGmt_createAndShipmentId(Date startTime,Date endTime,Long shipmentId);
 }

@@ -21,4 +21,19 @@
         id, base_id, dovecote_id, feed_type, amount, guige, gmt_create, gmt_modified, is_deleted, version
     </sql>
 
+    <sql id="FeedStockVo">
+        id, base_id, dovecote_id, feed_type, amount,gmt_create, gmt_modified
+    </sql>
+
+    <select id="getFeedAmountOfMonth" resultType="com.dove.breed.entity.vo.FeedStockVo">
+        SELECT
+        f.id, f.base_id, f.dovecote_id, f.feed_type, f.amount,f.gmt_create, f.gmt_modified
+        from t_feed_stock f inner join t_breed_base b
+        on f.`base_id` = b.`id` inner join t_dovecote d
+        on f.`dovecote_id` = d.`dovecote_id`
+        where b.`name` like CONCAT(CONCAT('%',#{baseName,jdbcType=VARCHAR}),'%')
+        and d.`dovecote_number` like CONCAT(CONCAT('%',#{dovecoteNumber,jdbcType=VARCHAR}),'%')
+        and year(f.gmt_modified) = #{year} and month(f.gmt_modified) = #{month}
+    </select>
+
 </mapper>

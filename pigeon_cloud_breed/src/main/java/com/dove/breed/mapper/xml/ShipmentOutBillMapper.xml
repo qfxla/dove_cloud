@@ -19,9 +19,26 @@
         <result column="version" property="version" />
     </resultMap>
 
+    <sql id="ShipmentOutBillVo">
+        farm_batch,base_id,base_name,handler,amount,total,remark,destination,gmt_create,gmt_modified
+    </sql>
+
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         farm_batch, base_id, base_name, handler, amount, total, remark, destination, guige, gmt_create, gmt_modified, is_deleted, version
     </sql>
+    <select id="findBillByBaseId" resultType="com.dove.breed.entity.vo.ShipmentOutBillVo">
+        select
+        <include refid="ShipmentOutBillVo"/>
+        from t_shipment_out_bill
+        where base_id = #{baseId}
+    </select>
+
+    <select id="findBillByGmt_createAndBaseId" resultType="com.dove.breed.entity.vo.ShipmentOutBillVo">
+        SELECT
+        <include refid="ShipmentOutBillVo"/>
+        FROM t_shipment_out_bill
+        WHERE base_id = #{baseId} And gmt_create between #{startTime} and #{endTime}
+    </select>
 
 </mapper>

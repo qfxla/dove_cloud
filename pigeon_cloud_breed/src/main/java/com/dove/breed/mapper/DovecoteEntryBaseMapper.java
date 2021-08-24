@@ -2,7 +2,11 @@ package com.dove.breed.mapper;
 
 import com.dove.breed.entity.DovecoteEntryBase;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.dove.breed.entity.vo.DovecoteEntryBaseVo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -14,5 +18,6 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface DovecoteEntryBaseMapper extends BaseMapper<DovecoteEntryBase> {
-
+    List<DovecoteEntryBaseVo> getFeedEntryOfMonth(@Param("baseName")String baseName, @Param("dovecoteNumber")String dovecoteNumber,
+                                                  @Param("year")int year, @Param("month")int month);
 }

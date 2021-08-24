@@ -3,7 +3,7 @@
 <mapper namespace="com.dove.breed.mapper.BreedBaseMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.dove.breed.entity.BreedBase">
+    <resultMap id="BreedBaseResultMap" type="com.dove.breed.entity.BreedBase">
         <id column="id" property="id" />
         <result column="enterprise_id" property="enterpriseId" />
         <result column="name" property="name" />
@@ -13,7 +13,7 @@
         <result column="city" property="city" />
         <result column="detailed_address" property="detailedAddress" />
         <result column="picture" property="picture" />
-        <result column="video" property="video" />
+        <result column="video" property="video" typeHandler="com.dove.breed.config.BlobTypeHandler"/>
         <result column="guige" property="guige" />
         <result column="gmt_create" property="gmtCreate" />
         <result column="gmt_modified" property="gmtModified" />

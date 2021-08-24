@@ -1,10 +1,14 @@
 package com.dove.breed.service.impl;
 
 import com.dove.breed.entity.ShipmentEntryBase;
+import com.dove.breed.entity.vo.ShipmentEntryBaseVo;
 import com.dove.breed.mapper.ShipmentEntryBaseMapper;
 import com.dove.breed.service.ShipmentEntryBaseService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -16,5 +20,11 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ShipmentEntryBaseServiceImpl extends ServiceImpl<ShipmentEntryBaseMapper, ShipmentEntryBase> implements ShipmentEntryBaseService {
+    @Autowired
+    private ShipmentEntryBaseMapper shipmentEntryBaseMapper;
 
+    @Override
+    public List<ShipmentEntryBaseVo> findBaseByBill(Long billId) {
+        return shipmentEntryBaseMapper.findBaseByBill(billId);
+    }
 }
