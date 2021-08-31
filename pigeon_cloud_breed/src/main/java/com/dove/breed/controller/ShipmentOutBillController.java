@@ -74,7 +74,7 @@ public class ShipmentOutBillController {
         IPage<ShipmentOutBill> page = shipmentOutBillService.page(
         new Page<>(pageNum, pageSize), null);
         IPage<ShipmentOutBillVo> page1 = convertUtil.convert(page,ShipmentOutBillVo.class);
-        return page.getTotal() > 0?Result.success("分页成功").data(page1) : Result.error("分页失败");
+        return page1.getTotal() > 0?Result.success("分页成功").data(page1) : Result.error("分页失败");
     }
 
     @ApiOperation(value = "详情")
@@ -82,7 +82,7 @@ public class ShipmentOutBillController {
     public Result get(@PathVariable("id") Long id){
         ShipmentOutBill shipmentOutBill = shipmentOutBillService.getById(id);
         ShipmentOutBillVo shipmentOutBillVo = convertUtil.convert(shipmentOutBill,ShipmentOutBillVo.class);
-        return shipmentOutBill == null? Result.success("查询成功").data(shipmentOutBillVo) : Result.error("查询失败");
+        return shipmentOutBill != null? Result.success("查询成功").data(shipmentOutBillVo) : Result.error("查询失败");
     }
 
     @ApiOperation(value = "根据id修改")
@@ -93,13 +93,6 @@ public class ShipmentOutBillController {
         shipmentOutBill.setFarmBatch(id);
         boolean b = shipmentOutBillService.updateById(shipmentOutBill);
         return b?Result.success("修改成功") : Result.error("修改失败");
-    }
-
-    @ApiOperation(value = "根据baseId查找OutBill")
-    @GetMapping("/findBillByBaseId/{baseId}")
-    public Result findBillByBaseId(@PathVariable("baseId") Long baseId){
-        List<ShipmentOutBillVo> list = shipmentOutBillService.findBillByBaseId(baseId);
-        return list.size()>0? Result.success("查找成功").data(list) : Result.error("查找失败");
     }
 
     @ApiOperation(value = "根据创建时间和基地id查询ShipmentOutBill")

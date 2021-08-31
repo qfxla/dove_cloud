@@ -20,11 +20,5 @@ import java.util.List;
  */
 @Service
 public class ShipmentEntryBaseServiceImpl extends ServiceImpl<ShipmentEntryBaseMapper, ShipmentEntryBase> implements ShipmentEntryBaseService {
-    @Autowired
-    private ShipmentEntryBaseMapper shipmentEntryBaseMapper;
 
-    @Override
-    public List<ShipmentEntryBaseVo> findBaseByBill(Long billId) {
-        return shipmentEntryBaseMapper.findBaseByBill(billId);
-    }
 }

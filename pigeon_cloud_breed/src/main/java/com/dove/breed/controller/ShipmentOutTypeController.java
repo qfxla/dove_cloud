@@ -74,7 +74,7 @@ public class ShipmentOutTypeController {
         IPage<ShipmentOutType> page = shipmentOutTypeService.page(
         new Page<>(pageNum, pageSize), null);
         IPage<ShipmentOutTypeVo> page1 = convertUtil.convert(page,ShipmentOutTypeVo.class);
-        return page.getTotal() > 0?Result.success("分页成功").data(page1) : Result.error("分页失败");
+        return page1.getTotal() > 0?Result.success("分页成功").data(page1) : Result.error("分页失败");
     }
 
     @ApiOperation(value = "详情")
@@ -82,7 +82,7 @@ public class ShipmentOutTypeController {
     public Result get(@PathVariable("id") String id){
         ShipmentOutType shipmentOutType = shipmentOutTypeService.getById(id);
         ShipmentOutTypeVo shipmentOutTypeVo = convertUtil.convert(shipmentOutType,ShipmentOutTypeVo.class);
-        return shipmentOutType == null? Result.success("查询成功").data(shipmentOutTypeVo) : Result.error("查询失败");
+        return shipmentOutType != null? Result.success("查询成功").data(shipmentOutTypeVo) : Result.error("查询失败");
     }
 
     @ApiOperation(value = "根据id修改")

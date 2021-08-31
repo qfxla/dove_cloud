@@ -5,12 +5,12 @@ import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * <p>
- * 鸽笼表 服务类
+ *  服务类
  * </p>
  *
  * @author zcj
- * @since 2021-08-18
+ * @since 2021-08-28
  */
 public interface CageService extends IService<Cage> {
-
+    int getLayEggsCycleByCageId(Long cageId);
 }

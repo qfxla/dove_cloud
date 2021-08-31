@@ -59,8 +59,4 @@ public class ShipmentEntryBaseDto {
     @TableField("remark")
     private String remark;
 
-    //所属企业id
-    @ApiModelProperty(value = "所属企业id")
-    @TableField("guige")
-    private Long guige;
 }

@@ -1,17 +1,23 @@
 package generate;
 
 import com.dove.breed.BreedApplication;
-import com.dove.breed.entity.vo.DovecoteEntryBaseVo;
-import com.dove.breed.entity.vo.FeedStockVo;
-import com.dove.breed.mapper.DovecoteEntryBaseMapper;
-import com.dove.breed.mapper.FeedStockMapper;
+import com.dove.breed.entity.DovecoteEntryBase;
+import com.dove.breed.entity.ShipmentEntryBill;
+import com.dove.breed.entity.ShipmentOutBase;
+import com.dove.breed.entity.dto.ShipmentEntryBaseDto;
+import com.dove.breed.entity.vo.*;
+import com.dove.breed.mapper.*;
+import com.dove.breed.service.DovecoteService;
+import com.dove.breed.service.FeedStockService;
+import io.swagger.annotations.ApiOperation;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.List;
+import java.awt.print.PrinterAbortException;
+import java.util.*;
 
 /**
  * @author zcj
@@ -20,15 +26,32 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = BreedApplication.class)
 public class TestCode {
+
+    @Autowired
+    private DovecoteService dovecoteService;
+    @Autowired
+    private  DovecoteMapper dovecoteMapper;
+    @Autowired
+    private CageMapper cageMapper;
+    @Autowired
+    private ShipmentEntryBillMapper shipmentEntryBillMapper;
+    @Autowired
+    private FeedStockService feedStockService;
     @Autowired
     private FeedStockMapper feedStockMapper;
     @Autowired
+    private ShipmentEntryTypeMapper shipmentEntryTypeMapper;
+    @Autowired
     private DovecoteEntryBaseMapper dovecoteEntryBaseMapper;
     @Test
-    public void test1(){
+    public void test(){
+        List<UseOfFeedVo> a1 = feedStockService.getUseOfFeedMonth(2L, "A1", 2021, 8);
+        System.out.println(a1);
+    }
 
-        List<DovecoteEntryBaseVo> list = dovecoteEntryBaseMapper.getFeedEntryOfMonth("羊", "A1", 2021, 8);
-        System.out.println(list);
+
+    @Test
+    public void test1(){
     }
 
 }

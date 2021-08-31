@@ -21,6 +21,5 @@ import java.util.List;
  */
 @Mapper
 public interface ShipmentOutBillMapper extends BaseMapper<ShipmentOutBill> {
-    List<ShipmentOutBillVo> findBillByBaseId(@Param("baseId")Long baseId);
     List<ShipmentOutBillVo> findBillByGmt_createAndBaseId(@Param("startTime") Date startTime, @Param("endTime")Date endTime, @Param("baseId")Long baseId);
 }

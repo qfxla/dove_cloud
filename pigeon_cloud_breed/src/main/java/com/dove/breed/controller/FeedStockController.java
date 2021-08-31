@@ -1,6 +1,7 @@
 package com.dove.breed.controller;
 import com.dove.breed.entity.dto.FeedStockDto;
 import com.dove.breed.entity.vo.FeedStockVo;
+import com.dove.breed.entity.vo.UseOfFeedVo;
 import com.dove.breed.utils.ConvertUtil;
 import com.dove.entity.Result;
 
@@ -81,7 +82,7 @@ public class FeedStockController {
     public Result get(@PathVariable("id") String id){
         FeedStock feedStock = feedStockService.getById(id);
         FeedStockVo feedStockVo = convertUtil.convert(feedStock,FeedStockVo.class);
-        return feedStock == null? Result.success("查询成功").data(feedStockVo) : Result.error("查询失败");
+        return feedStock != null? Result.success("查询成功").data(feedStockVo) : Result.error("查询失败");
     }
 
     @ApiOperation(value = "根据id修改")
@@ -95,11 +96,12 @@ public class FeedStockController {
     }
 
 
-    //TODO
     @ApiOperation(value = "获取鸽棚某月饲料使用量")
-    @GetMapping("getFeedUsageOfMonth/{year}/{month}")
-    public Result getFeedUsageOfMonth(@PathVariable("year")int year,@PathVariable("month")int month){
-        return null;
+    @GetMapping("getUseOfFeedMonth/{baseId}/{dovecoteNumber}/{year}/{month}")
+    public Result getUseOfFeedMonth(@PathVariable("baseId")Long baseId,@PathVariable("dovecoteNumber")String dovecoteNumber,
+                                    @PathVariable("year")int year,@PathVariable("month")int month){
+        List<UseOfFeedVo> useOfFeedMonth = feedStockService.getUseOfFeedMonth(baseId, dovecoteNumber, year, month);
+        return useOfFeedMonth != null?Result.success("获取成功").data(useOfFeedMonth) : Result.error("获取失败");
     }
 
 }

@@ -23,13 +23,60 @@
         <result column="version" property="version" />
     </resultMap>
 
+    <resultMap id="AbnormalMap" type="com.dove.breed.entity.vo.AbnormalVo">
+        <id column="amount" property="amount"/>
+        <id column="state" property="state"/>
+        <id column="abnormal" property="abnormal"/>
+    </resultMap>
+
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         dovecote_id, dovecote_number, base_id, enterprise_id, director, contact_number, living_conditions, picture, video, into_production, cage_amount, cage_empty, guige, gmt_create, gmt_modified, is_deleted, version
     </sql>
+
     
     <insert id="insert">
         insert into t_dovecote (dovecote_id, dovecote_number, base_id, enterprise_id, director, contact_number, living_conditions, picture, video, into_production, cage_amount, cage_empty, guige)values
     </insert>
+
+
+    <select id="getAllCageId" resultType="java.lang.Long">
+        SELECT cage_id
+        FROM t_cage_positon
+        WHERE base_id = #{baseId}
+          AND shack = #{dovecoteNumber}
+    </select>
+    <select id="getCurrentXf" resultType="java.lang.Integer">
+        SELECT xf
+        FROM t_cage
+        WHERE cage_id = #{cageId}
+            limit 1
+    </select>
+
+    <select id="getMatEggsOfYesterday" resultType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT
+        COUNT(*)
+        FROM t_cage c LEFT JOIN t_cage_position p
+        ON c.cage_id = p.cage_id
+        WHERE c.create_time = TO_DAY(NOW()) - 1
+        AND p.base_id = #{baseId}
+        AND p.shack = #{dovecoteNumber}
+        AND c.state = 0
+        AND c.xf = 0
+    </select>
+
+    <select id="getAbnormalVoOfYesterday" resultType="com.dove.breed.entity.vo.AbnormalVo" resultMap="AbnormalMap">
+        SELECT
+        COUNT(*) amount, state, abnormal
+        FROM t_cage c LEFT JOIN t_cage_position p
+        ON c.cage_id = p.cage_id
+        WHERE c.create_time = To_DAY(NOW()) - 1
+        AND xf = 0
+        AND p.base_id = #{baseId}
+        AND p.shack = #{dovecoteNumber}
+        GROUP BY state , abnormal
+    </select>
+
+
 
 </mapper>

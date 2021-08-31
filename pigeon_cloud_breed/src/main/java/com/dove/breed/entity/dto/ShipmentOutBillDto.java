@@ -49,8 +49,4 @@ public class ShipmentOutBillDto {
     @TableField("destination")
     private String destination;
 
-    //所属企业id
-    @ApiModelProperty(value = "所属企业id")
-    @TableField("guige")
-    private Long guige;
 }

@@ -29,11 +29,5 @@
         id, farm_batch, type, type_id,type_name, unit_price, amount, total, remark, guige, gmt_create, gmt_modified
     </sql>
 
-    <select id="findBaseByFarmBatch" resultType="com.dove.breed.entity.vo.ShipmentOutBaseVo">
-        select
-        <include refid="ShipmentOutBaseVo"/>
-        from t_shipment_out_base
-        where farm_batch = #{farmBatch}
-    </select>
 
 </mapper>

@@ -25,11 +25,6 @@ public class ShipmentOutBillServiceImpl extends ServiceImpl<ShipmentOutBillMappe
     private ShipmentOutBillMapper shipmentOutBillMapper;
 
     @Override
-    public List<ShipmentOutBillVo> findBillByBaseId(Long baseId) {
-        return shipmentOutBillMapper.findBillByBaseId(baseId);
-    }
-
-    @Override
     public List<ShipmentOutBillVo> findBillByGmt_createAndBaseId(Date startTime, Date endTime, Long baseId) {
         return shipmentOutBillMapper.findBillByGmt_createAndBaseId(startTime,endTime,baseId);
     }

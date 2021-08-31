@@ -18,5 +18,4 @@ import java.util.List;
  */
 @Mapper
 public interface ShipmentOutBaseMapper extends BaseMapper<ShipmentOutBase> {
-    List<ShipmentOutBaseVo> findBaseByFarmBatch(@Param("farmBatch")Long farmBatch);
 }

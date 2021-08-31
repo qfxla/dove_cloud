@@ -2,6 +2,11 @@ package com.dove.breed.service;
 
 import com.dove.breed.entity.DovecoteEntryBill;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.dove.breed.entity.vo.DovecoteEntryBillVo;
+import com.dove.breed.entity.vo.DovecoteOutBillVo;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +17,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2021-08-18
  */
 public interface DovecoteEntryBillService extends IService<DovecoteEntryBill> {
-
+    List<DovecoteEntryBillVo> findBillByGmt_createAndBaseId(Date startTime, Date endTime, Long dovecoteId);
 }

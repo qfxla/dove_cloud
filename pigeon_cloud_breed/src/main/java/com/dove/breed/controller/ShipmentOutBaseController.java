@@ -73,7 +73,7 @@ public class ShipmentOutBaseController {
         IPage<ShipmentOutBase> page = shipmentOutBaseService.page(
         new Page<>(pageNum, pageSize), null);
         IPage<ShipmentOutBaseVo> page1 = convertUtil.convert(page,ShipmentOutBaseVo.class);
-        return page.getTotal() > 0?Result.success("分页成功").data(page1) : Result.error("分页失败");
+        return page1.getTotal() > 0?Result.success("分页成功").data(page1) : Result.error("分页失败");
     }
 
     @ApiOperation(value = "详情")
@@ -81,7 +81,7 @@ public class ShipmentOutBaseController {
     public Result get(@PathVariable("id") Long id){
         ShipmentOutBase shipmentOutBase = shipmentOutBaseService.getById(id);
         ShipmentOutBaseVo shipmentOutBaseVo = convertUtil.convert(shipmentOutBase,ShipmentOutBaseVo.class);
-        return shipmentOutBase == null? Result.success("查询成功").data(shipmentOutBaseVo) : Result.error("查询失败");
+        return shipmentOutBase != null? Result.success("查询成功").data(shipmentOutBaseVo) : Result.error("查询失败");
     }
 
     @ApiOperation(value = "根据id修改")
@@ -94,10 +94,4 @@ public class ShipmentOutBaseController {
         return b?Result.success("修改成功") : Result.error("修改失败");
     }
 
-    @ApiOperation(value = "根据farm_batch查找对应base")
-    @GetMapping("/findBaseByFarmBatch/{farmBatch}")
-    public Result findBaseByFarmBatch(@PathVariable("farmBatch")Long farmBatch){
-        List<ShipmentOutBaseVo> list = shipmentOutBaseService.findBaseByFarmBatch(farmBatch);
-        return list.size()> 0?Result.success("查找成功").data(list) : Result.error("查找失败");
-    }
 }

@@ -74,7 +74,7 @@ public class ShipmentEntryBaseController {
         IPage<ShipmentEntryBase> page = shipmentEntryBaseService.page(
         new Page<>(pageNum, pageSize), null);
         IPage<ShipmentEntryBaseVo> page1 = convertUtil.convert(page,ShipmentEntryBaseVo.class);
-        return page.getTotal() > 0?Result.success("分页成功").data(page1) : Result.error("分页失败");
+        return page1.getTotal() > 0?Result.success("分页成功").data(page1) : Result.error("分页失败");
     }
 
     @ApiOperation(value = "详情")
@@ -82,7 +82,7 @@ public class ShipmentEntryBaseController {
     public Result get(@PathVariable("id") String id){
         ShipmentEntryBase shipmentEntryBase = shipmentEntryBaseService.getById(id);
         ShipmentEntryBaseVo shipmentEntryBaseVo = convertUtil.convert(shipmentEntryBase,ShipmentEntryBaseVo.class);
-        return shipmentEntryBase == null? Result.success("查询成功").data(shipmentEntryBaseVo) : Result.error("查询失败");
+        return shipmentEntryBase != null? Result.success("查询成功").data(shipmentEntryBaseVo) : Result.error("查询失败");
     }
 
     @ApiOperation(value = "根据id修改")
@@ -95,11 +95,5 @@ public class ShipmentEntryBaseController {
         return b?Result.success("修改成功") : Result.error("修改失败");
     }
 
-    @ApiOperation(value = "根据billId查询信息")
-    @GetMapping("/findBaseByBill/{billId}")
-    public Result findBaseByBill(@PathVariable("billId")Long billId){
-        List<ShipmentEntryBaseVo> shipmentEntryBaseVo = shipmentEntryBaseService.findBaseByBill(billId);
-        return shipmentEntryBaseVo != null ?Result.success("查询成功").data(shipmentEntryBaseVo) : Result.error("查询失败");
-    }
 
 }

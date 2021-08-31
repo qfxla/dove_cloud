@@ -1,4 +1,8 @@
 package com.dove.breed.controller;
+import com.dove.breed.entity.dto.DovecoteDto;
+import com.dove.breed.entity.vo.AbnormalVo;
+import com.dove.breed.entity.vo.DovecoteVo;
+import com.dove.breed.utils.ConvertUtil;
 import com.dove.entity.Result;
 
 
@@ -10,7 +14,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ansi.AnsiOutput;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
     import org.springframework.web.bind.annotation.RestController;
@@ -33,15 +39,19 @@ public class DovecoteController {
     @Autowired
     public DovecoteService dovecoteService;
 
+    @Autowired
+    private ConvertUtil convertUtil;
+
     @ApiOperation(value = "新增")
     @PostMapping("/save")
-    public Result save(@RequestBody Dovecote dovecote){
+    public Result save(@RequestBody DovecoteDto dovecoteDto){
+        Dovecote dovecote = convertUtil.convert(dovecoteDto, Dovecote.class);
         boolean save = dovecoteService.save(dovecote);
         return save? Result.success("保存成功") : Result.error("保存失败");
     }
 
     @ApiOperation(value = "根据id删除")
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public Result delete(@PathVariable("id") Long id){
         boolean b = dovecoteService.removeById(id);
         return b ? Result.success("删除成功") : Result.error("删除失败");
@@ -49,9 +59,11 @@ public class DovecoteController {
 
     @ApiOperation(value = "条件查询")
     @PostMapping("/get")
-    public Result list(@RequestBody Dovecote dovecote){
+    public Result list(@RequestBody DovecoteDto dovecoteDto){
+        Dovecote dovecote = convertUtil.convert(dovecoteDto, Dovecote.class);
         List<Dovecote> dovecoteList = dovecoteService.list(new QueryWrapper<>(dovecote));
-        return dovecoteList.size() > 0?Result.success("查询成功").data(dovecoteList) : Result.error("查询失败");
+        List<DovecoteVo> dovecoteVoList = convertUtil.convert(dovecoteList, DovecoteVo.class);
+        return dovecoteVoList.size() > 0?Result.success("查询成功").data(dovecoteVoList) : Result.error("查询失败");
     }
 
     @ApiOperation(value = "列表（分页）")
@@ -59,22 +71,71 @@ public class DovecoteController {
     public Object list(@PathVariable("pageNum")Long pageNum, @PathVariable("pageSize")Long pageSize){
         IPage<Dovecote> page = dovecoteService.page(
         new Page<>(pageNum, pageSize), null);
-        return page.getTotal() > 0?Result.success("分页成功").data(page) : Result.error("分页失败");
+        IPage<DovecoteVo> page1 = convertUtil.convert(page, DovecoteVo.class);
+        return page1.getTotal() > 0?Result.success("分页成功").data(page1) : Result.error("分页失败");
     }
 
     @ApiOperation(value = "详情")
     @GetMapping("/get/{id}")
     public Result get(@PathVariable("id") String id){
         Dovecote dovecote = dovecoteService.getById(id);
-        return dovecote == null? Result.success("查询成功").data(dovecote) : Result.error("查询失败");
+        DovecoteVo dovecoteVo = convertUtil.convert(dovecote, DovecoteVo.class);
+        return dovecoteVo != null? Result.success("查询成功").data(dovecoteVo) : Result.error("查询失败");
     }
 
     @ApiOperation(value = "根据id修改")
     @PostMapping("/update/{id}")
-    public Result update(@PathVariable("id") Long id, @RequestBody Dovecote dovecote){
+    public Result update(@PathVariable("id") Long id, @RequestBody DovecoteDto dovecoteDto){
+        Dovecote dovecote = convertUtil.convert(dovecoteDto, Dovecote.class);
         dovecote.setDovecoteId(id);
         boolean b = dovecoteService.updateById(dovecote);
         return b?Result.success("修改成功") : Result.error("修改失败");
+    }
+
+    @ApiOperation(value = "今日需要照蛋数量")
+    @GetMapping("/getNeedPictureEgg")
+    public Result getNeedPictureEgg(@RequestParam(value = "baseId")Long baseId,
+                              @RequestParam(value = "dovecoteNumber")String dovecoteNumber){
+        int amount = 0;
+        List<Long> allCageId = dovecoteService.getAllCageId(baseId, dovecoteNumber);
+        for (Long cageId : allCageId) {
+            int xf = dovecoteService.getCurrentXf(cageId);
+            if (xf == 1){
+                amount++;
+            }
+        }
+        return Result.success("查找成功").data(amount);
+    }
+
+    @ApiOperation(value = "今日需要查仔数量")
+    @GetMapping("/getNeedCheckDoves")
+    public Result getNeedCheckDoves(@RequestParam(value = "baseId")Long baseId,
+                                    @RequestParam(value = "dovecoteNumber")String dovecoteNumber){
+        int amount = 0;
+        List<Long> allCageId = dovecoteService.getAllCageId(baseId, dovecoteNumber);
+        for (Long cageId : allCageId) {
+            int xf = dovecoteService.getCurrentXf(cageId);
+            if (xf == 3){
+                amount++;
+            }
+        }
+        return Result.success("查找成功").data(amount);
+    }
+
+    @ApiOperation(value = "昨日垫蛋数")
+    @GetMapping("/getMatEggsOfYesterday")
+    public Result getMatEggsOfYesterday(@RequestParam(value = "baseId")Long baseId,
+                                        @RequestParam(value = "dovecoteNumber")String dovecoteNumber){
+        int amount = dovecoteService.getMatEggsOfYesterday(baseId, dovecoteNumber);
+        return Result.success("查找成功").data(amount);
+    }
+
+    @ApiOperation(value = "昨日异常统计")
+    @GetMapping("getAbnormalVoOfYesterday")
+    public Result getAbnormalVoOfYesterday(@RequestParam(value = "baseId")Long baseId,
+                                           @RequestParam(value = "dovecoteNumber")String dovecoteNumber){
+        List<AbnormalVo> abnormalVoList = dovecoteService.getAbnormalVoOfYesterday(baseId, dovecoteNumber);
+        return Result.success("查找成功").data(abnormalVoList);
     }
 
 

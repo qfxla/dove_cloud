@@ -73,7 +73,7 @@ public class ShipmentEntryTypeController {
         IPage<ShipmentEntryType> page = shipmentEntryTypeService.page(
         new Page<>(pageNum, pageSize), null);
         IPage<ShipmentEntryTypeVo> page1 = convertUtil.convert(page,ShipmentEntryTypeVo.class);
-        return page.getTotal() > 0?Result.success("分页成功").data(page1) : Result.error("分页失败");
+        return page1.getTotal() > 0?Result.success("分页成功").data(page1) : Result.error("分页失败");
     }
 
     @ApiOperation(value = "详情")
@@ -81,7 +81,7 @@ public class ShipmentEntryTypeController {
     public Result get(@PathVariable("id") String id){
         ShipmentEntryType shipmentEntryType = shipmentEntryTypeService.getById(id);
         ShipmentEntryTypeVo shipmentEntryTypeVo = convertUtil.convert(shipmentEntryType,ShipmentEntryTypeVo.class);
-        return shipmentEntryType == null? Result.success("查询成功").data(shipmentEntryTypeVo) : Result.error("查询失败");
+        return shipmentEntryType != null? Result.success("查询成功").data(shipmentEntryTypeVo) : Result.error("查询失败");
     }
 
     @ApiOperation(value = "根据id修改")
@@ -93,6 +93,14 @@ public class ShipmentEntryTypeController {
         boolean b = shipmentEntryTypeService.updateById(shipmentEntryType);
         return b?Result.success("修改成功") : Result.error("修改失败");
     }
+
+    @ApiOperation(value = "根据type获取typeName")
+    @PostMapping("/getTypeNameByType")
+    public Result getTypeNameByType(@RequestParam(value = "type")String type){
+        List<ShipmentEntryTypeVo> typeVoList = shipmentEntryTypeService.getTypeNameByType(type);
+        return typeVoList != null?Result.success("获取成功").data(typeVoList) : Result.error("获取失败");
+    }
+
 
 
 }

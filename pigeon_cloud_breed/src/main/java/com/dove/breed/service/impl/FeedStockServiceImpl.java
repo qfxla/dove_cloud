@@ -1,20 +1,23 @@
 package com.dove.breed.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.dove.breed.entity.BreedBase;
 import com.dove.breed.entity.DovecoteEntryBase;
 import com.dove.breed.entity.DovecoteEntryType;
 import com.dove.breed.entity.FeedStock;
 import com.dove.breed.entity.vo.DovecoteEntryBaseVo;
 import com.dove.breed.entity.vo.FeedStockVo;
-import com.dove.breed.mapper.DovecoteEntryBaseMapper;
-import com.dove.breed.mapper.DovecoteEntryTypeMapper;
-import com.dove.breed.mapper.FeedStockMapper;
+import com.dove.breed.entity.vo.ShipmentEntryTypeVo;
+import com.dove.breed.entity.vo.UseOfFeedVo;
+import com.dove.breed.mapper.*;
+import com.dove.breed.service.BreedBaseService;
 import com.dove.breed.service.DovecoteEntryBaseService;
 import com.dove.breed.service.FeedStockService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,34 +44,71 @@ public class FeedStockServiceImpl extends ServiceImpl<FeedStockMapper, FeedStock
     @Autowired
     private DovecoteEntryTypeMapper dovecoteEntryTypeMapper;
 
+    @Autowired
+    private ShipmentEntryTypeMapper shipmentEntryTypeMapper;
+
+
     @Override
-    public List<FeedStockVo> getFeedAmountOfMonth(String baseName, String dovecoteNumber, int year, int month) {
-        if (month > 1){
-            List<FeedStockVo> list = feedStockMapper.getFeedAmountOfMonth(baseName, dovecoteNumber, year, month);
-            List<FeedStockVo> LastList = feedStockMapper.getFeedAmountOfMonth(baseName, dovecoteNumber, year, month - 1);
-            List<DovecoteEntryBaseVo> feedEntryOfMonthVo = dovecoteEntryBaseMapper.getFeedEntryOfMonth(baseName, dovecoteNumber, year, month);
-
-            QueryWrapper<DovecoteEntryType> wrapper = new QueryWrapper<>();
-            wrapper.eq("type","饲料");
-            List<DovecoteEntryType> typeList = dovecoteEntryTypeMapper.selectList(wrapper);
-            typeList.forEach(type -> {
-
-            });
-
-            Map<String,Integer> map = new HashMap<>(16,0.75f);
-            LastList.forEach(po1 -> {
-                map.put(po1.getFeedType(),po1.getAmount());
-            });
-            list.forEach(po2 -> {
-                //TODO 因为list有可能张三牌饲料为0时，饲养员是不会记录的，所以一个默认为0，和前端商量，用表单提交所有饲料的数量
-                if(!map.containsKey(po2.getFeedType())){
-                    map.put(po2.getFeedType(),(-1)*po2.getAmount());
-                }
-
-            });
+    public List<UseOfFeedVo> getUseOfFeedMonth(Long baseId, String dovecoteNumber, int year, int month) {
+        //获取所有基地的typeName存在useOfFeedVoList
+        List<ShipmentEntryTypeVo> typeNameList = shipmentEntryTypeMapper.getTypeNameByType("饲料");
+        List<UseOfFeedVo> useOfFeedVoList = new ArrayList<>();
+        for (ShipmentEntryTypeVo po : typeNameList) {
+            String typeName = po.getName();
+            UseOfFeedVo useOfFeedVo = new UseOfFeedVo();
+            useOfFeedVo.setTypeName(typeName);
+            useOfFeedVo.setAmount(0);
+            useOfFeedVoList.add(useOfFeedVo);
         }
-
-
-        return null;
+        List<DovecoteEntryBaseVo> dovecoteEntryBaseVoList = dovecoteEntryBaseMapper.getFeedEntryOfMonth(baseId, dovecoteNumber, year, month);
+        List<FeedStockVo> feedAmountOfMonth = feedStockMapper.getFeedAmountOfMonth(baseId, dovecoteNumber, year, month);
+        List<FeedStockVo> feedAmountOfLastMonth = null;
+        if (month == 1){
+            feedAmountOfLastMonth = feedStockMapper.getFeedAmountOfMonth(baseId, dovecoteNumber, year - 1, 12);
+        }else {
+            feedAmountOfLastMonth = feedStockMapper.getFeedAmountOfMonth(baseId, dovecoteNumber, year, month - 1);
+        }
+        //遍历所有typeName，进货的对应+，上个月对应+，这个月对应-
+        for (UseOfFeedVo useOfFeedVo : useOfFeedVoList) {
+            for (DovecoteEntryBaseVo dovecoteEntryBaseVo : dovecoteEntryBaseVoList) {
+                //遍历所有进货类型，有相等的就相加，下面同理
+                String typeName = dovecoteEntryBaseVo.getTypeName();
+                String typeName1 = useOfFeedVo.getTypeName();
+                boolean flag = false;
+                if (!typeName.isEmpty()){
+                    flag = (typeName.equals(typeName1));
+                }
+                if (flag){
+                    int amount = useOfFeedVo.getAmount() + dovecoteEntryBaseVo.getAmount();
+                    useOfFeedVo.setAmount(amount);
+                }
+            }
+            for (FeedStockVo feedStockVo : feedAmountOfMonth) {
+                String feedType = feedStockVo.getFeedType();
+                String typeName = useOfFeedVo.getTypeName();
+                boolean flag = false;
+                if (!feedType.isEmpty()){
+                    flag = (feedType.equals(typeName));
+                }
+                if(flag){
+                    int amount = useOfFeedVo.getAmount() - feedStockVo.getAmount();
+                    useOfFeedVo.setAmount(amount);
+                }
+            }
+            for (FeedStockVo feedStockVo : feedAmountOfLastMonth) {
+                String feedType = feedStockVo.getFeedType();
+                String typeName = useOfFeedVo.getTypeName();
+                boolean flag = false;
+                if (!feedType.isEmpty()){
+                    flag = feedType.equals(typeName);
+                }
+                if (flag){
+                    int amount = useOfFeedVo.getAmount() + feedStockVo.getAmount();
+                    useOfFeedVo.setAmount(amount);
+                }
+            }
+        }
+        return useOfFeedVoList;
     }
+
 }

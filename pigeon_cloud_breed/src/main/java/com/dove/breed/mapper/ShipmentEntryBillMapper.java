@@ -20,7 +20,11 @@ import java.util.List;
  */
 @Mapper
 public interface ShipmentEntryBillMapper extends BaseMapper<ShipmentEntryBill> {
-    List<ShipmentEntryBillVo> findBillByShipmentId(@Param("shipmentId") Long shipmentId);
 
-    List<ShipmentEntryBillVo> findBillByGmt_createAndShipmentId(@Param("startTime")Date startTime,@Param("endTime")Date endTime,@Param("shipmentId")Long shipmentId);
+    List<ShipmentEntryBillVo> findBillByGmt_createAndShipmentId(@Param("startTime")Date startTime,
+                                                                @Param("endTime")Date endTime,
+                                                                @Param("shipmentId")Long shipmentId);
+
+    Long getLatestBillId();
+
 }

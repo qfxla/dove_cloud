@@ -2,7 +2,13 @@ package com.dove.breed.mapper;
 
 import com.dove.breed.entity.DovecoteEntryBill;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.dove.breed.entity.vo.DovecoteEntryBillVo;
+import com.dove.breed.entity.vo.DovecoteOutBillVo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -14,5 +20,7 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface DovecoteEntryBillMapper extends BaseMapper<DovecoteEntryBill> {
-
+    List<DovecoteEntryBillVo> findBillByGmt_createAndDovecoteId(@Param("startTime") Date startTime,
+                                                                @Param("endTime")Date endTime,
+                                                                @Param("shipmentId")Long dovecoteId);
 }

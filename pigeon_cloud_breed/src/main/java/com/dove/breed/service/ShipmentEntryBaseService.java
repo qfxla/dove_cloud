@@ -15,5 +15,4 @@ import java.util.List;
  * @since 2021-08-18
  */
 public interface ShipmentEntryBaseService extends IService<ShipmentEntryBase> {
-    List<ShipmentEntryBaseVo>  findBaseByBill(Long billId);
 }

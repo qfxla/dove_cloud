@@ -21,11 +21,5 @@ import java.util.List;
  */
 @Service
 public class ShipmentOutBaseServiceImpl extends ServiceImpl<ShipmentOutBaseMapper, ShipmentOutBase> implements ShipmentOutBaseService {
-    @Autowired
-    private ShipmentOutBaseMapper shipmentOutBaseMapper;
 
-    @Override
-    public List<ShipmentOutBaseVo> findBaseByFarmBatch(Long farmBatch) {
-        return shipmentOutBaseMapper.findBaseByFarmBatch(farmBatch);
-    }
 }

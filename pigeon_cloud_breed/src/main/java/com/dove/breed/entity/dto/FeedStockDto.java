@@ -18,9 +18,9 @@ public class FeedStockDto {
     private Long baseId;
 
     //所属鸽棚id
-    @ApiModelProperty(value = "所属鸽棚id")
-    @TableField("dovecote_id")
-    private Long dovecoteId;
+    @ApiModelProperty(value = "所属鸽棚编号")
+    @TableField("dovecote_number")
+    private String dovecoteNumber;
 
     //饲料类型
     @ApiModelProperty(value = "饲料类型")

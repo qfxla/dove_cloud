@@ -16,5 +16,4 @@ import java.util.List;
  * @since 2021-08-18
  */
 public interface ShipmentOutBaseService extends IService<ShipmentOutBase> {
-    List<ShipmentOutBaseVo> findBaseByFarmBatch(Long farmBatch);
 }

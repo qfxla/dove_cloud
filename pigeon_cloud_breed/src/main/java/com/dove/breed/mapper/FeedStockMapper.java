@@ -3,6 +3,7 @@ package com.dove.breed.mapper;
 import com.dove.breed.entity.FeedStock;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dove.breed.entity.vo.FeedStockVo;
+import com.dove.breed.entity.vo.UseOfFeedVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -18,6 +19,6 @@ import java.util.List;
  */
 @Mapper
 public interface FeedStockMapper extends BaseMapper<FeedStock> {
-    List<FeedStockVo> getFeedAmountOfMonth(@Param("baseName")String baseName, @Param("dovecoteNumber")String dovecoteNumber,
+    List<FeedStockVo> getFeedAmountOfMonth(@Param("baseId")Long baseId, @Param("dovecoteNumber")String dovecoteNumber,
                                           @Param("year")int year, @Param("month")int month);
 }

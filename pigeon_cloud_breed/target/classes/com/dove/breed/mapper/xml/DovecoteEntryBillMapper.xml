@@ -24,5 +24,14 @@
     <sql id="Base_Column_List">
         id, dovecote_id, dovecote_number, base_id, base_name, handler, amount, total, remark, guige, gmt_create, gmt_modified, is_deleted, version
     </sql>
+    <sql id="DovecoteEntryBillVo">
+        id, dovecote_id, dovecote_number, base_id, base_name, handler, amount, total, remark, guige, gmt_create, gmt_modified
+    </sql>
+    <select id="findBillByGmt_createAndDovecoteId" resultType="com.dove.breed.entity.vo.DovecoteEntryBillVo">
+        SELECT
+        <include refid="DovecoteEntryBillVo"/>
+        FROM t_shipment_out_bill
+        WHERE base_id = #{baseId} And gmt_create between #{startTime} and #{endTime}
+    </select>
 
 </mapper>

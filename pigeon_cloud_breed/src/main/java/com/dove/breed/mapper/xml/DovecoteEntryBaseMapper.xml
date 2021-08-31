@@ -31,9 +31,9 @@
         SELECT base.`amount`,base.`dovecote_entry_bill`,base.`gmt_create`,base.`gmt_modified`,base.`id`,base.`remark`,base.`supplier_id`,base.`total`,base.`type`,base.`type_id`,base.`type_name`,base.`unit_price`
         FROM t_dovecote_entry_bill bill LEFT OUTER JOIN t_dovecote_entry_base base
         ON bill.`id` = base.`dovecote_entry_bill`
-        WHERE bill.`base_name` LIKE CONCAT(CONCAT('%',#{baseName,jdbcType=VARCHAR}),'%')
-        AND base.`type` = '饲料'
+        WHERE bill.`base_id` = #{baseId}
         AND bill.`dovecote_number` = #{dovecoteNumber}
+        AND base.`type` = '饲料'
         AND YEAR(bill.`gmt_create`) = #{year} AND MONTH(bill.`gmt_create`) = #{month};
     </select>
 

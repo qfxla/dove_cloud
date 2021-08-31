@@ -1,4 +1,8 @@
 package com.dove.breed.controller;
+import com.dove.breed.entity.dto.DovecoteEntryBaseDto;
+import com.dove.breed.entity.vo.DovecoteEntryBaseVo;
+import com.dove.breed.entity.vo.DovecoteVo;
+import com.dove.breed.utils.ConvertUtil;
 import com.dove.entity.Result;
 
 
@@ -33,15 +37,19 @@ public class DovecoteEntryBaseController {
     @Autowired
     public DovecoteEntryBaseService dovecoteEntryBaseService;
 
+    @Autowired
+    private ConvertUtil convertUtil;
+
     @ApiOperation(value = "新增")
     @PostMapping("/save")
-    public Result save(@RequestBody DovecoteEntryBase dovecoteEntryBase){
+    public Result save(@RequestBody DovecoteEntryBaseDto dovecoteEntryBaseDto){
+        DovecoteEntryBase dovecoteEntryBase = convertUtil.convert(dovecoteEntryBaseDto, DovecoteEntryBase.class);
         boolean save = dovecoteEntryBaseService.save(dovecoteEntryBase);
         return save? Result.success("保存成功") : Result.error("保存失败");
     }
 
     @ApiOperation(value = "根据id删除")
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public Result delete(@PathVariable("id") Long id){
         boolean b = dovecoteEntryBaseService.removeById(id);
         return b ? Result.success("删除成功") : Result.error("删除失败");
@@ -49,9 +57,11 @@ public class DovecoteEntryBaseController {
 
     @ApiOperation(value = "条件查询")
     @PostMapping("/get")
-    public Result list(@RequestBody DovecoteEntryBase dovecoteEntryBase){
+    public Result list(@RequestBody DovecoteEntryBaseDto dovecoteEntryBaseDto){
+        DovecoteEntryBase dovecoteEntryBase = convertUtil.convert(dovecoteEntryBaseDto, DovecoteEntryBase.class);
         List<DovecoteEntryBase> dovecoteEntryBaseList = dovecoteEntryBaseService.list(new QueryWrapper<>(dovecoteEntryBase));
-        return dovecoteEntryBaseList.size() > 0?Result.success("查询成功").data(dovecoteEntryBaseList) : Result.error("查询失败");
+        List<DovecoteEntryBaseDto> dovecoteEntryBaseDtoList = convertUtil.convert(dovecoteEntryBaseList, DovecoteEntryBaseDto.class);
+        return dovecoteEntryBaseList.size() > 0?Result.success("查询成功").data(dovecoteEntryBaseDtoList) : Result.error("查询失败");
     }
 
     @ApiOperation(value = "列表（分页）")
@@ -59,19 +69,22 @@ public class DovecoteEntryBaseController {
     public Object list(@PathVariable("pageNum")Long pageNum, @PathVariable("pageSize")Long pageSize){
         IPage<DovecoteEntryBase> page = dovecoteEntryBaseService.page(
         new Page<>(pageNum, pageSize), null);
-        return page.getTotal() > 0?Result.success("分页成功").data(page) : Result.error("分页失败");
+        IPage<DovecoteEntryBaseVo> page1 = convertUtil.convert(page, DovecoteEntryBaseVo.class);
+        return page.getTotal() > 0?Result.success("分页成功").data(page1) : Result.error("分页失败");
     }
 
     @ApiOperation(value = "详情")
     @GetMapping("/get/{id}")
     public Result get(@PathVariable("id") String id){
         DovecoteEntryBase dovecoteEntryBase = dovecoteEntryBaseService.getById(id);
-        return dovecoteEntryBase == null? Result.success("查询成功").data(dovecoteEntryBase) : Result.error("查询失败");
+        DovecoteVo dovecoteVo = convertUtil.convert(dovecoteEntryBase, DovecoteVo.class);
+        return dovecoteVo != null? Result.success("查询成功").data(dovecoteVo) : Result.error("查询失败");
     }
 
     @ApiOperation(value = "根据id修改")
     @PostMapping("/update/{id}")
-    public Result update(@PathVariable("id") Long id, @RequestBody DovecoteEntryBase dovecoteEntryBase){
+    public Result update(@PathVariable("id") Long id, @RequestBody DovecoteEntryBaseDto dovecoteEntryBaseDto){
+        DovecoteEntryBase dovecoteEntryBase = convertUtil.convert(dovecoteEntryBaseDto, DovecoteEntryBase.class);
         dovecoteEntryBase.setId(id);
         boolean b = dovecoteEntryBaseService.updateById(dovecoteEntryBase);
         return b?Result.success("修改成功") : Result.error("修改失败");

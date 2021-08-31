@@ -66,7 +66,7 @@ public class CageDailyController {
     @GetMapping("/get/{id}")
     public Result get(@PathVariable("id") String id){
         CageDaily cageDaily = cageDailyService.getById(id);
-        return cageDaily == null? Result.success("查询成功").data(cageDaily) : Result.error("查询失败");
+        return cageDaily != null? Result.success("查询成功").data(cageDaily) : Result.error("查询失败");
     }
 
     @ApiOperation(value = "根据id修改")

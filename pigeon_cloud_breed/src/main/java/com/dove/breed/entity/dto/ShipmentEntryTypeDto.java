@@ -19,13 +19,15 @@ public class ShipmentEntryTypeDto {
     @TableField("name")
     private String name;
 
+    //类型
+    @ApiModelProperty(value = "类型")
+    @TableField("type")
+    private String type;
+
+
     //规格
     @ApiModelProperty(value = "规格")
     @TableField("specifications")
     private String specifications;
 
-    //所属企业id
-    @ApiModelProperty(value = "所属企业id")
-    @TableField("guige")
-    private Long guige;
 }

@@ -17,6 +17,5 @@ import java.util.List;
  * @since 2021-08-18
  */
 public interface ShipmentOutBillService extends IService<ShipmentOutBill> {
-    List<ShipmentOutBillVo> findBillByBaseId(Long baseId);
     List<ShipmentOutBillVo> findBillByGmt_createAndBaseId(Date startTime, Date endTime, Long baseId);
 }

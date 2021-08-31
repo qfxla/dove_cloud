@@ -18,6 +18,6 @@ import java.util.List;
  */
 @Mapper
 public interface DovecoteEntryBaseMapper extends BaseMapper<DovecoteEntryBase> {
-    List<DovecoteEntryBaseVo> getFeedEntryOfMonth(@Param("baseName")String baseName, @Param("dovecoteNumber")String dovecoteNumber,
+    List<DovecoteEntryBaseVo> getFeedEntryOfMonth(@Param("baseId")Long baseId, @Param("dovecoteNumber")String dovecoteNumber,
                                                   @Param("year")int year, @Param("month")int month);
 }

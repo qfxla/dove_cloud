@@ -1,4 +1,6 @@
 package com.dove.breed.controller;
+import com.alibaba.fastjson.JSON;
+import com.dove.breed.entity.dto.ShipmentEntryBaseDto;
 import com.dove.breed.entity.dto.ShipmentEntryBillDto;
 import com.dove.breed.entity.vo.ShipmentEntryBillVo;
 import com.dove.breed.utils.ConvertUtil;
@@ -13,14 +15,16 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-    import org.springframework.web.bind.annotation.RestController;
+import java.util.Map;
+
+import org.springframework.web.bind.annotation.RestController;
 
 /**
 * <p>
@@ -75,7 +79,7 @@ public class ShipmentEntryBillController {
         IPage<ShipmentEntryBill> page = shipmentEntryBillService.page(
         new Page<>(pageNum, pageSize), null);
         IPage<ShipmentEntryBillVo> page1 = convertUtil.convert(page,ShipmentEntryBillVo.class);
-        return page.getTotal() > 0?Result.success("分页成功").data(page1) : Result.error("分页失败");
+        return page1.getTotal() > 0?Result.success("分页成功").data(page1) : Result.error("分页失败");
     }
 
     @ApiOperation(value = "详情")
@@ -83,7 +87,7 @@ public class ShipmentEntryBillController {
     public Result get(@PathVariable("id") String id){
         ShipmentEntryBill shipmentEntryBill = shipmentEntryBillService.getById(id);
         ShipmentEntryBillVo shipmentEntryBillVo = convertUtil.convert(shipmentEntryBill,ShipmentEntryBillVo.class);
-        return shipmentEntryBill == null? Result.success("查询成功").data(shipmentEntryBillVo) : Result.error("查询失败");
+        return shipmentEntryBill != null? Result.success("查询成功").data(shipmentEntryBillVo) : Result.error("查询失败");
     }
 
     @ApiOperation(value = "根据id修改")
@@ -96,13 +100,6 @@ public class ShipmentEntryBillController {
         return b?Result.success("修改成功") : Result.error("修改失败");
     }
 
-    @ApiOperation(value = "根据shipmentId查询ShipmentEntryBill")
-    @GetMapping("/findBillByShipmentId/{shipmentId}")
-    public Result findShipmentEntryBillByShipmentId(@PathVariable("shipmentId")Long shipmentId){
-        List<ShipmentEntryBillVo> ShipmentEntryBillVo = shipmentEntryBillService.findBillByShipmentId(shipmentId);
-        return ShipmentEntryBillVo.size()>0?Result.success("查询成功").data(ShipmentEntryBillVo) : Result.error("查询失败");
-    }
-
     @ApiOperation(value = "根据创建时间和基地id查询ShipmentEntryBill")
     @GetMapping("/findBillByGmt_createAndShipmentId/{startTime}/{endTime}/{shipmentId}")
     public Result findBillByGmt_createAndShipmentId(@PathVariable("startTime") Date startTime, @PathVariable("endTime") Date endTime, @PathVariable("shipmentId")Long shipmentId){
@@ -110,4 +107,24 @@ public class ShipmentEntryBillController {
         return list.size()>0?Result.success("查询成功").data(list) : Result.error("查询失败");
     }
 
+    @ApiOperation(value = "提交入库单,shipmentEntryBillDto,shipmentEntryBaseDtoList")
+    @PostMapping("/submitShipmentEntryBill")
+    public Result submitShipmentEntryBill(@RequestBody Map<String,Object> map){
+
+        ShipmentEntryBillDto shipmentEntryBillDto = null;
+        List<ShipmentEntryBaseDto> shipmentEntryBaseDtoList = new ArrayList<>();
+        try {
+            shipmentEntryBillDto = JSON.parseObject(JSON.toJSONString(map.get("shipmentEntryBillDto")),ShipmentEntryBillDto.class);
+            List<ShipmentEntryBaseDto> list = JSON.parseObject(JSON.toJSONString(map.get("shipmentEntryBaseDtoList")),ArrayList.class);
+            for(int i = 0;i<list.size();i++){
+                //数组内容得再解析一遍手动放进去
+                ShipmentEntryBaseDto po = JSON.parseObject(JSON.toJSONString(list.get(i)),ShipmentEntryBaseDto.class);
+                shipmentEntryBaseDtoList.add(po);
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        ShipmentEntryBillVo shipmentEntryBillVo = shipmentEntryBillService.submitShipmentEntryBill(shipmentEntryBillDto, shipmentEntryBaseDtoList);
+        return shipmentEntryBillVo != null? Result.success("提交成功").data(shipmentEntryBillVo) : Result.error("提交失败");
+    }
 }

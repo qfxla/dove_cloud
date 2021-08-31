@@ -30,11 +30,5 @@
         id,shipment_entry_bill,type, type_id,type_name,unit_price,amount,total,supplier_id,remark,guige,gmt_create,gmt_modified
     </sql>
 
-    <select id="findBaseByBill" resultType="com.dove.breed.entity.vo.ShipmentEntryBaseVo">
-        SELECT
-        <include refid="ShipmentEntryBaseVo"/>
-        FROM t_shipment_entry_base
-        WHERE shipment_entry_bill = #{billId}
-    </select>
 
 </mapper>

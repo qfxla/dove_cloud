@@ -19,5 +19,4 @@ import java.util.List;
  */
 @Mapper
 public interface ShipmentEntryBaseMapper extends BaseMapper<ShipmentEntryBase> {
-    List<ShipmentEntryBaseVo> findBaseByBill(@Param("billId")Long billId);
 }

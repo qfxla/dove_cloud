@@ -6,16 +6,31 @@
     <resultMap id="BaseResultMap" type="com.dove.breed.entity.Cage">
         <id column="id" property="id" />
         <result column="cage_id" property="cageId" />
-        <result column="state" property="state" />
-        <result column="abnormal" property="abnormal" />
-        <result column="xf" property="xf" />
-        <result column="create_time" property="createTime" />
-        <result column="is_deleted" property="deleted" />
+        <result column="state" property="state"/>
+        <result column="abnormal" property="abnormal"/>
+        <result column="xf" property="xf"/>
+        <result column="create_time" property="createTime"/>
+        <result column="is_deleted" property="isDeleted"/>
     </resultMap>
 
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        id, cage_id, state, abnormal, xf, create_time, is_deleted
-    </sql>
+    <select id="getLastOneLayEggsByCageId" resultType="java.util.Date">
+        SELECT create_time
+        FROM t_cage
+        WHERE cage_id = #{cageId}
+        AND xf = 0
+        AND state = 0
+        ORDER BY create_time DESC
+        LIMIT 0,1
+    </select>
+    <select id="getLastTwoLayEggsByCageId" resultType="java.util.Date">
+        SELECT create_time
+        FROM t_cage
+        WHERE cage_id = #{cageId}
+        AND xf = 0
+        AND state = 0
+        ORDER BY create_time DESC
+        LIMIT 1,1
+    </select>
+
 
 </mapper>

@@ -51,10 +51,10 @@ public class CodeGenerator {
 
         // 3、数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://127.0.0.1:3306/dove_cloud_farming?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false");
+        dsc.setUrl("jdbc:mysql://120.77.156.205:3306/dove_cloud_farming2?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
-        dsc.setPassword("a2690357721");
+        dsc.setPassword("cnjson!@#456");
         dsc.setDbType(DbType.MYSQL);
         mpg.setDataSource(dsc);
 
@@ -62,7 +62,7 @@ public class CodeGenerator {
         PackageConfig pc = new PackageConfig();
         pc.setModuleName("breed"); //模块名
         //包  com.atguigu.eduservice
-        pc.setParent("com.pigeon");
+        pc.setParent("com.dove");
         //包  com.atguigu.eduservice.controller
         pc.setController("controller");
         pc.setEntity("entity");
@@ -73,11 +73,7 @@ public class CodeGenerator {
         // 5、策略配置
         StrategyConfig strategy = new StrategyConfig();
 
-        strategy.setInclude("t_breed_base","t_business_breeding","t_cage","t_cage_board","t_cage_daily","t_dovecote",
-                "t_dovecote_entry_base","t_dovecote_entry_type","t_dovecote_entry_bill",
-                "t_dovecote_out_base","t_dovecote_out_type","t_dovecote_out_bill","t_feed_stock",
-                "t_shipment_entry_base","t_shipment_entry_type","t_shipment_entry_bill",
-                "t_shipment_out_base","t_shipment_out_type","t_shipment_out_bill");
+        strategy.setInclude("t_cage","t_cage_position","t_ip");
 
 
         strategy.setNaming(NamingStrategy.underline_to_camel);//数据库表映射到实体的命名策略
