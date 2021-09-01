@@ -7,6 +7,7 @@ import com.dove.processing.entity.Vo.BusinessProcessingVo;
 import com.dove.processing.entity.Vo.OutProcessingBillVo;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,4 +28,7 @@ public interface OutProcessingBillMapper extends BaseMapper<OutProcessingBill> {
     List<OutProcessingBillVo> getBillsByLikeSearch(@Param("value") String value,@Param("no") int no, @Param("size") int size);
 
     List<BillBindInfoVo> getBillsByNoPage();
+
+
+    Integer batchDeleteByIds(@Param("ids") ArrayList<Long> ids);
 }

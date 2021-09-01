@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dove.processing.entity.Dto.ProcessingStorageDto;
 import com.dove.processing.entity.ProcessingStorage;
+import com.dove.processing.entity.Vo.ProcessingFlowVo;
+import com.dove.processing.entity.Vo.ProcessingStorageVo;
 import com.dove.processing.service.ProcessingStorageService;
 import com.dove.processing.utils.ConvertUtil;
 import com.dove.entity.Result;
@@ -64,23 +66,14 @@ public class ProcessingStorageController {
         return deleteBatchByIds ? Result.success("删除成功") : Result.error("删除失败");
     }
 
-    @ApiOperation(value = "条件查询")
-    @PostMapping("/get")
-    public Result list(@RequestBody ProcessingStorageDto processingStorageDto){
-        ProcessingStorage processingStorage = convertUtil.convert(processingStorageDto, ProcessingStorage.class);
-        List<ProcessingStorage> processingStorageList = processingStorageService.list(new QueryWrapper<>(processingStorage));
-        return processingStorageList.size() > 0 ? Result.success("查询成功").data(processingStorageList) : Result.error("查询失败");
-    }
-
     @ApiOperation(value = "列表（分页）")
     @GetMapping("/list/{pageNum}/{pageSize}")
-    public Object list(@PathVariable("pageNum")int pageNum, @PathVariable("pageSize")int pageSize){
-        IPage<ProcessingStorage> page = processingStorageService.page(
-        new Page<>(pageNum, pageSize), null);
-        return page.getTotal() > 0 ? Result.success("分页成功").data(page) : Result.error();
+    public Result list(@PathVariable("pageNum")int pageNum, @PathVariable("pageSize")int pageSize){
+        Page<ProcessingStorageVo> page = processingStorageService.getStorageByPage(pageNum,pageSize);
+        return page.getTotal() > 0 ? Result.success("分页成功").data(page) : Result.error("分页失败");
     }
 
-    @ApiOperation(value = "详情")
+    @ApiOperation(value = "查询库存信息详情")
     @GetMapping("/get/{id}")
     public Result get(@PathVariable("id") long id){
         ProcessingStorage processingStorage = processingStorageService.getById(id);
@@ -96,5 +89,13 @@ public class ProcessingStorageController {
         return updateInfo ? Result.success("修改成功") : Result.error("修改失败");
     }
 
+    @ApiOperation(value = "模糊查询获取库存信息表数据（分页）",notes = "分页 根据产品名称 备注")
+    @GetMapping("/like/{value}/{no}/{size}")
+    public Result getStoragesByLikeSearch(@ApiParam("加工产品类型名或商家名称") @PathVariable("value") String value,
+                                          @ApiParam("第几页") @PathVariable("no") int no,
+                                          @ApiParam("每页规格") @PathVariable("size") int size) {
+        Page<ProcessingStorageVo> getProcessingByLike =processingStorageService.getStorageByLikeSearch(value,no,size);
+        return getProcessingByLike.getTotal() > 0 ? Result.success("模糊查询成功").data(getProcessingByLike) : Result.error("模糊查询失败");
+    }
 
 }

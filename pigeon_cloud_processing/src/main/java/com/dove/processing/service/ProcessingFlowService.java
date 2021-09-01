@@ -1,7 +1,10 @@
 package com.dove.processing.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dove.processing.entity.ProcessingFlow;
+import com.dove.processing.entity.Vo.ProcessingBatchVo;
+import com.dove.processing.entity.Vo.ProcessingFlowVo;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.dove.processing.entity.ProcessingFlow;
  */
 public interface ProcessingFlowService extends IService<ProcessingFlow> {
 
+    Page<ProcessingFlowVo> getFlowByPage(int no, int size);
 }

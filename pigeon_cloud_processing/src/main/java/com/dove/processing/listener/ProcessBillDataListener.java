@@ -9,11 +9,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class ProcessBillDataListener extends AnalysisEventListener<OutProcessingBillVo> {
+
+    @Resource
+    private OutProcessingBillService outProcessingBillService;
+
+
     private static final Logger LOGGER = LoggerFactory.getLogger(ProcessBillDataListener.class);
     /**
      * 每隔5条存储数据库，实际使用中可以3000条，然后清理list ，方便内存回收
@@ -23,7 +29,7 @@ public class ProcessBillDataListener extends AnalysisEventListener<OutProcessing
     /**
      * 假设这个是一个DAO，当然有业务逻辑这个也可以是一个service。当然如果不用存储这个对象没用。
      */
-    private OutProcessingBillService outProcessingBillService;
+
     public ProcessBillDataListener() {
         // 这里是demo，所以随便new一个。实际使用如果到了spring,请使用下面的有参构造函数
        //  excelUploadMapper = new DemoDAO();
@@ -62,7 +68,9 @@ public class ProcessBillDataListener extends AnalysisEventListener<OutProcessing
     @Override
     public void doAfterAllAnalysed(AnalysisContext context) {
         // 这里也要保存数据，确保最后遗留的数据也存储到数据库
-        saveData();
+        if(list.size() > 0) {
+            saveData();
+        }
         LOGGER.info("所有数据解析完成！");
     }
     /**

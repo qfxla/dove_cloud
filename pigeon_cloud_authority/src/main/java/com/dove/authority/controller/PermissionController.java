@@ -30,7 +30,6 @@ public class PermissionController {
     @Autowired
     private PermissionService permissionService;
 
-
     @GetMapping("")
     @ApiOperation("查询所有权限")
     @PreAuthorize("hasAnyAuthority('basics_authority_select')")

@@ -2,6 +2,12 @@ package com.dove.processing.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dove.processing.entity.ProcessingFlow;
+import com.dove.processing.entity.Vo.ProcessingBatchBillVo;
+import com.dove.processing.entity.Vo.ProcessingBatchVo;
+import com.dove.processing.entity.Vo.ProcessingFlowVo;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -14,4 +20,5 @@ import com.dove.processing.entity.ProcessingFlow;
 
 public interface ProcessingFlowMapper extends BaseMapper<ProcessingFlow> {
 
+    List<ProcessingFlowVo> getFlowInfoByPage(@Param("no") int no , @Param("size") int size);
 }

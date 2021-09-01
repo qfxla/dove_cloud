@@ -10,9 +10,11 @@ import com.dove.processing.service.OutProcessingBillService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dove.processing.utils.ConvertUtil;
 import com.dove.processing.utils.DataUtil;
+import com.dove.processing.utils.ExcelUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -52,12 +54,12 @@ public class OutProcessingBillServiceImpl extends ServiceImpl<OutProcessingBillM
         return processingVoPage;
     }
 
-    @Override
-    public Page<OutProcessingBillVo> getBillByLikeSearch(String value, int no, int size) {
-        Future<List<OutProcessingBillVo>> future = executorService.submit(()->outProcessingBillMapper.getBillsByLikeSearch(value,(no-1)*size,size));
-        Page<OutProcessingBillVo> page = DataUtil.getPage(no,size,future);
-        return page;
-    }
+//    @Override
+//    public Page<OutProcessingBillVo> getBillByLikeSearch(String value, int no, int size) {
+//        Future<List<OutProcessingBillVo>> future = executorService.submit(()->outProcessingBillMapper.getBillsByLikeSearch(value,(no-1)*size,size));
+//        Page<OutProcessingBillVo> page = DataUtil.getPage(no,size,future);
+//        return page;
+//    }
 
     /**
      * 读取excel文件的内容存进数据库
@@ -82,5 +84,21 @@ public class OutProcessingBillServiceImpl extends ServiceImpl<OutProcessingBillM
             e.printStackTrace();
         }
         return list;
+    }
+
+
+    /**
+     * 批量删除出库信息
+     * @param ids
+     * @return
+     */
+    @Override
+    public boolean deleteByIds(ArrayList<Long> ids) {
+        int number = outProcessingBillMapper.batchDeleteByIds(ids);
+        if(number > 0) {
+            return true;
+        }else {
+            return false;
+        }
     }
 }

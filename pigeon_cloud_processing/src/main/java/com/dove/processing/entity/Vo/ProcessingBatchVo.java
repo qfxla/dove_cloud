@@ -57,10 +57,5 @@ public class ProcessingBatchVo extends Model<ProcessingBatchVo> {
     @TableField("processing_time")
     private Date processingTime;
 
-    //所属企业id
-    @ApiModelProperty(value = "所属企业id")
-    @TableField("guige")
-    private Long guige;
-
 
 }

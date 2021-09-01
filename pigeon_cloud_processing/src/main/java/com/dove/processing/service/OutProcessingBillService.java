@@ -6,7 +6,10 @@ import com.dove.processing.entity.OutProcessingBill;
 import com.dove.processing.entity.Vo.BillBindInfoVo;
 import com.dove.processing.entity.Vo.BusinessProcessingVo;
 import com.dove.processing.entity.Vo.OutProcessingBillVo;
+import com.dove.processing.entity.Vo.OutProcessingBothBindVo;
 
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,9 +26,12 @@ public interface OutProcessingBillService extends IService<OutProcessingBill> {
 
     Page<BusinessProcessingVo> getBusInfoByBossId(Long consignee, int no , int size);
 
-    Page<OutProcessingBillVo> getBillByLikeSearch(String value ,int no,int size);
+//    Page<OutProcessingBothBindVo> getBillByLikeSearch(String value , int no, int size);
 
     void saveList(List<OutProcessingBillVo> list);
 
     List<BillBindInfoVo> getBillInfosByNoPage();
+
+    boolean deleteByIds(ArrayList<Long> ids);
+
 }

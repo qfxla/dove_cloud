@@ -27,12 +27,6 @@ public class OutProcessingBillDto extends Model<OutProcessingBillDto> {
 
     private static final long serialVersionUID = 1L;
 
-
-    //与对应出库单id绑定
-    @ApiModelProperty(value = "与对应出库单id绑定")
-    @TableField("out_id")
-    private Long outId;
-
     //经手人
     @ApiModelProperty(value = "经手人")
     @TableField("handler")
@@ -59,7 +53,7 @@ public class OutProcessingBillDto extends Model<OutProcessingBillDto> {
     private Integer total;
 
     //备注
-    @ApiModelProperty(value = "备注")
+    @ApiModelProperty(value = "出库备注")
     @TableField("remark")
     private String remark;
 

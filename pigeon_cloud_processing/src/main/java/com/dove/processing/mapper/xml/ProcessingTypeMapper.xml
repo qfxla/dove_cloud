@@ -2,5 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dove.processing.mapper.ProcessingTypeMapper">
 
+    <sql id="selectAllProcess">
+        select type_id,processing_id,process_id,processing_type,specifications
+        from t_processing_type
+    </sql>
 
+    <select id="getTechnologyInfoById" resultType="com.dove.processing.entity.Vo.ProcessingFlowVo">
+        select t.process_id,t.processing_id,t.process_id,t.process_name,t.process_describe,
+        from t_processing_flow as t
+        <if test="id !=null and id != '' and id != 'null'">
+            inner join t_processing_type as p
+            on t.process_id = p.process_id
+            where p.type_id = #{id}
+            and t.is_deleted =0 and p.is_deleted =0
+            <if test="no !=null and size != null">
+                order by t.gmt_create desc
+                limit ${no},${size}
+            </if>
+        </if>
+    </select>
+
+    <select id="getTypeInfoByPage" resultType="com.dove.processing.entity.Vo.ProcessingTypeVo">
+        <include refid="selectAllProcess"/>
+        where is_deleted =0
+        <if test="no !=null and size != null">
+            order by gmt_create desc
+            limit ${no},${size}
+        </if>
+    </select>
 </mapper>

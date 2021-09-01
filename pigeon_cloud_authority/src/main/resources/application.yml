@@ -1,13 +1,9 @@
 server:
-  port: 9601
-
+  port: 9801
 spring:
-  application:
-    name: dove-authority-service
-
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://120.77.156.205:3306/dove_cloud_authority?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+    url: jdbc:mysql://120.77.156.205:3306/dove_cloud_authority2?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
     username: root
     password: cnjson!@#456
     hikari:
@@ -60,14 +56,6 @@ spring:
     authority-invoke-key: AUTHORITY_INVOKE_KEY #服务调用加密
 
 
-
-#  cloud:
-#    nacos:
-#      discovery:
-#        server-addr: 120.77.156.205:8848
-#        ip: 120.77.156.205
-
-
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
@@ -78,16 +66,10 @@ mybatis-plus:
 
   mapper-locations: classpath:com/dove/authority/mapper/xml/*.xml
 
-
-#设置feign客户端超时时间(OpenFeign默认支持ribbon)
-ribbon:
-  #指的是建立连接所用的时间，适用于网络状况正常的情况下,两端连接所用的时间
-  ReadTimeout: 5000
-  #指的是建立连接后从服务器读取到可用资源所用的时间
-  ConnectTimeout: 5000
-
 jwt:
   expire-time: 7200  #jwt过期时间两个小时
   salt: suyuan711!@#$%^ #密钥
 
   request-user-id: REQUEST_USER_ID
+
+debug: true

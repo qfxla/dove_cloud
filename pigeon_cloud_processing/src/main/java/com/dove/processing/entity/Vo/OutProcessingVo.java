@@ -35,7 +35,7 @@ public class OutProcessingVo extends Model<OutProcessingVo> {
     //所属加工厂id
     @ApiModelProperty(value = "所属加工厂id")
     @TableField("processing_id")
-    @ExcelProperty(value = "所属加工厂id")
+    @ExcelProperty(value = "加工厂id")
     private Long processingId;
 
     //产品编号
@@ -44,16 +44,10 @@ public class OutProcessingVo extends Model<OutProcessingVo> {
     @ExcelProperty(value = "产品编号")
     private Long typeId;
 
-    //与对应出库单id绑定
-    @ApiModelProperty(value = "与对应出库单id绑定")
-    @TableField("id")
-    @ExcelProperty(value = "与对应出库单id绑定")
-    private Long id;
-
     //加工产品类型名（红烧卤水）
     @ApiModelProperty(value = "加工产品类型名（红烧卤水）")
     @TableField("processing_type")
-    @ExcelProperty(value = "加工产品类型名（红烧卤水）")
+    @ExcelProperty(value = "加工产品类型名")
     private String processingType;
 
     //数量

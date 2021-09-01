@@ -4,6 +4,7 @@ package com.dove.processing.controller;
 
 import com.dove.processing.entity.Dto.ProcessingBatchDto;
 import com.dove.processing.entity.ProcessingBatch;
+import com.dove.processing.entity.Vo.ProcessingBatchVo;
 import com.dove.processing.service.ProcessingBatchService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dove.entity.Result;
@@ -66,23 +67,23 @@ public class ProcessingBatchController {
         return deleteBatchByIds ? Result.success("删除成功") : Result.error("删除失败");
     }
 
-    @ApiOperation(value = "条件查询")
-    @PostMapping("/condition")
-    public Result list(@RequestBody ProcessingBatchDto processingBatchDto){
-        ProcessingBatch processingBatch = convertUtil.convert(processingBatchDto, ProcessingBatch.class);
-        List<ProcessingBatch> processingBatchList = processingBatchService.list(new QueryWrapper<>(processingBatch));
-        return processingBatchList.size() > 0 ? Result.success("查询成功").data(processingBatchList) : Result.error("查询失败");
-    }
-
     @ApiOperation(value = "查询所有加工批次信息列表（分页）")
     @GetMapping("/page/{pageNum}/{pageSize}")
-    public Object list(@PathVariable("pageNum")int pageNum, @PathVariable("pageSize")int pageSize){
-        IPage<ProcessingBatch> page = processingBatchService.page(
-        new Page<>(pageNum, pageSize), null);
-        return page.getTotal() > 0 ? Result.success("分页成功").data(page) : Result.error();
+    public Result list(@PathVariable("pageNum")int pageNum, @PathVariable("pageSize")int pageSize){
+        Page<ProcessingBatchVo> page = processingBatchService.getBatchByPage(pageNum,pageSize);
+        return page.getTotal() > 0 ? Result.success("分页成功").data(page) : Result.error("分页失败");
     }
 
-    @ApiOperation(value = "详情")
+    @ApiOperation(value = "模糊查询加工厂批次信息",notes = "根据加工流程名称 流程负责人")
+    @GetMapping("/like/{value}/{no}/{size}")
+    public Result getInfoLikeSearch(@ApiParam("加工产品类型名或商家名称") @PathVariable("value") String value,
+                                    @ApiParam("第几页") @PathVariable("no") int no,
+                                    @ApiParam("每页规格") @PathVariable("size") int size) {
+        Page<ProcessingBatchVo> page = processingBatchService.getBatchInfoByLikeSearch(value,no,size);
+        return page.getTotal() > 0 ? Result.success("模糊查询成功").data(page) : Result.error("模糊查询失败");
+    }
+
+    @ApiOperation(value = "查询加工批次详情")
     @GetMapping("/info/{id}")
     public Result get(@PathVariable("id") long id){
         ProcessingBatch processingBatch = processingBatchService.getById(id);

@@ -4,6 +4,8 @@ package com.dove.processing.controller;
 
 import com.dove.processing.entity.Dto.ProcessingFlowDto;
 import com.dove.processing.entity.ProcessingFlow;
+import com.dove.processing.entity.Vo.ProcessingBatchVo;
+import com.dove.processing.entity.Vo.ProcessingFlowVo;
 import com.dove.processing.service.ProcessingFlowService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dove.entity.Result;
@@ -66,25 +68,15 @@ public class ProcessingFlowController {
         return deleteBatchByIds ? Result.success("删除成功") : Result.error("删除失败");
     }
 
-
-    @ApiOperation(value = "条件查询")
-    @PostMapping("/condition")
-    public Result list(@RequestBody ProcessingFlowDto processingFlowDto){
-        ProcessingFlow processingFlow = convertUtil.convert(processingFlowDto, ProcessingFlow.class);
-        List<ProcessingFlow> processingFlowList = processingFlowService.list(new QueryWrapper<>(processingFlow));
-        return processingFlowList.size() > 0 ? Result.success("查询成功").data(processingFlowList) : Result.error("查询失败");
-    }
-
     @ApiOperation(value = "列表（分页）")
     @GetMapping("/page/{pageNum}/{pageSize}")
-    public Object list(@PathVariable("pageNum")int pageNum, @PathVariable("pageSize")int pageSize){
-        IPage<ProcessingFlow> page = processingFlowService.page(
-        new Page<>(pageNum, pageSize), null);
-        return page.getTotal() > 0 ? Result.success("分页成功").data(page) : Result.error();
+    public Result list(@PathVariable("pageNum")int pageNum, @PathVariable("pageSize")int pageSize){
+        Page<ProcessingFlowVo> page = processingFlowService.getFlowByPage(pageNum,pageSize);
+        return page.getTotal() > 0 ? Result.success("分页成功").data(page) : Result.error("分页失败");
     }
 
-    @ApiOperation(value = "详情")
-    @GetMapping("/infomation/{id}")
+    @ApiOperation(value = "查询加工流程详情")
+    @GetMapping("/information/{id}")
     public Result get(@PathVariable("id") long id){
         ProcessingFlow processingFlow = processingFlowService.getById(id);
         return processingFlow != null ? Result.success("查询详情成功").data(processingFlow) : Result.error("查询失败");

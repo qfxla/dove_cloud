@@ -25,7 +25,7 @@
     <select id="getBusinessProcessingCountByLike" resultType="java.lang.Long">
         select count(*) from t_business_processing
         <if test="value != null and value!='' and value!='null'">
-            and concat(name,contacts) like '%${value}%'
+            where concat(name,contacts) like '%${value}%'
         </if>
     </select>
 

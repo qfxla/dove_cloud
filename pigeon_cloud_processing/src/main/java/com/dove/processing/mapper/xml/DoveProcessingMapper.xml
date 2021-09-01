@@ -27,7 +27,7 @@
     <select id="getFactoryByLikeSearch" resultType="com.dove.processing.entity.Vo.DoveProcessingVo">
         <include refid="selectAllDoveProcessing"/>
         <if test="value != null and value!='' and value!='null'">
-            and concat(name,detailed_address) like '%${value}%'
+            and concat(name,principal_name) like '%${value}%'
         </if>
         order by gmt_create desc
         limit ${no},${size}

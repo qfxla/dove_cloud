@@ -2,21 +2,64 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dove.processing.mapper.InProcessingInfoMapper">
 
-    <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.dove.processing.entity.InProcessingInfo">
-        <id column="id" property="id" />
-        <result column="in_id" property="inId" />
-        <result column="type_id" property="typeId" />
-        <result column="material_name" property="materialName" />
-        <result column="specification" property="specification" />
-        <result column="price" property="price" />
-        <result column="COUNT" property="count" />
-        <result column="total" property="total" />
-        <result column="remark" property="remark" />
-        <result column="gmt_create" property="gmtCreate" />
-        <result column="gmt_modified" property="gmtModified" />
-        <result column="is_deleted" property="isDeleted" />
-        <result column="VERSION" property="version" />
-    </resultMap>
+    <sql id="selectAllInProcessing">
+        select t.id,t.in_id,t.type_id,t.material_name,t.specification,t.price,t.count,t.total,t.remark,
+        p.source,p.batch_id,p.in_storage,p.amount,p.total_money,p.total_remark,p.enter_time
+        from t_in_processing_info as t
+    </sql>
 
+    <update id="batchDeleteByIds">
+        update t_in_processing_info set is_deleted = 1
+        where in_id in
+        <foreach collection="ids" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <select id="getInProcessByPage" resultType="com.dove.processing.entity.Vo.InProcessingInfoBindBillVo">
+        <include refid="selectAllInProcessing"/>
+        <if test="no !=null and size != null">
+            inner join t_in_processing_bill as p
+            on t.in_id = p.in_id
+            where t.is_deleted =0 and p.is_deleted =0
+            limit ${no},${size}
+        </if>
+    </select>
+
+    <select id="getDetailsInfoByInId" resultType="com.dove.processing.entity.Vo.InProcessingInfoBindBillVo">
+        <include refid="selectAllInProcessing"/>
+        <if test="id !=null and id != 0">
+            inner join t_in_processing_bill as p
+            on t.in_id = p.in_id
+            where p.in_id = #{id}
+            and t.is_deleted =0 and p.is_deleted =0
+        </if>
+        order by t.gmt_create desc
+    </select>
+
+    <select id="getInfosBySearch" resultType="com.dove.processing.entity.Vo.InProcessingInfoBindBillVo">
+        <include refid="selectAllInProcessing"/>
+        <if test="value != null and value!='' and value!='null'">
+            inner join t_in_processing_bill as p
+            on t.in_id = p.in_id
+            where t.is_deleted =0 and p.is_deleted =0
+            and concat(material_name,in_storage) like '%${value}%'
+        </if>
+        order by t.gmt_create desc
+        limit ${no},${size}
+    </select>
+
+    <select id="getDataByDateStamp" resultType="com.dove.processing.entity.Vo.InProcessingInfoBindBillVo">
+        <include refid="selectAllInProcessing"/>
+        <if test="firstTime != null and lastTime != null ">
+            inner join t_in_processing_bill as p
+            on t.in_id = p.in_id
+            where t.gmt_create
+            between '${firstTime}'
+            and '${lastTime}'
+            and t.is_deleted =0 and p.is_deleted =0
+        </if>
+        order by t.gmt_create desc
+        limit ${no},${size}
+    </select>
 </mapper>

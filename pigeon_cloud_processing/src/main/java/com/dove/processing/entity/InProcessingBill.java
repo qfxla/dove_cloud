@@ -39,6 +39,11 @@ public class InProcessingBill extends Model<InProcessingBill> {
     @TableField("source")
     private Long source;
 
+    //加工批次id
+    @ApiModelProperty(value = "加工批次id")
+    @TableField(value = "batch_id")
+    private Long batchId;
+
     //入库仓库
     @ApiModelProperty(value = "入库仓库")
     @TableField("in_storage")
@@ -51,18 +56,18 @@ public class InProcessingBill extends Model<InProcessingBill> {
 
     //总金额
     @ApiModelProperty(value = "总金额")
-    @TableField("total")
-    private Integer total;
+    @TableField("total_money")
+    private Integer totalMoney;
 
     //备注
     @ApiModelProperty(value = "备注")
-    @TableField("remark")
-    private String remark;
+    @TableField("total_remark")
+    private String totalRemark;
 
     //入库时间
     @ApiModelProperty(value = "入库时间")
     @TableField("enter_time")
-    private LocalDateTime enterTime;
+    private Date enterTime;
 
     //创建时间
     @ApiModelProperty(value = "创建时间")

@@ -1,7 +1,11 @@
 package com.dove.processing.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dove.processing.entity.ProcessingStorage;
+import com.dove.processing.entity.Vo.OutProcessingBothBindVo;
+import com.dove.processing.entity.Vo.ProcessingFlowVo;
+import com.dove.processing.entity.Vo.ProcessingStorageVo;
 
 /**
  * <p>
@@ -13,4 +17,7 @@ import com.dove.processing.entity.ProcessingStorage;
  */
 public interface ProcessingStorageService extends IService<ProcessingStorage> {
 
+    Page<ProcessingStorageVo> getStorageByLikeSearch(String value , int no, int size);
+
+    Page<ProcessingStorageVo> getStorageByPage(int no, int size);
 }

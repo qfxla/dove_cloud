@@ -29,11 +29,6 @@ public class InProcessingBillVo extends Model<InProcessingBillVo> {
 
     private static final long serialVersionUID = 1L;
 
-    //入库id
-    @ApiModelProperty(value = "入库id")
-    @TableId(value = "in_id")
-    private Long inId;
-
     //来源（商家id）
     @ApiModelProperty(value = "来源（商家id）")
     @TableField("source")
@@ -51,13 +46,13 @@ public class InProcessingBillVo extends Model<InProcessingBillVo> {
 
     //总金额
     @ApiModelProperty(value = "总金额")
-    @TableField("total")
-    private Integer total;
+    @TableField("total_money")
+    private Integer totalMoney;
 
     //备注
-    @ApiModelProperty(value = "备注")
-    @TableField("remark")
-    private String remark;
+    @ApiModelProperty(value = "出库备注")
+    @TableField("total_remark")
+    private String totalRemark;
 
     //入库时间
     @ApiModelProperty(value = "入库时间")

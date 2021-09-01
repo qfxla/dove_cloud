@@ -64,14 +64,6 @@ public class BusinessProcessingController {
         return deleteBatchByIds ? Result.success("删除成功") : Result.error("删除失败");
     }
 
-    @ApiOperation(value = "条件查询")
-    @PostMapping("/query")
-    public Result list(@RequestBody BusinessProcessingDto businessProcessingDto){
-        BusinessProcessing businessProcessing = convertUtil.convert(businessProcessingDto, BusinessProcessing.class);
-        List<BusinessProcessing> businessProcessingList = businessProcessingService.list(new QueryWrapper<>(businessProcessing));
-        return businessProcessingList.size() > 0 ? Result.success("查询成功").data(businessProcessingList) : Result.error("查询失败");
-    }
-
     @ApiOperation(value = "列表（分页）")
     @GetMapping("/page/{pageNum}/{pageSize}")
     public Object list(@PathVariable("pageNum")int pageNum, @PathVariable("pageSize")int pageSize){
@@ -97,7 +89,7 @@ public class BusinessProcessingController {
     }
 
     @ApiOperation(value = "根据商家id查询该商家购买的加工产品（分页）")
-    @GetMapping("/buy/{id}{no}/{size}")
+    @GetMapping("/buy/{id}/{no}/{size}")
     public Result getProductsById(@ApiParam("商家id") @PathVariable("id") Long id,
                                   @ApiParam("第几页") @PathVariable("no") int no,
                                   @ApiParam("一页规格") @PathVariable("size") int size) {

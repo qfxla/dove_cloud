@@ -4,6 +4,7 @@ package com.dove.processing.controller;
 
 import com.dove.processing.entity.Dto.ProcessingTypeDto;
 import com.dove.processing.entity.ProcessingType;
+import com.dove.processing.entity.Vo.*;
 import com.dove.processing.service.ProcessingTypeService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dove.entity.Result;
@@ -66,25 +67,15 @@ public class ProcessingTypeController {
         return deleteBatchByIds ? Result.success("删除成功") : Result.error("删除失败");
     }
 
-
-    @ApiOperation(value = "条件查询")
-    @PostMapping("/condition")
-    public Result list(@RequestBody ProcessingTypeDto processingTypeDto){
-        ProcessingType processingType = convertUtil.convert(processingTypeDto, ProcessingType.class);
-        List<ProcessingType> processingTypeList = processingTypeService.list(new QueryWrapper<>(processingType));
-        return processingTypeList.size() > 0 ? Result.success("查询成功").data(processingTypeList) : Result.error("查询失败");
-    }
-
     @ApiOperation(value = "列表（分页）")
     @GetMapping("/page/{pageNum}/{pageSize}")
     public Object list(@PathVariable("pageNum")int pageNum, @PathVariable("pageSize")int pageSize){
-        IPage<ProcessingType> page = processingTypeService.page(
-        new Page<>(pageNum, pageSize), null);
-        return page.getTotal() > 0 ? Result.success("分页成功").data(page) : Result.error();
+        Page<ProcessingTypeVo> page = processingTypeService.getTypeByPage(pageNum,pageSize);
+        return page.getTotal() > 0 ? Result.success("分页成功").data(page) : Result.error("分页失败");
     }
 
-    @ApiOperation(value = "详情")
-    @GetMapping("/infomation/{id}")
+    @ApiOperation(value = "查询加工产品类型详情")
+    @GetMapping("/information/{id}")
     public Result get(@PathVariable("id") long id){
         ProcessingType processingType = processingTypeService.getById(id);
         return processingType != null ? Result.success("查询详情成功").data(processingType) : Result.error("查询失败");
@@ -97,6 +88,15 @@ public class ProcessingTypeController {
         processingType.setTypeId(id);
         boolean updateInfo = processingTypeService.updateById(processingType);
         return updateInfo ? Result.success("修改成功") : Result.error("修改失败");
+    }
+
+    @ApiOperation(value = "根据加工产品类型type_id查询该工艺产品下对应的加工流程(分页)")
+    @GetMapping("/getInfo/{id}/{no}/{size}")
+    public Result getInfo(@ApiParam("加工工艺id") @PathVariable("id") Long id,
+                          @ApiParam("第几页") @PathVariable("no") int no,
+                          @ApiParam("每页规格") @PathVariable("size") int size) {
+        Page<ProcessingFlowVo> getFlowByPage =processingTypeService.getFlowInfoByPage(id,no,size);
+        return getFlowByPage.getTotal() > 0 ? Result.success("查询成功").data(getFlowByPage) : Result.error("数据为空");
     }
 
 }

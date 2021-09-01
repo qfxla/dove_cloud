@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -27,11 +27,6 @@ import java.util.Date;
 public class InProcessingInfoDto extends Model<InProcessingInfoDto> {
 
     private static final long serialVersionUID = 1L;
-
-    //与对应入库单绑定
-    @ApiModelProperty(value = "与对应入库单绑定")
-    @TableField("in_id")
-    private Long inId;
 
     //产品编号
     @ApiModelProperty(value = "产品编号")
@@ -64,10 +59,11 @@ public class InProcessingInfoDto extends Model<InProcessingInfoDto> {
     private BigDecimal total;
 
     //备注
-    @ApiModelProperty(value = "备注")
+    @ApiModelProperty(value = "商品备注")
     @TableField("remark")
     private String remark;
 
-
+    @ApiModelProperty(value = "入库单信息表")
+    List<InProcessingBillDto> inProcessingBills;
 
 }

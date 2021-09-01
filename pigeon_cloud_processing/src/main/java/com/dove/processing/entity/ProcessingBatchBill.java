@@ -14,54 +14,45 @@ import java.util.Date;
 
 /**
  * <p>
- * 加工批次表
+ * 加工批次信息表
  * </p>
  *
  * @author WTL
- * @since 2021-08-23
+ * @since 2021-08-30
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("t_processing_batch")
-@ApiModel(value = "ProcessingBatch对象", description = "加工批次表")
-public class ProcessingBatch extends Model<ProcessingBatch> {
+@TableName("t_processing_batch_bill")
+@ApiModel(value = "ProcessingBatchBill对象", description = "加工批次信息表")
+public class ProcessingBatchBill extends Model<ProcessingBatchBill> {
 
     private static final long serialVersionUID = 1L;
 
+    //主键id
+    @ApiModelProperty(value = "主键id")
+    @TableId(value = "id", type = IdType.ASSIGN_UUID)
+    private Long id;
+
     //加工批次id
     @ApiModelProperty(value = "加工批次id")
-    @TableId(value = "batch_id", type = IdType.ASSIGN_ID)
+    @TableField("batch_id")
     private Long batchId;
 
-    //屠宰批次
-    @ApiModelProperty(value = "屠宰批次")
-    @TableField("sh_batch")
-    private Long shBatch;
+    //所属加工流程id
+    @ApiModelProperty(value = "所属加工流程id")
+    @TableField("process_id")
+    private Long processId;
 
-    //所属加工厂id
-    @ApiModelProperty(value = "所属加工厂id")
-    @TableField("processing_id")
-    private Long processingId;
+    //工艺id
+    @ApiModelProperty(value = "工艺id")
+    @TableField("technology_id")
+    private Long technologyId;
 
-    //加工流程名称
-    @ApiModelProperty(value = "加工流程名称")
-    @TableField("process_name")
-    private String processName;
-
-    //加工流程描述
-    @ApiModelProperty(value = "加工流程描述")
-    @TableField("process_describe")
-    private String processDescribe;
-
-    @ApiModelProperty(value = "该天-产品负责人")
-    @TableField("principal")
-    private String principal;
-
-    //加工日期
-    @ApiModelProperty(value = "加工日期")
-    @TableField("processing_time")
-    private Date processingTime;
+    //某一天加工流程负责人
+    @ApiModelProperty(value = "某一天加工流程负责人")
+    @TableField("process_prncipal")
+    private String processPrncipal;
 
     //创建时间
     @ApiModelProperty(value = "创建时间")
@@ -75,14 +66,13 @@ public class ProcessingBatch extends Model<ProcessingBatch> {
 
     //逻辑删除
     @ApiModelProperty(value = "逻辑删除")
-    @TableField(value = "is_deleted",fill = FieldFill.INSERT)
+    @TableField("is_deleted")
     @TableLogic
     private Integer isDeleted;
 
     //乐观锁(版本号)
     @ApiModelProperty(value = "乐观锁(版本号)")
-    @TableField(value = "version",fill = FieldFill.INSERT)
-    @Version
+    @TableField("VERSION")
     private Integer version;
 
 }

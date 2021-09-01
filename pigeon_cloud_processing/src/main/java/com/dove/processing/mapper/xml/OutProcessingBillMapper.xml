@@ -3,7 +3,7 @@
 <mapper namespace="com.dove.processing.mapper.OutProcessingBillMapper">
 
 <sql id="selectAllBill">
-    select id,out_id,handler,consignee,name,total_amount,total,remark,out_time
+    select id,out_id,handler,consignee,name,total_amount,total_money,total_remark,out_time
     from t_out_processing_bill
     where is_deleted =0
 </sql>
@@ -38,11 +38,20 @@
     </select>
 
     <select id="getBillsByNoPage" resultType="com.dove.processing.entity.Vo.BillBindInfoVo">
-        select p.type_id,p.processing_type,p.amount,p.unit_price,p.price,
-        t.handler,t.name,t.total_amount,t.total,t.remark,t.out_time
+        select p.type_id,p.processing_type,p.amount,p.unit_price,p.price,p.remark,
+        t.handler,t.name,t.total_amount,t.total_money,t.total_remark,t.out_time
         from t_out_processing as p ,t_out_processing_bill as t
         where p.out_id = t.out_id
-        and p.is_deleted =0 and t.is_deleted
-        order by gmt_create desc
+        and p.is_deleted =0 and t.is_deleted =0
+        order by t.gmt_create desc
     </select>
+
+    <update id="batchDeleteByIds">
+        update t_out_processing_bill set is_deleted = 1
+        where out_id in
+        <foreach collection="ids" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
 </mapper>

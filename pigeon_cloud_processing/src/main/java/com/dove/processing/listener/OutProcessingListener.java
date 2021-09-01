@@ -3,6 +3,7 @@ package com.dove.processing.listener;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.fastjson.JSON;
+import com.dove.processing.entity.Vo.OutProcessInfoVo;
 import com.dove.processing.entity.Vo.OutProcessingBillVo;
 import com.dove.processing.entity.Vo.OutProcessingVo;
 import com.dove.processing.service.OutProcessingBillService;
@@ -11,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,15 +21,19 @@ import java.util.List;
  * @date 2021/8/23  -  0:17
  */
 @Component
-public class OutProcessingListener  extends AnalysisEventListener<OutProcessingVo> {
+public class OutProcessingListener  extends AnalysisEventListener<OutProcessInfoVo> {
+
+    @Resource
+    private OutProcessingService outProcessingService;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(OutProcessingListener.class);
     /**
      * 每隔5条存储数据库，实际使用中可以3000条，然后清理list ，方便内存回收
      */
     private static final int BATCH_COUNT = 5;
-    List<OutProcessingVo> list = new ArrayList<>();
+    List<OutProcessInfoVo> list = new ArrayList<>();
 
-    private OutProcessingService outProcessingService;
+
     public OutProcessingListener() {
         // 这里是demo，所以随便new一个。实际使用如果到了spring,请使用下面的有参构造函数
         // excelUploadMapper = new DemoDAO();
@@ -48,7 +54,7 @@ public class OutProcessingListener  extends AnalysisEventListener<OutProcessingV
      * @param context
      */
     @Override
-    public void invoke(OutProcessingVo data, AnalysisContext context) {
+    public void invoke(OutProcessInfoVo data, AnalysisContext context) {
         LOGGER.info("解析到一条数据:{}", JSON.toJSONString(data));
         list.add(data);
         // 达到BATCH_COUNT了，需要去存储一次数据库，防止数据几万条数据在内存，容易OOM
@@ -66,7 +72,9 @@ public class OutProcessingListener  extends AnalysisEventListener<OutProcessingV
     @Override
     public void doAfterAllAnalysed(AnalysisContext context) {
         // 这里也要保存数据，确保最后遗留的数据也存储到数据库
-        saveData();
+        if(list.size() > 0) {
+            saveData();
+        }
         LOGGER.info("所有数据解析完成！");
     }
     /**

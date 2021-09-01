@@ -68,14 +68,6 @@ public class DoveProcessingController {
         return deleteBatchByIds ? Result.success("删除成功") : Result.error("删除失败");
     }
 
-    @ApiOperation(value = "条件查询")
-    @PostMapping("/condition")
-    public Result list(@RequestBody DoveProcessingDto doveProcessingDto){
-        DoveProcessing doveProcessing = convertUtil.convert(doveProcessingDto, DoveProcessing.class);
-        List<DoveProcessing> doveProcessingList = doveProcessingService.list(new QueryWrapper<>(doveProcessing));
-        return doveProcessingList.size() > 0 ? Result.success("查询成功").data(doveProcessingList) : Result.error("查询失败");
-    }
-
     @ApiOperation(value = "获取所有加工厂信息（分页）")
     @GetMapping("/page/{pageNum}/{pageSize}")
     public Result list(@PathVariable("pageNum")int pageNum, @PathVariable("pageSize")int pageSize){
@@ -91,11 +83,10 @@ public class DoveProcessingController {
     }
 
     @ApiOperation(value = "获取当前企业下的所有加工厂信息(分页)")
-    @GetMapping("/current/{enterpriseId}/{no}/{size}")
-    public Result getCurrentEnterpriseFactoryPage(@ApiParam("企业id")@PathVariable("enterpriseId") Long enterpriseId,
-                                                  @ApiParam("第几页")@PathVariable("no") int no,
+    @GetMapping("/current/{no}/{size}")
+    public Result getCurrentEnterpriseFactoryPage(@ApiParam("第几页")@PathVariable("no") int no,
                                                   @ApiParam("每页显示条数")@PathVariable("size") int size) {
-        Page<DoveProcessingVo> processingVoPage = doveProcessingService.getFactorysByEnterprise(enterpriseId,no,size);
+        Page<DoveProcessingVo> processingVoPage = doveProcessingService.getFactorysByEnterprise(SecurityContextUtil.getUserDetails().getEnterpriseId(),no,size);
         return processingVoPage.getTotal() > 0 ? Result.success("查询成功").data(processingVoPage) : Result.error().data("无加工厂信息");
     }
 
@@ -108,11 +99,11 @@ public class DoveProcessingController {
         return doveProcessingVoPage.getTotal() > 0 ? Result.success("查询成功").data(doveProcessingVoPage) : Result.error().data("无加工产品信息");
     }
 
-    @ApiOperation(value = "模糊查询获取加工厂信息（分页）",notes = "分页 根据加工厂名称 地址")
+    @ApiOperation(value = "模糊查询获取加工厂信息（分页）",notes = "分页 根据加工厂名称 负责人")
     @GetMapping("/like/{value}/{no}/{size}")
-    public Result getFactorysByLikeSearch(@ApiParam("加工厂名称或者联系人") @PathVariable("value") String value,
-                                         @ApiParam("第几页") @PathVariable("no") int no,
-                                         @ApiParam("每页规格") @PathVariable("size") int size) {
+    public Result getFactorysByLikeSearch(@ApiParam("加工厂名称或者负责人") @PathVariable("value") String value,
+                                          @ApiParam("第几页") @PathVariable("no") int no,
+                                          @ApiParam("每页规格") @PathVariable("size") int size) {
         Page<DoveProcessingVo> doveProcessingVoPage = doveProcessingService.getFatorcysByLike(value,no,size);
         return doveProcessingVoPage.getTotal() > 0 ? Result.success("模糊查询成功").data(doveProcessingVoPage) : Result.error().data("无匹配加工厂信息");
     }

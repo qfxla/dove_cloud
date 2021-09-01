@@ -31,7 +31,7 @@ public class OutProcessing extends Model<OutProcessing> {
 
     //id
     @ApiModelProperty(value = "id")
-    @TableId(value = "out_id", type = IdType.ASSIGN_ID)
+    @TableId(value = "out_id", type=IdType.INPUT)
     private Long outId;
 
     //所属加工厂id
@@ -43,11 +43,6 @@ public class OutProcessing extends Model<OutProcessing> {
     @ApiModelProperty(value = "产品编号")
     @TableField("type_id")
     private Long typeId;
-
-    //与对应出库单id绑定
-    @ApiModelProperty(value = "与对应出库单id绑定")
-    @TableField("id")
-    private Long id;
 
     //加工产品类型名（红烧卤水）
     @ApiModelProperty(value = "加工产品类型名（红烧卤水）")

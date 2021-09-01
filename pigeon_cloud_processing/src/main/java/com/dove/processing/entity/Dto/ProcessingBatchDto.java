@@ -47,15 +47,14 @@ public class ProcessingBatchDto extends Model<ProcessingBatchDto> {
     @TableField("process_describe")
     private String processDescribe;
 
+    @ApiModelProperty(value = "该天-产品负责人")
+    @TableField("principal")
+    private String principal;
+
     //加工日期
     @ApiModelProperty(value = "加工日期")
     @TableField("processing_time")
     private Date processingTime;
-
-    //所属企业id
-    @ApiModelProperty(value = "所属企业id")
-    @TableField("guige")
-    private Long guige;
 
 
 }

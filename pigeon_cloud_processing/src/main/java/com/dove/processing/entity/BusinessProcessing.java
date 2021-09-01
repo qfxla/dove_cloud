@@ -76,5 +76,4 @@ public class BusinessProcessing extends Model<BusinessProcessing> {
     @Version
     private Integer version;
 
-
 }
