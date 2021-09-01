@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dove.breed.mapper.CagePositionMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.dove.breed.entity.CagePosition">
+        <result column="cage_id" property="cageId"/>
+        <result column="base_id" property="baseId"/>
+        <result column="bc_no" property="bcNo"/>
+        <result column="shack" property="shack"/>
+        <result column="row_no" property="rowNo"/>
+        <result column="line" property="line"/>
+        <result column="column_no" property="columnNo"/>
+    </resultMap>
+
+    <select id="getCageId" resultType="java.lang.Long">
+        SELECT cage_id
+        FROM t_cage_position
+        WHERE base_id = #{baseId} AND shack = #{dovecoteNumber}
+        AND `row_no` = #{rowNo} AND line = #{line} AND `column_no` = #{columnNo}
+    </select>
+
+</mapper>

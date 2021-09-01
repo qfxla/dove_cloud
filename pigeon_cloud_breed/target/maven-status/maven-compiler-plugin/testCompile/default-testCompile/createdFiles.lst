@@ -1,0 +1,4 @@
+CodeGenerator.class
+generate\TestCode.class
+generate\GenerateApplicationTests.class
+generate\mybatisplus\GenerateMybatisPlus.class
