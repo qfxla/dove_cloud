@@ -43,6 +43,8 @@ public class TestCode {
     private ShipmentEntryTypeMapper shipmentEntryTypeMapper;
     @Autowired
     private DovecoteEntryBaseMapper dovecoteEntryBaseMapper;
+    @Autowired
+    private CagePositionMapper cagePositionMapper;
     @Test
     public void test(){
         List<UseOfFeedVo> a1 = feedStockService.getUseOfFeedMonth(2L, "A1", 2021, 8);

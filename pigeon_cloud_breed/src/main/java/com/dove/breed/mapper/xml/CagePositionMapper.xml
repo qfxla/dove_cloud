@@ -7,16 +7,16 @@
         <result column="base_id" property="baseId"/>
         <result column="bc_no" property="bcNo"/>
         <result column="shack" property="shack"/>
-        <result column="row" property="row"/>
+        <result column="row_no" property="rowNo"/>
         <result column="line" property="line"/>
-        <result column="column" property="column"/>
+        <result column="column_no" property="columnNo"/>
     </resultMap>
 
     <select id="getCageId" resultType="java.lang.Long">
         SELECT cage_id
         FROM t_cage_position
         WHERE base_id = #{baseId} AND shack = #{dovecoteNumber}
-        AND row = #{row} AND line = #{line} AND column = #{column}
+        AND `row_no` = #{rowNo} AND line = #{line} AND `column_no` = #{columnNo}
     </select>
 
 </mapper>

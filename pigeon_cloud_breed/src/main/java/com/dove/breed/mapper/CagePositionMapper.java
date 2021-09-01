@@ -17,7 +17,7 @@ import org.apache.ibatis.annotations.Param;
 public interface CagePositionMapper extends BaseMapper<CagePosition> {
     Long getCageId(@Param("baseId")Long baseId,
                    @Param("dovecoteNumber")String dovecoteNumber,
-                   @Param("row")int row,
+                   @Param("rowNo")int row,
                    @Param("line")int line,
-                   @Param("column")int column);
+                   @Param("columnNo")int column);
 }
