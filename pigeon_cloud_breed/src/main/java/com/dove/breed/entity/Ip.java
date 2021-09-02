@@ -14,7 +14,7 @@ import io.swagger.annotations.ApiModelProperty;
  * </p>
  *
  * @author zcj
- * @since 2021-08-28
+ * @since 2021-09-02
  */
 @TableName("t_ip")
 @ApiModel(value="Ip对象", description="")
@@ -22,15 +22,23 @@ public class Ip implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @TableId(value = "id", type = IdType.ID_WORKER)
+    private Long id;
+
         @ApiModelProperty(value = "板子的ip地址")
-        @TableId(value = "ip", type = IdType.ID_WORKER)
-    private String ip;
+        private String ip;
 
         @ApiModelProperty(value = "端口号")
-        private String port;
+        private Integer port;
 
-    private String bc;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getIp() {
         return ip;
@@ -40,28 +48,20 @@ public class Ip implements Serializable {
         this.ip = ip;
     }
 
-    public String getPort() {
+    public Integer getPort() {
         return port;
     }
 
-    public void setPort(String port) {
+    public void setPort(Integer port) {
         this.port = port;
-    }
-
-    public String getBc() {
-        return bc;
-    }
-
-    public void setBc(String bc) {
-        this.bc = bc;
     }
 
     @Override
     public String toString() {
         return "Ip{" +
-        "ip=" + ip +
+        "id=" + id +
+        ", ip=" + ip +
         ", port=" + port +
-        ", bc=" + bc +
         "}";
     }
 }

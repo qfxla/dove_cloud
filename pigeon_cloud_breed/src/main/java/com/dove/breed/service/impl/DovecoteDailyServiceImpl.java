@@ -4,6 +4,7 @@ import com.dove.breed.entity.DovecoteDaily;
 import com.dove.breed.mapper.DovecoteDailyMapper;
 import com.dove.breed.service.DovecoteDailyService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 /**

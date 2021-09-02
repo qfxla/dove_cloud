@@ -1,6 +1,7 @@
 package generate;
 
 import com.dove.breed.BreedApplication;
+import com.dove.breed.entity.DovecoteDaily;
 import com.dove.breed.entity.DovecoteEntryBase;
 import com.dove.breed.entity.ShipmentEntryBill;
 import com.dove.breed.entity.ShipmentOutBase;
@@ -45,10 +46,13 @@ public class TestCode {
     private DovecoteEntryBaseMapper dovecoteEntryBaseMapper;
     @Autowired
     private CagePositionMapper cagePositionMapper;
+    @Autowired
+    private DovecoteDailyMapper dovecoteDailyMapper;
     @Test
     public void test(){
-        List<UseOfFeedVo> a1 = feedStockService.getUseOfFeedMonth(2L, "A1", 2021, 8);
-        System.out.println(a1);
+        DovecoteDaily dovecoteDaily = new DovecoteDaily();
+        dovecoteDaily.setBadEggs(100);
+        dovecoteDailyMapper.insert(dovecoteDaily);
     }
 
 
