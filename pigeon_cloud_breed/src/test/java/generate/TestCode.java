@@ -8,6 +8,7 @@ import com.dove.breed.entity.ShipmentOutBase;
 import com.dove.breed.entity.dto.ShipmentEntryBaseDto;
 import com.dove.breed.entity.vo.*;
 import com.dove.breed.mapper.*;
+import com.dove.breed.service.DovecoteDailyService;
 import com.dove.breed.service.DovecoteService;
 import com.dove.breed.service.FeedStockService;
 import io.swagger.annotations.ApiOperation;
@@ -48,11 +49,11 @@ public class TestCode {
     private CagePositionMapper cagePositionMapper;
     @Autowired
     private DovecoteDailyMapper dovecoteDailyMapper;
+    @Autowired
+    private DovecoteDailyService dovecoteDailyService;
     @Test
     public void test(){
-        DovecoteDaily dovecoteDaily = new DovecoteDaily();
-        dovecoteDaily.setBadEggs(100);
-        dovecoteDailyMapper.insert(dovecoteDaily);
+        dovecoteDailyService.updateDovecoteDaily(12L,"A01");
     }
 
 

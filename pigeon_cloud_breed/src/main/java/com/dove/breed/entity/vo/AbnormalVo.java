@@ -9,6 +9,6 @@ import lombok.Data;
 @Data
 public class AbnormalVo {
     int state;
-    int abnormal;
+    String abnormal;
     int amount;
 }

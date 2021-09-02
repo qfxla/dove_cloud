@@ -2,8 +2,11 @@ package com.dove.breed.mapper;
 
 import com.dove.breed.entity.DovecoteDaily;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.dove.breed.entity.vo.AbnormalVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -15,6 +18,12 @@ import org.apache.ibatis.annotations.Param;
  */
 @Mapper
 public interface DovecoteDailyMapper extends BaseMapper<DovecoteDaily> {
-    Long getMatEggsOfAmount(@Param("baseId")Long baseId,
+    int getAmountOfMatEggs(@Param("baseId")Long baseId,
                             @Param("dovecoteNumber")String dovecoteNumber);
+    int getAmountOfPictureEggs(@Param("baseId")Long baseId,
+                                @Param("dovecoteNumber")String dovecoteNumber);
+    int getAmountOfTakeEggs(@Param("baseId")Long baseId,
+                             @Param("dovecoteNumber")String dovecoteNumber);
+    List<AbnormalVo> getKindAndAmountOfAbnormal(@Param("baseId")Long baseId,
+                                                @Param("dovecoteNumber")String dovecoteNumber);
 }
