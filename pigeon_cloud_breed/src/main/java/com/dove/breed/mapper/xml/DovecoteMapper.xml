@@ -40,28 +40,35 @@
     </insert>
 
 
-    <select id="getAllCageId" resultType="java.lang.Long">
-        SELECT cage_id
-        FROM t_cage_positon
+    <select id="getNeedPictureEgg" resultType="java.lang.Integer">
+        SELECT
+        COUNT(*)
+        FROM t_cage_real c LEFT JOIN t_cage_position p
+        ON c.cage_id = p.cage_id
         WHERE base_id = #{baseId}
           AND shack = #{dovecoteNumber}
-    </select>
-    <select id="getCurrentXf" resultType="java.lang.Integer">
-        SELECT xf
-        FROM t_cage
-        WHERE cage_id = #{cageId}
-            limit 1
+          AND c.xf = 1
     </select>
 
-    <select id="getMatEggsOfYesterday" resultType="java.lang.Integer" resultMap="BaseResultMap">
+    <select id="getNeedCheckDoves" resultType="java.lang.Integer">
+        SELECT
+        COUNT(*)
+        FROM t_cage_real c LEFT JOIN t_cage_position p
+        ON c.cage_id = p.cage_id
+        WHERE base_id = #{baseId}
+          AND shack = #{dovecoteNumber}
+          AND c.xf = 3
+    </select>
+
+    <select id="getMatEggsOfYesterday" resultType="java.lang.Integer">
         SELECT
         COUNT(*)
         FROM t_cage c LEFT JOIN t_cage_position p
         ON c.cage_id = p.cage_id
-        WHERE c.create_time = TO_DAY(NOW()) - 1
+        WHERE c.create_time = TO_DAYS(NOW()) - 1
         AND p.base_id = #{baseId}
         AND p.shack = #{dovecoteNumber}
-        AND c.state = 0
+        AND c.state in (1,2)
         AND c.xf = 0
     </select>
 
@@ -70,13 +77,12 @@
         COUNT(*) amount, state, abnormal
         FROM t_cage c LEFT JOIN t_cage_position p
         ON c.cage_id = p.cage_id
-        WHERE c.create_time = To_DAY(NOW()) - 1
-        AND xf = 0
+        WHERE c.create_time = To_DAYS(NOW()) - 1
         AND p.base_id = #{baseId}
         AND p.shack = #{dovecoteNumber}
+        AND c.abnormal != null
         GROUP BY state , abnormal
     </select>
-
 
 
 </mapper>

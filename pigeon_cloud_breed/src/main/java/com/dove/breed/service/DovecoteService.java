@@ -18,8 +18,8 @@ import java.util.List;
  */
 
 public interface DovecoteService extends IService<Dovecote> {
-    int getMatEggsOfYesterday(Long baseId,String dovecoteNumber);
+    Integer getMatEggsOfYesterday(Long baseId,String dovecoteNumber);
     List<AbnormalVo> getAbnormalVoOfYesterday(Long baseId,String dovecoteNumber);
-    List<Long> getAllCageId(Long baseId,String dovecoteNumber);
-    int getCurrentXf(Long cageId);
+    Integer getNeedPictureEgg(Long baseId,String dovecoteNumber);
+    Integer getNeedCheckDoves(Long baseId,String dovecoteNumber);
 }
