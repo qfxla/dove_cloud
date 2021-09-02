@@ -28,7 +28,7 @@ public class CageReal implements Serializable {
 
     private Integer state;
 
-    private Integer abnormal;
+    private String abnormal;
 
     private Integer xf;
 
@@ -53,11 +53,11 @@ public class CageReal implements Serializable {
         this.state = state;
     }
 
-    public Integer getAbnormal() {
+    public String getAbnormal() {
         return abnormal;
     }
 
-    public void setAbnormal(Integer abnormal) {
+    public void setAbnormal(String abnormal) {
         this.abnormal = abnormal;
     }
 

@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
     import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
+
 /**
 * <p>
     * 鸽棚表 前端控制器
@@ -36,10 +38,10 @@ import java.util.List;
 @RequestMapping("/breed/dovecote")
 public class DovecoteController {
 
-    @Autowired
+    @Resource
     public DovecoteService dovecoteService;
 
-    @Autowired
+    @Resource
     private ConvertUtil convertUtil;
 
     @ApiOperation(value = "新增")
@@ -96,14 +98,7 @@ public class DovecoteController {
     @GetMapping("/getNeedPictureEgg")
     public Result getNeedPictureEgg(@RequestParam(value = "baseId")Long baseId,
                               @RequestParam(value = "dovecoteNumber")String dovecoteNumber){
-        int amount = 0;
-        List<Long> allCageId = dovecoteService.getAllCageId(baseId, dovecoteNumber);
-        for (Long cageId : allCageId) {
-            int xf = dovecoteService.getCurrentXf(cageId);
-            if (xf == 1){
-                amount++;
-            }
-        }
+        Integer amount = dovecoteService.getNeedPictureEgg(baseId, dovecoteNumber);
         return Result.success("查找成功").data(amount);
     }
 
@@ -111,14 +106,7 @@ public class DovecoteController {
     @GetMapping("/getNeedCheckDoves")
     public Result getNeedCheckDoves(@RequestParam(value = "baseId")Long baseId,
                                     @RequestParam(value = "dovecoteNumber")String dovecoteNumber){
-        int amount = 0;
-        List<Long> allCageId = dovecoteService.getAllCageId(baseId, dovecoteNumber);
-        for (Long cageId : allCageId) {
-            int xf = dovecoteService.getCurrentXf(cageId);
-            if (xf == 3){
-                amount++;
-            }
-        }
+        Integer amount = dovecoteService.getNeedCheckDoves(baseId, dovecoteNumber);
         return Result.success("查找成功").data(amount);
     }
 
@@ -126,7 +114,7 @@ public class DovecoteController {
     @GetMapping("/getMatEggsOfYesterday")
     public Result getMatEggsOfYesterday(@RequestParam(value = "baseId")Long baseId,
                                         @RequestParam(value = "dovecoteNumber")String dovecoteNumber){
-        int amount = dovecoteService.getMatEggsOfYesterday(baseId, dovecoteNumber);
+        Integer amount = dovecoteService.getMatEggsOfYesterday(baseId, dovecoteNumber);
         return Result.success("查找成功").data(amount);
     }
 
