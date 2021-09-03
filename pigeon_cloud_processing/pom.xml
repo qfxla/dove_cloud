@@ -24,11 +24,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.apache.velocity</groupId>-->
-<!--            <artifactId>velocity</artifactId>-->
-<!--            <version>1.7</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>1.7</version>
+        </dependency>
         <!--        nacos服务发现-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
@@ -50,16 +50,6 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-annotation</artifactId>
-            <version>3.4.3.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-extension</artifactId>
-            <version>3.4.3.1</version>
         </dependency>
         <dependency>
             <groupId>com.dove</groupId>
@@ -101,21 +91,23 @@
         </dependency>
         <!--json-->
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-            <version>2.9.3</version>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-            <version>2.9.3</version>
-        </dependency>
-
+        <!--FastJson-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.54</version>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-extension</artifactId>
+            <version>3.4.3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-extension</artifactId>
+            <version>3.4.3.1</version>
         </dependency>
     </dependencies>
     <packaging>jar</packaging>
@@ -172,8 +164,5 @@
             </resource>
         </resources>
     </build>
-
-
-
 
 </project>

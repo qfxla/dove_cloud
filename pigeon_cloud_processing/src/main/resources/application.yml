@@ -2,6 +2,9 @@ server:
   port: 9806
 #数据库配置
 spring:
+  application:
+    name: pigeon-process-service
+
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driverClassName: com.mysql.cj.jdbc.Driver
@@ -42,13 +45,10 @@ spring:
       discovery:
         server-addr: 39.99.247.58:8848
         ip: 39.99.247.58
-  application:
-    name: pigeon-process-service
 
 jackson:
   date-format: yyyy-MM-dd HH:mm:ss
   time-zone: GMT+8
-
 
 pigeon:
   thread:
