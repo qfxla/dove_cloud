@@ -25,19 +25,24 @@ public class DovecoteServiceImpl extends ServiceImpl<DovecoteMapper, Dovecote> i
     private DovecoteMapper dovecoteMapper;
 
     @Override
-    public Integer getMatEggsOfYesterday(Long baseId, String dovecoteNumber) {
-        int amount = dovecoteMapper.getMatEggsOfYesterday(baseId, dovecoteNumber);
-        return amount;
-    }
-
-    @Override
-    public Integer getNeedPictureEgg(Long baseId, String dovecoteNumber) {
-        return dovecoteMapper.getNeedPictureEgg(baseId,dovecoteNumber);
+    public Integer getNeedPictureEggs(Long baseId, String dovecoteNumber) {
+        return dovecoteMapper.getNeedPictureEggs(baseId,dovecoteNumber);
     }
 
     @Override
     public Integer getNeedCheckDoves(Long baseId, String dovecoteNumber) {
         return dovecoteMapper.getNeedCheckDoves(baseId,dovecoteNumber);
+    }
+
+    @Override
+    public Integer getNeedTakeEggs(Long baseId, String dovecoteNumber) {
+        return dovecoteMapper.getNeedTakeEggs(baseId,dovecoteNumber);
+    }
+
+    @Override
+    public Integer getMatEggsOfYesterday(Long baseId, String dovecoteNumber) {
+        int amount = dovecoteMapper.getMatEggsOfYesterday(baseId, dovecoteNumber);
+        return amount;
     }
 
     @Override

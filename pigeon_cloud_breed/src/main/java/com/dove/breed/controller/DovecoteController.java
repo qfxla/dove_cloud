@@ -98,32 +98,35 @@ public class DovecoteController {
     @GetMapping("/getNeedPictureEgg")
     public Result getNeedPictureEgg(@RequestParam(value = "baseId")Long baseId,
                               @RequestParam(value = "dovecoteNumber")String dovecoteNumber){
-        Integer amount = dovecoteService.getNeedPictureEgg(baseId, dovecoteNumber);
-        return Result.success("查找成功").data(amount);
+        return Result.success("查找成功").data(dovecoteService.getNeedPictureEggs(baseId, dovecoteNumber));
     }
 
     @ApiOperation(value = "今日需要查仔数量")
     @GetMapping("/getNeedCheckDoves")
     public Result getNeedCheckDoves(@RequestParam(value = "baseId")Long baseId,
                                     @RequestParam(value = "dovecoteNumber")String dovecoteNumber){
-        Integer amount = dovecoteService.getNeedCheckDoves(baseId, dovecoteNumber);
-        return Result.success("查找成功").data(amount);
+        return Result.success("查找成功").data(dovecoteService.getNeedCheckDoves(baseId, dovecoteNumber));
+    }
+
+    @ApiOperation(value = "今天需要抽蛋数量")
+    @GetMapping("/getNeedTakeEggs")
+    public Result getNeedTakeEggs(@RequestParam(value = "baseId")Long baseId,
+                                  @RequestParam(value = "dovecoteNumber")String dovecoteNumber){
+        return Result.success("查找成功").data(dovecoteService.getNeedTakeEggs(baseId, dovecoteNumber));
     }
 
     @ApiOperation(value = "昨日垫蛋数")
     @GetMapping("/getMatEggsOfYesterday")
     public Result getMatEggsOfYesterday(@RequestParam(value = "baseId")Long baseId,
                                         @RequestParam(value = "dovecoteNumber")String dovecoteNumber){
-        Integer amount = dovecoteService.getMatEggsOfYesterday(baseId, dovecoteNumber);
-        return Result.success("查找成功").data(amount);
+        return Result.success("查找成功").data(dovecoteService.getMatEggsOfYesterday(baseId, dovecoteNumber));
     }
 
     @ApiOperation(value = "昨日异常统计")
     @GetMapping("/getAbnormalVoOfYesterday")
     public Result getAbnormalVoOfYesterday(@RequestParam(value = "baseId")Long baseId,
                                            @RequestParam(value = "dovecoteNumber")String dovecoteNumber){
-        List<AbnormalVo> abnormalVoList = dovecoteService.getAbnormalVoOfYesterday(baseId, dovecoteNumber);
-        return Result.success("查找成功").data(abnormalVoList);
+        return Result.success("查找成功").data(dovecoteService.getAbnormalVoOfYesterday(baseId, dovecoteNumber));
     }
 
 
