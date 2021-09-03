@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dove.authority.mapper.PermissionMapper">
+
+    <delete id="deletePermissionOfRole" >
+        DELETE FROM t_authority_role_permission WHERE role_id = #{roleId} AND permission_id IN (
+        <foreach collection="permissions" item="item" index="index" separator=",">
+            #{item}
+        </foreach>
+        )
+    </delete>
+
+
+    <select id="getRootPermissionOfRoles" resultType="com.dove.authority.entity.vo.PermissionVo">
+        SELECT tap.id, name, remarks, path, parent_id FROM t_authority_permission tap INNER JOIN t_authority_role_permission tarp
+        WHERE tap.id = tarp.permission_id AND tap.parent_id IS NULL AND tarp.role_id IN (
+        <foreach collection="roleIds" item="item" index="index" separator=",">
+            #{item}
+        </foreach>
+        )
+    </select>
+
+
+    <select id="getPermissionOfParentAndRoles" resultType="com.dove.authority.entity.vo.PermissionVo">
+        SELECT tap.id, name, remarks, path, parent_id FROM t_authority_permission tap INNER JOIN t_authority_role_permission tarp
+        WHERE tap.id = tarp.permission_id AND tap.parent_id = #{parentId} AND tarp.role_id IN (
+        <foreach collection="roleIds" item="item" index="index" separator=",">
+            #{item}
+        </foreach>
+        )
+    </select>
+</mapper>

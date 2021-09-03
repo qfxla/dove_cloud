@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dove.processing.mapper.ProcessingBatchBillMapper">
+
+    <sql id="selectAllBatchBill">
+        select id,batch_id,process_id,technology_id,process_principal
+        from t_processing_batch_bill
+    </sql>
+
+    <select id="getBatchBillInfoByPage" resultType="com.dove.processing.entity.Vo.ProcessingBatchBillVo">
+        <include refid="selectAllBatchBill"/>
+        where is_deleted =0
+        order by gmt_create desc
+        limit ${no},${size}
+    </select>
+
+</mapper>
