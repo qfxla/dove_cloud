@@ -1,10 +1,7 @@
 package generate;
 
 import com.dove.breed.BreedApplication;
-import com.dove.breed.entity.DovecoteDaily;
-import com.dove.breed.entity.DovecoteEntryBase;
-import com.dove.breed.entity.ShipmentEntryBill;
-import com.dove.breed.entity.ShipmentOutBase;
+import com.dove.breed.entity.*;
 import com.dove.breed.entity.dto.ShipmentEntryBaseDto;
 import com.dove.breed.entity.vo.*;
 import com.dove.breed.mapper.*;
@@ -53,7 +50,8 @@ public class TestCode {
     private DovecoteDailyService dovecoteDailyService;
     @Test
     public void test(){
-        dovecoteDailyService.updateDovecoteDaily(12L,"A01");
+        Integer a01 = dovecoteMapper.getMatEggsOfYesterday(12L, "A01");
+        System.out.println(a01);
     }
 
 

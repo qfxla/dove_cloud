@@ -29,8 +29,8 @@
     <select id="getAmountOfMatEggs" resultType="java.lang.Integer">
         SELECT count(*)
         FROM t_cage c LEFT JOIN t_cage_position p
-                                ON c.cage_id = p.cage_id
-        WHERE c.create_time = TO_DAY(NOW())
+        ON c.cage_id = p.cage_id
+        WHERE c.create_time = DAY(NOW())
           AND p.base_id = #{baseId}
           AND p.shack = #{dovecoteNumber}
           AND (c.state = 1 or c.state = 2)
@@ -40,7 +40,7 @@
         SELECT count(*)
         FROM t_cage c LEFT JOIN t_cage_position p
         ON c.cage_id = p.cage_id
-        WHERE c.create_time = TO_DAY(NOW())
+        WHERE c.create_time = DAY(NOW())
         AND p.base_id = #{baseId}
         AND p.shack = #{dovecoteNumber}
         AND c.state = 4
@@ -49,7 +49,7 @@
         SELECT count(*)
         FROM t_cage c LEFT JOIN t_cage_position p
         ON c.cage_id = p.cage_id
-        WHERE c.create_time = TO_DAY(NOW())
+        WHERE c.create_time = DAY(NOW())
         AND p.base_id = #{baseId}
         AND p.shack = #{dovecoteNumber}
         AND c.state = 3
@@ -59,11 +59,20 @@
         COUNT(*) amount, state, abnormal
         FROM t_cage c LEFT JOIN t_cage_position p
         ON c.cage_id = p.cage_id
-        WHERE c.create_time = To_DAY(NOW())
+        WHERE c.create_time = DAY(NOW())
         AND p.base_id = #{baseId}
         AND p.shack = #{dovecoteNumber}
         AND state in (3,4,5)
         GROUP BY state , abnormal
+    </select>
+    <select id="getDovecoteDaily" resultType="com.dove.breed.entity.DovecoteDaily">
+        SELECT *
+        FROM t_dovecote_daily
+        WHERE base_id = #{baseId}
+        AND dovecoteNumber = #{dovecoteNumber}
+        AND year(update_time) = #{year}
+        AND month(update_time) = #{month}
+        AND day(update_time) = #{day}
     </select>
 
 

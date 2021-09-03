@@ -119,7 +119,7 @@ public class DovecoteController {
     }
 
     @ApiOperation(value = "昨日异常统计")
-    @GetMapping("getAbnormalVoOfYesterday")
+    @GetMapping("/getAbnormalVoOfYesterday")
     public Result getAbnormalVoOfYesterday(@RequestParam(value = "baseId")Long baseId,
                                            @RequestParam(value = "dovecoteNumber")String dovecoteNumber){
         List<AbnormalVo> abnormalVoList = dovecoteService.getAbnormalVoOfYesterday(baseId, dovecoteNumber);

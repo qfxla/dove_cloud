@@ -18,6 +18,7 @@ import java.util.List;
  */
 @Mapper
 public interface DovecoteDailyMapper extends BaseMapper<DovecoteDaily> {
+    //查询信息存入日结表用
     int getAmountOfMatEggs(@Param("baseId")Long baseId,
                             @Param("dovecoteNumber")String dovecoteNumber);
     int getAmountOfPictureEggs(@Param("baseId")Long baseId,
@@ -26,4 +27,9 @@ public interface DovecoteDailyMapper extends BaseMapper<DovecoteDaily> {
                              @Param("dovecoteNumber")String dovecoteNumber);
     List<AbnormalVo> getKindAndAmountOfAbnormal(@Param("baseId")Long baseId,
                                                 @Param("dovecoteNumber")String dovecoteNumber);
+
+    //正常
+    List<DovecoteDaily> getDovecoteDaily(@Param("baseId")Long baseId,@Param("dovecoteNumber")String dovecoteNumber,
+                                         @Param("year")int year,@Param("month")int month,@Param("day")int day);
+
 }

@@ -21,6 +21,8 @@ public interface DovecoteDailyService extends IService<DovecoteDaily> {
     int getAmountOfPictureEggs(Long baseId,String dovecoteNumber);
     int getAmountOfTakeEggs(Long baseId,String dovecoteNumber);
     List<AbnormalVo> getKindAndAmountOfAbnormal(Long baseId,String dovecoteNumber);
+    List<DovecoteDaily> getDovecoteDaily(Long baseId,String dovecoteNumber,
+                                         int year,int month,int day);
 
     int updateDovecoteDaily(Long baseId,String dovecoteNumber);
 }

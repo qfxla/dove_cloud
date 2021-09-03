@@ -1,9 +1,18 @@
 package com.dove.breed.controller;
 
 
+import com.dove.breed.entity.DovecoteDaily;
+import com.dove.breed.service.DovecoteDailyService;
+import com.dove.entity.Result;
+import io.swagger.annotations.ApiOperation;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,5 +26,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/breed/dovecote-daily")
 public class DovecoteDailyController {
 
+    @Autowired
+    private DovecoteDailyService dovecoteDailyService;
+
+    @ApiOperation(value = "获取日结表数据")
+    @GetMapping("/getDovecoteDaily")
+    public Result getDovecoteDaily(@Param("baseId")Long baseId,@Param("dovecoteNumber")String dovecoteNumber,
+                                   @Param("year")int year,@Param("month")int month,@Param("day")int day){
+        List<DovecoteDaily> dovecoteDaily = dovecoteDailyService.getDovecoteDaily(baseId, dovecoteNumber, year, month, day);
+        return dovecoteDaily != null? Result.success("获取成功").data(dovecoteDaily) : Result.error("获取失败");
+    }
 }
 

@@ -7,9 +7,7 @@ import com.dove.breed.service.DovecoteDailyService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dove.entity.GlobalException;
 import com.dove.entity.StatusCode;
-import io.netty.util.concurrent.GlobalEventExecutor;
 import org.apache.ibatis.annotations.Param;
-import org.apache.poi.ddf.EscherSerializationListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,6 +49,13 @@ public class DovecoteDailyServiceImpl extends ServiceImpl<DovecoteDailyMapper, D
         List<AbnormalVo> abnormalList = dovecoteDailyMapper.getKindAndAmountOfAbnormal(baseId, dovecoteNumber);
         return abnormalList;
     }
+
+    @Override
+    public List<DovecoteDaily> getDovecoteDaily(Long baseId, String dovecoteNumber, int year, int month, int day) {
+        List<DovecoteDaily> dovecoteDaily = dovecoteDailyMapper.getDovecoteDaily(baseId, dovecoteNumber, year, month, day);
+        return dovecoteDaily;
+    }
+
 
     @Override
     public int updateDovecoteDaily(Long baseId, String dovecoteNumber) {

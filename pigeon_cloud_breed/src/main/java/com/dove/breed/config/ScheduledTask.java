@@ -24,9 +24,9 @@ public class ScheduledTask {
     /**
      * 自动扫描，启动时间点之后3秒执行一次
      */
-    @Scheduled(cron = "1/3 * * * * ? ")
-    public void getCurrentDate(){
-        log.info("当前时间" + new Date());
-        dovecoteDailyService.updateDovecoteDaily(12L,"A01");
-    }
+//    @Scheduled(cron = "1/3 * * * * ? ")
+//    public void getCurrentDate(){
+//        log.info("当前时间" + new Date());
+//        dovecoteDailyService.updateDovecoteDaily(12L,"A01");
+//    }
 }
