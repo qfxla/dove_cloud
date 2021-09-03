@@ -34,30 +34,38 @@
         dovecote_id, dovecote_number, base_id, enterprise_id, director, contact_number, living_conditions, picture, video, into_production, cage_amount, cage_empty, guige, gmt_create, gmt_modified, is_deleted, version
     </sql>
 
+    <!-- 调用当天需要完成的任务 -->
+    <sql id="Intraday_Need_Work">
+        SELECT
+        COUNT(*)
+        FROM t_cage_real c LEFT JOIN t_cage_position p
+        ON c.cage_id = p.cage_id
+        WHERE base_id = #{baseId}
+          AND shack = #{dovecoteNumber}
+    </sql>
+
     
     <insert id="insert">
         insert into t_dovecote (dovecote_id, dovecote_number, base_id, enterprise_id, director, contact_number, living_conditions, picture, video, into_production, cage_amount, cage_empty, guige)values
     </insert>
 
 
-    <select id="getNeedPictureEgg" resultType="java.lang.Integer">
-        SELECT
-        COUNT(*)
-        FROM t_cage_real c LEFT JOIN t_cage_position p
-        ON c.cage_id = p.cage_id
-        WHERE base_id = #{baseId}
-          AND shack = #{dovecoteNumber}
+    <select id="getNeedPictureEggs" resultType="java.lang.Integer">
+        <include refid="Intraday_Need_Work"></include>
+          And c.state = 1
           AND c.xf = 1
     </select>
 
     <select id="getNeedCheckDoves" resultType="java.lang.Integer">
-        SELECT
-        COUNT(*)
-        FROM t_cage_real c LEFT JOIN t_cage_position p
-        ON c.cage_id = p.cage_id
-        WHERE base_id = #{baseId}
+        <include refid="Intraday_Need_Work"></include>
           AND shack = #{dovecoteNumber}
           AND c.xf = 3
+    </select>
+
+    <select id="getNeedTakeEggs" resultType="java.lang.Integer">
+        <include refid="Intraday_Need_Work"></include>
+          And c.state = 2
+          AND c.xf = 2
     </select>
 
     <select id="getMatEggsOfYesterday" resultType="java.lang.Integer">

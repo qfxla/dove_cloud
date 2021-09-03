@@ -19,12 +19,14 @@ import java.util.List;
  */
 @Mapper
 public interface DovecoteMapper extends BaseMapper<Dovecote> {
-    Integer getMatEggsOfYesterday(@Param("baseId")Long baseId,
-                              @Param("dovecoteNumber")String dovecoteNumber);
-    Integer getNeedPictureEgg(@Param("baseId")Long baseId,
+    Integer getNeedPictureEggs(@Param("baseId")Long baseId,
                             @Param("dovecoteNumber")String dovecoteNumber);
     Integer getNeedCheckDoves(@Param("baseId")Long baseId,
                               @Param("dovecoteNumber")String dovecoteNumber);
+    Integer getNeedTakeEggs(@Param("baseId")Long baseId,
+                            @Param("dovecoteNumber")String dovecoteNumber);
+    Integer getMatEggsOfYesterday(@Param("baseId")Long baseId,
+                                  @Param("dovecoteNumber")String dovecoteNumber);
     List<AbnormalVo> getAbnormalVoOfYesterday(@Param("baseId")Long baseId,
                                               @Param("dovecoteNumber")String dovecoteNumber);
 
