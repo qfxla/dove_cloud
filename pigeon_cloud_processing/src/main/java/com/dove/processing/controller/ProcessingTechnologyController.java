@@ -84,7 +84,7 @@ public class ProcessingTechnologyController {
         return processingTechnology != null ? Result.success("查询详情成功").data(processingTechnology) : Result.error("查询失败");
     }
 
-    @ApiOperation(value = "根据加工工艺id查询该工艺下对应的加工流程(分页)")
+    @ApiOperation(value = "根据加工工艺id查询该工艺所属的加工流程(分页)")
     @GetMapping("/getInfo/{id}/{no}/{size}")
     public Result getInfo(@ApiParam("加工工艺id") @PathVariable("id") Long id,
                           @ApiParam("第几页") @PathVariable("no") int no,
@@ -102,5 +102,13 @@ public class ProcessingTechnologyController {
         return updateInfo ? Result.success("修改成功") : Result.error("修改失败");
     }
 
+    @ApiOperation(value = "模糊查询获取加工工艺信息表数据（分页）",notes = "分页 根据工艺名称")
+    @GetMapping("/like/{value}/{no}/{size}")
+    public Result getTechnologyByLikeSearch(@ApiParam("加工产品类型名或商家名称") @PathVariable("value") String value,
+                                          @ApiParam("第几页") @PathVariable("no") int no,
+                                          @ApiParam("每页规格") @PathVariable("size") int size) {
+        Page<ProcessingTechnologyVo> getProcessingByLike =processingTechnologyService.getTechnologyByLikeSearch(value,no,size);
+        return getProcessingByLike.getTotal() > 0 ? Result.success("模糊查询成功").data(getProcessingByLike) : Result.error("模糊查询失败");
+    }
 
 }

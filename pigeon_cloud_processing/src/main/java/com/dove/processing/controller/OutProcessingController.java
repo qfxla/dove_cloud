@@ -89,10 +89,9 @@ public class OutProcessingController {
     @ApiOperation(value = "批量删除（根据主键id）")
     @DeleteMapping("/deletion/batch")
     public Result deleteProcessBatchById(@ApiParam("id数组") @RequestParam("ids") ArrayList<Long> ids) {
-        boolean deleteBatchByIds = outProcessingService.removeByIds(ids) && outProcessingBillService.deleteByIds(ids); ;
+        boolean deleteBatchByIds = outProcessingService.removeByIds(ids) && outProcessingBillService.deleteByIds(ids);
         return deleteBatchByIds ? Result.success("删除成功") : Result.error("删除失败");
     }
-
 
     @ApiOperation(value = "出库信息列表（分页）")
     @GetMapping("/page/{pageNum}/{pageSize}")

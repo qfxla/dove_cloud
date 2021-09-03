@@ -46,4 +46,11 @@ public class ProcessingTechnologyServiceImpl extends ServiceImpl<ProcessingTechn
         Page<ProcessingTechnologyVo> page = DataUtil.getPage(no,size,future);
         return page;
     }
+
+    @Override
+    public Page<ProcessingTechnologyVo> getTechnologyByLikeSearch(String value, int no, int size) {
+        Future<List<ProcessingTechnologyVo>> future = executorService.submit(() -> processingTechnologyMapper.getTechnologyInfoByLikeSearch(value, (no - 1) * size, size));
+        Page<ProcessingTechnologyVo> page = DataUtil.getPage(no, size, future);
+        return page;
+    }
 }

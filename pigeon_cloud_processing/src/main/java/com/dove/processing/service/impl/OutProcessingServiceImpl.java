@@ -15,6 +15,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dove.processing.utils.ConvertUtil;
 import com.dove.processing.utils.DataUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -85,6 +86,7 @@ public class OutProcessingServiceImpl extends ServiceImpl<OutProcessingMapper, O
      * @return
      */
     @Override
+    @Transactional
     public boolean saveBothInfo(OutProcessingDto processingDto) {
         OutProcessing outProcessing = convertUtil.convert(processingDto,OutProcessing.class);
         Long ID= IdWorker.getId(outProcessing);
@@ -118,6 +120,7 @@ public class OutProcessingServiceImpl extends ServiceImpl<OutProcessingMapper, O
     }
 
     @Override
+    @Transactional
     public boolean updateBillInfo(Long id,OutProcessingDto outProcessingDto) {
         OutProcessingBillDto outProcessingBillDto = outProcessingDto.getOutProcessingBillDtos().get(0);
         OutProcessingBill outProcessingBill = convertUtil.convert(outProcessingBillDto,OutProcessingBill.class);
@@ -129,6 +132,14 @@ public class OutProcessingServiceImpl extends ServiceImpl<OutProcessingMapper, O
         }
     }
 
+    /**
+     * 查找一个时间段内的数据
+     * @param no
+     * @param size
+     * @param firstTime
+     * @param lastTime
+     * @return
+     */
     @Override
     public Page<OutProcessingBothBindVo> getDataByDateTime(int no, int size, String firstTime, String lastTime) {
         Future<List<OutProcessingBothBindVo>> future = executorService.submit(()->outProcessingMapper.getDataByDateStamp((no-1)*size,size,firstTime,lastTime));

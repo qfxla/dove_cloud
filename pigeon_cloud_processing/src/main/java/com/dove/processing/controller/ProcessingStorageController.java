@@ -6,11 +6,13 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dove.processing.entity.Dto.ProcessingStorageDto;
 import com.dove.processing.entity.ProcessingStorage;
+import com.dove.processing.entity.Vo.BillBindInfoVo;
 import com.dove.processing.entity.Vo.ProcessingFlowVo;
 import com.dove.processing.entity.Vo.ProcessingStorageVo;
 import com.dove.processing.service.ProcessingStorageService;
 import com.dove.processing.utils.ConvertUtil;
 import com.dove.entity.Result;
+import com.dove.processing.utils.ExcelUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -19,6 +21,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +47,9 @@ public class ProcessingStorageController {
 
     @Resource
     private ConvertUtil convertUtil;
+
+    @Resource
+    private ExcelUtil excelUtil;
 
     @ApiOperation(value = "新增")
     @PostMapping("/save")
@@ -96,6 +103,15 @@ public class ProcessingStorageController {
                                           @ApiParam("每页规格") @PathVariable("size") int size) {
         Page<ProcessingStorageVo> getProcessingByLike =processingStorageService.getStorageByLikeSearch(value,no,size);
         return getProcessingByLike.getTotal() > 0 ? Result.success("模糊查询成功").data(getProcessingByLike) : Result.error("模糊查询失败");
+    }
+
+    @ApiOperation(value = "表格excel导出出库单数据",notes = "excel导出,使用no,size便于用户选择【主要是我懒】")
+    @GetMapping("/download/{fileName}/{no}/{size}")
+    public void downloadExcel(HttpServletResponse response,
+                              @ApiParam("文件名字") @PathVariable("fileName") String fileName,
+                              @ApiParam("第几页") @PathVariable("no") int no,
+                              @ApiParam("每页规格") @PathVariable("size") int size) throws IOException {
+        excelUtil.write(response,fileName, ProcessingStorageVo.class,"库存表",processingStorageService.getStorageByPage(no,size).getRecords());
     }
 
 }

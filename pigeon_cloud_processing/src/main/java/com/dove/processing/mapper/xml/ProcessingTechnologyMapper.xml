@@ -3,8 +3,8 @@
 <mapper namespace="com.dove.processing.mapper.ProcessingTechnologyMapper">
 
 <sql id="selectAllTechnology">
-    select process_id,processing_id,process_id,process_name,process_describe,
-    from t_processing_flow
+    select technology_id,technology_name,technology_describe,process_id
+    from t_processing_technology
 </sql>
 
     <select id="getTechnologyInfoById" resultType="com.dove.processing.entity.Vo.ProcessingFlowVo">
@@ -29,5 +29,15 @@
             order by gmt_create desc
             limit ${no},${size}
         </if>
+    </select>
+
+    <select id="getTechnologyInfoByLikeSearch" resultType="com.dove.processing.entity.Vo.ProcessingTechnologyVo">
+        <include refid="selectAllTechnology"/>
+        <if test="value != null and value!='' and value!='null'">
+            where is_deleted =0
+            and technology_name like '%${value}%'
+        </if>
+        order by gmt_create desc
+        limit ${no},${size}
     </select>
 </mapper>

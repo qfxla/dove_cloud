@@ -23,4 +23,6 @@ public interface ProcessingTechnologyMapper extends BaseMapper<ProcessingTechnol
     List<ProcessingFlowVo> getTechnologyInfoById(@Param("id") Long id, @Param("no") int no, @Param("size") int size);
 
     List<ProcessingTechnologyVo> getTechnologyInfoByPage(@Param("no") int no , @Param("size") int size);
+
+    List<ProcessingTechnologyVo> getTechnologyInfoByLikeSearch(@Param("value") String value, @Param("no") int no, @Param("size") int size);
 }

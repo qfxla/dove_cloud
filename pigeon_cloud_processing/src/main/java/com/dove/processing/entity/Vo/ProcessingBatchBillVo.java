@@ -52,4 +52,9 @@ public class ProcessingBatchBillVo extends Model<ProcessingBatchBillVo> {
     @TableField("process_principal")
     private String processPrincipal;
 
+    //加工日期
+    @ApiModelProperty(value = "加工日期")
+    @TableField("process_time")
+    private Date processTime;
+
 }

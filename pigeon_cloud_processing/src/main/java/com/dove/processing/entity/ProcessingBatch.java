@@ -31,7 +31,7 @@ public class ProcessingBatch extends Model<ProcessingBatch> {
 
     //加工批次id
     @ApiModelProperty(value = "加工批次id")
-    @TableId(value = "batch_id", type = IdType.ASSIGN_ID)
+    @TableId(value = "batch_id", type = IdType.INPUT)
     private Long batchId;
 
     //屠宰批次

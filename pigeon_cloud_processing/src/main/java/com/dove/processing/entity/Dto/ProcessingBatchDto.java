@@ -2,6 +2,7 @@ package com.dove.processing.entity.Dto;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.dove.processing.entity.Vo.ProcessingBatchBillVo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -56,5 +58,6 @@ public class ProcessingBatchDto extends Model<ProcessingBatchDto> {
     @TableField("processing_time")
     private Date processingTime;
 
-
+    @ApiModelProperty(value = "加工批次信息")
+    private List<ProcessingBatchBillDto> processingBatchBillDto;
 }

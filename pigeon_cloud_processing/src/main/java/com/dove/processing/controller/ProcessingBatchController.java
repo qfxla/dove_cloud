@@ -4,7 +4,10 @@ package com.dove.processing.controller;
 
 import com.dove.processing.entity.Dto.ProcessingBatchDto;
 import com.dove.processing.entity.ProcessingBatch;
+import com.dove.processing.entity.Vo.ProcessingBatchBindBillVo;
 import com.dove.processing.entity.Vo.ProcessingBatchVo;
+import com.dove.processing.entity.Vo.ProcessingFlowBindBatchBillVo;
+import com.dove.processing.service.ProcessingBatchBillService;
 import com.dove.processing.service.ProcessingBatchService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dove.entity.Result;
@@ -18,8 +21,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-    import org.springframework.web.bind.annotation.RestController;
+import java.util.Map;
+
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
@@ -43,34 +49,38 @@ public class ProcessingBatchController {
     private ProcessingBatchService processingBatchService;
 
     @Resource
+    private ProcessingBatchBillService processingBatchBillService;
+
+    @Resource
     private ConvertUtil convertUtil;
 
-    @ApiOperation(value = "新增")
+    @ApiOperation(value = "新增信息，跟加工批次信息表耦合在一起了，便于主键插入")
     @PostMapping("/")
     public Result save(@RequestBody ProcessingBatchDto processingBatchDto){
-        ProcessingBatch processingBatch = convertUtil.convert(processingBatchDto, ProcessingBatch.class);
-        boolean addInfo = processingBatchService.save(processingBatch);
+        boolean addInfo = processingBatchService.saveBindBillInfo(processingBatchDto);
         return addInfo ? Result.success("添加成功") : Result.error("添加失败");
     }
 
     @ApiOperation(value = "根据表id删除")
     @DeleteMapping("/deletion/{id}")
     public Result delete(@PathVariable("id") long id){
-        boolean deleteById = processingBatchService.removeById(id);
+        Map<String,Object> map = new HashMap<>();
+        map.put("process_id",id);
+        boolean deleteById = processingBatchService.removeByMap(map) && processingBatchBillService.removeByMap(map);
         return deleteById ? Result.success("删除成功") : Result.error("删除失败");
     }
 
     @ApiOperation(value = "批量删除（根据主键id）")
     @DeleteMapping("/deletion/batch")
     public Result deleteProcessBatchById(@ApiParam("id数组") @RequestParam("ids") ArrayList<Long> ids) {
-        boolean deleteBatchByIds = processingBatchService.removeByIds(ids);
+        boolean deleteBatchByIds = processingBatchService.removeByIds(ids) && processingBatchService.removeBillByIds(ids);
         return deleteBatchByIds ? Result.success("删除成功") : Result.error("删除失败");
     }
 
     @ApiOperation(value = "查询所有加工批次信息列表（分页）")
     @GetMapping("/page/{pageNum}/{pageSize}")
     public Result list(@PathVariable("pageNum")int pageNum, @PathVariable("pageSize")int pageSize){
-        Page<ProcessingBatchVo> page = processingBatchService.getBatchByPage(pageNum,pageSize);
+        Page<ProcessingBatchBindBillVo> page = processingBatchService.getBatchByPage(pageNum,pageSize);
         return page.getTotal() > 0 ? Result.success("分页成功").data(page) : Result.error("分页失败");
     }
 
@@ -86,18 +96,15 @@ public class ProcessingBatchController {
     @ApiOperation(value = "查询加工批次详情")
     @GetMapping("/info/{id}")
     public Result get(@PathVariable("id") long id){
-        ProcessingBatch processingBatch = processingBatchService.getById(id);
-        return processingBatch != null ? Result.success("查询详情成功").data(processingBatch) : Result.error("查询失败");
+        List<ProcessingBatchBindBillVo> processingBatch = processingBatchService.getBothInfoByBatchId(id);
+        return processingBatch.size() > 0 ? Result.success("查询详情成功").data(processingBatch) : Result.error("查询失败");
     }
 
     @ApiOperation(value = "根据id修改")
     @PutMapping("/update/{id}")
     public Result update(@PathVariable("id") long id, @RequestBody ProcessingBatchDto processingBatchDto){
-        ProcessingBatch processingBatch = convertUtil.convert(processingBatchDto, ProcessingBatch.class);
-        processingBatch.setBatchId(id);
-        boolean updateInfo = processingBatchService.updateById(processingBatch);
+        boolean updateInfo = processingBatchService.updateBindInfo(id,processingBatchDto);
         return updateInfo ? Result.success("修改成功") : Result.error("修改失败");
     }
-
 }
 

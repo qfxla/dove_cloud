@@ -43,43 +43,43 @@ public class ProcessingBatchBillController {
     @Autowired
     private ConvertUtil convertUtil;
 
-    @ApiOperation(value = "新增")
-    @PostMapping("/save")
-    public Result save(@RequestBody ProcessingBatchBillDto processingBatchBillDto){
-        ProcessingBatchBill processingBatchBill = convertUtil.convert(processingBatchBillDto, ProcessingBatchBill.class);
-        boolean addInfo = processingBatchBillService.save(processingBatchBill);
-        return addInfo ? Result.success("添加成功") : Result.error("添加失败");
-    }
+//    @ApiOperation(value = "新增")
+//    @PostMapping("/save")
+//    public Result save(@RequestBody ProcessingBatchBillDto processingBatchBillDto){
+//        ProcessingBatchBill processingBatchBill = convertUtil.convert(processingBatchBillDto, ProcessingBatchBill.class);
+//        boolean addInfo = processingBatchBillService.save(processingBatchBill);
+//        return addInfo ? Result.success("添加成功") : Result.error("添加失败");
+//    }
 
-    @ApiOperation(value = "根据表id删除")
-    @DeleteMapping("/delete/{id}")
-    public Result delete(@PathVariable("id") long id){
-        boolean deleteByid = processingBatchBillService.removeById(id);
-        return deleteByid ? Result.success("删除成功") : Result.error("删除失败");
-    }
+//    @ApiOperation(value = "根据表id删除")
+//    @DeleteMapping("/delete/{id}")
+//    public Result delete(@PathVariable("id") long id){
+//        boolean deleteByid = processingBatchBillService.removeById(id);
+//        return deleteByid ? Result.success("删除成功") : Result.error("删除失败");
+//    }
 
-    @ApiOperation(value = "批量删除（根据主键id）")
-    @DeleteMapping("/deletion/batch")
-    public Result deleteProcessBatchById(@ApiParam("id数组") @RequestParam("ids") ArrayList<Long> ids) {
-        boolean deleteBatchByIds = processingBatchBillService.removeByIds(ids);
-        return deleteBatchByIds ? Result.success("删除成功") : Result.error("删除失败");
-    }
+//    @ApiOperation(value = "批量删除（根据主键id）")
+//    @DeleteMapping("/deletion/batch")
+//    public Result deleteProcessBatchById(@ApiParam("id数组") @RequestParam("ids") ArrayList<Long> ids) {
+//        boolean deleteBatchByIds = processingBatchBillService.removeByIds(ids);
+//        return deleteBatchByIds ? Result.success("删除成功") : Result.error("删除失败");
+//    }
 
-    @ApiOperation(value = "列表（分页）")
-    @GetMapping("/list/{pageNum}/{pageSize}")
-    public Result list(@PathVariable("pageNum")int pageNum, @PathVariable("pageSize")int pageSize){
-        Page<ProcessingBatchBillVo> page = processingBatchBillService.getBatchBillInfoByPage(pageNum,pageSize);
-        return page.getTotal() > 0 ? Result.success("分页成功").data(page) : Result.error();
-    }
+//    @ApiOperation(value = "列表（分页）")
+//    @GetMapping("/list/{pageNum}/{pageSize}")
+//    public Result list(@PathVariable("pageNum")int pageNum, @PathVariable("pageSize")int pageSize){
+//        Page<ProcessingBatchBillVo> page = processingBatchBillService.getBatchBillInfoByPage(pageNum,pageSize);
+//        return page.getTotal() > 0 ? Result.success("分页成功").data(page) : Result.error();
+//    }
 
-    @ApiOperation(value = "详情")
-    @GetMapping("/get/{id}")
-    public Result get(@PathVariable("id") long id){
-        ProcessingBatchBill processingBatchBill = processingBatchBillService.getById(id);
-        return processingBatchBill != null ? Result.success("查询详情成功").data(processingBatchBill) : Result.error("查询失败");
-    }
+//    @ApiOperation(value = "详情")
+//    @GetMapping("/get/{id}")
+//    public Result get(@PathVariable("id") long id){
+//        ProcessingBatchBill processingBatchBill = processingBatchBillService.getById(id);
+//        return processingBatchBill != null ? Result.success("查询详情成功").data(processingBatchBill) : Result.error("查询失败");
+//    }
 
-    @ApiOperation(value = "根据id修改")
+    @ApiOperation(value = "根据id修改(这个接口没什么用的，已经跟加工批次表耦合在一起了，为了让swagger扫描这个表")
     @PutMapping("/update/{id}")
     public Result update(@PathVariable("id") long id, @RequestBody ProcessingBatchBillDto processingBatchBillDto){
         ProcessingBatchBill processingBatchBill = convertUtil.convert(processingBatchBillDto, ProcessingBatchBill.class);

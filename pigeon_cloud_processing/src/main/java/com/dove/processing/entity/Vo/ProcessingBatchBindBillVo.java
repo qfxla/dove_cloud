@@ -1,17 +1,14 @@
 package com.dove.processing.entity.Vo;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * <p>
@@ -24,7 +21,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProcessingBatchVo extends Model<ProcessingBatchVo> {
+public class ProcessingBatchBindBillVo extends Model<ProcessingBatchBindBillVo> {
 
     private static final long serialVersionUID = 1L;
 
@@ -53,13 +50,24 @@ public class ProcessingBatchVo extends Model<ProcessingBatchVo> {
     @TableField("process_describe")
     private String processDescribe;
 
-    @ApiModelProperty(value = "该天-产品负责人")
-    @TableField("principal")
-    private String principal;
-
     //加工日期
     @ApiModelProperty(value = "加工日期")
     @TableField("processing_time")
     private Date processingTime;
+
+    //所属加工流程id
+    @ApiModelProperty(value = "所属加工流程id")
+    @TableField("process_id")
+    private Long processId;
+
+    //工艺id
+    @ApiModelProperty(value = "工艺id")
+    @TableField("technology_id")
+    private Long technologyId;
+
+    //某一天加工流程负责人
+    @ApiModelProperty(value = "某一天加工流程负责人")
+    @TableField("process_principal")
+    private String processPrincipal;
 
 }

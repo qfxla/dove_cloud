@@ -3,11 +3,12 @@
 <mapper namespace="com.dove.processing.mapper.ProcessingBatchMapper">
 
 <sql id="selectAllBatch">
-    select batch_id ,sh_batch,processing_id,process_name,process_describe,principal,processing_time
-    from t_processing_batch
+    select t.batch_id ,t.sh_batch,t.processing_id,t.process_name,t.process_describe,t.principal,t.processing_time,
+    p.process_id,p.technology_id,p.process_principal
+    from t_processing_batch as t
 </sql>
 
-    <select id="getBatchsyLikeSearch" resultType="com.dove.processing.entity.Vo.ProcessingBatchVo">
+    <select id="getBatchsyLikeSearch" resultType="com.dove.processing.entity.Vo.ProcessingBatchBindBillVo">
         <include refid="selectAllBatch"/>
         <if test="value != null and value!='' and value!='null'">
             where concat(process_name,principal) like '%${value}%'
@@ -17,12 +18,31 @@
         limit ${no},${size}
     </select>
 
-    <select id="getInfoByPage" resultType="com.dove.processing.entity.Vo.ProcessingBatchVo">
+    <select id="getInfoByPage" resultType="com.dove.processing.entity.Vo.ProcessingBatchBindBillVo">
         <include refid="selectAllBatch"/>
-        where is_deleted =0
+        inner join t_processing_batch_bill as p
+        on t.batch_id = p.batch_id
+        where t.is_deleted =0 and p.is_deleted =0
         <if test="no !=null and size != null">
-            order by gmt_create desc
+            order by t.gmt_create desc
             limit ${no},${size}
         </if>
     </select>
+
+    <update id="deleteBatchByProcessId">
+        update t_processing_batch_bill set is_deleted = 1
+        where batch_id in
+        <foreach collection="ids" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <select id="getMoreInfoByBatchId" resultType="com.dove.processing.entity.Vo.ProcessingBatchBindBillVo">
+        <include refid="selectAllBatch"/>
+        inner join t_processing_batch_bill as p
+        on t.batch_id = p.batch_id
+        where t.batch_id = #{id}
+        and t.is_deleted =0 and p.is_deleted =0
+    </select>
+
 </mapper>

@@ -20,6 +20,7 @@ import com.dove.processing.utils.ConvertUtil;
 import com.dove.processing.utils.DataUtil;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
@@ -57,6 +58,7 @@ public class InProcessingInfoServiceImpl extends ServiceImpl<InProcessingInfoMap
      * @return
      */
     @Override
+    @Transactional
     public boolean saveBothInProcessingInfo(InProcessingInfoDto inProcessingInfoDto) {
         InProcessingInfo inProcessingInfo = convertUtil.convert(inProcessingInfoDto, InProcessingInfo.class);
         Long ID = IdWorker.getId(inProcessingInfo);
@@ -120,6 +122,7 @@ public class InProcessingInfoServiceImpl extends ServiceImpl<InProcessingInfoMap
     }
 
     @Override
+    @Transactional
     public boolean updateBindInfo(Long id,InProcessingInfoDto inProcessingInfoDto) {
         InProcessingInfo inProcessinginfo = convertUtil.convert(inProcessingInfoDto,InProcessingInfo.class);
         int num = inProcessingInfoMapper.update(inProcessinginfo,new QueryWrapper<InProcessingInfo>().eq("in_id",id));

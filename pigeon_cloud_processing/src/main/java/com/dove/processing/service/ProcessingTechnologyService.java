@@ -20,4 +20,6 @@ public interface ProcessingTechnologyService extends IService<ProcessingTechnolo
     Page<ProcessingFlowVo> getFlowInfoByPage(Long id ,int no ,int size);
 
     Page<ProcessingTechnologyVo> getTechnologyByPage(int no, int size);
+
+    Page<ProcessingTechnologyVo> getTechnologyByLikeSearch(String value , int no, int size);
 }

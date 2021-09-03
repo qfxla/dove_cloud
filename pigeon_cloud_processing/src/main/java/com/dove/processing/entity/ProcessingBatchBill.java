@@ -31,7 +31,7 @@ public class ProcessingBatchBill extends Model<ProcessingBatchBill> {
 
     //主键id
     @ApiModelProperty(value = "主键id")
-    @TableId(value = "id", type = IdType.ASSIGN_UUID)
+    @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
     //加工批次id
@@ -51,8 +51,13 @@ public class ProcessingBatchBill extends Model<ProcessingBatchBill> {
 
     //某一天加工流程负责人
     @ApiModelProperty(value = "某一天加工流程负责人")
-    @TableField("process_prncipal")
-    private String processPrncipal;
+    @TableField("process_principal")
+    private String processPrincipal;
+
+    //加工日期
+    @ApiModelProperty(value = "加工日期")
+    @TableField("process_time")
+    private Date processTime;
 
     //创建时间
     @ApiModelProperty(value = "创建时间")
@@ -66,13 +71,14 @@ public class ProcessingBatchBill extends Model<ProcessingBatchBill> {
 
     //逻辑删除
     @ApiModelProperty(value = "逻辑删除")
-    @TableField("is_deleted")
+    @TableField(value = "is_deleted",fill = FieldFill.INSERT)
     @TableLogic
     private Integer isDeleted;
 
     //乐观锁(版本号)
     @ApiModelProperty(value = "乐观锁(版本号)")
-    @TableField("VERSION")
+    @TableField(value = "version",fill = FieldFill.INSERT)
+    @Version
     private Integer version;
 
 }
