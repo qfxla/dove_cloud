@@ -58,7 +58,6 @@
 
     <select id="getNeedCheckDoves" resultType="java.lang.Integer">
         <include refid="Intraday_Need_Work"></include>
-          AND shack = #{dovecoteNumber}
           AND c.xf = 3
     </select>
 
