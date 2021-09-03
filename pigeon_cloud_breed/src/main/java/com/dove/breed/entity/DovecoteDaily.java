@@ -28,7 +28,7 @@ public class DovecoteDaily implements Serializable {
     private Long id;
 
         @ApiModelProperty(value = "基地id")
-        @TableField("baseId")
+        @TableField("base_id")
     private Long baseId;
 
         @ApiModelProperty(value = "鸽棚编号")

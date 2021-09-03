@@ -34,7 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 * @author zcj
 * @since 2021-08-18
 */
-
+@CrossOrigin
 @Slf4j
 @Api(tags = "基地进库单")
 @RestController

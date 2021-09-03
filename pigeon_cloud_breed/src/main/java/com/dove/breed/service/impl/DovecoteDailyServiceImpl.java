@@ -2,6 +2,8 @@ package com.dove.breed.service.impl;
 
 import com.dove.breed.entity.DovecoteDaily;
 import com.dove.breed.entity.vo.AbnormalVo;
+import com.dove.breed.entity.vo.DovecoteDailyVo;
+import com.dove.breed.entity.vo.DovecoteVo;
 import com.dove.breed.mapper.DovecoteDailyMapper;
 import com.dove.breed.service.DovecoteDailyService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -26,37 +28,29 @@ public class DovecoteDailyServiceImpl extends ServiceImpl<DovecoteDailyMapper, D
     @Autowired
     private DovecoteDailyMapper dovecoteDailyMapper;
 
-    @Override
-    public int getAmountOfMatEggs(Long baseId, String dovecoteNumber) {
-        int amount = dovecoteDailyMapper.getAmountOfMatEggs(baseId, dovecoteNumber);
-        return amount;
-    }
 
+    //获取日结表信息，按天查询
     @Override
-    public int getAmountOfPictureEggs(Long baseId, String dovecoteNumber) {
-        int amount = dovecoteDailyMapper.getAmountOfPictureEggs(baseId, dovecoteNumber);
-        return amount;
-    }
+    public DovecoteDailyVo getDovecoteDaily(Long baseId, String dovecoteNumber, int year, int month, int day) {
+        //查按小时的日结表信息
+        List<DovecoteDaily> list = dovecoteDailyMapper.getDovecoteDaily(baseId, dovecoteNumber, year, month, day);
+        //封装到按一天的
+        DovecoteDailyVo dovecoteDailyVo = new DovecoteDailyVo(baseId,dovecoteNumber,0,0,0,0,0,0,0);
+        for (DovecoteDaily po : list) {
+            dovecoteDailyVo.setMatEggs(dovecoteDailyVo.getMatEggs() + po.getMatEggs());
+            dovecoteDailyVo.setTakeEggs(dovecoteDailyVo.getTakeEggs() + po.getTakeEggs());
+            dovecoteDailyVo.setPictureEggs(dovecoteDailyVo.getPictureEggs() + po.getPictureEggs());
+            dovecoteDailyVo.setDamagedEggs(dovecoteDailyVo.getDamagedEggs() + po.getDamagedEggs());
+            dovecoteDailyVo.setSingleEggs(dovecoteDailyVo.getSingleEggs() + po.getSingleEggs());
+            dovecoteDailyVo.setBadEggs(dovecoteDailyVo.getBadEggs() + po.getBadEggs());
+            dovecoteDailyVo.setUnfertilizedEggs(dovecoteDailyVo.getUnfertilizedEggs() + po.getUnfertilizedEggs());
+        }
 
-    @Override
-    public int getAmountOfTakeEggs(Long baseId, String dovecoteNumber) {
-        int amount = dovecoteDailyMapper.getAmountOfTakeEggs(baseId, dovecoteNumber);
-        return amount;
-    }
-
-    @Override
-    public List<AbnormalVo> getKindAndAmountOfAbnormal(Long baseId, String dovecoteNumber) {
-        List<AbnormalVo> abnormalList = dovecoteDailyMapper.getKindAndAmountOfAbnormal(baseId, dovecoteNumber);
-        return abnormalList;
-    }
-
-    @Override
-    public List<DovecoteDaily> getDovecoteDaily(Long baseId, String dovecoteNumber, int year, int month, int day) {
-        List<DovecoteDaily> dovecoteDaily = dovecoteDailyMapper.getDovecoteDaily(baseId, dovecoteNumber, year, month, day);
-        return dovecoteDaily;
+        return dovecoteDailyVo;
     }
 
 
+    //汇总历史表向日结表，按小时汇总
     @Override
     public int updateDovecoteDaily(Long baseId, String dovecoteNumber) {
         int amountOfMatEggs = dovecoteDailyMapper.getAmountOfMatEggs(baseId,dovecoteNumber);

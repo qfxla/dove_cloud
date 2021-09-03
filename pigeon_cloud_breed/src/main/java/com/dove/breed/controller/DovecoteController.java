@@ -31,7 +31,7 @@ import javax.annotation.Resource;
 * @author zcj
 * @since 2021-08-18
 */
-
+@CrossOrigin
 @Slf4j
 @Api(tags = "鸽棚表")
 @RestController

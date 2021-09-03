@@ -33,4 +33,22 @@ public class CageRealServiceImpl extends ServiceImpl<CageRealMapper, CageReal> i
         List<CageReal> allCage = cageRealMapper.getAllCage(baseId, dovecoteNumber);
         return allCage;
     }
+
+    @Override
+    public List<CageReal> getLayEggsTime(Long baseId, String dovecoteNumber) {
+        List<CageReal> layEggsTime = cageRealMapper.getLayEggsTime(baseId, dovecoteNumber);
+        return layEggsTime;
+    }
+
+    @Override
+    public List<CageReal> getHatchTime(Long baseId, String dovecoteNumber) {
+        List<CageReal> hatchTime = cageRealMapper.getHatchTime(baseId, dovecoteNumber);
+        return hatchTime;
+    }
+
+    @Override
+    public List<CageReal> getFeedTime(Long baseId, String dovecoteNumber) {
+        List<CageReal> feedTime = cageRealMapper.getFeedTime(baseId, dovecoteNumber);
+        return feedTime;
+    }
 }

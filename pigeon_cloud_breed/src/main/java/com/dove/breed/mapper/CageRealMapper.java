@@ -19,4 +19,10 @@ import java.util.List;
 public interface CageRealMapper extends BaseMapper<CageReal> {
     List<CageReal> getAllCage(@Param("baseId")Long baseId,
                               @Param("dovecoteNumber")String dovecoteNumber);
+    List<CageReal> getLayEggsTime(@Param("baseId")Long baseId,
+                                  @Param("dovecoteNumber")String dovecoteNumber);
+    List<CageReal> getHatchTime(@Param("baseId")Long baseId,
+                                @Param("dovecoteNumber")String dovecoteNumber);
+    List<CageReal> getFeedTime(@Param("baseId")Long baseId,
+                               @Param("dovecoteNumber")String dovecoteNumber);
 }

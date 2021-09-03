@@ -23,9 +23,8 @@ import java.util.List;
 * @author zcj
 * @since 2021-08-18
 */
-
+@CrossOrigin
 @Slf4j
-@Api(tags = "鸽笼日结表")
 @RestController
 @RequestMapping("/breed/cageDaily")
 public class CageDailyController {

@@ -29,7 +29,7 @@ import java.util.List;
 * @author zcj
 * @since 2021-08-18
 */
-
+@CrossOrigin
 @Slf4j
 @Api(tags = "基地出库类型表")
 @RestController

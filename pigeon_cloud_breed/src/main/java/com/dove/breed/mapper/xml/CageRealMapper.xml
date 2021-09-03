@@ -17,6 +17,30 @@
         FROM t_cage_real r LEFT JOIN t_cage_position p
         ON r.cage_id = p.cage_id
         WHERE p.base_id = #{baseId}
-        AND p.dovecoteNumber = #{dovecoteNumber}
+        AND p.shack = #{dovecoteNumber}
+    </select>
+    <select id="getLayEggsTime" resultType="com.dove.breed.entity.CageReal">
+        SELECT *
+        FROM t_cage_real r LEFT JOIN t_cage_position p
+        ON r.cage_id = p.cage_id
+        WHERE p.base_id = #{baseId}
+        AND p.shack = #{dovecoteNumber}
+        AND r.state = 0
+    </select>
+    <select id="getHatchTime" resultType="com.dove.breed.entity.CageReal">
+        SELECT *
+        FROM t_cage_real r LEFT JOIN t_cage_position p
+        ON r.cage_id = p.cage_id
+        WHERE p.base_id = #{baseId}
+        AND p.shack = #{dovecoteNumber}
+        AND r.state != (0 or 5)
+    </select>
+    <select id="getFeedTime" resultType="com.dove.breed.entity.CageReal">
+        SELECT *
+        FROM t_cage_real r LEFT JOIN t_cage_position p
+        ON r.cage_id = p.cage_id
+        WHERE p.base_id = #{baseId}
+        AND p.shack = #{dovecoteNumber}
+        AND r.state = 5
     </select>
 </mapper>

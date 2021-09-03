@@ -5,6 +5,7 @@ import com.dove.breed.entity.*;
 import com.dove.breed.entity.dto.ShipmentEntryBaseDto;
 import com.dove.breed.entity.vo.*;
 import com.dove.breed.mapper.*;
+import com.dove.breed.service.CageRealService;
 import com.dove.breed.service.DovecoteDailyService;
 import com.dove.breed.service.DovecoteService;
 import com.dove.breed.service.FeedStockService;
@@ -48,9 +49,13 @@ public class TestCode {
     private DovecoteDailyMapper dovecoteDailyMapper;
     @Autowired
     private DovecoteDailyService dovecoteDailyService;
+    @Autowired
+    private CageRealService cageRealService;
+    @Autowired
+    private CageRealMapper cageRealMapper;
     @Test
     public void test(){
-        Integer a01 = dovecoteMapper.getMatEggsOfYesterday(12L, "A01");
+        List<CageReal> a01 = cageRealMapper.getAllCage(11111L, "A01");
         System.out.println(a01);
     }
 
