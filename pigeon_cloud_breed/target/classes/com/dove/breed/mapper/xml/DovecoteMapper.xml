@@ -56,11 +56,7 @@
     </select>
 
     <select id="getNeedCheckDoves" resultType="java.lang.Integer">
-<<<<<<< Updated upstream
-        <include refid="Intraday_Need_Work"></include>
-=======
         <include refid="IntraDay_Need_Work"></include>
->>>>>>> Stashed changes
           AND c.xf = 3
     </select>
 

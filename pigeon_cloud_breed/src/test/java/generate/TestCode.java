@@ -2,13 +2,12 @@ package generate;
 
 import com.dove.breed.BreedApplication;
 import com.dove.breed.entity.*;
+import com.dove.breed.entity.dto.DovecoteOutBillDto;
 import com.dove.breed.entity.dto.ShipmentEntryBaseDto;
 import com.dove.breed.entity.vo.*;
 import com.dove.breed.mapper.*;
-import com.dove.breed.service.CageRealService;
-import com.dove.breed.service.DovecoteDailyService;
-import com.dove.breed.service.DovecoteService;
-import com.dove.breed.service.FeedStockService;
+import com.dove.breed.service.*;
+import com.dove.breed.utils.ConvertUtil;
 import io.swagger.annotations.ApiOperation;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -53,10 +52,20 @@ public class TestCode {
     private CageRealService cageRealService;
     @Autowired
     private CageRealMapper cageRealMapper;
+    @Autowired
+    private DovecoteOutBillMapper dovecoteOutBillMapper;
+    @Autowired
+    private DovecoteOutBillService dovecoteOutBillService;
+    @Autowired
+    private ConvertUtil convertUtil;
     @Test
     public void test(){
-        Integer a01 = dovecoteMapper.getNeedPictureEggs(12L, "A01");
-        System.out.println(a01);
+        DovecoteOutBillDto dovecoteOutBillDto = new DovecoteOutBillDto();
+        dovecoteOutBillDto.setDovecoteDirector("张三");
+        dovecoteOutBillDto.setBaseId(12L);
+        DovecoteOutBill dovecoteOutBill = convertUtil.convert(dovecoteOutBillDto, DovecoteOutBill.class);
+        int insert = dovecoteOutBillMapper.insert(dovecoteOutBill);
+        System.out.println(insert);
     }
 
 

@@ -95,7 +95,6 @@ public class ShipmentEntryBillServiceImpl extends ServiceImpl<ShipmentEntryBillM
         shipmentEntryBillMapper.updateById(shipmentEntryBill1);
         ShipmentEntryBillVo result = convertUtil.convert(shipmentEntryBill1,
                                                         ShipmentEntryBillVo.class);
-
         return result;
     }
 

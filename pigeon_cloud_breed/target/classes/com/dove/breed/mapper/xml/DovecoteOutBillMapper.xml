@@ -6,11 +6,9 @@
     <resultMap id="BaseResultMap" type="com.dove.breed.entity.DovecoteOutBill">
         <id column="id" property="id" />
         <result column="base_id" property="baseId" />
-        <result column="base_name" property="baseName" />
         <result column="type" property="type"/>
         <result column="total" property="total"/>
         <result column="remark" property="remark"/>
-        <result column="dovecote_id" property="dovecoteId" />
         <result column="dovecote_number" property="dovecoteNumber" />
         <result column="dovecote_director" property="dovecoteDirector" />
         <result column="employee_name" property="employeeName" />
@@ -23,10 +21,10 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, base_id, base_name,type,total,remark, dovecote_id, dovecote_number, dovecote_director, employee_name, guige, gmt_create, gmt_modified, is_deleted, version
+        id, base_id,type,total,remark, dovecote_number, dovecote_director, employee_name, guige, gmt_create, gmt_modified, is_deleted, version
     </sql>
     <sql id="DovecoteOutBillVo">
-        id, base_id, base_name, type,total,remark,dovecote_number, dovecote_director, employee_name, guige, gmt_create, gmt_modified
+        id, base_id, type,total,remark,dovecote_number, dovecote_director, employee_name, guige, gmt_create, gmt_modified
     </sql>
 
     <select id="findBillByGmt_createAndDovecoteId" resultType="com.dove.breed.entity.vo.DovecoteOutBillVo">
@@ -37,10 +35,13 @@
     </select>
     <select id="findBillByDovecoteAndType" resultType="com.dove.breed.entity.vo.DovecoteOutBillVo">
         SELECT *
-        FROM t_shipment_out_bill
+        FROM t_dovecote_out_bill
         WHERE base_id = #{baseId}
         AND dovecote_number = #{dovecoteNumber}
         AND type = #{type}
+    </select>
+    <select id="getLatestBillId" resultType="java.lang.Long">
+        SELECT MAX(id) FROM t_dovecote_out_bill;
     </select>
 
 </mapper>

@@ -15,20 +15,10 @@ public class DovecoteOutBillDto {
     @TableField("base_id")
     private Long baseId;
 
-    //所属基地名称
-    @ApiModelProperty(value = "所属基地名称")
-    @TableField("base_name")
-    private String baseName;
-
-    //产量所属鸽棚id
-    @ApiModelProperty(value = "产量所属鸽棚id")
-    @TableField("dovecote_id")
-    private Long dovecoteId;
-
     //产量所属鸽棚id
     @ApiModelProperty(value = "产量所属鸽棚id")
     @TableField("dovecote_number")
-    private Long dovecoteNumber;
+    private String dovecoteNumber;
 
     //所选类型
     @ApiModelProperty(value = "订单类型")

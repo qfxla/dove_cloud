@@ -10,6 +10,8 @@
         <result column="type_id" property="typeId"/>
         <result column="type_name" property="typeName"/>
         <result column="amount" property="amount" />
+        <result column="unit_price" property="unitPrice"/>
+        <result column="total" property="total"/>
         <result column="remark" property="remark" />
         <result column="guige" property="guige" />
         <result column="gmt_create" property="gmtCreate" />
@@ -20,7 +22,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, dovecote_out_bill, type, type_id,type_name, amount, remark, guige, gmt_create, gmt_modified, is_deleted, version
+        id, dovecote_out_bill, type, unit_price,total,type_id,type_name, amount, remark, guige, gmt_create, gmt_modified, is_deleted, version
     </sql>
 
 </mapper>

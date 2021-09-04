@@ -35,6 +35,7 @@ com\dove\breed\service\CageDailyService.class
 com\dove\breed\service\DovecoteEntryBaseService.class
 com\dove\breed\service\impl\ShipmentOutBillServiceImpl.class
 com\dove\breed\service\IpService.class
+com\dove\breed\controller\ManualIncubationController.class
 com\dove\breed\service\BusinessBreedingService.class
 com\dove\breed\controller\DovecoteDailyController.class
 com\dove\breed\controller\ShipmentEntryBaseController.class
@@ -47,6 +48,7 @@ com\dove\breed\entity\vo\UseOfFeedVo.class
 com\dove\breed\service\ShipmentEntryTypeService.class
 com\dove\breed\config\BlobTypeHandler.class
 com\dove\breed\entity\vo\ShipmentOutBaseVo.class
+com\dove\breed\mapper\ManualIncubationMapper.class
 com\dove\breed\entity\DovecoteEntryType.class
 com\dove\breed\entity\vo\ShipmentEntryBaseVo.class
 com\dove\breed\service\ShipmentEntryBillService.class
@@ -86,6 +88,7 @@ com\dove\breed\service\ShipmentEntryBaseService.class
 com\dove\breed\config\WebMvcConfig.class
 com\dove\breed\controller\CageRealController.class
 com\dove\breed\controller\ShipmentOutBaseController.class
+com\dove\breed\entity\ManualIncubation.class
 com\dove\breed\entity\dto\DovecoteOutBillDto.class
 com\dove\breed\mapper\DovecoteOutBaseMapper.class
 com\dove\breed\service\impl\DovecoteEntryBaseServiceImpl.class
@@ -149,8 +152,10 @@ com\dove\breed\entity\DovecoteDaily.class
 com\dove\breed\mapper\ShipmentOutBaseMapper.class
 com\dove\breed\service\impl\DovecoteEntryTypeServiceImpl.class
 com\dove\breed\entity\CageReal.class
+com\dove\breed\service\ManualIncubationService.class
 com\dove\breed\entity\ShipmentOutType.class
 com\dove\breed\entity\vo\ShipmentOutBillVo.class
 com\dove\breed\entity\dto\BusinessBreedingDto.class
 com\dove\breed\controller\ShipmentEntryBillController.class
+com\dove\breed\service\impl\ManualIncubationServiceImpl.class
 com\dove\breed\controller\DovecoteEntryBaseController.class

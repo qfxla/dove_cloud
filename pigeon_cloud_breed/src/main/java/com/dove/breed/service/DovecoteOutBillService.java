@@ -2,6 +2,8 @@ package com.dove.breed.service;
 
 import com.dove.breed.entity.DovecoteOutBill;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.dove.breed.entity.dto.DovecoteOutBaseDto;
+import com.dove.breed.entity.dto.DovecoteOutBillDto;
 import com.dove.breed.entity.vo.DovecoteOutBillVo;
 import com.dove.breed.entity.vo.ShipmentOutBillVo;
 
@@ -20,4 +22,7 @@ public interface DovecoteOutBillService extends IService<DovecoteOutBill> {
     List<DovecoteOutBillVo> findBillByGmt_createAndBaseId(Date startTime, Date endTime, Long dovecoteId);
 
     List<DovecoteOutBillVo> findBillByDovecoteAndType(Long baseId,String dovecoteNumber,String type);
+
+    DovecoteOutBillVo submitDovecoteOutBill(DovecoteOutBillDto dovecoteOutBillDto, List<DovecoteOutBaseDto> dovecoteOutBaseDtoList);
+
 }

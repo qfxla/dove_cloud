@@ -1,5 +1,7 @@
 package com.dove.breed.controller;
+import com.alibaba.fastjson.JSON;
 import com.dove.breed.entity.CageReal;
+import com.dove.breed.entity.dto.DovecoteOutBaseDto;
 import com.dove.breed.entity.dto.DovecoteOutBillDto;
 import com.dove.breed.entity.vo.DovecoteOutBillVo;
 import com.dove.breed.entity.vo.ShipmentOutBillVo;
@@ -20,9 +22,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-    import org.springframework.web.bind.annotation.RestController;
+import java.util.Map;
+
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.swing.*;
 
@@ -101,4 +106,23 @@ public class DovecoteOutBillController {
         return Result.success("查询成功").data(pageFromList);
     }
 
+    @ApiOperation(value = "提交入库单")
+    @PostMapping("/submitDovecoteOutBill")
+    public Result submitDovecoteOutBill(@RequestBody Map<String,Object> map){
+        DovecoteOutBillDto dovecoteOutBillDto = null;
+        ArrayList<DovecoteOutBaseDto> dovecoteOutBaseDtoList = new ArrayList<>();
+        try {
+            dovecoteOutBillDto = JSON.parseObject(JSON.toJSONString(map.get("dovecoteOutBillDto")), DovecoteOutBillDto.class);
+            List<DovecoteOutBaseDto> list = JSON.parseObject(JSON.toJSONString(map.get("dovecoteOutBaseDtoList")),ArrayList.class);
+            for (int i = 0;i < list.size();i++){
+                //数组内容得在解析一遍手动放进去
+                DovecoteOutBaseDto po = JSON.parseObject(JSON.toJSONString(list.get(i)), DovecoteOutBaseDto.class);
+                dovecoteOutBaseDtoList.add(po);
+            }
+        }catch (Exception exception){
+            exception.printStackTrace();
+        }
+        DovecoteOutBillVo dovecoteOutBillVo = dovecoteOutBillService.submitDovecoteOutBill(dovecoteOutBillDto,dovecoteOutBaseDtoList);
+        return dovecoteOutBillVo != null?Result.success("提交成功").data(dovecoteOutBillVo) : Result.error("提交失败");
+    }
 }

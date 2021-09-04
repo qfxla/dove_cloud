@@ -26,4 +26,5 @@ public interface DovecoteOutBillMapper extends BaseMapper<DovecoteOutBill> {
     List<DovecoteOutBillVo> findBillByDovecoteAndType(@Param("baseId")Long baseId,
                                                       @Param("dovecoteNumber")String dovecoteNumber,
                                                       @Param("type")String type);
+    Long getLatestBillId();
 }

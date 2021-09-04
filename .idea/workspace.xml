@@ -3,40 +3,22 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
-  <component name="BranchesTreeState">
-    <expand>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-    </expand>
-    <select />
-  </component>
   <component name="ChangeListManager">
-<<<<<<< Updated upstream
-    <list default="true" id="645abc3d-b03c-4334-95cb-dc1d4aa2b2bc" name="Default Changelist" comment="抽蛋">
-      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/xml/DovecoteMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/xml/DovecoteMapper.xml" afterDir="false" />
-=======
-    <list default="true" id="645abc3d-b03c-4334-95cb-dc1d4aa2b2bc" name="Default Changelist" comment="改动">
+    <list default="true" id="c466110b-6b12-44a9-a294-c6cffa6fa888" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/controller/BreedBaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/controller/BreedBaseController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/controller/DovecoteOutBillController.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/controller/DovecoteOutBillController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/DovecoteOutBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/DovecoteOutBase.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/DovecoteOutBill.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/DovecoteOutBill.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/dto/DovecoteOutBaseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/dto/DovecoteOutBaseDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/dto/DovecoteOutBillDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/dto/DovecoteOutBillDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/vo/DovecoteOutBaseVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/vo/DovecoteOutBaseVo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/vo/DovecoteOutBillVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/vo/DovecoteOutBillVo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/DovecoteOutBillMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/DovecoteOutBillMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/xml/DovecoteMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/xml/DovecoteMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/xml/DovecoteOutBaseMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/xml/DovecoteOutBaseMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/xml/DovecoteOutBillMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/xml/DovecoteOutBillMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/DovecoteOutBillService.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/DovecoteOutBillService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/impl/DovecoteOutBillServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/impl/DovecoteOutBillServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/test/java/CodeGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/test/java/CodeGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/impl/ShipmentEntryBillServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/impl/ShipmentEntryBillServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/test/java/generate/TestCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/test/java/generate/TestCode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/application.yml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/BreedBaseMapper.xml" beforeDir="false" />
@@ -69,81 +51,26 @@
       <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/pigeon_cloud_breed-1.0-SNAPSHOT.jar.original" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/surefire-reports/TEST-generate.TestCode.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/surefire-reports/generate.TestCode.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/dove/filter/InjectSecurityContextFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/dove/filter/InjectSecurityContextFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pigeon_cloud_common/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pigeon_cloud_common/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pigeon_cloud_common/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
->>>>>>> Stashed changes
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_common/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_common/target/maven-archiver/pom.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="GitSEFilterConfiguration">
-    <file-type-list>
-      <filtered-out-file-type name="LOCAL_BRANCH" />
-      <filtered-out-file-type name="REMOTE_BRANCH" />
-      <filtered-out-file-type name="TAG" />
-      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
-    </file-type-list>
-  </component>
-  <component name="ProjectId" id="1weT7lpIED8WFLtC2BVeOeLX8eP" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
-  </component>
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="RequestMappingsPanelOrder0" value="0" />
     <property name="RequestMappingsPanelOrder1" value="1" />
     <property name="RequestMappingsPanelWidth0" value="75" />
     <property name="RequestMappingsPanelWidth1" value="75" />
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.detected.package.tslint" value="true" />
-    <property name="node.js.path.for.package.eslint" value="project" />
-    <property name="node.js.path.for.package.tslint" value="project" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.1019368" />
-    <property name="project.structure.side.proportion" value="0.30576715" />
-    <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
-    <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed" />
-      <recent name="D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\resources" />
-      <recent name="D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\test\java" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.dove.breed.config" />
-    </key>
-  </component>
-  <component name="RunManager" selected="JUnit.CodeGenerator.test">
+  <component name="RunManager" selected="Spring Boot.BreedApplication">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -151,42 +78,6 @@
         </value>
       </option>
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CodeGenerator.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="pigeon_cloud_breed" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="CodeGenerator" />
-      <option name="METHOD_NAME" value="test" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CodeGenerator.test3" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="pigeon_cloud_breed" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="CodeGenerator" />
-      <option name="METHOD_NAME" value="test3" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ShipmentEntryBillServiceImpl.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="pigeon_cloud_breed" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.dove.breed.service.impl.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.dove.breed.service.impl" />
-      <option name="MAIN_CLASS_NAME" value="com.dove.breed.service.impl.ShipmentEntryBillServiceImpl" />
-      <option name="METHOD_NAME" value="test" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -207,24 +98,14 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestCode.test1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="BreedApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="pigeon_cloud_breed" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="generate.*" />
+          <option name="PATTERN" value="com.dove.breed.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="generate" />
-      <option name="MAIN_CLASS_NAME" value="generate.TestCode" />
-      <option name="METHOD_NAME" value="test1" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="BreedApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-      <module name="pigeon_cloud_breed" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.dove.breed.BreedApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -232,69 +113,13 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.CodeGenerator.test" />
+        <item itemvalue="Spring Boot.BreedApplication" />
         <item itemvalue="JUnit.TestCode.test" />
-        <item itemvalue="JUnit.TestCode.test1" />
-        <item itemvalue="JUnit.CodeGenerator.test3" />
-        <item itemvalue="JUnit.ShipmentEntryBillServiceImpl.test" />
       </list>
     </recent_temporary>
   </component>
-<<<<<<< Updated upstream
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="false" />
-=======
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
->>>>>>> Stashed changes
-  <component name="SvnConfiguration">
-    <configuration />
-  </component>
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-<<<<<<< Updated upstream
-      <changelist id="645abc3d-b03c-4334-95cb-dc1d4aa2b2bc" name="Default Changelist" comment="抽蛋" />
-=======
-      <changelist id="645abc3d-b03c-4334-95cb-dc1d4aa2b2bc" name="Default Changelist" comment="改动" />
->>>>>>> Stashed changes
-      <created>1628817891084</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1628817891084</updated>
-      <workItem from="1628817893246" duration="8184000" />
-      <workItem from="1629030719385" duration="594000" />
-      <workItem from="1629118609000" duration="270000" />
-      <workItem from="1629118889857" duration="976000" />
-      <workItem from="1629119883726" duration="191000" />
-      <workItem from="1629120083639" duration="9212000" />
-      <workItem from="1629204748288" duration="581000" />
-      <workItem from="1629205344213" duration="12348000" />
-      <workItem from="1629255810843" duration="1531000" />
-      <workItem from="1629257377097" duration="180000" />
-      <workItem from="1629257566007" duration="18091000" />
-      <workItem from="1629371975363" duration="7204000" />
-      <workItem from="1629379255677" duration="92000" />
-      <workItem from="1629379366314" duration="96000" />
-      <workItem from="1629379469712" duration="61706000" />
-      <workItem from="1630561768709" duration="2002000" />
-      <workItem from="1630563807599" duration="10891000" />
-<<<<<<< Updated upstream
-      <workItem from="1630676619658" duration="741000" />
-    </task>
-    <task id="LOCAL-00001" summary="抽蛋">
-      <created>1630664969093</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1630664969093</updated>
-=======
-      <workItem from="1630686366357" duration="116000" />
-      <workItem from="1630686495061" duration="7816000" />
->>>>>>> Stashed changes
-    </task>
-    <option name="localTasksCounter" value="2" />
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -307,102 +132,5 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-<<<<<<< Updated upstream
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="抽蛋" />
-    <option name="LAST_COMMIT_MESSAGE" value="抽蛋" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="574" y="118" key="#com.intellij.ide.util.MemberChooser" timestamp="1630648458650">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="574" y="118" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1630648458650" />
-    <state x="147" y="65" key="DiffContextDialog" timestamp="1630676960803">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="147" y="65" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1630676960803" />
-    <state x="570" y="167" key="FileChooserDialogImpl" timestamp="1630669453595">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="570" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1630669453595" />
-    <state width="1493" height="172" key="GridCell.Tab.0.bottom" timestamp="1630677143232">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="172" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1630677143232" />
-    <state width="1493" height="172" key="GridCell.Tab.0.center" timestamp="1630677143231">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="172" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1630677143231" />
-    <state width="1493" height="172" key="GridCell.Tab.0.left" timestamp="1630677143230">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="172" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1630677143230" />
-    <state width="1493" height="172" key="GridCell.Tab.0.right" timestamp="1630677143232">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="172" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1630677143232" />
-    <state width="1493" height="172" key="GridCell.Tab.1.bottom" timestamp="1630677143233">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="172" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1630677143233" />
-    <state width="1493" height="172" key="GridCell.Tab.1.center" timestamp="1630677143232">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="172" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1630677143232" />
-    <state width="1493" height="172" key="GridCell.Tab.1.left" timestamp="1630677143232">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="172" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1630677143232" />
-    <state width="1493" height="172" key="GridCell.Tab.1.right" timestamp="1630677143232">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="172" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1630677143232" />
-    <state width="1493" height="276" key="GridCell.Tab.2.bottom" timestamp="1630574740834">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="276" key="GridCell.Tab.2.bottom/0.0.1536.824@0.0.1536.824" timestamp="1630574740834" />
-    <state width="1493" height="276" key="GridCell.Tab.2.center" timestamp="1630574740834">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="276" key="GridCell.Tab.2.center/0.0.1536.824@0.0.1536.824" timestamp="1630574740834" />
-    <state width="1493" height="276" key="GridCell.Tab.2.left" timestamp="1630574740834">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="276" key="GridCell.Tab.2.left/0.0.1536.824@0.0.1536.824" timestamp="1630574740834" />
-    <state width="1493" height="276" key="GridCell.Tab.2.right" timestamp="1630574740834">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="276" key="GridCell.Tab.2.right/0.0.1536.824@0.0.1536.824" timestamp="1630574740834" />
-    <state x="349" y="147" key="IDE.errors.dialog" timestamp="1630676748167">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="349" y="147" key="IDE.errors.dialog/0.0.1536.824@0.0.1536.824" timestamp="1630676748167" />
-    <state x="270" y="0" key="SettingsEditor" timestamp="1630561814239">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="270" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1630561814239" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1630665074583">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1630665074583" />
-    <state x="463" y="199" key="git4idea.merge.GitPullDialog" timestamp="1630677316916">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="463" y="199" key="git4idea.merge.GitPullDialog/0.0.1536.824@0.0.1536.824" timestamp="1630677316916" />
-    <state x="425" y="187" key="run.anything.popup" timestamp="1630668436395">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1630668436395" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1630648564271">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1630648564271" />
-  </component>
-=======
->>>>>>> Stashed changes
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand />
-    <select />
   </component>
 </project>

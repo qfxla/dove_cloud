@@ -31,7 +31,7 @@ import java.util.List;
 @Slf4j
 @Api(tags = "养殖基地信息表")
 @RestController
-@RequestMapping("/breed/breedBase")
+@RequestMapping("/breed/Base")
 public class BreedBaseController {
 
     @Autowired

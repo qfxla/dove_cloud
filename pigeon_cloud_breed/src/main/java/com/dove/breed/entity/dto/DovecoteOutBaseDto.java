@@ -36,6 +36,16 @@ public class DovecoteOutBaseDto {
     @TableField("amount")
     private Integer amount;
 
+    //单价
+    @ApiModelProperty(value = "单价")
+    @TableField("unit_price")
+    private Integer unitPrice;
+
+    //总价
+    @ApiModelProperty(value = "总价")
+    @TableField("total")
+    private Integer total;
+
     //备注
     @ApiModelProperty(value = "备注")
     @TableField("remark")
