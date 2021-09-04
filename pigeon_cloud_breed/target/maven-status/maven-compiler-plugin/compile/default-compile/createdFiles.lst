@@ -1,6 +1,7 @@
 com\dove\breed\controller\DovecoteEntryBillController.class
 com\dove\breed\entity\dto\DovecoteEntryTypeDto.class
 com\dove\breed\config\MyBatisPlusConfig.class
+com\dove\breed\utils\PageUtil.class
 com\dove\breed\mapper\DovecoteEntryBaseMapper.class
 com\dove\breed\service\impl\ShipmentOutBaseServiceImpl.class
 com\dove\breed\entity\DovecoteEntryBill.class
@@ -62,6 +63,7 @@ com\dove\breed\utils\ConvertUtil.class
 com\dove\breed\service\impl\DovecoteEntryBillServiceImpl.class
 com\dove\breed\controller\DovecoteController.class
 com\dove\breed\mapper\DovecoteOutBillMapper.class
+com\dove\breed\entity\vo\DovecoteDailyVo.class
 com\dove\breed\mapper\CageDailyMapper.class
 com\dove\breed\service\impl\BreedBaseServiceImpl.class
 com\dove\breed\service\DovecoteOutTypeService.class
@@ -142,6 +144,7 @@ com\dove\breed\controller\DovecoteOutTypeController.class
 com\dove\breed\entity\vo\DovecoteEntryBaseVo.class
 com\dove\breed\service\impl\CageRealServiceImpl.class
 com\dove\breed\controller\DovecoteOutBillController.class
+com\dove\breed\config\WebSecurityConfig.class
 com\dove\breed\entity\DovecoteDaily.class
 com\dove\breed\mapper\ShipmentOutBaseMapper.class
 com\dove\breed\service\impl\DovecoteEntryTypeServiceImpl.class

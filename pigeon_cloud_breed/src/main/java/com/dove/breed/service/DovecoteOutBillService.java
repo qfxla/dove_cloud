@@ -18,4 +18,6 @@ import java.util.List;
  */
 public interface DovecoteOutBillService extends IService<DovecoteOutBill> {
     List<DovecoteOutBillVo> findBillByGmt_createAndBaseId(Date startTime, Date endTime, Long dovecoteId);
+
+    List<DovecoteOutBillVo> findBillByDovecoteAndType(Long baseId,String dovecoteNumber,String type);
 }

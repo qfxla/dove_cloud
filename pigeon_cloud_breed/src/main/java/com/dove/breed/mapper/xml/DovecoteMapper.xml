@@ -35,7 +35,7 @@
     </sql>
 
     <!-- 调用当天需要完成的任务 -->
-    <sql id="Intraday_Need_Work">
+    <sql id="IntraDay_Need_Work">
         SELECT
         COUNT(*)
         FROM t_cage_real c LEFT JOIN t_cage_position p
@@ -44,26 +44,24 @@
           AND shack = #{dovecoteNumber}
     </sql>
 
-    
+
     <insert id="insert">
         insert into t_dovecote (dovecote_id, dovecote_number, base_id, enterprise_id, director, contact_number, living_conditions, picture, video, into_production, cage_amount, cage_empty, guige)values
     </insert>
 
 
     <select id="getNeedPictureEggs" resultType="java.lang.Integer">
-        <include refid="Intraday_Need_Work"></include>
-          And c.state = 1
+        <include refid="IntraDay_Need_Work"></include>
           AND c.xf = 1
     </select>
 
     <select id="getNeedCheckDoves" resultType="java.lang.Integer">
-        <include refid="Intraday_Need_Work"></include>
+        <include refid="IntraDay_Need_Work"></include>
           AND c.xf = 3
     </select>
 
     <select id="getNeedTakeEggs" resultType="java.lang.Integer">
-        <include refid="Intraday_Need_Work"></include>
-          And c.state = 2
+        <include refid="IntraDay_Need_Work"></include>
           AND c.xf = 2
     </select>
 

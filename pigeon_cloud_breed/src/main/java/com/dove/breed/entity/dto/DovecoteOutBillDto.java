@@ -30,6 +30,21 @@ public class DovecoteOutBillDto {
     @TableField("dovecote_number")
     private Long dovecoteNumber;
 
+    //所选类型
+    @ApiModelProperty(value = "订单类型")
+    @TableField("type")
+    private String type;
+
+    //总价
+    @ApiModelProperty(value = "总价")
+    @TableField("total")
+    private Integer total;
+
+    //备注
+    @ApiModelProperty(value = "备注")
+    @TableField("remark")
+    private String remark;
+
     //所属鸽棚负责人
     @ApiModelProperty(value = "所属鸽棚负责人")
     @TableField("dovecote_director")

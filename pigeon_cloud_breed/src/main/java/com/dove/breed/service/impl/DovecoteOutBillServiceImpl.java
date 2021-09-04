@@ -31,4 +31,10 @@ public class DovecoteOutBillServiceImpl extends ServiceImpl<DovecoteOutBillMappe
         List<DovecoteOutBillVo> result = dovecoteOutBillMapper.findBillByGmt_createAndDovecoteId(startTime, endTime, dovecoteId);
         return result;
     }
+
+    @Override
+    public List<DovecoteOutBillVo> findBillByDovecoteAndType(Long baseId, String dovecoteNumber, String type) {
+        List<DovecoteOutBillVo> bills = dovecoteOutBillMapper.findBillByDovecoteAndType(baseId, dovecoteNumber, type);
+        return bills;
+    }
 }

@@ -49,9 +49,9 @@ public class InjectSecurityContextFilter extends BasicAuthenticationFilter {
 			UserDetailsImpl userDetails = (UserDetailsImpl) redisTemplate.opsForValue()
 																	.get(ConstantValue.REDIS_USER_KEY + '_' + userId);
 
+			response.setHeader("Access-Control-Allow-Origin",request.getHeader("origin"));
 			if (userDetails == null) {
 				response.setHeader("Content-Type","text/ plain;charset=utf-8");
-
 				writeMessage(response.getWriter(), Result.error("用户未登录"));
 				return;
 			}

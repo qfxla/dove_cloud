@@ -23,4 +23,7 @@ public interface DovecoteOutBillMapper extends BaseMapper<DovecoteOutBill> {
     List<DovecoteOutBillVo> findBillByGmt_createAndDovecoteId(@Param("startTime") Date startTime,
                                                               @Param("endTime")Date endTime,
                                                               @Param("shipmentId")Long dovecoteId);
+    List<DovecoteOutBillVo> findBillByDovecoteAndType(@Param("baseId")Long baseId,
+                                                      @Param("dovecoteNumber")String dovecoteNumber,
+                                                      @Param("type")String type);
 }

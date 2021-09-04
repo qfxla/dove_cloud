@@ -55,7 +55,7 @@ public class TestCode {
     private CageRealMapper cageRealMapper;
     @Test
     public void test(){
-        List<CageReal> a01 = cageRealMapper.getAllCage(11111L, "A01");
+        Integer a01 = dovecoteMapper.getNeedPictureEggs(12L, "A01");
         System.out.println(a01);
     }
 
