@@ -23,7 +23,12 @@ public class DovecoteEntryTypeServiceImpl extends ServiceImpl<DovecoteEntryTypeM
     @Autowired
     private DovecoteEntryTypeMapper dovecoteEntryTypeMapper;
     @Override
-    public List<String> getFeedType() {
-        return dovecoteEntryTypeMapper.getFeedType();
+    public List<String> getFeedName() {
+        return dovecoteEntryTypeMapper.getFeedName();
+    }
+
+    @Override
+    public List<String> getFeedSpecificationsByName(String feedName) {
+        return dovecoteEntryTypeMapper.getFeedSpecificationsByName(feedName);
     }
 }

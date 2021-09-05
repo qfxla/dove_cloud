@@ -1,7 +1,9 @@
 package com.dove.breed.entity.vo;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -13,6 +15,9 @@ import java.util.Date;
  */
 @Data
 public class DovecoteEntryBillVo {
+    //主键
+    @ApiModelProperty(value = "主键")
+    @TableId(value = "id", type = IdType.ID_WORKER)
     private Long id;
 
     //鸽棚编号
@@ -34,8 +39,8 @@ public class DovecoteEntryBillVo {
     @TableField("type")
     private String type;
 
-    //总金额
-    @ApiModelProperty(value = "总金额")
+    //总数量
+    @ApiModelProperty(value = "总数量")
     @TableField("amount")
     private Integer amount;
 

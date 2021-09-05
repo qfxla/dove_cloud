@@ -2,6 +2,7 @@ package com.dove.breed.mapper;
 
 import com.dove.breed.entity.DovecoteEntryBase;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.dove.breed.entity.vo.DovecoteEntryBaseShowVo;
 import com.dove.breed.entity.vo.DovecoteEntryBaseVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -27,4 +28,11 @@ public interface DovecoteEntryBaseMapper extends BaseMapper<DovecoteEntryBase> {
      * @return
      */
     List<DovecoteEntryBase> getAllByBillId( @Param("billId")Integer billId);
+
+    /**
+     * 通过订单号查询订单的详细信息
+     * @param dovecoteEntryBill
+     * @return
+     */
+    List<DovecoteEntryBaseShowVo> getByDovecoteEntryBill(@Param("dovecoteEntryBill")Long dovecoteEntryBill);
 }

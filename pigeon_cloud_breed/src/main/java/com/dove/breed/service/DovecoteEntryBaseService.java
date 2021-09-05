@@ -2,6 +2,10 @@ package com.dove.breed.service;
 
 import com.dove.breed.entity.DovecoteEntryBase;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.dove.breed.entity.vo.DovecoteEntryBaseShowVo;
+import com.dove.breed.entity.vo.DovecoteEntryBaseVo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +17,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface DovecoteEntryBaseService extends IService<DovecoteEntryBase> {
 
+    /**
+     * 通过订单号查询订单详细信息
+     * @param dovecoteEntryBill
+     * @return
+     */
+    List<DovecoteEntryBaseShowVo> getByDovecoteEntryBill(Long dovecoteEntryBill);
 }

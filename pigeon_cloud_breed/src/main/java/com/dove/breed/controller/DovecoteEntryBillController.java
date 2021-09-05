@@ -1,6 +1,8 @@
 package com.dove.breed.controller;
-import com.dove.breed.entity.dto.DovecoteEntryBillDto;
+import com.alibaba.fastjson.JSON;
+import com.dove.breed.entity.dto.*;
 import com.dove.breed.entity.vo.DovecoteEntryBillVo;
+import com.dove.breed.entity.vo.DovecoteOutBillVo;
 import com.dove.breed.entity.vo.ShipmentOutBillVo;
 import com.dove.breed.utils.ConvertUtil;
 import com.dove.entity.Result;
@@ -17,9 +19,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-    import org.springframework.web.bind.annotation.RestController;
+import java.util.Map;
+
+import org.springframework.web.bind.annotation.RestController;
 
 /**
 * <p>
@@ -99,4 +104,45 @@ public class DovecoteEntryBillController {
         return list.size()>0?Result.success("查找成功").data(list):Result.error("查找失败");
     }
 
+    @ApiOperation(value = "提交入仓单")
+    @PostMapping("/submitDovecoteEntryBill")
+    public Result submitDovecoteEntryBill(@RequestBody Map<String,Object> map){
+        DovecoteEntryBillDto dovecoteEntryBillDto = null;
+        ArrayList<DovecoteEntryBaseFodderDto> dovecoteEntryBaseFodderDtoList = new ArrayList<>();
+        try {
+            dovecoteEntryBillDto = JSON.parseObject(JSON.toJSONString(map.get("dovecoteEntryBillDto")), DovecoteEntryBillDto.class);
+            List<DovecoteEntryBaseFodderDto> list = JSON.parseObject(JSON.toJSONString(map.get("dovecoteEntryBaseFodderDtoList")),ArrayList.class);
+            for (int i = 0;i < list.size();i++){
+                //数组内容得在解析一遍手动放进去
+                DovecoteEntryBaseFodderDto po = JSON.parseObject(JSON.toJSONString(list.get(i)), DovecoteEntryBaseFodderDto.class);
+                dovecoteEntryBaseFodderDtoList.add(po);
+            }
+        }catch (Exception exception){
+            exception.printStackTrace();
+        }
+         dovecoteEntryBillService.submitDovecoteEntryBill(dovecoteEntryBillDto,dovecoteEntryBaseFodderDtoList);
+        return Result.success("提交成功");
+    }
+
+
+    @ApiOperation(value = "展示鸽棚入仓单(分页)")
+    @GetMapping("/getAllOrder/{pageNum}/{pageSize}")
+    public Result getAllOrder(@PathVariable("pageNum")Long pageNum,
+                              @PathVariable("pageSize")Long pageSize,
+                              @RequestParam("baseId")Long baseId,
+                              @RequestParam(value = "dovecoteNumber",required = false)String dovecoteNumber,
+                              @RequestParam(value = "startTime",required = false)String startTime,
+                              @RequestParam(value = "overTime",required = false)String overTime){
+        IPage<DovecoteEntryBill> page = dovecoteEntryBillService.getAllOrder(pageNum,pageSize,baseId,dovecoteNumber,startTime,overTime);
+
+        IPage<DovecoteEntryBillVo> page1 = convertUtil.convert(page, DovecoteEntryBillVo.class);
+        return page1.getTotal() > 0?Result.success("分页成功").data(page1) : Result.error("分页失败");
+    }
+
+    @ApiOperation(value = "根据订单号删除所有订单信息")
+    @DeleteMapping("/deleteById")
+    public Result deleteById(@RequestParam("id") Long id){
+        boolean b = dovecoteEntryBillService.deleteById(id);
+        return b ? Result.success("订单删除成功") : Result.error("订单删除失败");
+    }
 }

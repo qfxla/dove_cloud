@@ -1,5 +1,6 @@
 package com.dove.breed.controller;
 import com.dove.breed.entity.dto.DovecoteEntryBaseDto;
+import com.dove.breed.entity.vo.DovecoteEntryBaseShowVo;
 import com.dove.breed.entity.vo.DovecoteEntryBaseVo;
 import com.dove.breed.entity.vo.DovecoteVo;
 import com.dove.breed.utils.ConvertUtil;
@@ -90,5 +91,10 @@ public class DovecoteEntryBaseController {
         return b?Result.success("修改成功") : Result.error("修改失败");
     }
 
-
+    @ApiOperation(value = "根据订单号获取订单详细信息")
+    @GetMapping("/getByDovecoteEntryBill/{dovecoteEntryBill}")
+    public Result getByDovecoteEntryBill(@PathVariable("dovecoteEntryBill") Long dovecoteEntryBill){
+        List<DovecoteEntryBaseShowVo> list = dovecoteEntryBaseService.getByDovecoteEntryBill(dovecoteEntryBill);
+        return list == null ? Result.error("获取失败!") : Result.success("获取成功!").data(list);
+    }
 }

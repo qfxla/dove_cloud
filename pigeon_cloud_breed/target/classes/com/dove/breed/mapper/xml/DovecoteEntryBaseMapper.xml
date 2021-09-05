@@ -42,6 +42,12 @@
         FROM t_dovecote_entry_base
         WHERE dovecote_entry_bill = #{billId}
     </select>
+    <select id="getByDovecoteEntryBill" resultType="com.dove.breed.entity.vo.DovecoteEntryBaseShowVo">
+        SELECT
+        dovecote_entry_bill, type_id,type_name, supplier_id, unit_price, amount, total, remark, gmt_create
+        FROM t_dovecote_entry_base
+        WHERE dovecote_entry_bill = #{dovecoteEntryBill}
+    </select>
 
 
 </mapper>

@@ -19,11 +19,33 @@
     <sql id="Base_Column_List">
         type_id, name,type, specifications, guige, gmt_create, gmt_modified, is_deleted, version
     </sql>
-    <select id="getFeedType" resultType="java.lang.String">
+    <select id="getFeedName" resultType="java.lang.String">
         SELECT
         `name`
         FROM t_dovecote_entry_type
         WHERE type = "饲料"
+    </select>
+    <select id="getTypeIdByNameAndSpecificationsAndType" resultType="java.lang.Long">
+        SELECT
+        type_id
+        FROM t_dovecote_entry_type
+        WHERE `type` = "饲料"
+        AND `name` = #{typeName}
+        AND specifications = #{specifications}
+    </select>
+    <select id="getFeedSpecificationsByName" resultType="java.lang.String">
+        SELECT
+        distinct `specifications`
+        FROM t_dovecote_entry_type
+        WHERE type = "饲料"
+        AND `name` = #{feedName}
+    </select>
+    <select id="getFeedSpecificationById" resultType="java.lang.String">
+        SELECT
+        `specifications`
+        FROM t_dovecote_entry_type
+        WHERE type = "饲料"
+        AND `type_id` = #{typeId}
     </select>
 
 </mapper>

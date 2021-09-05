@@ -91,11 +91,15 @@ public class DovecoteEntryTypeController {
         return b?Result.success("修改成功") : Result.error("修改失败");
     }
 
-    @ApiOperation(value = "获取饲料类型")
-    @GetMapping("/getFeedType")
-    public Result getFeedType(){
-        return Result.success().data(dovecoteEntryTypeService.getFeedType());
+    @ApiOperation(value = "获取饲料名称")
+    @GetMapping("/getFeedName")
+    public Result getFeedName(){
+        return Result.success().data(dovecoteEntryTypeService.getFeedName());
     }
 
-
+    @ApiOperation(value = "获取饲料规格")
+    @GetMapping("/getFeedTypeByName")
+    public Result getFeedSpecificationsByName(@RequestParam("feedName") String feedName){
+        return Result.success().data(dovecoteEntryTypeService.getFeedSpecificationsByName(feedName));
+    }
 }

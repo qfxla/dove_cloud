@@ -30,8 +30,8 @@ public class DovecoteEntryBillDto {
     @TableField("type")
     private String type;
 
-    //总金额
-    @ApiModelProperty(value = "总金额")
+    //总数量
+    @ApiModelProperty(value = "总数量")
     @TableField("amount")
     private Integer amount;
 

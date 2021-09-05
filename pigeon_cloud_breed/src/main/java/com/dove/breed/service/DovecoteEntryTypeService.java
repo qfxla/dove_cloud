@@ -19,5 +19,12 @@ public interface DovecoteEntryTypeService extends IService<DovecoteEntryType> {
      * 获取饲料类型
      * @return
      */
-    List<String> getFeedType();
+    List<String> getFeedName();
+
+    /**
+     * 获取饲料规格
+     * @param feedName
+     * @return
+     */
+    List<String> getFeedSpecificationsByName(String feedName);
 }
