@@ -3,7 +3,6 @@ package com.dove.breed.mapper;
 import com.dove.breed.entity.FeedStock;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dove.breed.entity.vo.FeedStockVo;
-import com.dove.breed.entity.vo.UseOfFeedVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

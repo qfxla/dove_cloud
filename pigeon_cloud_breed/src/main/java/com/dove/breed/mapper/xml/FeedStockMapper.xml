@@ -24,6 +24,7 @@
     <sql id="FeedStockVo">
         id, base_id, dovecote_number, feed_type, amount,gmt_create, gmt_modified
     </sql>
+
     <select id="getFeedAmountOfMonth" resultType="com.dove.breed.entity.vo.FeedStockVo">
         SELECT
         <include refid="FeedStockVo"/>

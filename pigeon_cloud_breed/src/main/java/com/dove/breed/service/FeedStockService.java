@@ -2,7 +2,6 @@ package com.dove.breed.service;
 
 import com.dove.breed.entity.FeedStock;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.dove.breed.entity.vo.FeedStockVo;
 import com.dove.breed.entity.vo.UseOfFeedVo;
 
 import java.util.List;

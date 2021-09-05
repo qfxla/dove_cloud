@@ -27,9 +27,20 @@ public class FeedStockDto {
     @TableField("feed_type")
     private String feedType;
 
-    //剩余数量
+    @ApiModelProperty(value = "进购数量")
+    @TableField("stock_amount")
+    private Integer stockAmount;
+
+    @ApiModelProperty(value = "使用数量")
+    @TableField("use_amount")
+    private Integer useAmount;
+
     @ApiModelProperty(value = "剩余数量")
     @TableField("amount")
     private Integer amount;
+
+    @ApiModelProperty(value = "规格")
+    @TableField("specifications")
+    private String specifications;
 
 }
