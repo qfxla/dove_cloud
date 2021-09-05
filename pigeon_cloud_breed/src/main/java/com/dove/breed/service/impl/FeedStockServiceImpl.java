@@ -11,10 +11,12 @@ import com.dove.breed.service.BreedBaseService;
 import com.dove.breed.service.DovecoteEntryBaseService;
 import com.dove.breed.service.FeedStockService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.dove.breed.utils.GetMonth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,6 +47,9 @@ public class FeedStockServiceImpl extends ServiceImpl<FeedStockMapper, FeedStock
 
     @Autowired
     private ShipmentEntryTypeMapper shipmentEntryTypeMapper;
+
+    @Autowired
+    private DovecoteEntryBillMapper dovecoteEntryBillMapper;
 
 
     @Override
@@ -108,5 +113,62 @@ public class FeedStockServiceImpl extends ServiceImpl<FeedStockMapper, FeedStock
             }
         }
         return useOfFeedVoList;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void updateDovecoteMonth(Long baseId, String dovecoteNumber) {
+        List<Integer> billIdList = dovecoteEntryBillMapper.getAllIdByBaseIdAndDovecoteNumber(baseId,dovecoteNumber,GetMonth.getDifferenceNowToMonth(-1));
+        for (Integer billId : billIdList) {
+            List<DovecoteEntryBase> baseList = dovecoteEntryBaseMapper.getAllByBillId(billId);
+            for (DovecoteEntryBase base : baseList) {
+                DovecoteEntryType dovecoteEntryType = dovecoteEntryTypeMapper.selectById(base.getTypeId());
+                if (dovecoteEntryType == null) {
+                    return;
+                }
+                FeedStock one = baseMapper.getNowMonthByTypeAndSpecifications(baseId,dovecoteNumber,base.getTypeName(),dovecoteEntryType.getSpecifications());
+
+                //进购数量
+                Integer StockAmount = base.getAmount();
+                StockAmount = StockAmount == null ? 0 : StockAmount;
+                //使用数量
+                Integer lastResidueFeed  = feedStockMapper.getLastMonthFeed(GetMonth.getDifferenceNowToMonth(-2));
+                lastResidueFeed = lastResidueFeed == null ? 0: lastResidueFeed;
+                Integer useAmount = StockAmount + lastResidueFeed;
+
+                if (one == null){
+                    FeedStock feedStock = new FeedStock();
+                    feedStock.setBaseId(baseId);
+                    feedStock.setFeedType(base.getTypeName());
+                    feedStock.setDovecoteNumber(dovecoteNumber);
+                    feedStock.setStockAmount(StockAmount);
+                    feedStock.setUseAmount(useAmount);
+                    feedStock.setAmount(0);
+                    feedStock.setSpecifications(dovecoteEntryType.getSpecifications());
+                    baseMapper.insert(feedStock);
+                }else if (one != null){
+                    System.out.println(one.toString());
+                    one.setStockAmount(one.getStockAmount() + StockAmount);
+                    one.setUseAmount(one.getUseAmount() + useAmount);
+                    baseMapper.updateById(one);
+                }
+            }
+        }
+    }
+
+    @Override
+    public List<FeedStockVo> getMonthlyStatementReport(Long baseId, String dovecoteNumber,String feedType,String month) {
+        return feedStockMapper.getMonthlyStatementReport(baseId, dovecoteNumber,feedType,month);
+    }
+
+    @Override
+    public boolean updateResidue(Long id, Integer residue) {
+        if (residue == null){
+            return false;
+        }
+        FeedStock feedStock = baseMapper.selectById(id);
+        feedStock.setUseAmount(feedStock.getUseAmount() + feedStock.getAmount() - residue);
+        feedStock.setAmount(residue);
+        return baseMapper.updateById(feedStock) == 1;
     }
 }

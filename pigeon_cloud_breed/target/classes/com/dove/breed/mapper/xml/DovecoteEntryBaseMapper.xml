@@ -36,6 +36,12 @@
         AND base.`type` = '饲料'
         AND YEAR(bill.`gmt_create`) = #{year} AND MONTH(bill.`gmt_create`) = #{month};
     </select>
+    <select id="getAllByBillId" resultType="com.dove.breed.entity.DovecoteEntryBase">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_dovecote_entry_base
+        WHERE dovecote_entry_bill = #{billId}
+    </select>
 
 
 </mapper>

@@ -19,5 +19,11 @@
     <sql id="Base_Column_List">
         type_id, name,type, specifications, guige, gmt_create, gmt_modified, is_deleted, version
     </sql>
+    <select id="getFeedType" resultType="java.lang.String">
+        SELECT
+        `name`
+        FROM t_dovecote_entry_type
+        WHERE type = "饲料"
+    </select>
 
 </mapper>

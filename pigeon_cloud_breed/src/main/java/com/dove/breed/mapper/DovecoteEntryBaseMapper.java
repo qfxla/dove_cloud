@@ -20,4 +20,11 @@ import java.util.List;
 public interface DovecoteEntryBaseMapper extends BaseMapper<DovecoteEntryBase> {
     List<DovecoteEntryBaseVo> getFeedEntryOfMonth(@Param("baseId")Long baseId, @Param("dovecoteNumber")String dovecoteNumber,
                                                   @Param("year")int year, @Param("month")int month);
+
+    /**
+     * 根据订单获取鸽棚入仓信息
+     * @param billId
+     * @return
+     */
+    List<DovecoteEntryBase> getAllByBillId( @Param("billId")Integer billId);
 }

@@ -104,4 +104,20 @@ public class FeedStockController {
         return useOfFeedMonth != null?Result.success("获取成功").data(useOfFeedMonth) : Result.error("获取失败");
     }
 
+    @ApiOperation(value = "获取月结报表")
+    @GetMapping("/getMonthlyStatementReport")
+    public Result getMonthlyStatementReport(@RequestParam("baseId")Long baseId,
+                                            @RequestParam(value = "dovecoteNumber",required = false)String dovecoteNumber,
+                                            @RequestParam(value = "feedType",required = false)String feedType,
+                                            @RequestParam(value = "month",required = true)String month){
+        List<FeedStockVo> list = feedStockService.getMonthlyStatementReport(baseId,dovecoteNumber,feedType,month);
+        return list == null ? Result.error("获取失败") : Result.success().data(list);
+    }
+
+    @ApiOperation(value = "修改剩余饲料")
+    @PostMapping("/updateResidue/{id}")
+    public Result updateResidue(@PathVariable("id") Long id, @RequestParam(value = "residue")Integer residue){
+        boolean b = feedStockService.updateResidue(id,residue);
+        return b?Result.success("修改成功") : Result.error("修改失败");
+    }
 }

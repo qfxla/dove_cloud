@@ -129,5 +129,11 @@ public class DovecoteController {
         return Result.success("查找成功").data(dovecoteService.getAbnormalVoOfYesterday(baseId, dovecoteNumber));
     }
 
+    @ApiOperation(value = "根据基地查询出所有鸽棚编号")
+    @GetMapping("/getAllDovecoteNumber")
+    public Result getAllDovecoteNumber(@RequestParam(value = "baseId")Long baseId,
+                                       @RequestParam(value = "dovecoteNumber",required = false)String dovecoteNumber){
+        return Result.success("查找成功").data(dovecoteService.getAllDovecoteNumber(baseId, dovecoteNumber));
+    }
 
 }

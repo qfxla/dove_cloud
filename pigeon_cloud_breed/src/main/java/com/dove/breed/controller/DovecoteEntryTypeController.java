@@ -91,5 +91,11 @@ public class DovecoteEntryTypeController {
         return b?Result.success("修改成功") : Result.error("修改失败");
     }
 
+    @ApiOperation(value = "获取饲料类型")
+    @GetMapping("/getFeedType")
+    public Result getFeedType(){
+        return Result.success().data(dovecoteEntryTypeService.getFeedType());
+    }
+
 
 }

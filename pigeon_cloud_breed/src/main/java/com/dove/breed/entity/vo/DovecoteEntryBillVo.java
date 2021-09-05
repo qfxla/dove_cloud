@@ -15,11 +15,6 @@ import java.util.Date;
 public class DovecoteEntryBillVo {
     private Long id;
 
-    //领取部门(鸽棚id)
-    @ApiModelProperty(value = "领取部门(鸽棚id)")
-    @TableField("dovecote_id")
-    private Long dovecoteId;
-
     //鸽棚编号
     @ApiModelProperty(value = "鸽棚编号")
     @TableField("dovecote_number")
@@ -30,15 +25,14 @@ public class DovecoteEntryBillVo {
     @TableField("base_id")
     private Long baseId;
 
-    //所属基地名称
-    @ApiModelProperty(value = "所属基地名称")
-    @TableField("base_name")
-    private String baseName;
-
     //经手人
     @ApiModelProperty(value = "经手人")
     @TableField("handler")
     private String handler;
+
+    @ApiModelProperty(value = "类型")
+    @TableField("type")
+    private String type;
 
     //总金额
     @ApiModelProperty(value = "总金额")

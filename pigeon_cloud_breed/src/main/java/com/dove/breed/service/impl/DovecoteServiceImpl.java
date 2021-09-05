@@ -51,4 +51,10 @@ public class DovecoteServiceImpl extends ServiceImpl<DovecoteMapper, Dovecote> i
         return AbnormalVoList;
     }
 
+    @Override
+    public List<String> getAllDovecoteNumber(Long baseId, String dovecoteNumber) {
+
+        return dovecoteMapper.getAllDovecoteNumber(baseId,dovecoteNumber);
+    }
+
 }

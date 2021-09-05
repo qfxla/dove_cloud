@@ -88,8 +88,15 @@
         AND c.abnormal != null
         GROUP BY state , abnormal
     </select>
-
-
+    <select id="getAllDovecoteNumber" resultType="java.lang.String">
+        SELECT
+        dovecote_number
+        FROM t_dovecote
+        WHERE base_id = #{baseId}
+        <if test="dovecoteNumber != null">
+        AND dovecote_number LIKE "%${dovecoteNumber}%"
+        </if>
+    </select>
 
 
 </mapper>

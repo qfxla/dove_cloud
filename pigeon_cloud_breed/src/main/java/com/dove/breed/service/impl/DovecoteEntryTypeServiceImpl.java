@@ -4,7 +4,10 @@ import com.dove.breed.entity.DovecoteEntryType;
 import com.dove.breed.mapper.DovecoteEntryTypeMapper;
 import com.dove.breed.service.DovecoteEntryTypeService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,4 +20,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class DovecoteEntryTypeServiceImpl extends ServiceImpl<DovecoteEntryTypeMapper, DovecoteEntryType> implements DovecoteEntryTypeService {
 
+    @Autowired
+    private DovecoteEntryTypeMapper dovecoteEntryTypeMapper;
+    @Override
+    public List<String> getFeedType() {
+        return dovecoteEntryTypeMapper.getFeedType();
+    }
 }
