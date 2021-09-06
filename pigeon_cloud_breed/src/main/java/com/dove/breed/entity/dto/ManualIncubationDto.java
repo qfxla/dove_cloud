@@ -8,7 +8,7 @@ import lombok.Data;
  * @creat 2021-09-05-15:15
  */
 @Data
-public class Manual_incubationDto {
+public class ManualIncubationDto {
     @ApiModelProperty(value = "基地id")
     private Long baseId;
 

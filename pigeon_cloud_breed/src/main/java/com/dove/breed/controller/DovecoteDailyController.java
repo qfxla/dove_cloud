@@ -1,7 +1,9 @@
 package com.dove.breed.controller;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dove.breed.entity.CageReal;
+import com.dove.breed.entity.Dovecote;
 import com.dove.breed.entity.DovecoteDaily;
 import com.dove.breed.entity.vo.DovecoteDailyVo;
 import com.dove.breed.service.DovecoteDailyService;
@@ -12,7 +14,6 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.catalina.Pipeline;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -60,11 +61,9 @@ public class DovecoteDailyController {
     public Result getAllDovecoteDailyByPage(@RequestParam("baseId")Long baseId,@RequestParam("year")int year,
                                       @RequestParam("month")int month,@RequestParam("day")int day,
                                             @RequestParam("pageNum")int pageNum,@RequestParam("pageSize")int pageSize){
-        List<DovecoteDailyVo> allDovecoteDaily = dovecoteDailyService.getAllDovecoteDaily(baseId, year, month, day);
-
-        Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
-        Page<DovecoteDailyVo> pageFromList = PageUtil.createPageFromList(allDovecoteDaily, pageable);
-        return Result.success("查询成功").data(pageFromList);
+        List<DovecoteDailyVo> list = dovecoteDailyService.getAllDovecoteDaily(baseId, year, month, day);
+        Page<DovecoteDailyVo> page1 = PageUtil.myPage(list,pageNum,pageSize);
+        return Result.success("查询成功").data(page1);
     }
 
 

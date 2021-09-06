@@ -12,7 +12,7 @@ import java.util.Date;
  * @creat 2021-09-05-15:16
  */
 @Data
-public class Manual_incubationVo {
+public class ManualIncubationVo {
     @ApiModelProperty(value = "主键")
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;

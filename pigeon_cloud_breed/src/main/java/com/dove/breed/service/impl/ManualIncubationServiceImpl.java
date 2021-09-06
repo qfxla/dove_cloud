@@ -1,16 +1,23 @@
 package com.dove.breed.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.dove.breed.entity.Dovecote;
 import com.dove.breed.entity.ManualIncubation;
+import com.dove.breed.entity.vo.ManualIncubationVo;
+import com.dove.breed.mapper.DovecoteMapper;
 import com.dove.breed.mapper.ManualIncubationMapper;
 import com.dove.breed.service.ManualIncubationService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.dove.breed.utils.ConvertUtil;
+import com.dove.breed.utils.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ForkJoinPool;
 import java.util.stream.Stream;
 
 /**
@@ -27,10 +34,19 @@ public class ManualIncubationServiceImpl extends ServiceImpl<ManualIncubationMap
     private ManualIncubationService manualIncubationService;
     @Autowired
     private ManualIncubationMapper manualIncubationMapper;
+    @Autowired
+    private DovecoteMapper dovecoteMapper;
+    @Autowired
+    private ConvertUtil convertUtil;
 
     @Override
     public int addManualIncubationData(Long baseId, String dovecoteNumber, int one, int two, int three, int four) {
         List<ManualIncubation> todayData = manualIncubationMapper.getTodayData(baseId, dovecoteNumber);
+        QueryWrapper<Dovecote> wrapper = new QueryWrapper();
+        wrapper.eq("dovecote_number",dovecoteNumber).
+                eq("base_id",baseId);
+        List<Dovecote> dovecotes = dovecoteMapper.selectList(wrapper);
+        String breeder = dovecotes.get(0).getDirector();
         Stream<ManualIncubation> manualIncubationStream = todayData.stream().filter(u -> {
             return u.getPmNumber() > 0;
         });
@@ -44,6 +60,7 @@ public class ManualIncubationServiceImpl extends ServiceImpl<ManualIncubationMap
                 manualIncubation.setBaseId(baseId);
                 manualIncubation.setDovecoteNumber(dovecoteNumber);
                 manualIncubation.setType(i+1);
+                manualIncubation.setBreederName(breeder);
                 list.add(manualIncubation);
             }
             list.get(0).setAmNumber(one);
@@ -70,5 +87,22 @@ public class ManualIncubationServiceImpl extends ServiceImpl<ManualIncubationMap
             }
         }
         return 1;
+    }
+
+    @Override
+    public Page<ManualIncubationVo> getByDovecoteNumber(Long baseId, String dovecoteNumber,int pageNum,int pageSize) {
+        List<ManualIncubation> list = manualIncubationMapper.getByDovecoteNumber(baseId, dovecoteNumber);
+        List<ManualIncubationVo> list1 = convertUtil.convert(list, ManualIncubationVo.class);
+        Page<ManualIncubationVo> page = PageUtil.fourMyPage(list1, 4 * pageNum, 4 * pageSize);
+//        Pageable pageable = PageRequest.of(4 * (pageNum - 1), 4 * pageSize);
+//        Page<ManualIncubation> pageFromList = PageUtil.createPageFromList(byDovecoteNumber, pageable);
+        return page;
+    }
+
+    @Override
+    public List<ManualIncubationVo> getByDate(Long baseId, int year, int month, int day) {
+        List<ManualIncubation> byDate = manualIncubationMapper.getByDate(baseId, year, month, day);
+        List<ManualIncubationVo> manualIncubationVoList = convertUtil.convert(byDate, ManualIncubationVo.class);
+        return manualIncubationVoList;
     }
 }

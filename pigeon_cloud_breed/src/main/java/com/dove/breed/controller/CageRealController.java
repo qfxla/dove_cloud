@@ -1,10 +1,10 @@
 package com.dove.breed.controller;
 
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.dove.breed.entity.Cage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dove.breed.entity.CageReal;
 import com.dove.breed.entity.DovecoteOutBill;
+import com.dove.breed.entity.vo.DovecoteDailyVo;
 import com.dove.breed.entity.vo.DovecoteOutBillVo;
 import com.dove.breed.service.CageRealService;
 import com.dove.breed.utils.PageUtil;
@@ -13,9 +13,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.*;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,9 +39,9 @@ public class CageRealController {
     public Result list(@PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize,
                        @RequestParam("baseId") Long baseId, @RequestParam("dovecoteNumber") String dovecoteNumber) {
         List<CageReal> list = cageRealService.getAllCage(baseId, dovecoteNumber);
-        Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
-        Page<CageReal> pageFromList = PageUtil.createPageFromList(list, pageable);
-        return Result.success("查询成功").data(pageFromList);
+        Page<CageReal> page1 = PageUtil.myPage(list,pageNum,pageSize);
+
+        return Result.success("查询成功").data(page1);
     }
 
     @ApiOperation("获取未产卵鸽笼")
@@ -49,9 +49,8 @@ public class CageRealController {
     public Result getLayEggsTime(@PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize,
                                  @RequestParam("baseId") Long baseId, @RequestParam("dovecoteNumber") String dovecoteNumber){
         List<CageReal> list = cageRealService.getLayEggsTime(baseId, dovecoteNumber);
-        Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
-        Page<CageReal> pageFromList = PageUtil.createPageFromList(list, pageable);
-        return Result.success("查询成功").data(pageFromList);
+        Page<CageReal> page1 = PageUtil.myPage(list,pageNum,pageSize);
+        return Result.success("查询成功").data(page1);
     }
 
     @ApiOperation("获取孵化中鸽笼")
@@ -59,9 +58,8 @@ public class CageRealController {
     public Result getHatchTime(@PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize,
                                  @RequestParam("baseId") Long baseId, @RequestParam("dovecoteNumber") String dovecoteNumber){
         List<CageReal> list = cageRealService.getHatchTime(baseId, dovecoteNumber);
-        Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
-        Page<CageReal> pageFromList = PageUtil.createPageFromList(list, pageable);
-        return Result.success("查询成功").data(pageFromList);
+        Page<CageReal> page1 = PageUtil.myPage(list,pageNum,pageSize);
+        return Result.success("查询成功").data(page1);
     }
 
     @ApiOperation("获取孵化中鸽笼")
@@ -69,9 +67,8 @@ public class CageRealController {
     public Result getFeedTime(@PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize,
                                @RequestParam("baseId") Long baseId, @RequestParam("dovecoteNumber") String dovecoteNumber) {
         List<CageReal> list = cageRealService.getFeedTime(baseId, dovecoteNumber);
-        Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
-        Page<CageReal> pageFromList = PageUtil.createPageFromList(list, pageable);
-        return Result.success("查询成功").data(pageFromList);
+        Page<CageReal> page1 = PageUtil.myPage(list,pageNum,pageSize);
+        return Result.success("查询成功").data(page1);
     }
 }
 

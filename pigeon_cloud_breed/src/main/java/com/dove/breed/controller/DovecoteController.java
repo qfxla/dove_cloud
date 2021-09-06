@@ -1,4 +1,6 @@
 package com.dove.breed.controller;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.dove.breed.entity.DovecoteEntryBill;
 import com.dove.breed.entity.dto.DovecoteDto;
 import com.dove.breed.entity.vo.AbnormalVo;
 import com.dove.breed.entity.vo.DovecoteVo;
@@ -17,7 +19,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ansi.AnsiOutput;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
@@ -78,9 +79,8 @@ public class DovecoteController {
         QueryWrapper<Dovecote> wrapper = new QueryWrapper<>();
         wrapper.eq("base_id",baseId);
         List<Dovecote> list = dovecoteService.list(wrapper);
-        Pageable pageable = PageRequest.of(pageNum, pageSize);
-        Page<Dovecote> pageFromList = PageUtil.createPageFromList(list, pageable);
-        return Result.success("分页成功").data(pageFromList);
+        Page<Dovecote> page1 = PageUtil.myPage(list,pageNum,pageSize);
+        return Result.success("分页成功").data(page1);
     }
 
     @ApiOperation(value = "详情")

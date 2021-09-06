@@ -51,8 +51,6 @@ public class DovecoteEntryBill extends Model<DovecoteEntryBill> {
     @TableField("base_id")
     private Long baseId;
 
-<<<<<<< Updated upstream
-=======
     //数量
     @ApiModelProperty(value = "数量")
     @TableField("amount")
@@ -63,15 +61,10 @@ public class DovecoteEntryBill extends Model<DovecoteEntryBill> {
     @TableField("type")
     private String type;
 
->>>>>>> Stashed changes
     //经手人
     @ApiModelProperty(value = "经手人")
     @TableField("handler")
     private String handler;
-
-    @ApiModelProperty(value = "类型")
-    @TableField("type")
-    private String type;
 
     //总金额
     @ApiModelProperty(value = "总金额")

@@ -26,10 +26,6 @@ public class DovecoteEntryBillDto {
     @TableField("handler")
     private String handler;
 
-<<<<<<< Updated upstream
-    @ApiModelProperty(value = "类型")
-    @TableField("type")
-    private String type;
 
     //总数量
     @ApiModelProperty(value = "总数量")
@@ -40,12 +36,11 @@ public class DovecoteEntryBillDto {
     @ApiModelProperty(value = "总金额")
     @TableField("total")
     private Integer total;
-=======
+
     //类型
     @ApiModelProperty(value = "类型")
     @TableField("type")
     private String type;
->>>>>>> Stashed changes
 
     //备注
     @ApiModelProperty(value = "备注")
