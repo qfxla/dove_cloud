@@ -1,10 +1,17 @@
 package com.dove.breed.controller;
 import com.alibaba.fastjson.JSON;
+
 import com.dove.breed.entity.dto.*;
+
+import com.dove.breed.entity.dto.DovecoteEntryBaseDto;
+import com.dove.breed.entity.dto.DovecoteEntryBillDto;
+import com.dove.breed.entity.dto.DovecoteOutBaseDto;
+
 import com.dove.breed.entity.vo.DovecoteEntryBillVo;
 import com.dove.breed.entity.vo.DovecoteOutBillVo;
 import com.dove.breed.entity.vo.ShipmentOutBillVo;
 import com.dove.breed.utils.ConvertUtil;
+import com.dove.breed.utils.PageUtil;
 import com.dove.entity.Result;
 
 
@@ -17,6 +24,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -104,26 +113,38 @@ public class DovecoteEntryBillController {
         return list.size()>0?Result.success("查找成功").data(list):Result.error("查找失败");
     }
 
-    @ApiOperation(value = "提交入仓单")
-    @PostMapping("/submitDovecoteEntryBill")
-    public Result submitDovecoteEntryBill(@RequestBody Map<String,Object> map){
+    @ApiOperation(value = "展示订单")
+    @GetMapping("findBillByDovecoteAndType")
+    public Result findBillByDovecoteAndType(@RequestParam("baseId")Long baseId,
+                                            @RequestParam("dovecoteNumber")String dovecoteNumber,
+                                            @RequestParam("type")String type,
+                                            @RequestParam("pageNum")int pageNum,
+                                            @RequestParam("pageSize")int pageSize){
+        List<DovecoteEntryBillVo> billList = dovecoteEntryBillService.findBillByDovecoteAndType(baseId, dovecoteNumber, type);
+        Pageable pageable = PageRequest.of(pageNum, pageSize);
+        org.springframework.data.domain.Page<DovecoteEntryBillVo> pageFromList = PageUtil.createPageFromList(billList, pageable);
+        return Result.success("查询成功").data(pageFromList);
+    }
+
+    @ApiOperation(value = "提交出库单")
+    @PostMapping("/submitDovecoteOutBill")
+    public Result submitDovecoteOutBill(@RequestBody Map<String,Object> map){
         DovecoteEntryBillDto dovecoteEntryBillDto = null;
-        ArrayList<DovecoteEntryBaseFodderDto> dovecoteEntryBaseFodderDtoList = new ArrayList<>();
+        ArrayList<DovecoteEntryBaseDto> dovecoteEntryBaseDtoList = new ArrayList<>();
         try {
             dovecoteEntryBillDto = JSON.parseObject(JSON.toJSONString(map.get("dovecoteEntryBillDto")), DovecoteEntryBillDto.class);
-            List<DovecoteEntryBaseFodderDto> list = JSON.parseObject(JSON.toJSONString(map.get("dovecoteEntryBaseFodderDtoList")),ArrayList.class);
+            List<DovecoteEntryBaseDto> list = JSON.parseObject(JSON.toJSONString(map.get("dovecoteEntryBaseDtoList")),ArrayList.class);
             for (int i = 0;i < list.size();i++){
                 //数组内容得在解析一遍手动放进去
-                DovecoteEntryBaseFodderDto po = JSON.parseObject(JSON.toJSONString(list.get(i)), DovecoteEntryBaseFodderDto.class);
-                dovecoteEntryBaseFodderDtoList.add(po);
+                DovecoteEntryBaseDto po = JSON.parseObject(JSON.toJSONString(list.get(i)), DovecoteEntryBaseDto.class);
+                dovecoteEntryBaseDtoList.add(po);
             }
         }catch (Exception exception){
             exception.printStackTrace();
         }
-         dovecoteEntryBillService.submitDovecoteEntryBill(dovecoteEntryBillDto,dovecoteEntryBaseFodderDtoList);
+         dovecoteEntryBillService.submitDovecoteEntryBill(dovecoteEntryBillDto,dovecoteEntryBaseDtoList);
         return Result.success("提交成功");
     }
-
 
     @ApiOperation(value = "展示鸽棚入仓单(分页)")
     @GetMapping("/getAllOrder/{pageNum}/{pageSize}")
@@ -139,10 +160,4 @@ public class DovecoteEntryBillController {
         return page1.getTotal() > 0?Result.success("分页成功").data(page1) : Result.error("分页失败");
     }
 
-    @ApiOperation(value = "根据订单号删除所有订单信息")
-    @DeleteMapping("/deleteById")
-    public Result deleteById(@RequestParam("id") Long id){
-        boolean b = dovecoteEntryBillService.deleteById(id);
-        return b ? Result.success("订单删除成功") : Result.error("订单删除失败");
-    }
 }

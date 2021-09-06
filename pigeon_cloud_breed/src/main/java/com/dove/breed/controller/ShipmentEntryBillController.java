@@ -17,6 +17,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -102,9 +103,21 @@ public class ShipmentEntryBillController {
 
     @ApiOperation(value = "根据创建时间和基地id查询ShipmentEntryBill")
     @GetMapping("/findBillByGmt_createAndShipmentId/{startTime}/{endTime}/{shipmentId}")
-    public Result findBillByGmt_createAndShipmentId(@PathVariable("startTime") Date startTime, @PathVariable("endTime") Date endTime, @PathVariable("shipmentId")Long shipmentId){
-        List<ShipmentEntryBillVo> list = shipmentEntryBillService.findBillByGmt_createAndShipmentId(startTime, endTime,shipmentId);
+    public Result findBillByGmt_createAndShipmentId(@PathVariable("startTime") Date startTime, @PathVariable("endTime") Date endTime, @PathVariable("shipmentId")Long baseId){
+        List<ShipmentEntryBillVo> list = shipmentEntryBillService.findBillByGmt_createAndShipmentId(startTime, endTime,baseId);
         return list.size()>0?Result.success("查询成功").data(list) : Result.error("查询失败");
+    }
+
+    @ApiOperation(value = "展示该基地进库订单")
+    @GetMapping("/getAllEntryBillByIdAndType")
+    public Result getAllEntryBillByIdAndType(@RequestParam("baseId")Long baseId,
+                                             @RequestParam("type")String type){
+        QueryWrapper<ShipmentEntryBill> wrapper = new QueryWrapper();
+        wrapper.eq("base_id",baseId).
+                eq("type",type);
+        List<ShipmentEntryBill> list = shipmentEntryBillService.list(wrapper);
+        List<ShipmentEntryBillVo> shipmentEntryBillVoList = convertUtil.convert(list, ShipmentEntryBillVo.class);
+        return Result.success("查看成功").data(shipmentEntryBillVoList);
     }
 
     @ApiOperation(value = "提交入库单,shipmentEntryBillDto,shipmentEntryBaseDtoList")

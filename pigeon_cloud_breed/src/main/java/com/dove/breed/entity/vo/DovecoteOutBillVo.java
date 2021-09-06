@@ -31,6 +31,11 @@ public class DovecoteOutBillVo {
     @TableField("type")
     private String type;
 
+    //数量
+    @ApiModelProperty(value = "数量")
+    @TableField("amount")
+    private Integer amount;
+
     //总价
     @ApiModelProperty(value = "总价")
     @TableField("total")

@@ -5,8 +5,8 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.dove.breed.entity.ShipmentEntryBill">
         <id column="id" property="id" />
-        <result column="shipment_id" property="shipmentId" />
-        <result column="shipment_name" property="shipmentName" />
+        <result column="base_id" property="baseId" />
+        <result column="base_name" property="baseName" />
         <result column="handler" property="handler" />
         <result column="amount" property="amount" />
         <result column="total" property="total" />
@@ -20,18 +20,18 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, shipment_id, shipment_name, handler, amount, total, remark,gmt_create, gmt_modified, is_deleted, version
+        id, base_id, base_name, handler, amount, total, remark,gmt_create, gmt_modified, is_deleted, version
     </sql>
 
     <sql id="ShipmentEntryBillVo">
-        id,shipment_id,shipment_name,handler,amount,total,remark,guige,gmt_create,gmt_modified
+        id,base_id,base_name,handler,amount,total,remark,guige,gmt_create,gmt_modified
     </sql>
 
     <select id="findBillByGmt_createAndShipmentId" resultType="com.dove.breed.entity.vo.ShipmentEntryBillVo" resultMap="BaseResultMap">
         SELECT
         <include refid="ShipmentEntryBillVo"/>
         FROM t_shipment_entry_bill
-        WHERE shipment_id = #{shipmentId} And gmt_create between #{startTime} and #{endTime}
+        WHERE base_id = #{baseId} And gmt_create between #{startTime} and #{endTime}
     </select>
 
     <select id="getLatestBillId" resultType="java.lang.Long">

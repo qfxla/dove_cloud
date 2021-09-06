@@ -7,6 +7,7 @@
         <id column="id" property="id" />
         <result column="base_id" property="baseId" />
         <result column="type" property="type"/>
+        <result column="amount" property="amount"/>
         <result column="total" property="total"/>
         <result column="remark" property="remark"/>
         <result column="dovecote_number" property="dovecoteNumber" />
@@ -21,10 +22,10 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, base_id,type,total,remark, dovecote_number, dovecote_director, employee_name, guige, gmt_create, gmt_modified, is_deleted, version
+        id, base_id,type,amount,total,remark, dovecote_number, dovecote_director, employee_name, guige, gmt_create, gmt_modified, is_deleted, version
     </sql>
     <sql id="DovecoteOutBillVo">
-        id, base_id, type,total,remark,dovecote_number, dovecote_director, employee_name, guige, gmt_create, gmt_modified
+        id, base_id, type,amount,total,remark,dovecote_number, dovecote_director, employee_name, guige, gmt_create, gmt_modified
     </sql>
 
     <select id="findBillByGmt_createAndDovecoteId" resultType="com.dove.breed.entity.vo.DovecoteOutBillVo">

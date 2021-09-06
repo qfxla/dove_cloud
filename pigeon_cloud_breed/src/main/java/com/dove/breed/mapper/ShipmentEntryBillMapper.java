@@ -23,7 +23,7 @@ public interface ShipmentEntryBillMapper extends BaseMapper<ShipmentEntryBill> {
 
     List<ShipmentEntryBillVo> findBillByGmt_createAndShipmentId(@Param("startTime")Date startTime,
                                                                 @Param("endTime")Date endTime,
-                                                                @Param("shipmentId")Long shipmentId);
+                                                                @Param("baseId")Long baseId);
 
     Long getLatestBillId();
 

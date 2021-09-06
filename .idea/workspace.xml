@@ -19,6 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
+<<<<<<< Updated upstream
     <list default="true" id="645abc3d-b03c-4334-95cb-dc1d4aa2b2bc" name="Default Changelist" comment="月结表">
       <change afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/dto/DovecoteEntryBaseFodderDto.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/vo/DovecoteEntryBaseShowVo.java" afterDir="false" />
@@ -41,6 +42,82 @@
       <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/impl/DovecoteEntryTypeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/impl/DovecoteEntryTypeServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/DovecoteEntryBaseMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/DovecoteEntryBaseMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/DovecoteEntryTypeMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/DovecoteEntryTypeMapper.xml" afterDir="false" />
+=======
+    <list default="true" id="c466110b-6b12-44a9-a294-c6cffa6fa888" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/config/WebMvcConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/config/WebMvcConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/config/WebSecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/controller/CagePositionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/controller/CagePositionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/controller/CageRealController.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/controller/CageRealController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/controller/DovecoteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/controller/DovecoteController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/controller/DovecoteDailyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/controller/DovecoteDailyController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/controller/DovecoteEntryBillController.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/controller/DovecoteEntryBillController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/controller/ManualIncubationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/controller/ManualIncubationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/controller/ShipmentEntryBillController.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/controller/ShipmentEntryBillController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/DovecoteEntryBill.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/DovecoteEntryBill.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/DovecoteOutBill.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/DovecoteOutBill.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/ManualIncubation.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/ManualIncubation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/ShipmentEntryBill.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/ShipmentEntryBill.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/dto/DovecoteEntryBillDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/dto/DovecoteEntryBillDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/dto/DovecoteOutBillDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/dto/DovecoteOutBillDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/dto/ShipmentEntryBillDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/dto/ShipmentEntryBillDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/vo/DovecoteDailyVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/vo/DovecoteDailyVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/vo/DovecoteEntryBillVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/vo/DovecoteEntryBillVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/vo/DovecoteOutBillVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/vo/DovecoteOutBillVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/vo/ShipmentEntryBillVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/vo/ShipmentEntryBillVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/DovecoteDailyMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/DovecoteDailyMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/DovecoteEntryBillMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/DovecoteEntryBillMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/ManualIncubationMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/ManualIncubationMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/ShipmentEntryBillMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/ShipmentEntryBillMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/xml/DovecoteDailyMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/xml/DovecoteDailyMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/xml/DovecoteEntryBillMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/xml/DovecoteEntryBillMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/xml/DovecoteOutBillMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/xml/DovecoteOutBillMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/xml/ManualIncubationMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/xml/ManualIncubationMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/xml/ShipmentEntryBillMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/xml/ShipmentEntryBillMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/DovecoteDailyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/DovecoteDailyService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/DovecoteEntryBillService.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/DovecoteEntryBillService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/ManualIncubationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/ManualIncubationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/impl/DovecoteDailyServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/impl/DovecoteDailyServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/impl/DovecoteEntryBillServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/impl/DovecoteEntryBillServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/impl/DovecoteOutBillServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/impl/DovecoteOutBillServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/impl/ManualIncubationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/impl/ManualIncubationServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/impl/ShipmentEntryBillServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/impl/ShipmentEntryBillServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/utils/PageUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/utils/PageUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/test/java/generate/TestCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/test/java/generate/TestCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/BreedBaseMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/BusinessBreedingMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/CageDailyMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/CageMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/CagePositionMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/CageRealMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/DovecoteDailyMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/DovecoteEntryBaseMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/DovecoteEntryBillMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/DovecoteEntryTypeMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/DovecoteMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/DovecoteOutBaseMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/DovecoteOutBillMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/DovecoteOutTypeMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/FeedStockMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/IpMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/ManualIncubationMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/ShipmentEntryBaseMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/ShipmentEntryBillMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/ShipmentEntryTypeMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/ShipmentOutBaseMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/ShipmentOutBillMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/ShipmentOutTypeMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/pigeon_cloud_breed-1.0-SNAPSHOT.jar.original" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/surefire-reports/TEST-generate.TestCode.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/surefire-reports/generate.TestCode.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_common/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_common/target/maven-archiver/pom.properties" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,10 +131,21 @@
       </list>
     </option>
   </component>
+<<<<<<< Updated upstream
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1xhS1wIwHm3kXveGtJvsr23kJiN" />
+=======
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+>>>>>>> Stashed changes
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
@@ -107,6 +195,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+<<<<<<< Updated upstream
     <configuration name="test01.testTime" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="pigeon_cloud_breed" />
       <extension name="coverage">
@@ -118,6 +207,19 @@
       <option name="PACKAGE_NAME" value="xbx" />
       <option name="MAIN_CLASS_NAME" value="xbx.test01" />
       <option name="METHOD_NAME" value="testTime" />
+=======
+    <configuration name="TestCode.test1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="pigeon_cloud_breed" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="generate.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="generate" />
+      <option name="MAIN_CLASS_NAME" value="generate.TestCode" />
+      <option name="METHOD_NAME" value="test1" />
+>>>>>>> Stashed changes
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -141,6 +243,7 @@
         <item itemvalue="Spring Boot.BreedApplication" />
         <item itemvalue="JUnit.test01.testTime" />
         <item itemvalue="JUnit.TestCode.test" />
+        <item itemvalue="JUnit.TestCode.test1" />
       </list>
     </recent_temporary>
   </component>

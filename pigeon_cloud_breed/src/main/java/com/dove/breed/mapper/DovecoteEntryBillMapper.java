@@ -23,6 +23,7 @@ public interface DovecoteEntryBillMapper extends BaseMapper<DovecoteEntryBill> {
     List<DovecoteEntryBillVo> findBillByGmt_createAndDovecoteId(@Param("startTime") Date startTime,
                                                                 @Param("endTime")Date endTime,
                                                                 @Param("shipmentId")Long dovecoteId);
+<<<<<<< Updated upstream
     /**
      * 根据基地id和鸽棚编号获取所有对应当月订单的id
      * @param baseId
@@ -31,4 +32,10 @@ public interface DovecoteEntryBillMapper extends BaseMapper<DovecoteEntryBill> {
      */
     List<Integer> getAllIdByBaseIdAndDovecoteNumber(@Param("baseId")Long baseId, @Param("dovecoteNumber")String dovecoteNumber,
                                                     @Param("lastMonth")String lastMonth);
+=======
+    List<DovecoteEntryBillVo> findBillByDovecoteAndType(@Param("baseId")Long baseId,
+                                                      @Param("dovecoteNumber")String dovecoteNumber,
+                                                        @Param("type")String type);
+    Long getLatestBillId();
+>>>>>>> Stashed changes
 }

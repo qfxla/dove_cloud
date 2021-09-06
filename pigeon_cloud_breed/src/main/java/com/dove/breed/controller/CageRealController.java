@@ -39,7 +39,7 @@ public class CageRealController {
     public Result list(@PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize,
                        @RequestParam("baseId") Long baseId, @RequestParam("dovecoteNumber") String dovecoteNumber) {
         List<CageReal> list = cageRealService.getAllCage(baseId, dovecoteNumber);
-        Pageable pageable = PageRequest.of(pageNum, pageSize);
+        Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
         Page<CageReal> pageFromList = PageUtil.createPageFromList(list, pageable);
         return Result.success("查询成功").data(pageFromList);
     }
@@ -49,7 +49,7 @@ public class CageRealController {
     public Result getLayEggsTime(@PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize,
                                  @RequestParam("baseId") Long baseId, @RequestParam("dovecoteNumber") String dovecoteNumber){
         List<CageReal> list = cageRealService.getLayEggsTime(baseId, dovecoteNumber);
-        Pageable pageable = PageRequest.of(pageNum, pageSize);
+        Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
         Page<CageReal> pageFromList = PageUtil.createPageFromList(list, pageable);
         return Result.success("查询成功").data(pageFromList);
     }
@@ -59,7 +59,7 @@ public class CageRealController {
     public Result getHatchTime(@PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize,
                                  @RequestParam("baseId") Long baseId, @RequestParam("dovecoteNumber") String dovecoteNumber){
         List<CageReal> list = cageRealService.getHatchTime(baseId, dovecoteNumber);
-        Pageable pageable = PageRequest.of(pageNum, pageSize);
+        Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
         Page<CageReal> pageFromList = PageUtil.createPageFromList(list, pageable);
         return Result.success("查询成功").data(pageFromList);
     }
@@ -69,7 +69,7 @@ public class CageRealController {
     public Result getFeedTime(@PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize,
                                @RequestParam("baseId") Long baseId, @RequestParam("dovecoteNumber") String dovecoteNumber) {
         List<CageReal> list = cageRealService.getFeedTime(baseId, dovecoteNumber);
-        Pageable pageable = PageRequest.of(pageNum, pageSize);
+        Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
         Page<CageReal> pageFromList = PageUtil.createPageFromList(list, pageable);
         return Result.success("查询成功").data(pageFromList);
     }

@@ -30,11 +30,25 @@ public class DovecoteEntryBillVo {
     @TableField("base_id")
     private Long baseId;
 
+<<<<<<< Updated upstream
+=======
+    //类型
+    @ApiModelProperty(value = "类型")
+    @TableField("type")
+    private String type;
+
+    //数量
+    @ApiModelProperty(value = "数量")
+    @TableField("amount")
+    private Integer amount;
+
+>>>>>>> Stashed changes
     //经手人
     @ApiModelProperty(value = "经手人")
     @TableField("handler")
     private String handler;
 
+<<<<<<< Updated upstream
     @ApiModelProperty(value = "类型")
     @TableField("type")
     private String type;
@@ -44,6 +58,8 @@ public class DovecoteEntryBillVo {
     @TableField("amount")
     private Integer amount;
 
+=======
+>>>>>>> Stashed changes
     //总金额
     @ApiModelProperty(value = "总金额")
     @TableField("total")

@@ -48,8 +48,8 @@ public class ShipmentEntryBillServiceImpl extends ServiceImpl<ShipmentEntryBillM
     private ShipmentEntryTypeService shipmentEntryTypeService;
 
     @Override
-    public List<ShipmentEntryBillVo> findBillByGmt_createAndShipmentId(Date startTime, Date endTime,Long shipmentId) {
-        return shipmentEntryBillMapper.findBillByGmt_createAndShipmentId(startTime,endTime,shipmentId);
+    public List<ShipmentEntryBillVo> findBillByGmt_createAndShipmentId(Date startTime, Date endTime,Long baseId) {
+        return shipmentEntryBillMapper.findBillByGmt_createAndShipmentId(startTime,endTime,baseId);
     }
 
     @Override

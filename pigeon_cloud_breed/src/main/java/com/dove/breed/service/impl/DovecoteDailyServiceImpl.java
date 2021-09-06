@@ -1,18 +1,28 @@
 package com.dove.breed.service.impl;
 
+import com.alibaba.excel.EasyExcel;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.dove.breed.entity.Dovecote;
 import com.dove.breed.entity.DovecoteDaily;
 import com.dove.breed.entity.vo.AbnormalVo;
 import com.dove.breed.entity.vo.DovecoteDailyVo;
 import com.dove.breed.entity.vo.DovecoteVo;
 import com.dove.breed.mapper.DovecoteDailyMapper;
+import com.dove.breed.mapper.DovecoteMapper;
 import com.dove.breed.service.DovecoteDailyService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.dove.breed.service.DovecoteService;
+import com.dove.breed.utils.ConvertUtil;
 import com.dove.entity.GlobalException;
 import com.dove.entity.StatusCode;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,6 +37,10 @@ import java.util.List;
 public class DovecoteDailyServiceImpl extends ServiceImpl<DovecoteDailyMapper, DovecoteDaily> implements DovecoteDailyService {
     @Autowired
     private DovecoteDailyMapper dovecoteDailyMapper;
+    @Autowired
+    private DovecoteService dovecoteService;
+    @Autowired
+    private ConvertUtil convertUtil;
 
 
     //获取日结表信息，按天查询
@@ -34,6 +48,7 @@ public class DovecoteDailyServiceImpl extends ServiceImpl<DovecoteDailyMapper, D
     public DovecoteDailyVo getDovecoteDaily(Long baseId, String dovecoteNumber, int year, int month, int day) {
         //查按小时的日结表信息
         List<DovecoteDaily> list = dovecoteDailyMapper.getDovecoteDaily(baseId, dovecoteNumber, year, month, day);
+        Date updateTime = dovecoteDailyMapper.getUpdateTime();
         //封装到按一天的
         DovecoteDailyVo dovecoteDailyVo = new DovecoteDailyVo(baseId,dovecoteNumber,0,0,0,0,0,0,0);
         for (DovecoteDaily po : list) {
@@ -45,6 +60,7 @@ public class DovecoteDailyServiceImpl extends ServiceImpl<DovecoteDailyMapper, D
             dovecoteDailyVo.setBadEggs(dovecoteDailyVo.getBadEggs() + po.getBadEggs());
             dovecoteDailyVo.setUnfertilizedEggs(dovecoteDailyVo.getUnfertilizedEggs() + po.getUnfertilizedEggs());
         }
+        dovecoteDailyVo.setGmtModified(updateTime);
 
         return dovecoteDailyVo;
     }
@@ -100,4 +116,56 @@ public class DovecoteDailyServiceImpl extends ServiceImpl<DovecoteDailyMapper, D
         int insert = dovecoteDailyMapper.insert(dovecoteDaily);
         return insert;
     }
+
+    @Override
+    public List<DovecoteDailyVo> getAllDovecoteDaily(Long baseId, int year, int month, int day) {
+        List<DovecoteDailyVo> allDovecoteDaily = dovecoteDailyMapper.getAllDovecoteDaily(baseId, year, month, day);
+        return allDovecoteDaily;
+    }
+
+    @Override
+    public void exportDailyData(HttpServletResponse response,Long baseId) {
+        //设置下载信息
+        response.setContentType("application/vnd.ms-excel");
+        response.setCharacterEncoding("utf-8");
+        //这里URLEncoder.encode可以防止中文乱码，当然和easyexcel没有关系
+        String fileName = "dovecoteDaily";
+        response.setHeader("Content-disposition","attachment;filename=" + fileName + ".xlsx");
+        //查询数据库
+        List<DovecoteDaily> dovecoteDailies = dovecoteDailyMapper.getToExcel(baseId);
+        List<DovecoteDailyVo> dovecoteDailyVoList = convertUtil.convert(dovecoteDailies, DovecoteDailyVo.class);
+        //调用方法进行写操作
+        try{
+            EasyExcel.write(response.getOutputStream(),DovecoteDailyVo.class).sheet("dovecoteDaily")
+                    .doWrite(dovecoteDailyVoList);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void importDictData(MultipartFile file) {
+
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

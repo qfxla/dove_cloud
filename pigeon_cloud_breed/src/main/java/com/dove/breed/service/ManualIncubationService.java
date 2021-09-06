@@ -12,5 +12,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2021-09-04
  */
 public interface ManualIncubationService extends IService<ManualIncubation> {
-
+    int addManualIncubationData(Long baseId,String dovecoteNumber,
+                                int one,int two,int three,int four);
 }

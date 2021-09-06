@@ -3,6 +3,7 @@ import com.dove.breed.entity.dto.DovecoteDto;
 import com.dove.breed.entity.vo.AbnormalVo;
 import com.dove.breed.entity.vo.DovecoteVo;
 import com.dove.breed.utils.ConvertUtil;
+import com.dove.breed.utils.PageUtil;
 import com.dove.entity.Result;
 
 
@@ -10,13 +11,15 @@ import com.dove.breed.service.DovecoteService;
 import com.dove.breed.entity.Dovecote;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ansi.AnsiOutput;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
     import org.springframework.web.bind.annotation.RestController;
@@ -70,11 +73,14 @@ public class DovecoteController {
 
     @ApiOperation(value = "列表（分页）")
     @GetMapping("/list/{pageNum}/{pageSize}")
-    public Object list(@PathVariable("pageNum")Long pageNum, @PathVariable("pageSize")Long pageSize){
-        IPage<Dovecote> page = dovecoteService.page(
-        new Page<>(pageNum, pageSize), null);
-        IPage<DovecoteVo> page1 = convertUtil.convert(page, DovecoteVo.class);
-        return page1.getTotal() > 0?Result.success("分页成功").data(page1) : Result.error("分页失败");
+    public Object list(@PathVariable("pageNum")int pageNum, @PathVariable("pageSize")int pageSize,
+                       @RequestParam("baseId")Long baseId){
+        QueryWrapper<Dovecote> wrapper = new QueryWrapper<>();
+        wrapper.eq("base_id",baseId);
+        List<Dovecote> list = dovecoteService.list(wrapper);
+        Pageable pageable = PageRequest.of(pageNum, pageSize);
+        Page<Dovecote> pageFromList = PageUtil.createPageFromList(list, pageable);
+        return Result.success("分页成功").data(pageFromList);
     }
 
     @ApiOperation(value = "详情")

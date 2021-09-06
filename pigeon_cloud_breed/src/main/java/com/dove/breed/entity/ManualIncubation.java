@@ -37,7 +37,7 @@ public class ManualIncubation implements Serializable {
         private String breederName;
 
         @ApiModelProperty(value = "类型")
-        private Boolean type;
+        private int type;
 
         @ApiModelProperty(value = "上午数量")
         private Integer amNumber;
@@ -45,10 +45,14 @@ public class ManualIncubation implements Serializable {
         @ApiModelProperty(value = "下午数量")
         private Integer pmNumber;
 
+        //创建时间
         @ApiModelProperty(value = "创建时间")
+        @TableField(value = "gmt_create", fill = FieldFill.INSERT)
         private Date gmtCreate;
 
-        @ApiModelProperty(value = "更新时间")
+        //修改时间
+        @ApiModelProperty(value = "修改时间")
+        @TableField(value = "gmt_modified", fill = FieldFill.INSERT_UPDATE)
         private Date gmtModified;
 
         //逻辑删除

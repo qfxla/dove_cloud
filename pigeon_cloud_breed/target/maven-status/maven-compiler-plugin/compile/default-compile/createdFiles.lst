@@ -40,6 +40,7 @@ com\dove\breed\service\BusinessBreedingService.class
 com\dove\breed\controller\DovecoteDailyController.class
 com\dove\breed\controller\ShipmentEntryBaseController.class
 com\dove\breed\mapper\CagePositionMapper.class
+com\dove\breed\entity\vo\Manual_incubationVo.class
 com\dove\breed\controller\BusinessBreedingController.class
 com\dove\breed\service\impl\BusinessBreedingServiceImpl.class
 com\dove\breed\service\impl\CagePositionServiceImpl.class
@@ -52,6 +53,7 @@ com\dove\breed\mapper\ManualIncubationMapper.class
 com\dove\breed\entity\DovecoteEntryType.class
 com\dove\breed\entity\vo\ShipmentEntryBaseVo.class
 com\dove\breed\service\ShipmentEntryBillService.class
+com\dove\breed\entity\dto\Manual_incubationDto.class
 com\dove\breed\entity\Cage.class
 com\dove\breed\entity\dto\DovecoteOutTypeDto.class
 com\dove\breed\entity\vo\DovecoteOutBaseVo.class
@@ -147,7 +149,6 @@ com\dove\breed\controller\DovecoteOutTypeController.class
 com\dove\breed\entity\vo\DovecoteEntryBaseVo.class
 com\dove\breed\service\impl\CageRealServiceImpl.class
 com\dove\breed\controller\DovecoteOutBillController.class
-com\dove\breed\config\WebSecurityConfig.class
 com\dove\breed\entity\DovecoteDaily.class
 com\dove\breed\mapper\ShipmentOutBaseMapper.class
 com\dove\breed\service\impl\DovecoteEntryTypeServiceImpl.class

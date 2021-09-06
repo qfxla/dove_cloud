@@ -53,6 +53,7 @@ D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\service\Shi
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\DovecoteEntryType.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\mapper\BreedBaseMapper.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\vo\DovecoteEntryTypeVo.java
+D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\vo\Manual_incubationVo.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\CageReal.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\dto\DovecoteOutBillDto.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\service\impl\BusinessBreedingServiceImpl.java
@@ -121,6 +122,7 @@ D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\Dove
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\controller\BreedBaseController.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\mapper\DovecoteOutTypeMapper.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\mapper\CageMapper.java
+D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\dto\Manual_incubationDto.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\mapper\DovecoteEntryTypeMapper.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\service\CageService.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\DovecoteOutBill.java
@@ -143,7 +145,6 @@ D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\controller\
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\DovecoteOutBase.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\vo\BusinessBreedingVo.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\service\FeedStockService.java
-D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\config\WebSecurityConfig.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\mapper\FeedStockMapper.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\service\impl\FeedStockServiceImpl.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\service\impl\DovecoteEntryBaseServiceImpl.java

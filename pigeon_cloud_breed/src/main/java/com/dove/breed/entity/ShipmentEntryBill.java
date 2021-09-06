@@ -43,13 +43,17 @@ public class ShipmentEntryBill extends Model<ShipmentEntryBill> {
 
     //领取基地id
     @ApiModelProperty(value = "领取基地id")
-    @TableField("shipment_id")
-    private Long shipmentId;
+    @TableField("base_id")
+    private Long baseId;
 
     //基地名称
     @ApiModelProperty(value = "基地名称")
-    @TableField("shipment_name")
-    private String shipmentName;
+    @TableField("base_name")
+    private String baseName;
+
+    @ApiModelProperty(value = "类型")
+    @TableField("type")
+    private String type;
 
     //经手人
     @ApiModelProperty(value = "经手人")

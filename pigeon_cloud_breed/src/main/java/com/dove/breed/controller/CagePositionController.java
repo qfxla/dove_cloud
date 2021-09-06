@@ -1,6 +1,7 @@
 package com.dove.breed.controller;
 
 
+import com.dove.breed.entity.CagePosition;
 import com.dove.breed.service.CagePositionService;
 import com.dove.entity.Result;
 import io.swagger.annotations.Api;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 2021-08-28
  */
 @CrossOrigin
-@Api(tags = "鸽棚位置表")
+@Api(tags = "鸽笼位置表")
 @RestController
 @RequestMapping("/breed/cage-position")
 public class CagePositionController {
@@ -34,5 +35,13 @@ public class CagePositionController {
         Long cageId = cagePositionService.getCageId(baseId, dovecoteNumber, rowNo, line, columnNo);
         return Result.success("查询成功").data(cageId);
     }
+
+    @ApiOperation("根据cageId查位置")
+    @GetMapping("/getPosition")
+    public Result getPosition(@PathVariable("cageId")Long cageId){
+        CagePosition byId = cagePositionService.getById(cageId);
+        return byId != null ?Result.success("查询成功").data(byId) : Result.error("无该cageId");
+    }
+
 }
 

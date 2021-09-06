@@ -6,7 +6,9 @@ import com.dove.breed.entity.vo.AbnormalVo;
 import com.dove.breed.entity.vo.DovecoteDailyVo;
 import com.fasterxml.jackson.databind.ser.Serializers;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -22,4 +24,11 @@ public interface DovecoteDailyService extends IService<DovecoteDaily> {
                                      int year, int month, int day);
 
     int updateDovecoteDaily(Long baseId,String dovecoteNumber);
+
+    List<DovecoteDailyVo> getAllDovecoteDaily(Long baseId,int year,int month,int day);
+
+    void exportDailyData(HttpServletResponse response,Long baseId);
+
+    void importDictData(MultipartFile file);
+
 }

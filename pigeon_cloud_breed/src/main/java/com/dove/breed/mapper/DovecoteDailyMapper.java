@@ -3,9 +3,11 @@ package com.dove.breed.mapper;
 import com.dove.breed.entity.DovecoteDaily;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dove.breed.entity.vo.AbnormalVo;
+import com.dove.breed.entity.vo.DovecoteDailyVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,5 +33,10 @@ public interface DovecoteDailyMapper extends BaseMapper<DovecoteDaily> {
     //正常
     List<DovecoteDaily> getDovecoteDaily(@Param("baseId")Long baseId,@Param("dovecoteNumber")String dovecoteNumber,
                                          @Param("year")int year,@Param("month")int month,@Param("day")int day);
+    List<DovecoteDailyVo> getAllDovecoteDaily(@Param("baseId")Long baseId, @Param("year")int year,
+                                              @Param("month")int month, @Param("day")int day);
+    Date getUpdateTime();
+
+    List<DovecoteDaily> getToExcel(@Param("baseId")Long baseId);
 
 }

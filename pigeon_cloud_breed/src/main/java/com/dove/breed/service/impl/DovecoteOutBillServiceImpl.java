@@ -68,6 +68,7 @@ public class DovecoteOutBillServiceImpl extends ServiceImpl<DovecoteOutBillMappe
         Long billId = dovecoteOutBillMapper.getLatestBillId();
         lock.unlock();
         int billTotal = 0;
+        int billAmount = 0;
         for (DovecoteOutBaseDto po1 : dovecoteOutBaseDtoList) {
             //把入库信息的订单号设置为添加的入库单单号
             po1.setDovecoteOutBill(billId);
@@ -82,9 +83,15 @@ public class DovecoteOutBillServiceImpl extends ServiceImpl<DovecoteOutBillMappe
             }
             po1.setTypeId(typeId);
             //设置base的total
-            int total = po1.getAmount() * po1.getUnitPrice();
+            int total = 0;
+            if (po1.getUnitPrice() != null){
+                total = po1.getAmount() * po1.getUnitPrice();
+            }else {
+                total = 0;
+            }
             po1.setTotal(total);
             billTotal += total;
+            billAmount += po1.getAmount();
             DovecoteOutBase dovecoteOutBase = convertUtil.convert(po1, DovecoteOutBase.class);
             //插入出库信息
             int insert = dovecoteOutBaseMapper.insert(dovecoteOutBase);
@@ -94,6 +101,7 @@ public class DovecoteOutBillServiceImpl extends ServiceImpl<DovecoteOutBillMappe
         }
         DovecoteOutBill dovecoteOutBill1 = dovecoteOutBillMapper.selectById(billId);
         dovecoteOutBill1.setTotal(billTotal);
+        dovecoteOutBill1.setAmount(billAmount);
         dovecoteOutBillMapper.updateById(dovecoteOutBill1);
         DovecoteOutBillVo result = convertUtil.convert(dovecoteOutBill1, DovecoteOutBillVo.class);
         return result;

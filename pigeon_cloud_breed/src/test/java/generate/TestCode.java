@@ -44,6 +44,7 @@ public class TestCode {
     private DovecoteEntryBaseMapper dovecoteEntryBaseMapper;
     @Autowired
     private CagePositionMapper cagePositionMapper;
+
     @Autowired
     private DovecoteDailyMapper dovecoteDailyMapper;
     @Autowired
@@ -58,19 +59,18 @@ public class TestCode {
     private DovecoteOutBillService dovecoteOutBillService;
     @Autowired
     private ConvertUtil convertUtil;
+    @Autowired
+    private CagePositionService cagePositionService;
     @Test
     public void test(){
-        DovecoteOutBillDto dovecoteOutBillDto = new DovecoteOutBillDto();
-        dovecoteOutBillDto.setDovecoteDirector("张三");
-        dovecoteOutBillDto.setBaseId(12L);
-        DovecoteOutBill dovecoteOutBill = convertUtil.convert(dovecoteOutBillDto, DovecoteOutBill.class);
-        int insert = dovecoteOutBillMapper.insert(dovecoteOutBill);
-        System.out.println(insert);
+        List<DovecoteDaily> toExcel = dovecoteDailyMapper.getToExcel(12L);
+        System.out.println(toExcel);
     }
 
 
     @Test
     public void test1(){
+        System.out.println(new Date().getHours());
     }
 
 }
