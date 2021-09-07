@@ -4,18 +4,13 @@ import com.dove.authority.entity.User;
 import com.dove.authority.entity.dto.UserLoginPasswordDto;
 import com.dove.authority.entity.dto.UserLoginPhoneDto;
 import com.dove.authority.entity.dto.UserRegisterDto;
-import com.dove.authority.entity.vo.UserVo;
 import com.dove.authority.service.PermissionService;
 import com.dove.authority.service.UserService;
-import com.dove.authority.utils.IpAddressUtil;
 import com.dove.entity.Result;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 

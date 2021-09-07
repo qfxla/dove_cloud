@@ -9,7 +9,7 @@
 
     <select id="getInBillsByNoPage" resultType="com.dove.processing.entity.Vo.InProcessingBothVo">
         select p.material_name,p.specification,p.price,p.count,p.remark,p.total,
-        t.in_storage,t.amount,t.total,t.total_remark,t.enter_time
+        t.in_storage,t.amount,t.total_money,t.total_remark,t.enter_time
         from t_in_processing_info as p
         inner join t_in_processing_bill as t
         on p.in_id = t.in_id

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
  * @author run
  * @since 2021/3/20 0:07
  */
-@Api(description = "图片验证码相关的接口")
+@Api(tags = "图片验证码相关的接口")
 @RestController
 @CrossOrigin
 @RequestMapping("/authority/captcha")

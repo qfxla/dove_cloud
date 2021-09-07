@@ -48,7 +48,7 @@ public class SwaggerConfig {
     private ApiInfo apiInfo(){
         return new ApiInfoBuilder()
                 .title("数字鸽业")
-                .description("溯源不积极，思想有问题")
+                .description("搞权限不积极，脑子有问题")
                 .version("1.0") // 这里看着写
                 .contact(new Contact("run", "https://leetcode-cn.com", "1842841029@qq.com"))
                 .build();

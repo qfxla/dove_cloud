@@ -14,9 +14,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * @since 2021/3/18 20:07
  */
 @SpringBootApplication
-//@EnableDiscoveryClient
 @MapperScan("com.dove.authority.mapper")
 @ComponentScan("com.dove")
+@EnableDiscoveryClient
 public class AuthorityApplication {
 
     public static void main(String[] args) {

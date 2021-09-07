@@ -42,26 +42,26 @@ public class InProcessingBothVo extends Model<InProcessingBothVo> {
     //总数量
     @ApiModelProperty(value = "总数量")
     @TableField("amount")
-    @ExcelProperty(value = "总数量",index = 6)
+    @ExcelProperty(value = "总数量",index = 7)
     private Integer amount;
 
     //总金额
     @ApiModelProperty(value = "总金额")
-    @TableField("total")
-    @ExcelProperty(value = "总金额",index = 7)
-    private Integer total;
+    @TableField("total_money")
+    @ExcelProperty(value = "总金额",index = 8)
+    private Integer totalMoney;
 
     //备注
     @ApiModelProperty(value = "出库备注")
     @TableField("total_remark")
-    @ExcelProperty(value = "出库备注",index = 8)
+    @ExcelProperty(value = "出库备注",index = 9)
     private String totalRemark;
 
     //入库时间
     @ApiModelProperty(value = "入库时间")
     @TableField("enter_time")
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
-    @ExcelProperty(value = "入库时间",index = 9)
+    @ExcelProperty(value = "入库时间",index = 10)
     private Date enterTime;
 
     //名称
@@ -88,9 +88,15 @@ public class InProcessingBothVo extends Model<InProcessingBothVo> {
     @ExcelProperty(value = "数量",index = 4)
     private Integer count;
 
+    //总价
+    @ApiModelProperty(value = "总价")
+    @TableField("total")
+    @ExcelProperty(value = "总价",index = 5)
+    private BigDecimal total;
+
     //备注
     @ApiModelProperty(value = "备注")
     @TableField("remark")
-    @ExcelProperty(value = "原料信息备注",index = 5)
+    @ExcelProperty(value = "原料信息备注",index = 6)
     private String remark;
 }

@@ -1,12 +1,12 @@
 package com.dove.authority.mapper;
 
-import com.dove.authority.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dove.authority.entity.vo.StaffVo;
 import com.dove.authority.entity.vo.UserVo;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import com.dove.authority.entity.User;
 
 import java.util.List;
 

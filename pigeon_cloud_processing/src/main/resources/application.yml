@@ -3,7 +3,7 @@ server:
 #数据库配置
 spring:
   application:
-    name: pigeon-process-service
+    name: nacos-config
 
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
@@ -67,12 +67,12 @@ mybatis-plus:
       logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
   mapper-locations: classpath:com/dove/processing/mapper/xml/*.xml
 
-##设置feign客户端超时时间(OpenFeign默认内置了ribbon)
-#ribbon:
-#  #指的是建立连接所用的时间，适用于网络状况正常的情况下,两端连接所用的时间
-#  ReadTimeout: 5000
-#  #指的是建立连接后从服务器读取到可用资源所用的时间
-#  ConnectTimeout: 5000
+#设置feign客户端超时时间(OpenFeign默认内置了ribbon)
+ribbon:
+  #指的是建立连接所用的时间，适用于网络状况正常的情况下,两端连接所用的时间
+  ReadTimeout: 5000
+  #指的是建立连接后从服务器读取到可用资源所用的时间
+  ConnectTimeout: 5000
 
 #关于actuator监视暴露节点
 management:

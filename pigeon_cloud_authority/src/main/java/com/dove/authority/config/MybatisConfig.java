@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @author run
  * @since 2021/3/19 19:52
  */
+/** @EnableTransactionManagement这个注解其实不用添加也行，底层已经写好事务代理了*/
 @EnableTransactionManagement
 @Configuration
 public class MybatisConfig {

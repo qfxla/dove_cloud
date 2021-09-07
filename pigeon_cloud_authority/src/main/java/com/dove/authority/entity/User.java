@@ -1,76 +1,101 @@
 package com.dove.authority.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
-
-import java.util.Date;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.springframework.beans.BeanUtils;
 
-import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 /**
  * <p>
- * 
+ * 用户信息表
  * </p>
  *
- * @author run
- * @since 2021-03-18
+ * @author WTL
+ * @since 2021-09-05
  */
 @TableName("t_authority_user")
-@ApiModel(value="User对象", description="")
-public class User implements Serializable {
+@ApiModel(value = "AuthorityUser对象", description = "用户信息表")
+public class User extends Model<User> {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "用户id", hidden = true)
+    //用户id
+    @ApiModelProperty(value = "用户id")
     @TableId(value = "id", type = IdType.ID_WORKER)
     private Long id;
 
-    @ApiModelProperty(value = "手机号码", hidden = true)
+    //用户唯一标识（openid)
+    @ApiModelProperty(value = "用户唯一标识（openid)")
+    @TableField("cloud_id")
+    private String cloudId;
+
+    //手机号码
+    @ApiModelProperty(value = "手机号码")
+    @TableField("phone")
     private String phone;
 
-    @ApiModelProperty(value = "登录密码", hidden = true)
+    //登录密码
+    @ApiModelProperty(value = "登录密码")
+    @TableField("password")
     private String password;
 
-    @ApiModelProperty(value = "姓名")
-    @NotNull
+    //web端登录名称
+    @ApiModelProperty(value = "web端登录名称")
+    @TableField("username")
     private String username;
 
+    //性别：男1，女2
     @ApiModelProperty(value = "性别：男1，女2")
-    @NotNull
+    @TableField("sex")
     private Integer sex;
 
+    //头像
     @ApiModelProperty(value = "头像")
-    @NotNull
+    @TableField("profile_photo")
     private String profilePhoto;
 
+    //小程序用户名
+    @ApiModelProperty(value = "小程序用户名")
+    @TableField("account")
+    private String account;
+
+    //出生日期
     @ApiModelProperty(value = "出生日期")
+    @TableField("birthday")
     private Date birthday;
 
-    @ApiModelProperty(value = "企业id", hidden = true)
+    //所属企业id
+    @ApiModelProperty(value = "所属企业id")
+    @TableField("enterprise_id")
     private Long enterpriseId;
 
-    @ApiModelProperty(value = "创建时间", hidden = true)
-    @TableField(fill = FieldFill.INSERT)
+    //创建时间
+    @ApiModelProperty(value = "创建时间")
+    @TableField(value = "gmt_create", fill = FieldFill.INSERT)
     private Date gmtCreate;
 
-    @ApiModelProperty(value = "修改时间", hidden = true)
-    @TableField(fill = FieldFill.INSERT_UPDATE)
+    //修改时间
+    @ApiModelProperty(value = "修改时间")
+    @TableField(value = "gmt_modified", fill = FieldFill.INSERT_UPDATE)
     private Date gmtModified;
 
-    @ApiModelProperty(value = "逻辑删除", hidden = true)
+    //逻辑删除
+    @ApiModelProperty(value = "逻辑删除")
+    @TableField("is_deleted")
     @TableLogic
-    @TableField(fill = FieldFill.INSERT)
     private Integer isDeleted;
 
-    public Date getBirthday() {
-        return birthday;
-    }
+    //乐观锁(版本号)
+    @ApiModelProperty(value = "乐观锁(版本号)")
+    @TableField("version")
+    @Version
+    private Integer version;
 
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
     public Long getId() {
@@ -79,6 +104,14 @@ public class User implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getCloudId() {
+        return cloudId;
+    }
+
+    public void setCloudId(String cloudId) {
+        this.cloudId = cloudId;
     }
 
     public String getPhone() {
@@ -121,6 +154,22 @@ public class User implements Serializable {
         this.profilePhoto = profilePhoto;
     }
 
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
     public Long getEnterpriseId() {
         return enterpriseId;
     }
@@ -151,5 +200,13 @@ public class User implements Serializable {
 
     public void setIsDeleted(Integer isDeleted) {
         this.isDeleted = isDeleted;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 }

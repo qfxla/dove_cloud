@@ -1,12 +1,10 @@
 package com.dove.authority.service.impl;
 
-import cn.hutool.core.util.StrUtil;
 import com.dove.authority.Async.AuthorityAsync;
 import com.dove.authority.entity.User;
 import com.dove.authority.entity.dto.UserLoginPasswordDto;
 import com.dove.authority.entity.dto.UserLoginPhoneDto;
 import com.dove.authority.entity.dto.UserRegisterDto;
-import com.dove.authority.entity.vo.PermissionVo;
 import com.dove.authority.entity.vo.UserVo;
 import com.dove.authority.mapper.RoleMapper;
 import com.dove.authority.mapper.UserMapper;
@@ -28,6 +26,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import sun.misc.BASE64Decoder;
+import com.dove.authority.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

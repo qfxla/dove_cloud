@@ -1,17 +1,14 @@
 package com.dove.authority.service;
 
-import cn.hutool.http.HttpResponse;
-import com.dove.authority.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.dove.authority.entity.User;
 import com.dove.authority.entity.dto.UserLoginPasswordDto;
 import com.dove.authority.entity.dto.UserLoginPhoneDto;
 import com.dove.authority.entity.dto.UserRegisterDto;
-import com.dove.authority.entity.vo.PermissionVo;
 import com.dove.authority.entity.vo.UserVo;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  * <p>
