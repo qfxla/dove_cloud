@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dove.breed.mapper.BaseStockMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.dove.breed.entity.BaseStock">
+        <id column="id" property="id" />
+        <result column="base_id" property="baseId"/>
+        <result column="base_name" property="baseName"/>
+        <result column="type" property="type"/>
+        <result column="type_id" property="typeId"/>
+        <result column="type_name" property="typeName"/>
+        <result column="amount" property="amount"/>
+        <result column="gmt_create" property="gmtCreate" />
+        <result column="gmt_modified" property="gmtModified" />
+        <result column="is_deleted" property="deleted" />
+        <result column="version" property="version" />
+    </resultMap>
+
+    <select id="getStockByBaseIdAndType" resultType="com.dove.breed.entity.BaseStock">
+        SELECT *
+        FROM t_base_stock
+        WHERE base_id = #{baseId}
+        AND type = #{type}
+    </select>
+</mapper>

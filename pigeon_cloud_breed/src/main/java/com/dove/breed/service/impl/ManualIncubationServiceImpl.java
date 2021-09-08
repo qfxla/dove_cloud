@@ -17,7 +17,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -93,9 +95,8 @@ public class ManualIncubationServiceImpl extends ServiceImpl<ManualIncubationMap
     public Page<ManualIncubationVo> getByDovecoteNumber(Long baseId, String dovecoteNumber,int pageNum,int pageSize) {
         List<ManualIncubation> list = manualIncubationMapper.getByDovecoteNumber(baseId, dovecoteNumber);
         List<ManualIncubationVo> list1 = convertUtil.convert(list, ManualIncubationVo.class);
-        Page<ManualIncubationVo> page = PageUtil.fourMyPage(list1, 4 * pageNum, 4 * pageSize);
-//        Pageable pageable = PageRequest.of(4 * (pageNum - 1), 4 * pageSize);
-//        Page<ManualIncubation> pageFromList = PageUtil.createPageFromList(byDovecoteNumber, pageable);
+        list1 = list1.stream().sorted(Comparator.comparing(ManualIncubationVo::getGmtCreate).reversed()).collect(Collectors.toList());
+        Page<ManualIncubationVo> page = PageUtil.list2Page(list1, pageNum, pageSize);
         return page;
     }
 

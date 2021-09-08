@@ -18,10 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * <p>
@@ -167,6 +165,16 @@ public class FeedStockServiceImpl extends ServiceImpl<FeedStockMapper, FeedStock
             return false;
         }
         FeedStock feedStock = baseMapper.selectById(id);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+        Date gmtCreate = feedStock.getGmtCreate();
+        // 获取月结表创建时间的年月
+        String dateYearAndMonth = sdf.format(gmtCreate);
+        // 获取当前时间的年月
+        String nowYearAndMonth = GetMonth.getDifferenceNowToMonth(0).substring(0,GetMonth.getDifferenceNowToMonth(0).lastIndexOf("-"));
+        if(!dateYearAndMonth.equals(nowYearAndMonth)){
+            return false;
+        }
         feedStock.setUseAmount(feedStock.getUseAmount() + feedStock.getAmount() - residue);
         feedStock.setAmount(residue);
         return baseMapper.updateById(feedStock) == 1;

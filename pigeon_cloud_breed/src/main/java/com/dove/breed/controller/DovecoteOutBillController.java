@@ -1,10 +1,16 @@
 package com.dove.breed.controller;
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dove.breed.entity.CageReal;
+import com.dove.breed.entity.DovecoteOutBase;
 import com.dove.breed.entity.dto.DovecoteOutBaseDto;
 import com.dove.breed.entity.dto.DovecoteOutBillDto;
+import com.dove.breed.entity.vo.DovecoteEntryBillVo;
 import com.dove.breed.entity.vo.DovecoteOutBillVo;
 import com.dove.breed.entity.vo.ShipmentOutBillVo;
+import com.dove.breed.service.DovecoteEntryBaseService;
+import com.dove.breed.service.DovecoteOutBaseService;
 import com.dove.breed.utils.ConvertUtil;
 import com.dove.breed.utils.PageUtil;
 import com.dove.entity.Result;
@@ -17,15 +23,12 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.RestController;
 
@@ -48,6 +51,8 @@ public class DovecoteOutBillController {
 
     @Autowired
     public DovecoteOutBillService dovecoteOutBillService;
+    @Autowired
+    private DovecoteOutBaseService dovecoteOutBaseService;
 
     @Autowired
     private ConvertUtil convertUtil;
@@ -61,9 +66,11 @@ public class DovecoteOutBillController {
     }
 
     @ApiOperation(value = "根据id删除")
-    @DeleteMapping("/delete/{id}")
+    @GetMapping("/delete/{id}")
     public Result delete(@PathVariable("id") Long id){
-        boolean b = dovecoteOutBillService.removeById(id);
+        QueryWrapper<DovecoteOutBill> wrapper = new QueryWrapper<>();
+        wrapper.eq("id",id);
+        boolean b = dovecoteOutBillService.remove(wrapper);
         return b ? Result.success("删除成功") : Result.error("删除失败");
     }
 
@@ -78,12 +85,35 @@ public class DovecoteOutBillController {
 
 
     @ApiOperation(value = "根据id修改")
-    @PostMapping("/update/{id}")
-    public Result update(@PathVariable("id") Long id, @RequestBody DovecoteOutBillDto dovecoteOutBillDto){
-        DovecoteOutBill dovecoteOutBill = convertUtil.convert(dovecoteOutBillDto, DovecoteOutBill.class);
-        dovecoteOutBill.setId(id);
-        boolean b = dovecoteOutBillService.updateById(dovecoteOutBill);
-        return b?Result.success("修改成功") : Result.error("修改失败");
+    @PostMapping("/update")
+    public Result update(@RequestParam("billId")Long billId,@RequestBody Map<String,Object> map){
+        //删除原订单号
+        dovecoteOutBillService.removeById(billId);
+        QueryWrapper<DovecoteOutBase> wrapper = new QueryWrapper<>();
+        wrapper.eq("dovecote_out_bill",billId)
+                .eq("is_deleted",0);
+        List<DovecoteOutBase> bases = dovecoteOutBaseService.list(wrapper);
+        ArrayList<Long> list1 = new ArrayList<>();
+        for (DovecoteOutBase base : bases) {
+            list1.add(base.getId());
+        }
+        dovecoteOutBaseService.removeByIds(list1);
+
+        DovecoteOutBillDto dovecoteOutBillDto = null;
+        ArrayList<DovecoteOutBaseDto> dovecoteOutBaseDtoList = new ArrayList<>();
+        try {
+            dovecoteOutBillDto = JSON.parseObject(JSON.toJSONString(map.get("dovecoteOutBillDto")), DovecoteOutBillDto.class);
+            List<DovecoteOutBaseDto> list = JSON.parseObject(JSON.toJSONString(map.get("dovecoteOutBaseDtoList")),ArrayList.class);
+            for (int i = 0;i < list.size();i++){
+                //数组内容得在解析一遍手动放进去
+                DovecoteOutBaseDto po = JSON.parseObject(JSON.toJSONString(list.get(i)), DovecoteOutBaseDto.class);
+                dovecoteOutBaseDtoList.add(po);
+            }
+        }catch (Exception exception){
+            exception.printStackTrace();
+        }
+        DovecoteOutBillVo dovecoteOutBillVo = dovecoteOutBillService.submitDovecoteOutBill(dovecoteOutBillDto,dovecoteOutBaseDtoList);
+        return dovecoteOutBillVo.getId() != null?Result.success("订单修改成功").data(dovecoteOutBillVo) : Result.error("订单修改失败");
     }
 
     @ApiOperation(value = "根据创建时间和基地id查询ShipmentOutBill")
@@ -101,9 +131,9 @@ public class DovecoteOutBillController {
                                             @RequestParam("pageNum")int pageNum,
                                             @RequestParam("pageSize")int pageSize){
         List<DovecoteOutBillVo> billList = dovecoteOutBillService.findBillByDovecoteAndType(baseId, dovecoteNumber, type);
-        Pageable pageable = PageRequest.of(pageNum, pageSize);
-        Page<DovecoteOutBillVo> pageFromList = PageUtil.createPageFromList(billList, pageable);
-        return Result.success("查询成功").data(pageFromList);
+        billList = billList.stream().sorted(Comparator.comparing(DovecoteOutBillVo::getGmtCreate).reversed()).collect(Collectors.toList());
+        Page page = PageUtil.list2Page(billList, pageNum, pageSize);
+        return Result.success("查询成功").data(page);
     }
 
     @ApiOperation(value = "提交入库单")
@@ -124,5 +154,23 @@ public class DovecoteOutBillController {
         }
         DovecoteOutBillVo dovecoteOutBillVo = dovecoteOutBillService.submitDovecoteOutBill(dovecoteOutBillDto,dovecoteOutBaseDtoList);
         return dovecoteOutBillVo != null?Result.success("提交成功").data(dovecoteOutBillVo) : Result.error("提交失败");
+    }
+
+    //用于求某天基地各类型总数
+    @ApiOperation("用于求某天基地各类型总数")
+    @GetMapping("/sumAllDovecoteByTypeAndDay")
+    public Result sumAllDovecoteByType(@RequestParam("baseId")Long baseId,@RequestParam("type")String type,
+                                       @RequestParam("year")int year,@RequestParam("month")int month,@RequestParam("day")int day){
+        Map<String, Integer> map = dovecoteOutBillService.getAllAmountByBaseIdAndDateAndType(baseId, type, year, month, day);
+        return Result.success("获取成功").data(map);
+    }
+
+    //用于求某月基地各类型总数
+    @ApiOperation("用于求某月基地各类型总数")
+    @GetMapping("/sumAllDovecoteByTypeAndMonth")
+    public Result sumAllDovecoteByTypeAndMonth(@RequestParam("baseId")Long baseId,@RequestParam("type")String type,
+                                       @RequestParam("year")int year,@RequestParam("month")int month){
+        Map<String, Integer> map = dovecoteOutBillService.getAllAmountByBaseIdAndMonthAndType(baseId, type, year, month);
+        return Result.success("获取成功").data(map);
     }
 }

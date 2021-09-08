@@ -1,14 +1,17 @@
 package com.dove.breed.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.dove.breed.entity.BaseStock;
 import com.dove.breed.entity.ShipmentEntryBase;
 import com.dove.breed.entity.ShipmentEntryBill;
 import com.dove.breed.entity.ShipmentEntryType;
 import com.dove.breed.entity.dto.ShipmentEntryBaseDto;
 import com.dove.breed.entity.dto.ShipmentEntryBillDto;
 import com.dove.breed.entity.vo.ShipmentEntryBillVo;
+import com.dove.breed.mapper.BaseStockMapper;
 import com.dove.breed.mapper.ShipmentEntryBaseMapper;
 import com.dove.breed.mapper.ShipmentEntryBillMapper;
+import com.dove.breed.service.BaseStockService;
 import com.dove.breed.service.ShipmentEntryBillService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dove.breed.service.ShipmentEntryTypeService;
@@ -17,6 +20,7 @@ import com.dove.entity.GlobalException;
 import com.dove.entity.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -47,11 +51,18 @@ public class ShipmentEntryBillServiceImpl extends ServiceImpl<ShipmentEntryBillM
     @Autowired
     private ShipmentEntryTypeService shipmentEntryTypeService;
 
+    @Autowired
+    private BaseStockMapper baseStockMapper;
+
+    @Autowired
+    private BaseStockService baseStockService;
+
     @Override
     public List<ShipmentEntryBillVo> findBillByGmt_createAndShipmentId(Date startTime, Date endTime,Long baseId) {
         return shipmentEntryBillMapper.findBillByGmt_createAndShipmentId(startTime,endTime,baseId);
     }
 
+    @Transactional
     @Override
     public ShipmentEntryBillVo submitShipmentEntryBill(ShipmentEntryBillDto shipmentEntryBillDto, List<ShipmentEntryBaseDto> shipmentEntryBaseDtoList) {
         ShipmentEntryBill shipmentEntryBill = convertUtil.convert(shipmentEntryBillDto,ShipmentEntryBill.class);
@@ -89,6 +100,10 @@ public class ShipmentEntryBillServiceImpl extends ServiceImpl<ShipmentEntryBillM
                 throw new GlobalException(StatusCode.ERROR, "添加入库单信息失败");
             }
         }
+        //如果是药品或饲料添加到基地库存中
+        if (shipmentEntryBillDto.getType().equals("饲料") || shipmentEntryBillDto.getType().equals("药品")) {
+            addToStock(shipmentEntryBillDto.getBaseId(),shipmentEntryBaseDtoList);
+        }
         ShipmentEntryBill shipmentEntryBill1 = shipmentEntryBillMapper.selectById(billId);
         shipmentEntryBill1.setTotal(billTotal);
         shipmentEntryBill1.setAmount(billAmount);
@@ -96,6 +111,42 @@ public class ShipmentEntryBillServiceImpl extends ServiceImpl<ShipmentEntryBillM
         ShipmentEntryBillVo result = convertUtil.convert(shipmentEntryBill1,
                                                         ShipmentEntryBillVo.class);
         return result;
+    }
+
+    private int addToStock(Long baseId,List<ShipmentEntryBaseDto> shipmentEntryBaseDtoList){
+        for (ShipmentEntryBaseDto po : shipmentEntryBaseDtoList) {
+            QueryWrapper<BaseStock> wrapper = new QueryWrapper<>();
+            wrapper.eq("type_name",po.getTypeName());
+            List<BaseStock> baseStocks = baseStockService.list(wrapper); //typename是唯一的所以list只有一个
+            if (baseStocks.size() != 0){                        //如果库房中有这种typename的了
+                BaseStock baseStock = baseStocks.get(0);
+                baseStock.setAmount(baseStock.getAmount() + po.getAmount());
+                boolean b = baseStockService.updateById(baseStock);
+                if (!b){
+                    throw new GlobalException(StatusCode.ERROR,"库存更新失败");
+                }
+            }else{                                           //库房中没有这种typename的
+                BaseStock baseStock = new BaseStock();
+                baseStock.setBaseId(baseId);
+                QueryWrapper<ShipmentEntryType> wrapper2 = new QueryWrapper<>();
+                wrapper.eq("name",po.getTypeName());
+                //因为name是唯一的，所以结果是null或者这个List只有一个对象
+                List<ShipmentEntryType> shipmentEntryType = shipmentEntryTypeService.list(wrapper2);
+                Long typeId = 0L;
+                if (shipmentEntryType.size() != 0){
+                    typeId = shipmentEntryType.get(0).getTypeId();
+                }
+                baseStock.setTypeId(typeId);
+                baseStock.setType(po.getType());
+                baseStock.setTypeName(po.getTypeName());
+                baseStock.setAmount(po.getAmount());
+                boolean save = baseStockService.save(baseStock);
+                if (!save){
+                    throw new GlobalException(StatusCode.ERROR,"库存更新失败");
+                }
+            }
+        }
+        return 1;
     }
 
 }

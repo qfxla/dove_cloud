@@ -40,7 +40,7 @@ public interface DovecoteEntryBillService extends IService<DovecoteEntryBill> {
      * @param overTime
      * @return
      */
-    IPage<DovecoteEntryBill> getAllOrder(Long pageNum, Long pageSize, Long baseId, String dovecoteNumber,String startTime,String overTime);
+    IPage<DovecoteEntryBill> getAllOrder(int pageNum, int pageSize, Long baseId, String dovecoteNumber,String startTime,String overTime);
     /**
      * 根据订单号删除订单
      * @param id
@@ -51,4 +51,5 @@ public interface DovecoteEntryBillService extends IService<DovecoteEntryBill> {
     List<DovecoteEntryBillVo> findBillByDovecoteAndType(Long baseId, String dovecoteNumber, String type);
     DovecoteEntryBillVo submitDovecoteEntryBill(DovecoteEntryBillDto dovecoteEntryBillDto, List<DovecoteEntryBaseDto> dovecoteEntryBaseDtoList);
 
+    List<DovecoteEntryBill> getAllEntryByIdAndType(Long baseId,String type);
 }

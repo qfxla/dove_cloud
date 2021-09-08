@@ -61,10 +61,12 @@ public class TestCode {
     private ConvertUtil convertUtil;
     @Autowired
     private CagePositionService cagePositionService;
+    @Autowired
+    private DovecoteOutBaseMapper dovecoteOutBaseMapper;
     @Test
     public void test(){
-        List<DovecoteDaily> toExcel = dovecoteDailyMapper.getToExcel(12L);
-        System.out.println(toExcel);
+        List<DovecoteOutBill> bills = dovecoteOutBillMapper.getBillByBaseIdAndDateAndType(12L, "肉鸽", 2021, 9, 7);
+        System.out.println(bills);
     }
 
 

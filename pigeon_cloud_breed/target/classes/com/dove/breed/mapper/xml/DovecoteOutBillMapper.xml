@@ -40,9 +40,29 @@
         WHERE base_id = #{baseId}
         AND dovecote_number = #{dovecoteNumber}
         AND type = #{type}
+        AND is_deleted = 0
     </select>
     <select id="getLatestBillId" resultType="java.lang.Long">
         SELECT MAX(id) FROM t_dovecote_out_bill;
+    </select>
+    <select id="getBillByBaseIdAndDateAndType" resultType="com.dove.breed.entity.DovecoteOutBill">
+        SELECT *
+        FROM t_dovecote_out_bill
+        WHERE base_id = #{baseId}
+        AND type = #{type}
+        AND is_deleted = 0
+        AND year(gmt_create) = #{year}
+        AND month(gmt_create) = #{month}
+        AND day(gmt_create) = #{day}
+    </select>
+    <select id="getBillByBaseIdAndMonthAndType" resultType="com.dove.breed.entity.DovecoteOutBill">
+        SELECT *
+        FROM t_dovecote_out_bill
+        WHERE base_id = #{baseId}
+            AND type = #{type}
+            AND is_deleted = 0
+            AND year(gmt_create) = #{year}
+          AND month(gmt_create) = #{month}
     </select>
 
 </mapper>

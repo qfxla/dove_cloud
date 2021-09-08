@@ -101,6 +101,4 @@ public class ShipmentEntryTypeController {
         return typeVoList != null?Result.success("获取成功").data(typeVoList) : Result.error("获取失败");
     }
 
-
-
 }

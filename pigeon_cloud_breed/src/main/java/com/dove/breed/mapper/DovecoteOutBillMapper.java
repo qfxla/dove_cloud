@@ -27,4 +27,11 @@ public interface DovecoteOutBillMapper extends BaseMapper<DovecoteOutBill> {
                                                       @Param("dovecoteNumber")String dovecoteNumber,
                                                       @Param("type")String type);
     Long getLatestBillId();
+
+    List<DovecoteOutBill> getBillByBaseIdAndDateAndType(@Param("baseId")Long baseId,@Param("type")String type,
+                                                        @Param("year")int year,@Param("month")int month,@Param("day")int day);
+
+    List<DovecoteOutBill> getBillByBaseIdAndMonthAndType(@Param("baseId")Long baseId,@Param("type")String type,
+                                                        @Param("year")int year,@Param("month")int month);
+
 }

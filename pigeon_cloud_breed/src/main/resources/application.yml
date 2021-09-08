@@ -43,6 +43,10 @@ spring:
         max-wait: 5
         max-idle: 5
         min-idle: 0
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
 
 mybatis-plus:
   mapper-locations: classpath:com/dove/breed/mapper/xml/*.xml  #默认就是任意mapper下的xml文件下的*xml

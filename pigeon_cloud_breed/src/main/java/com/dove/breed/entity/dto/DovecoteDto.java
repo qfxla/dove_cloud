@@ -50,7 +50,7 @@ public class DovecoteDto {
     //鸽棚视频
     @ApiModelProperty(value = "鸽棚视频")
     @TableField("video")
-    private Blob video;
+    private String video;
 
     //投产种鸽数量
     @ApiModelProperty(value = "投产种鸽数量")

@@ -16,8 +16,13 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.File;
 import java.util.List;
-    import org.springframework.web.bind.annotation.RestController;
+import java.util.UUID;
+
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
 * <p>
@@ -40,6 +45,8 @@ public class BreedBaseController {
     @Autowired
     private ConvertUtil convertUtil;
 
+    private String pathPicture = "/dev/img/";
+    private String pathVideo = "/dev/video/";
     @ApiOperation(value = "新增")
     @PostMapping("/save")
     public Result save(@RequestBody BreedBaseDto breedBaseDto){
@@ -91,4 +98,106 @@ public class BreedBaseController {
     }
 
 
+    @ApiOperation(value = "更新基地照片")
+    @PostMapping("/uploadPicture/{id}")
+    public Result updatePicture(@PathVariable("id") Long id,
+                                @RequestParam("file") MultipartFile file) {
+        // 根据id获取基地信息
+        BreedBase breedBase = breedBaseService.getById(id);
+
+        // 获取基地原先照片的地址
+        String originURL = breedBase.getPicture();
+
+        // 获得照片后缀
+        String fileName = file.getOriginalFilename();
+        String suffixName = fileName.substring(fileName.lastIndexOf("."));
+
+        // 设置照片的名字为基地id+备注
+        fileName = id + "基地照片-" + UUID.randomUUID().toString()+ "-" + suffixName;
+
+        //new带有绝对路径的文件对象（不带文件名）
+        File targetFile = new File(pathPicture);
+        //判断是否存在该目录，没有则创建
+        if (!targetFile.exists()) {
+            targetFile.mkdirs();
+        }
+
+        //new带有绝对路径的文件对象（带文件名）
+        File saveFile = new File(targetFile, fileName);
+        try {
+            // 保存文件到绝对路径中（带文件名）
+            file.transferTo(saveFile);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Result.error("保存图片失败！！！！");
+        }
+
+        // 修改数据库照片的绝对地址
+        breedBase.setPicture(pathPicture + fileName);
+        boolean b = breedBaseService.updateById(breedBase);
+
+        // 如果上面都成功了，则删除文件夹中基地原先有的照片
+        if (b) {
+            if (originURL != null ) {
+                File fileDelete = new File(originURL);
+                //删除文件
+                fileDelete.delete();
+            }
+        } else{
+            return Result.error("图片更新失败!!!");
+        }
+        return Result.success("图片更新成功");
+    }
+
+
+    @ApiOperation(value = "更新基地视频")
+    @PostMapping("/uploadVideo/{id}")
+    public Result uploadVideo(@PathVariable("id") Long id,
+                              @RequestParam("file") MultipartFile file) {
+        // 根据id获取基地信息
+        BreedBase breedBase = breedBaseService.getById(id);
+
+        // 获取基地原先照片的地址
+        String originURL = breedBase.getVideo();
+
+        // 获得照片后缀
+        String fileName = file.getOriginalFilename();
+        String suffixName = fileName.substring(fileName.lastIndexOf("."));
+
+        /// 设置照片的名字为基地id+备注
+        fileName = id + "基地视频-" + UUID.randomUUID().toString()+ "-" + suffixName;
+
+        //new带有绝对路径的文件对象（不带文件名）
+        File targetFile = new File(pathVideo);
+        //判断是否存在该目录，没有则创建
+        if (!targetFile.exists()) {
+            targetFile.mkdirs();
+        }
+
+        //new带有绝对路径的文件对象（带文件名）
+        File saveFile = new File(targetFile, fileName);
+        try {
+            // 保存文件到绝对路径中（带文件名）
+            file.transferTo(saveFile);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Result.error("保存视频失败！！！！");
+        }
+
+        // 修改数据库照片的绝对地址
+        breedBase.setVideo(pathVideo + fileName);
+        boolean b = breedBaseService.updateById(breedBase);
+
+        // 如果上面都成功了，则删除文件夹中基地原先有的照片
+        if (b) {
+            if (originURL != null ) {
+                File fileDelete = new File(originURL);
+                //删除文件
+                fileDelete.delete();
+            }
+        } else{
+            return Result.error("视频更新失败!!!");
+        }
+        return Result.success("视频更新成功");
+    }
 }

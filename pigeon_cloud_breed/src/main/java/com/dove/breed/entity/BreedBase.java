@@ -85,7 +85,7 @@ public class BreedBase extends Model<BreedBase> {
     //养殖基地视频
     @ApiModelProperty(value = "养殖基地视频")
     @TableField("video")
-    private Blob video;
+    private String video;
 
     //所属企业id
     @ApiModelProperty(value = "所属企业id")

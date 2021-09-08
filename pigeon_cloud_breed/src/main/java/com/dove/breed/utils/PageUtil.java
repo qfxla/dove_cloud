@@ -15,19 +15,6 @@ import java.util.List;
  */
 public interface PageUtil {
 
-//    static <T> Page<T> createPageFromList(List<T> list, Pageable pageable) {
-//        if (list == null) {
-//            throw new IllegalArgumentException("list不能为空");
-//        }
-//
-//            int startOfPage = pageable.getPageNumber()* pageable.getPageSize();
-//        if (startOfPage > list.size()) {
-//            return new PageImpl<>(new ArrayList<>(), pageable, 0);
-//        }
-//
-//        int endOfPage = Math.min(startOfPage + pageable.getPageSize(), list.size());
-//        return new PageImpl<>(list.subList(startOfPage, endOfPage), pageable, list.size());
-//    }
     static <T> org.springframework.data.domain.Page<T> createPageFromList(List<T> list, Pageable pageable) {
         int start = (int)pageable.getOffset();
         int end = (start + pageable.getPageSize()) > list.size() ? list.size() : ( start + pageable.getPageSize());
@@ -69,5 +56,42 @@ public interface PageUtil {
         page.setRecords(list1);
         return page;
     }
+    /**
+     * 将List集合放入Page中
+     * @param currentPage   当前页数
+     * @param pageSize  每一页的数据条数
+     * @param list  要进行分页的数据列表
+     * @return  当前页要展示的数据
+     */
+    public static Page list2Page(List list,Integer currentPage, Integer pageSize) {
+        Page page = new Page();
+        int size = list.size();
 
+        if(pageSize > size) {
+            pageSize = size;
+        }
+
+        // 求出最大页数，防止currentPage越界
+        if(size > 0) {
+            int maxPage = size % pageSize == 0 ? size / pageSize : size / pageSize + 1;
+            if (currentPage > maxPage) {
+                currentPage = maxPage;
+            }else{
+                currentPage = currentPage > 0 ? currentPage  : 1;
+            }
+        }
+
+        // 当前页第一条数据的下标
+        int curIdx = currentPage > 1 ? (currentPage - 1) * pageSize : 0;
+
+        List pageList = new ArrayList();
+
+        // 将当前页的数据放进pageList
+        for(int i = 0; i < pageSize && curIdx + i < size; i++) {
+            pageList.add(list.get(curIdx + i));
+        }
+
+        page.setCurrent(currentPage).setSize(pageSize).setTotal(list.size()).setRecords(pageList);
+        return page;
+    }
 }

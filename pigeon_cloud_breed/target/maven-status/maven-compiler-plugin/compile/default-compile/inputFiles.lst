@@ -58,9 +58,11 @@ D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\Cage
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\dto\DovecoteOutBillDto.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\service\impl\BusinessBreedingServiceImpl.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\controller\ManualIncubationController.java
+D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\controller\BaseStockController.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\service\DovecoteEntryTypeService.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\mapper\ShipmentEntryBaseMapper.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\service\ShipmentEntryBillService.java
+D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\vo\BaseStockVo.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\vo\UseOfFeedVo.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\BreedApplication.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\controller\DovecoteDailyController.java
@@ -111,7 +113,10 @@ D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\dto\
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\service\ManualIncubationService.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\dto\DovecoteEntryBaseFodderDto.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\vo\AbnormalVo.java
+D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\mapper\BaseStockMapper.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\mapper\CageDailyMapper.java
+D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\service\impl\BaseStockServiceImpl.java
+D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\service\BaseStockService.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\mapper\ShipmentOutBillMapper.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\service\impl\ShipmentOutTypeServiceImpl.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\BreedBase.java
@@ -141,7 +146,9 @@ D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\mapper\Dove
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\service\impl\DovecoteEntryTypeServiceImpl.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\CageDaily.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\service\impl\ShipmentEntryTypeServiceImpl.java
+D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\dto\BaseStockDto.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\service\DovecoteDailyService.java
+D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\BaseStock.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\dto\ManualIncubationDto.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\vo\DovecoteOutTypeVo.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\controller\ShipmentOutBaseController.java

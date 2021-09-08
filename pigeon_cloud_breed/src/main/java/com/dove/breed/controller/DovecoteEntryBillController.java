@@ -9,6 +9,7 @@ import com.dove.breed.entity.dto.DovecoteOutBaseDto;
 
 import com.dove.breed.entity.vo.DovecoteEntryBillVo;
 import com.dove.breed.entity.vo.DovecoteOutBillVo;
+import com.dove.breed.entity.vo.ManualIncubationVo;
 import com.dove.breed.entity.vo.ShipmentOutBillVo;
 import com.dove.breed.utils.ConvertUtil;
 import com.dove.breed.utils.PageUtil;
@@ -28,10 +29,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.RestController;
 
@@ -121,9 +120,9 @@ public class DovecoteEntryBillController {
                                             @RequestParam("pageNum")int pageNum,
                                             @RequestParam("pageSize")int pageSize){
         List<DovecoteEntryBillVo> billList = dovecoteEntryBillService.findBillByDovecoteAndType(baseId, dovecoteNumber, type);
-        Pageable pageable = PageRequest.of(pageNum, pageSize);
-        org.springframework.data.domain.Page<DovecoteEntryBillVo> pageFromList = PageUtil.createPageFromList(billList, pageable);
-        return Result.success("查询成功").data(pageFromList);
+        billList = billList.stream().sorted(Comparator.comparing(DovecoteEntryBillVo::getGmtCreate).reversed()).collect(Collectors.toList());
+        Page page = PageUtil.list2Page(billList, pageNum, pageSize);
+        return Result.success("查询成功").data(page);
     }
 
     @ApiOperation(value = "提交出库单")
@@ -142,14 +141,14 @@ public class DovecoteEntryBillController {
         }catch (Exception exception){
             exception.printStackTrace();
         }
-         dovecoteEntryBillService.submitDovecoteEntryBill(dovecoteEntryBillDto,dovecoteEntryBaseDtoList);
-        return Result.success("提交成功");
+        DovecoteEntryBillVo dovecoteEntryBillVo = dovecoteEntryBillService.submitDovecoteEntryBill(dovecoteEntryBillDto, dovecoteEntryBaseDtoList);
+        return Result.success("提交成功").data(dovecoteEntryBillVo);
     }
 
     @ApiOperation(value = "展示鸽棚入仓单(分页)")
     @GetMapping("/getAllOrder/{pageNum}/{pageSize}")
-    public Result getAllOrder(@PathVariable("pageNum")Long pageNum,
-                              @PathVariable("pageSize")Long pageSize,
+    public Result getAllOrder(@PathVariable("pageNum")int pageNum,
+                              @PathVariable("pageSize")int pageSize,
                               @RequestParam("baseId")Long baseId,
                               @RequestParam(value = "dovecoteNumber",required = false)String dovecoteNumber,
                               @RequestParam(value = "startTime",required = false)String startTime,
@@ -158,6 +157,18 @@ public class DovecoteEntryBillController {
 
         IPage<DovecoteEntryBillVo> page1 = convertUtil.convert(page, DovecoteEntryBillVo.class);
         return page1.getTotal() > 0?Result.success("分页成功").data(page1) : Result.error("分页失败");
+    }
+
+    @ApiOperation(value = "根据baseId和type展示订单")
+    @GetMapping("/getAllEntryByIdAndType/{pageNum}/{pageSize}")
+    public Result getAllEntryByIdAndType(@PathVariable("pageNum")int pageNum,
+                                         @PathVariable("pageSize")int pageSize,
+                                         @RequestParam("baseId")Long basesId,
+                                         @RequestParam("type")String type){
+        List<DovecoteEntryBill> list = dovecoteEntryBillService.getAllEntryByIdAndType(basesId, type);
+        List<DovecoteEntryBillVo> listVo = convertUtil.convert(list, DovecoteEntryBillVo.class);
+        Page page = PageUtil.list2Page(listVo, pageNum, pageSize);
+        return Result.success("获取成功").data(page);
     }
 
 }

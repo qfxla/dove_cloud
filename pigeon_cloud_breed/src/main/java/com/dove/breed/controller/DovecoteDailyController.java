@@ -62,7 +62,7 @@ public class DovecoteDailyController {
                                       @RequestParam("month")int month,@RequestParam("day")int day,
                                             @RequestParam("pageNum")int pageNum,@RequestParam("pageSize")int pageSize){
         List<DovecoteDailyVo> list = dovecoteDailyService.getAllDovecoteDaily(baseId, year, month, day);
-        Page<DovecoteDailyVo> page1 = PageUtil.myPage(list,pageNum,pageSize);
+        Page<DovecoteDailyVo> page1 = PageUtil.list2Page(list,pageNum,pageSize);
         return Result.success("查询成功").data(page1);
     }
 

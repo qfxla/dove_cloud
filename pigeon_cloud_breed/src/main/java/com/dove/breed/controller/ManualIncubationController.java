@@ -3,9 +3,12 @@ package com.dove.breed.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.dove.breed.entity.Dovecote;
 import com.dove.breed.entity.ManualIncubation;
+import com.dove.breed.entity.dto.ManualIncubationDto;
 import com.dove.breed.entity.vo.ManualIncubationVo;
 import com.dove.breed.mapper.DovecoteMapper;
+import com.dove.breed.service.DovecoteService;
 import com.dove.breed.service.ManualIncubationService;
 import com.dove.breed.utils.ConvertUtil;
 import com.dove.breed.utils.PageUtil;
@@ -17,7 +20,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -37,6 +42,8 @@ public class ManualIncubationController {
     private DovecoteMapper dovecoteMapper;
     @Autowired
     private ConvertUtil convertUtil;
+    @Autowired
+    private DovecoteService dovecoteService;
 
     @ApiModelProperty("添加孵化机数据")
     @PostMapping("/addManualIncubationData")
@@ -55,8 +62,17 @@ public class ManualIncubationController {
     }
 
     @ApiOperation("更改孵化记录")
-    @GetMapping("/updateData")
-    public Result updateData(@RequestBody ManualIncubation manualIncubation){
+    @PostMapping("/updateData")
+    public Result updateData(@RequestParam("id")Long id,@RequestBody ManualIncubationDto manualIncubationDto){
+        ManualIncubation manualIncubation = convertUtil.convert(manualIncubationDto, ManualIncubation.class);
+        manualIncubation.setId(id);
+        QueryWrapper<ManualIncubation> wrapper = new QueryWrapper<>();
+        wrapper.eq("id",id);
+        List<ManualIncubation> list = manualIncubationService.list(wrapper);
+        if (list.size() == 0){
+            return Result.error("无该id");
+        }
+        manualIncubation.setBreederName(list.get(0).getBreederName());
         boolean b = manualIncubationService.updateById(manualIncubation);
         return b ?Result.success("更改成功"):Result.error("更改失败");
     }
@@ -77,7 +93,7 @@ public class ManualIncubationController {
                             @RequestParam("month")int month,@RequestParam("day")int day,
                             @RequestParam("pageNum")int pageNum,@RequestParam("pageSize")int pageSize){
         List<ManualIncubationVo> list = manualIncubationService.getByDate(baseId, year, month, day);
-        Page<ManualIncubationVo> page = PageUtil.myPage(list, pageNum, pageSize);
+        Page<ManualIncubationVo> page = PageUtil.list2Page(list, pageNum, pageSize);
         return page != null?Result.success("获取成功").data(page) : Result.error("获取失败");
     }
 
@@ -87,10 +103,12 @@ public class ManualIncubationController {
         @RequestParam("pageNum")int pageNum,@RequestParam("pageSize")int pageSize){
             QueryWrapper<ManualIncubation> wrapper = new QueryWrapper<>();
             wrapper.eq("type",type).
-                    eq("base_id",baseId);
+                    eq("base_id",baseId).
+                    eq("is_deleted",0);
         List<ManualIncubation> list = manualIncubationService.list(wrapper);
         List<ManualIncubationVo> list1 = convertUtil.convert(list, ManualIncubationVo.class);
-        Page<ManualIncubationVo> page = PageUtil.myPage(list1, pageNum, pageSize);
+        list1 = list1.stream().sorted(Comparator.comparing(ManualIncubationVo::getGmtCreate).reversed()).collect(Collectors.toList());
+        Page<ManualIncubationVo> page = PageUtil.list2Page(list1, pageNum, pageSize);
         return Result.success("获取成功").data(page);
     }
 }

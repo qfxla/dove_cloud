@@ -70,7 +70,7 @@
         COUNT(*)
         FROM t_cage c LEFT JOIN t_cage_position p
         ON c.cage_id = p.cage_id
-        WHERE c.create_time = TO_DAYS(NOW()) - 1
+        WHERE TO_DAYS(NOW()) - TO_DAYS(c.create_time) = 1
         AND p.base_id = #{baseId}
         AND p.shack = #{dovecoteNumber}
         AND c.state in (1,2)
@@ -82,10 +82,10 @@
         COUNT(*) amount, state, abnormal
         FROM t_cage c LEFT JOIN t_cage_position p
         ON c.cage_id = p.cage_id
-        WHERE c.create_time = To_DAYS(NOW()) - 1
+        WHERE TO_DAYS(NOW()) - TO_DAYS(c.create_time) = 1
         AND p.base_id = #{baseId}
         AND p.shack = #{dovecoteNumber}
-        AND c.abnormal != null
+        AND c.`abnormal` IS NOT NULL
         GROUP BY state , abnormal
     </select>
     <select id="getAllDovecoteNumber" resultType="java.lang.String">

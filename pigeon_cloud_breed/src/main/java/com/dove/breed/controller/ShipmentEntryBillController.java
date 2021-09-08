@@ -2,8 +2,10 @@ package com.dove.breed.controller;
 import com.alibaba.fastjson.JSON;
 import com.dove.breed.entity.dto.ShipmentEntryBaseDto;
 import com.dove.breed.entity.dto.ShipmentEntryBillDto;
+import com.dove.breed.entity.vo.DovecoteOutBillVo;
 import com.dove.breed.entity.vo.ShipmentEntryBillVo;
 import com.dove.breed.utils.ConvertUtil;
+import com.dove.breed.utils.PageUtil;
 import com.dove.entity.Result;
 
 
@@ -20,10 +22,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.RestController;
 
@@ -109,15 +109,20 @@ public class ShipmentEntryBillController {
     }
 
     @ApiOperation(value = "展示该基地进库订单")
-    @GetMapping("/getAllEntryBillByIdAndType")
+    @GetMapping("/getAllEntryBillByIdAndType/{pageNum}/{pageSize}")
     public Result getAllEntryBillByIdAndType(@RequestParam("baseId")Long baseId,
-                                             @RequestParam("type")String type){
+                                             @RequestParam("type")String type,
+                                             @PathVariable("pageNum")int pageNum,
+                                             @PathVariable("pageSize")int pageSize){
         QueryWrapper<ShipmentEntryBill> wrapper = new QueryWrapper();
         wrapper.eq("base_id",baseId).
-                eq("type",type);
+                eq("type",type).
+                eq("is_deleted",0);
         List<ShipmentEntryBill> list = shipmentEntryBillService.list(wrapper);
         List<ShipmentEntryBillVo> shipmentEntryBillVoList = convertUtil.convert(list, ShipmentEntryBillVo.class);
-        return Result.success("查看成功").data(shipmentEntryBillVoList);
+        shipmentEntryBillVoList = shipmentEntryBillVoList.stream().sorted(Comparator.comparing(ShipmentEntryBillVo::getGmtCreate).reversed()).collect(Collectors.toList());
+        Page page = PageUtil.list2Page(shipmentEntryBillVoList, pageNum, pageSize);
+        return Result.success("查看成功").data(page);
     }
 
     @ApiOperation(value = "提交入库单,shipmentEntryBillDto,shipmentEntryBaseDtoList")

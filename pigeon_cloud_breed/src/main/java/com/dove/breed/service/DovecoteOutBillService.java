@@ -9,6 +9,7 @@ import com.dove.breed.entity.vo.ShipmentOutBillVo;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -24,5 +25,9 @@ public interface DovecoteOutBillService extends IService<DovecoteOutBill> {
     List<DovecoteOutBillVo> findBillByDovecoteAndType(Long baseId,String dovecoteNumber,String type);
 
     DovecoteOutBillVo submitDovecoteOutBill(DovecoteOutBillDto dovecoteOutBillDto, List<DovecoteOutBaseDto> dovecoteOutBaseDtoList);
+
+    Map<String,Integer> getAllAmountByBaseIdAndDateAndType(Long baseId, String type, int year, int month, int day);
+
+    Map<String,Integer> getAllAmountByBaseIdAndMonthAndType(Long baseId, String type, int year, int month);
 
 }

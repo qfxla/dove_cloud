@@ -39,7 +39,7 @@ public class CageRealController {
     public Result list(@PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize,
                        @RequestParam("baseId") Long baseId, @RequestParam("dovecoteNumber") String dovecoteNumber) {
         List<CageReal> list = cageRealService.getAllCage(baseId, dovecoteNumber);
-        Page<CageReal> page1 = PageUtil.myPage(list,pageNum,pageSize);
+        Page<CageReal> page1 = PageUtil.list2Page(list,pageNum,pageSize);
 
         return Result.success("查询成功").data(page1);
     }
@@ -49,7 +49,7 @@ public class CageRealController {
     public Result getLayEggsTime(@PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize,
                                  @RequestParam("baseId") Long baseId, @RequestParam("dovecoteNumber") String dovecoteNumber){
         List<CageReal> list = cageRealService.getLayEggsTime(baseId, dovecoteNumber);
-        Page<CageReal> page1 = PageUtil.myPage(list,pageNum,pageSize);
+        Page<CageReal> page1 = PageUtil.list2Page(list,pageNum,pageSize);
         return Result.success("查询成功").data(page1);
     }
 
@@ -58,16 +58,16 @@ public class CageRealController {
     public Result getHatchTime(@PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize,
                                  @RequestParam("baseId") Long baseId, @RequestParam("dovecoteNumber") String dovecoteNumber){
         List<CageReal> list = cageRealService.getHatchTime(baseId, dovecoteNumber);
-        Page<CageReal> page1 = PageUtil.myPage(list,pageNum,pageSize);
+        Page<CageReal> page1 = PageUtil.list2Page(list,pageNum,pageSize);
         return Result.success("查询成功").data(page1);
     }
 
-    @ApiOperation("获取孵化中鸽笼")
+    @ApiOperation("获取哺育中鸽笼")
     @GetMapping("/getFeedTime/{pageNum}/{pageSize}")
     public Result getFeedTime(@PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize,
                                @RequestParam("baseId") Long baseId, @RequestParam("dovecoteNumber") String dovecoteNumber) {
         List<CageReal> list = cageRealService.getFeedTime(baseId, dovecoteNumber);
-        Page<CageReal> page1 = PageUtil.myPage(list,pageNum,pageSize);
+        Page<CageReal> page1 = PageUtil.list2Page(list,pageNum,pageSize);
         return Result.success("查询成功").data(page1);
     }
 }

@@ -44,7 +44,7 @@ public class ScheduledTask {
      * 自动扫描，启动时间点之后每个月执行一次
      */
 //    @Scheduled(cron = "0 0 0 ? 1/1 ? ")
-////    @Scheduled(cron = "0/10 * * * * ? ")
+////    @Scheduled(cron = "0 0 0 1 * ? ")
 //    public void getCurrentMonth(){
 //        log.info("月结当前时间" + new Date());
 //        List<Dovecote> dovecoteList = dovecoteMapper.selectList(null);

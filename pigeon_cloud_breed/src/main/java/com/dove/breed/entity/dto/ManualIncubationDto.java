@@ -1,5 +1,7 @@
 package com.dove.breed.entity.dto;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -9,14 +11,12 @@ import lombok.Data;
  */
 @Data
 public class ManualIncubationDto {
+
     @ApiModelProperty(value = "基地id")
     private Long baseId;
 
     @ApiModelProperty(value = "鸽棚编号")
     private String dovecoteNumber;
-
-    @ApiModelProperty(value = "饲养员名字")
-    private String breederName;
 
     @ApiModelProperty(value = "类型")
     private int type;
