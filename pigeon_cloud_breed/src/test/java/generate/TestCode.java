@@ -3,6 +3,7 @@ package generate;
 import com.dove.breed.BreedApplication;
 import com.dove.breed.entity.*;
 import com.dove.breed.entity.dto.DovecoteOutBillDto;
+import com.dove.breed.entity.dto.ManualIncubationDto;
 import com.dove.breed.entity.dto.ShipmentEntryBaseDto;
 import com.dove.breed.entity.vo.*;
 import com.dove.breed.mapper.*;
@@ -16,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.awt.print.PrinterAbortException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -63,10 +65,13 @@ public class TestCode {
     private CagePositionService cagePositionService;
     @Autowired
     private DovecoteOutBaseMapper dovecoteOutBaseMapper;
+    @Autowired
+    private ManualIncubationService manualIncubationService;
+    @Autowired
+    private ShipmentOutBillService shipmentOutBillService;
     @Test
     public void test(){
-        List<DovecoteOutBill> bills = dovecoteOutBillMapper.getBillByBaseIdAndDateAndType(12L, "肉鸽", 2021, 9, 7);
-        System.out.println(bills);
+
     }
 
 

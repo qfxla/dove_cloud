@@ -38,7 +38,7 @@ public class CagePositionController {
 
     @ApiOperation("根据cageId查位置")
     @GetMapping("/getPosition")
-    public Result getPosition(@PathVariable("cageId")Long cageId){
+    public Result getPosition(@RequestParam("cageId")Long cageId){
         CagePosition byId = cagePositionService.getById(cageId);
         return byId != null ?Result.success("查询成功").data(byId) : Result.error("无该cageId");
     }

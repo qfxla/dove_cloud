@@ -1,23 +1,15 @@
 package com.dove.breed.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotation.Version;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableField;
-import java.io.Serializable;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-import org.springframework.format.annotation.DateTimeFormat;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -36,10 +28,15 @@ public class ShipmentOutBill extends Model<ShipmentOutBill> {
 
     private static final long serialVersionUID = 1L;
 
+    //主键
+    @ApiModelProperty(value = "主键")
+    @TableId(value = "id", type = IdType.ID_WORKER)
+    private Long id;
+
     //养殖批次
     @ApiModelProperty(value = "养殖批次")
-    @TableId(value = "farm_batch", type = IdType.ID_WORKER)
-    private Long farmBatch;
+    @TableId(value = "farm_batch")
+    private String farmBatch;
 
     //基地id
     @ApiModelProperty(value = "基地id")
@@ -50,6 +47,11 @@ public class ShipmentOutBill extends Model<ShipmentOutBill> {
     @ApiModelProperty(value = "基地名称")
     @TableField("base_name")
     private String baseName;
+
+    //类型
+    @ApiModelProperty(value = "类型")
+    @TableField("type")
+    private String type;
 
     //经手人
     @ApiModelProperty(value = "经手人")

@@ -1,23 +1,15 @@
 package com.dove.breed.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotation.Version;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableField;
-import java.io.Serializable;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-import org.springframework.format.annotation.DateTimeFormat;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -40,6 +32,11 @@ public class DovecoteOutBill extends Model<DovecoteOutBill> {
     @ApiModelProperty(value = "主键")
     @TableId(value = "id", type = IdType.ID_WORKER)
     private Long id;
+
+    //对应基地出库单批次号
+    @ApiModelProperty(value = "对应基地出库单批次号")
+    @TableField(value = "farm_batch")
+    private String farmBatch;
 
     //产量所属基地id
     @ApiModelProperty(value = "产量所属基地id")

@@ -3,6 +3,7 @@ import com.dove.breed.entity.dto.FeedStockDto;
 import com.dove.breed.entity.vo.FeedStockVo;
 import com.dove.breed.entity.vo.UseOfFeedVo;
 import com.dove.breed.utils.ConvertUtil;
+import com.dove.breed.utils.PageUtil;
 import com.dove.entity.Result;
 
 
@@ -105,13 +106,16 @@ public class FeedStockController {
     }
 
     @ApiOperation(value = "获取月结报表")
-    @GetMapping("/getMonthlyStatementReport")
-    public Result getMonthlyStatementReport(@RequestParam("baseId")Long baseId,
+    @GetMapping("/getMonthlyStatementReport/{pageNum}/{pageSize}")
+    public Result getMonthlyStatementReport(@PathVariable("pageNum")Integer pageNum,
+                                            @PathVariable("pageSize")Integer pageSize,
+                                            @RequestParam("baseId")Long baseId,
                                             @RequestParam(value = "dovecoteNumber",required = false)String dovecoteNumber,
                                             @RequestParam(value = "feedType",required = false)String feedType,
                                             @RequestParam(value = "month",required = true)String month){
         List<FeedStockVo> list = feedStockService.getMonthlyStatementReport(baseId,dovecoteNumber,feedType,month);
-        return list == null ? Result.error("获取失败") : Result.success().data(list);
+        Page page = PageUtil.list2Page(list, pageNum, pageSize);
+        return list == null ? Result.error("获取失败") : Result.success().data(page);
     }
 
     @ApiOperation(value = "修改剩余饲料")

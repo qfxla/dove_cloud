@@ -4,8 +4,6 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.sql.Blob;
-
 /**
  * @author zcj
  * @creat 2021-08-30-20:01
@@ -41,16 +39,6 @@ public class DovecoteDto {
     @ApiModelProperty(value = "存栏状况(半仓,满仓..)")
     @TableField("living_conditions")
     private String livingConditions;
-
-    //鸽棚图片
-    @ApiModelProperty(value = "鸽棚图片")
-    @TableField("picture")
-    private String picture;
-
-    //鸽棚视频
-    @ApiModelProperty(value = "鸽棚视频")
-    @TableField("video")
-    private String video;
 
     //投产种鸽数量
     @ApiModelProperty(value = "投产种鸽数量")

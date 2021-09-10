@@ -12,8 +12,8 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 120.77.156.205:8848
-        ip: 120.77.156.205
+        server-addr: 39.99.247.58:8848
+        ip: 39.99.247.58
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -35,7 +35,7 @@ spring:
     host: 120.77.156.205
     port: 6666
     password: 711711711.com
-    database: 15
+    database: 14
     timeout: 1800000
     lettuce:
       pool:

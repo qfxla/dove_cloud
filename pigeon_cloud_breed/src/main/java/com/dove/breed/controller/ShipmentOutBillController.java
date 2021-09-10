@@ -1,7 +1,9 @@
 package com.dove.breed.controller;
 import com.alibaba.excel.converters.shortconverter.ShortBooleanConverter;
+import com.dove.breed.entity.DovecoteOutBill;
 import com.dove.breed.entity.dto.ShipmentOutBillDto;
 import com.dove.breed.entity.vo.ShipmentOutBillVo;
+import com.dove.breed.service.DovecoteOutBillService;
 import com.dove.breed.utils.ConvertUtil;
 import com.dove.entity.Result;
 
@@ -13,12 +15,19 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.channels.WritePendingException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
     import org.springframework.web.bind.annotation.RestController;
 
@@ -41,15 +50,9 @@ public class ShipmentOutBillController {
     public ShipmentOutBillService shipmentOutBillService;
     @Autowired
     private ConvertUtil convertUtil;
+    @Autowired
+    private DovecoteOutBillService dovecoteOutBillService;
 
-    @ApiOperation(value = "新增")
-    @PostMapping("/save")
-    public Result save(@RequestBody ShipmentOutBillDto shipmentOutBillDto){
-        ShipmentOutBill shipmentOutBill = new ShipmentOutBill();
-        BeanUtils.copyProperties(shipmentOutBillDto,shipmentOutBill,ShipmentOutBill.class);
-        boolean save = shipmentOutBillService.save(shipmentOutBill);
-        return save? Result.success("保存成功") : Result.error("保存失败");
-    }
 
     @ApiOperation(value = "根据id删除")
     @DeleteMapping("/delete/{id}")
@@ -90,15 +93,18 @@ public class ShipmentOutBillController {
     public Result update(@PathVariable("id") Long id, @RequestBody ShipmentOutBillDto shipmentOutBillDto){
         ShipmentOutBill shipmentOutBill = new ShipmentOutBill();
         BeanUtils.copyProperties(shipmentOutBillDto,shipmentOutBill,ShipmentOutBill.class);
-        shipmentOutBill.setFarmBatch(id);
+        shipmentOutBill.setId(id);
         boolean b = shipmentOutBillService.updateById(shipmentOutBill);
         return b?Result.success("修改成功") : Result.error("修改失败");
     }
 
-    @ApiOperation(value = "根据创建时间和基地id查询ShipmentOutBill")
-    @GetMapping("/findBillByGmt_createAndBaseId/{startTime}/{endTime}/{baseId}")
-    public Result findBillByGmt_createAndBaseId(@PathVariable("startTime") Date startTime, @PathVariable("endTime") Date endTime, @PathVariable("baseId")Long baseId){
-        List<ShipmentOutBillVo> list = shipmentOutBillService.findBillByGmt_createAndBaseId(startTime, endTime, baseId);
-        return list.size()>0?Result.success("查找成功").data(list):Result.error("查找失败");
-    }
+//    @ApiOperation(value = "创建基地出库单")
+//    @PostMapping("/submitBill")
+//    public Result saveBill(@RequestBody ShipmentOutBillDto shipmentOutBillDto){
+//        ShipmentOutBill bill = convertUtil.convert(shipmentOutBillDto, ShipmentOutBill.class);
+//        int i = shipmentOutBillService.saveBill(bill);
+//        return i != 0?Result.success("创建成功") : Result.error("创建失败");
+//    }
+
+
 }

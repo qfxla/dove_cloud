@@ -26,6 +26,11 @@ public class DovecoteOutBillVo {
     @TableField("dovecote_number")
     private String dovecoteNumber;
 
+    //对应基地出库单批次号
+    @ApiModelProperty(value = "对应基地出库单批次号")
+    @TableField(value = "farm_batch")
+    private String farmBatch;
+
     //所选类型
     @ApiModelProperty(value = "订单类型")
     @TableField("type")

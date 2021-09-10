@@ -12,7 +12,7 @@
         <result column="contact_number" property="contactNumber" />
         <result column="living_conditions" property="livingConditions" />
         <result column="picture" property="picture" />
-        <result column="video" property="video" typeHandler="com.dove.breed.config.BlobTypeHandler"/>
+        <result column="video" property="video"/>
         <result column="into_production" property="intoProduction" />
         <result column="cage_amount" property="cageAmount" />
         <result column="cage_empty" property="cageEmpty" />
@@ -90,7 +90,7 @@
     </select>
     <select id="getAllDovecoteNumber" resultType="java.lang.String">
         SELECT
-        dovecote_number
+        *
         FROM t_dovecote
         WHERE base_id = #{baseId}
         <if test="dovecoteNumber != null">

@@ -52,7 +52,7 @@ public class BreedBaseController {
     public Result save(@RequestBody BreedBaseDto breedBaseDto){
         BreedBase breedBase = convertUtil.convert(breedBaseDto, BreedBase.class);
         boolean save = breedBaseService.save(breedBase);
-        return save? Result.success("保存成功") : Result.error("保存失败");
+        return save? Result.success("保存成功").data(breedBase) : Result.error("保存失败");
     }
 
     @ApiOperation(value = "根据id删除")

@@ -1,16 +1,10 @@
 package com.dove.breed.controller;
 import com.alibaba.fastjson.JSON;
 
-import com.dove.breed.entity.dto.*;
-
 import com.dove.breed.entity.dto.DovecoteEntryBaseDto;
 import com.dove.breed.entity.dto.DovecoteEntryBillDto;
-import com.dove.breed.entity.dto.DovecoteOutBaseDto;
 
 import com.dove.breed.entity.vo.DovecoteEntryBillVo;
-import com.dove.breed.entity.vo.DovecoteOutBillVo;
-import com.dove.breed.entity.vo.ManualIncubationVo;
-import com.dove.breed.entity.vo.ShipmentOutBillVo;
 import com.dove.breed.utils.ConvertUtil;
 import com.dove.breed.utils.PageUtil;
 import com.dove.entity.Result;
@@ -25,8 +19,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;

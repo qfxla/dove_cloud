@@ -18,6 +18,7 @@ import com.dove.breed.service.DovecoteOutBillService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dove.breed.service.DovecoteOutTypeService;
 import com.dove.breed.utils.ConvertUtil;
+import com.dove.breed.utils.GetMonth;
 import com.dove.entity.GlobalException;
 import com.dove.entity.StatusCode;
 import io.swagger.annotations.Authorization;
@@ -71,6 +72,9 @@ public class DovecoteOutBillServiceImpl extends ServiceImpl<DovecoteOutBillMappe
     @Override
     public DovecoteOutBillVo submitDovecoteOutBill(DovecoteOutBillDto dovecoteOutBillDto, List<DovecoteOutBaseDto> dovecoteOutBaseDtoList) {
         DovecoteOutBill dovecoteOutBill = convertUtil.convert(dovecoteOutBillDto, DovecoteOutBill.class);
+        //根据日期生成批次号
+        String farmBatch = GetMonth.getDateToString();
+        dovecoteOutBill.setFarmBatch(farmBatch);
         Lock lock = new ReentrantLock();
         lock.lock();
         dovecoteOutBillMapper.insert(dovecoteOutBill);
@@ -155,5 +159,11 @@ public class DovecoteOutBillServiceImpl extends ServiceImpl<DovecoteOutBillMappe
             }
         }
         return map;
+    }
+
+    @Override
+    public List<DovecoteOutBill> findDovecoteOutBillByTodayAndType(Long baseId,String type) {
+        List<DovecoteOutBill> dovecoteOutBill = dovecoteOutBillMapper.findDovecoteOutBillByTodayAndType(baseId,type);
+        return dovecoteOutBill;
     }
 }

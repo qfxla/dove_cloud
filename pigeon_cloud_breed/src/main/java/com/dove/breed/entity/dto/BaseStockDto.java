@@ -1,10 +1,7 @@
 package com.dove.breed.entity.dto;
 
-import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-
-import java.util.Date;
 
 /**
  * @author zcj

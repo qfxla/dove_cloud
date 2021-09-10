@@ -30,4 +30,5 @@ public interface DovecoteOutBillService extends IService<DovecoteOutBill> {
 
     Map<String,Integer> getAllAmountByBaseIdAndMonthAndType(Long baseId, String type, int year, int month);
 
+    List<DovecoteOutBill> findDovecoteOutBillByTodayAndType(Long baseId,String type);
 }

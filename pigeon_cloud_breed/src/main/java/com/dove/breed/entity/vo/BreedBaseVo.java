@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.sql.Blob;
 import java.util.Date;
 
 /**

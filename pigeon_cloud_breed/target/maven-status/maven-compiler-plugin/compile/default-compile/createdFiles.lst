@@ -102,7 +102,6 @@ com\dove\breed\service\impl\BusinessBreedingServiceImpl.class
 com\dove\breed\service\impl\CagePositionServiceImpl.class
 com\dove\breed\utils\GetMonth.class
 com\dove\breed\service\ShipmentEntryTypeService.class
-com\dove\breed\config\BlobTypeHandler.class
 com\dove\breed\entity\vo\ShipmentOutBaseVo.class
 com\dove\breed\service\impl\BaseStockServiceImpl.class
 com\dove\breed\service\ShipmentEntryBillService.class

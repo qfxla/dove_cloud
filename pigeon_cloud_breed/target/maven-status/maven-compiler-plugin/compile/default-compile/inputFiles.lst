@@ -140,7 +140,6 @@ D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\controller\
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\BusinessBreeding.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\dto\ShipmentEntryTypeDto.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\vo\ShipmentOutBillVo.java
-D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\config\BlobTypeHandler.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\service\impl\CageServiceImpl.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\mapper\DovecoteEntryBillMapper.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\service\impl\DovecoteEntryTypeServiceImpl.java

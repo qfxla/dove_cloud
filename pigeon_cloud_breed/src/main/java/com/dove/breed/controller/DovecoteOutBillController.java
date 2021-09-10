@@ -27,6 +27,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -172,5 +173,34 @@ public class DovecoteOutBillController {
                                        @RequestParam("year")int year,@RequestParam("month")int month){
         Map<String, Integer> map = dovecoteOutBillService.getAllAmountByBaseIdAndMonthAndType(baseId, type, year, month);
         return Result.success("获取成功").data(map);
+    }
+
+    @ApiOperation(value = "根据批次号查鸽棚出库单")
+    @GetMapping("/getDovecoteOutBillByFarmBatch")
+    public Result getDovecoteOutBillByFarmBatch(@RequestParam("farmBatch")String farmBatch,
+                                                @RequestParam("baseId")Long baseId,
+                                                @RequestParam("type")String type){
+        QueryWrapper<DovecoteOutBill> wrapper = new QueryWrapper<>();
+        wrapper.eq("farm_batch",farmBatch).eq("base_id",baseId).eq("type",type);
+        List<DovecoteOutBill> list = dovecoteOutBillService.list(wrapper);
+        return list.size() > 0?Result.success("查询成功").data(list) : Result.error("无该订单");
+    }
+
+    @ApiOperation(value = "根据日期查鸽棚出库单")
+    @GetMapping("/getDovecoteOutBillByDate")
+    public Result getDovecoteOutBillByDate(@RequestParam("date") String dateString,
+                                           @RequestParam("baseId")Long baseId,
+                                           @RequestParam("type")String type) throws ParseException {
+        StringBuilder stringBuilder = new StringBuilder(dateString);
+        int i = stringBuilder.indexOf("-");
+        StringBuilder stringBuilder1 = stringBuilder.delete(i, i + 1);
+        int i1 = stringBuilder1.indexOf("-");
+        StringBuilder stringBuilder2 = stringBuilder1.delete(i1, i1 + 1);
+        dateString = stringBuilder2.toString();
+
+        QueryWrapper<DovecoteOutBill> wrapper = new QueryWrapper<>();
+        wrapper.eq("farm_batch",dateString).eq("base_id",baseId).eq("type",type);
+        List<DovecoteOutBill> list = dovecoteOutBillService.list(wrapper);
+        return Result.success().data(list);
     }
 }

@@ -5,6 +5,7 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.dove.breed.entity.DovecoteOutBill">
         <id column="id" property="id" />
+        <result column="farm_batch" property="farmBatch"/>
         <result column="base_id" property="baseId" />
         <result column="type" property="type"/>
         <result column="amount" property="amount"/>
@@ -63,6 +64,14 @@
             AND is_deleted = 0
             AND year(gmt_create) = #{year}
           AND month(gmt_create) = #{month}
+    </select>
+    <select id="findDovecoteOutBillByTodayAndType" resultType="com.dove.breed.entity.DovecoteOutBill">
+        SELECT *
+        FROM t_dovecote_out_bill
+        WHERE type = #{type}
+        AND base_id = #{baseId}
+        AND is_deleted = 0
+        AND day(gmt_create) = day(now())
     </select>
 
 </mapper>

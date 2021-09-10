@@ -18,4 +18,6 @@ import java.util.List;
  */
 public interface ShipmentOutBillService extends IService<ShipmentOutBill> {
     List<ShipmentOutBillVo> findBillByGmt_createAndBaseId(Date startTime, Date endTime, Long baseId);
+
+    int saveBill(ShipmentOutBill shipmentOutBill);
 }

@@ -4,8 +4,6 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.sql.Blob;
-
 /**
  * @author zcj
  * @creat 2021-08-30-19:59
@@ -47,13 +45,4 @@ public class BreedBaseDto {
     @TableField("detailed_address")
     private String detailedAddress;
 
-    //养殖基地图片
-    @ApiModelProperty(value = "养殖基地图片")
-    @TableField("picture")
-    private String picture;
-
-    //养殖基地视频
-    @ApiModelProperty(value = "养殖基地视频")
-    @TableField("video")
-    private String video;
 }

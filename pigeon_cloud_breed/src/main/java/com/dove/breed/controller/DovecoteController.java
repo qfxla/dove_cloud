@@ -166,7 +166,7 @@ public class DovecoteController {
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
 
         // 设置照片的名字为基地id+备注
-        fileName = id + "基地照片-" + UUID.randomUUID().toString()+ "-" + suffixName;
+        fileName = id + "鸽棚照片-" + UUID.randomUUID().toString()+ "-" + suffixName;
 
         //new带有绝对路径的文件对象（不带文件名）
         File targetFile = new File(pathPicture);
@@ -218,7 +218,7 @@ public class DovecoteController {
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
 
         /// 设置照片的名字为基地id+备注
-        fileName = id + "基地视频-" + UUID.randomUUID().toString()+ "-" + suffixName;
+        fileName = id + "鸽棚视频-" + UUID.randomUUID().toString()+ "-" + suffixName;
 
         //new带有绝对路径的文件对象（不带文件名）
         File targetFile = new File(pathVideo);

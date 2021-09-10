@@ -1,8 +1,6 @@
 package com.dove.breed.entity.dto;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -24,20 +22,15 @@ public class ShipmentOutBillDto {
     @TableField("base_name")
     private String baseName;
 
+    //类型
+    @ApiModelProperty(value = "类型")
+    @TableField("type")
+    private String type;
+
     //经手人
     @ApiModelProperty(value = "经手人")
     @TableField("handler")
     private String handler;
-
-    //总数量
-    @ApiModelProperty(value = "总数量")
-    @TableField("amount")
-    private Integer amount;
-
-    //总金额
-    @ApiModelProperty(value = "总金额")
-    @TableField("total")
-    private Integer total;
 
     //备注
     @ApiModelProperty(value = "备注")
