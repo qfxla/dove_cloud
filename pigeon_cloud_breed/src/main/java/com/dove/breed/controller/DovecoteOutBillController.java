@@ -175,6 +175,16 @@ public class DovecoteOutBillController {
         return Result.success("获取成功").data(map);
     }
 
+    //用于求一年基地各月份各类型总数
+    @ApiOperation("用于求一年中基地各月份各类型总数")
+    @GetMapping("/getAllDovecoteByTypeAndYearOfMonth")
+    public Result getAllDovecoteByTypeAndYearOfMonth(@RequestParam("baseId")Long baseId,
+                                                     @RequestParam("type")String type,
+                                                     @RequestParam("year")int year){
+        List<Map<String, Integer>> list = dovecoteOutBillService.getAllDovecoteByTypeAndYearOfMonth(baseId, type, year);
+        return list.size() != 0?Result.success("获取成功").data(list) : Result.error("获取失败");
+    }
+
     @ApiOperation(value = "根据批次号查鸽棚出库单")
     @GetMapping("/getDovecoteOutBillByFarmBatch")
     public Result getDovecoteOutBillByFarmBatch(@RequestParam("farmBatch")String farmBatch,
@@ -203,4 +213,19 @@ public class DovecoteOutBillController {
         List<DovecoteOutBill> list = dovecoteOutBillService.list(wrapper);
         return Result.success().data(list);
     }
+
+    @ApiOperation(value = "月结求今年各月各类型总数")
+    @GetMapping("/getSumOfTypeAndMonthByBaseId")
+    public Result getSumOfTypeAndMonthByBaseId(@RequestParam("baseId")Long baseId){
+        List<Map<String, Integer>> list = dovecoteOutBillService.getSumOfTypeAndMonthByBaseId(baseId);
+        return Result.success("获取成功").data(list);
+    }
+
+    @ApiOperation(value = "用于求基地各天某类型各数量")
+    @GetMapping("/getSumOfDayByBaseIdAndType")
+    public Result getSumOfDayByBaseIdAndType(@RequestParam("baseId")Long baseId,@RequestParam("type")String type){
+        List<Map<String, Integer>> list = dovecoteOutBillService.getEveryDaySumByType(baseId, type);
+        return Result.success("获取成功").data(list);
+    }
+
 }

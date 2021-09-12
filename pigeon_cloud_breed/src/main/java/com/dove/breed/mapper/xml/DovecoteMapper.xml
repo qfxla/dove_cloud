@@ -90,13 +90,17 @@
     </select>
     <select id="getAllDovecoteNumber" resultType="java.lang.String">
         SELECT
-        *
+        dovecote_number
         FROM t_dovecote
         WHERE base_id = #{baseId}
-        <if test="dovecoteNumber != null">
-        AND dovecote_number LIKE "%${dovecoteNumber}%"
-        </if>
     </select>
-
-
+    <select id="getCheckEggsToNow" resultType="java.lang.Long">
+        SELECT c.cage_id
+        FROM t_cage_real c LEFT JOIN t_cage_position p
+        ON c.cage_id = p.cage_id
+        WHERE p.base_id = #{baseId}
+        AND p.shack = #{dovecoteNumber}
+        AND state = 5
+        AND TO_DAYS(NOW()) - TO_DAYS(c.update_time) = #{days}
+    </select>
 </mapper>

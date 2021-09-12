@@ -52,9 +52,17 @@ public class DovecoteServiceImpl extends ServiceImpl<DovecoteMapper, Dovecote> i
     }
 
     @Override
-    public List<String> getAllDovecoteNumber(Long baseId, String dovecoteNumber) {
+    public List<String> getAllDovecoteNumber(Long baseId) {
 
-        return dovecoteMapper.getAllDovecoteNumber(baseId,dovecoteNumber);
+        return dovecoteMapper.getAllDovecoteNumber(baseId);
     }
+
+    @Override
+    public List<Long> rightByDays(Long baseId,String dovecoteNumber,int days) {
+        //查找离查仔过来days天的cageId
+        List<Long> list = dovecoteMapper.getCheckEggsToNow(baseId, dovecoteNumber, days);
+        return list;
+    }
+
 
 }

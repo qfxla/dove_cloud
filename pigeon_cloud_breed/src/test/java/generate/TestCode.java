@@ -67,11 +67,11 @@ public class TestCode {
     private DovecoteOutBaseMapper dovecoteOutBaseMapper;
     @Autowired
     private ManualIncubationService manualIncubationService;
-    @Autowired
-    private ShipmentOutBillService shipmentOutBillService;
+
     @Test
     public void test(){
-
+        List<Map<String, Integer>> list = dovecoteOutBillService.getEveryDaySumByType(12L, "肉鸽");
+        System.out.println(list);
     }
 
 

@@ -30,5 +30,10 @@ public interface DovecoteMapper extends BaseMapper<Dovecote> {
     List<AbnormalVo> getAbnormalVoOfYesterday(@Param("baseId")Long baseId,
                                               @Param("dovecoteNumber")String dovecoteNumber);
 
-    List<String> getAllDovecoteNumber(@Param("baseId")Long baseId, @Param("dovecoteNumber")String dovecoteNumber);
+    List<String> getAllDovecoteNumber(@Param("baseId")Long baseId);
+
+    //获取实时表中状态为查完仔的鸽笼
+    List<Long> getCheckEggsToNow(@Param("baseId")Long baseId,
+                                 @Param("dovecoteNumber")String dovecoteNumber,
+                                 @Param("days")int days);
 }

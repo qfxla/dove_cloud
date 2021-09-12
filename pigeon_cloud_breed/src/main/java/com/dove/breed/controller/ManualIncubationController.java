@@ -49,7 +49,7 @@ public class ManualIncubationController {
     @PostMapping("/addManualIncubationData")
     public Result addManualIncubationData(@RequestBody ManualIncubationDto manualIncubationDto){
         int i = manualIncubationService.addManualIncubationData(manualIncubationDto);
-        return  i == 1?Result.success("添加成功") : Result.error("今日已填两次");
+        return  i == 1?Result.success("添加成功") : Result.error("当天已填两次");
     }
 
     @ApiOperation("查看孵化机记录")
@@ -57,6 +57,7 @@ public class ManualIncubationController {
     public Result getByDovecoteNumber(Long baseId, String dovecoteNumber,int pageNum,int pageSize){
         List<ManualIncubation> list = manualIncubationService.getByDovecoteNumber(baseId, dovecoteNumber, pageNum, pageSize);
         List<ManualIncubationVo> list1 = convertUtil.convert(list, ManualIncubationVo.class);
+        list1 = list1.stream().sorted(Comparator.comparing(ManualIncubationVo::getLaborTime).reversed()).collect(Collectors.toList());
         Page page = PageUtil.list2Page(list1, pageNum, pageSize);
         return Result.success("查询成功").data(page);
     }
@@ -77,7 +78,7 @@ public class ManualIncubationController {
         return b ?Result.success("更改成功"):Result.error("更改失败");
     }
 
-    @ApiOperation("重置某条孵化记录")
+    @ApiOperation("删除某条孵化记录")
     @GetMapping("/deleteById")
     public Result toZero(@RequestParam("id")Long id){
         boolean b = manualIncubationService.removeById(id);

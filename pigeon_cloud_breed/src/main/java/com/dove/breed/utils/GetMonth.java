@@ -4,6 +4,8 @@ import javax.xml.crypto.Data;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Author: xbx
@@ -34,4 +36,19 @@ public class GetMonth {
         dateString = stringBuilder2.toString();
         return dateString;
     }
+
+    //获取前几天后几天的日期
+    public static Map<String, Integer> getDay(int n){
+        Calendar cal=Calendar.getInstance();
+        cal.add(Calendar.DATE,n);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        int month = cal.get(Calendar.MONTH) + 1;
+        int year = cal.get(Calendar.YEAR);
+        Map<String, Integer> map = new HashMap<>();
+        map.put("day",day);
+        map.put("month",month);
+        map.put("year",year);
+        return map;
+    }
+
 }

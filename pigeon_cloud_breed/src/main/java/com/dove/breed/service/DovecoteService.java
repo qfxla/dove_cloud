@@ -24,11 +24,7 @@ public interface DovecoteService extends IService<Dovecote> {
     Integer getMatEggsOfYesterday(Long baseId,String dovecoteNumber);
     List<AbnormalVo> getAbnormalVoOfYesterday(Long baseId,String dovecoteNumber);
 
-    /**
-     * 根据基地ID以及模糊查询，查询鸽棚编号
-     * @param baseId
-     * @param dovecoteNumber
-     * @return
-     */
-    List<String> getAllDovecoteNumber(Long baseId, String dovecoteNumber);
+    List<String> getAllDovecoteNumber(Long baseId);
+
+    List<Long> rightByDays(Long baseId,String dovecoteNumber,int days);
 }

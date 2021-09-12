@@ -2,6 +2,8 @@ package com.dove.breed.controller;
 
 
 
+import cn.hutool.http.HttpUtil;
+import com.alibaba.fastjson.JSON;
 import com.dove.breed.entity.dto.BreedBaseDto;
 import com.dove.breed.entity.vo.BreedBaseVo;
 import com.dove.breed.service.BreedBaseService;
@@ -10,17 +12,26 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dove.breed.utils.ConvertUtil;
+import com.dove.breed.utils.GoFastDfsEnum;
 import com.dove.entity.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import okhttp3.*;
+import okhttp3.ResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
+
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -45,8 +56,6 @@ public class BreedBaseController {
     @Autowired
     private ConvertUtil convertUtil;
 
-    private String pathPicture = "/dev/img/";
-    private String pathVideo = "/dev/video/";
     @ApiOperation(value = "新增")
     @PostMapping("/save")
     public Result save(@RequestBody BreedBaseDto breedBaseDto){
@@ -101,103 +110,63 @@ public class BreedBaseController {
     @ApiOperation(value = "更新基地照片")
     @PostMapping("/uploadPicture/{id}")
     public Result updatePicture(@PathVariable("id") Long id,
-                                @RequestParam("file") MultipartFile file) {
+                                @RequestParam("file") MultipartFile files) {
         // 根据id获取基地信息
         BreedBase breedBase = breedBaseService.getById(id);
 
-        // 获取基地原先照片的地址
-        String originURL = breedBase.getPicture();
-
-        // 获得照片后缀
-        String fileName = file.getOriginalFilename();
-        String suffixName = fileName.substring(fileName.lastIndexOf("."));
-
-        // 设置照片的名字为基地id+备注
-        fileName = id + "基地照片-" + UUID.randomUUID().toString()+ "-" + suffixName;
-
-        //new带有绝对路径的文件对象（不带文件名）
-        File targetFile = new File(pathPicture);
-        //判断是否存在该目录，没有则创建
-        if (!targetFile.exists()) {
-            targetFile.mkdirs();
+        if (breedBase == null){
+            return Result.error("无该基地信息");
         }
 
-        //new带有绝对路径的文件对象（带文件名）
-        File saveFile = new File(targetFile, fileName);
+        String path = breedBase.getPicture();
+
+        //文件地址
+        InputStreamResource file = null;
         try {
-            // 保存文件到绝对路径中（带文件名）
-            file.transferTo(saveFile);
-        } catch (Exception e) {
+            file = new InputStreamResource(files.getInputStream(), files.getOriginalFilename());
+        } catch (IOException e) {
             e.printStackTrace();
-            return Result.error("保存图片失败！！！！");
         }
-
-        // 修改数据库照片的绝对地址
-        breedBase.setPicture(pathPicture + fileName);
-        boolean b = breedBaseService.updateById(breedBase);
-
-        // 如果上面都成功了，则删除文件夹中基地原先有的照片
-        if (b) {
-            if (originURL != null ) {
-                File fileDelete = new File(originURL);
-                //删除文件
-                fileDelete.delete();
+        //声明参数集合
+        HashMap<String, Object> paramMap = new HashMap<String, Object>();
+        //文件
+        paramMap.put("file", file);
+        //输出
+        paramMap.put("output","json");
+        //自定义路径
+        paramMap.put("path","baseImage");
+        //场景
+        paramMap.put("scene","baseImage");
+        //上传
+        String result= HttpUtil.post(GoFastDfsEnum.UPLOAD_PATH.getUsr(), paramMap);
+        System.out.println("66");
+        Map<String,Object> mapType = JSON.parseObject(result,Map.class);
+        System.out.println("66");
+        for (Object obj : mapType.keySet()){
+            if (obj.toString().equals("path")){
+                // 修改数据库照片的绝对地址
+                breedBase.setPicture(mapType.get(obj).toString());
             }
-        } else{
-            return Result.error("图片更新失败!!!");
         }
-        return Result.success("图片更新成功");
+        boolean b = breedBaseService.updateById(breedBase);
+        if (b && path != null && !path.equals(breedBase.getPicture())){
+            HashMap<String, Object> pathMap = new HashMap<>();
+            pathMap.put("path",path);
+            String post = HttpUtil.post(GoFastDfsEnum.DELETE_PATH.getUsr(), pathMap);
+            System.out.println(post);
+        }
+        //输出json结果
+        return Result.success("图片保存成功");
     }
-
 
     @ApiOperation(value = "更新基地视频")
     @PostMapping("/uploadVideo/{id}")
     public Result uploadVideo(@PathVariable("id") Long id,
-                              @RequestParam("file") MultipartFile file) {
+                              @RequestParam("url") String url) {
         // 根据id获取基地信息
         BreedBase breedBase = breedBaseService.getById(id);
-
-        // 获取基地原先照片的地址
-        String originURL = breedBase.getVideo();
-
-        // 获得照片后缀
-        String fileName = file.getOriginalFilename();
-        String suffixName = fileName.substring(fileName.lastIndexOf("."));
-
-        /// 设置照片的名字为基地id+备注
-        fileName = id + "基地视频-" + UUID.randomUUID().toString()+ "-" + suffixName;
-
-        //new带有绝对路径的文件对象（不带文件名）
-        File targetFile = new File(pathVideo);
-        //判断是否存在该目录，没有则创建
-        if (!targetFile.exists()) {
-            targetFile.mkdirs();
-        }
-
-        //new带有绝对路径的文件对象（带文件名）
-        File saveFile = new File(targetFile, fileName);
-        try {
-            // 保存文件到绝对路径中（带文件名）
-            file.transferTo(saveFile);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Result.error("保存视频失败！！！！");
-        }
-
-        // 修改数据库照片的绝对地址
-        breedBase.setVideo(pathVideo + fileName);
-        boolean b = breedBaseService.updateById(breedBase);
-
-        // 如果上面都成功了，则删除文件夹中基地原先有的照片
-        if (b) {
-            if (originURL != null ) {
-                File fileDelete = new File(originURL);
-                //删除文件
-                fileDelete.delete();
-            }
-        } else{
-            return Result.error("视频更新失败!!!");
-        }
-        return Result.success("视频更新成功");
+        breedBase.setVideo(url);
+        breedBaseService.updateById(breedBase);
+        return Result.success("保存视频成功");
     }
 }

@@ -1,4 +1,7 @@
 package com.dove.breed.controller;
+import cn.hutool.core.io.resource.InputStreamResource;
+import cn.hutool.http.HttpUtil;
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dove.breed.entity.BreedBase;
 import com.dove.breed.entity.DovecoteEntryBill;
@@ -6,6 +9,7 @@ import com.dove.breed.entity.dto.DovecoteDto;
 import com.dove.breed.entity.vo.AbnormalVo;
 import com.dove.breed.entity.vo.DovecoteVo;
 import com.dove.breed.utils.ConvertUtil;
+import com.dove.breed.utils.GoFastDfsEnum;
 import com.dove.breed.utils.PageUtil;
 import com.dove.entity.Result;
 
@@ -25,7 +29,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -146,111 +153,76 @@ public class DovecoteController {
 
     @ApiOperation(value = "根据基地查询出所有鸽棚编号")
     @GetMapping("/getAllDovecoteNumber")
-    public Result getAllDovecoteNumber(@RequestParam(value = "baseId")Long baseId,
-                                       @RequestParam(value = "dovecoteNumber",required = false)String dovecoteNumber){
-        return Result.success("查找成功").data(dovecoteService.getAllDovecoteNumber(baseId, dovecoteNumber));
+    public Result getAllDovecoteNumber(@RequestParam(value = "baseId")Long baseId){
+        return Result.success("查找成功").data(dovecoteService.getAllDovecoteNumber(baseId));
     }
 
-    @ApiOperation(value = "更新基地照片")
+    @ApiOperation(value = "亮里查仔过来几天的灯")
+    @GetMapping("/rightByDays")
+    public Result rightByDays(@RequestParam(value = "baseId")Long baseId,
+                              @RequestParam(value = "dovecoteNumber")String dovecoteNumber,
+                              @RequestParam(value = "days")int days){
+        List<Long> list = dovecoteService.rightByDays(baseId, dovecoteNumber, days);
+        return Result.success("获取成功").data(list);
+    }
+
+    @ApiOperation(value = "更新鸽棚照片")
     @PostMapping("/uploadPicture/{id}")
     public Result updatePicture(@PathVariable("id") Long id,
-                                @RequestParam("file") MultipartFile file) {
+                                @RequestParam("file") MultipartFile files) {
         // 根据id获取基地信息
         Dovecote dovecote = dovecoteService.getById(id);
 
-        // 获取基地原先照片的地址
-        String originURL = dovecote.getPicture();
-
-        // 获得照片后缀
-        String fileName = file.getOriginalFilename();
-        String suffixName = fileName.substring(fileName.lastIndexOf("."));
-
-        // 设置照片的名字为基地id+备注
-        fileName = id + "鸽棚照片-" + UUID.randomUUID().toString()+ "-" + suffixName;
-
-        //new带有绝对路径的文件对象（不带文件名）
-        File targetFile = new File(pathPicture);
-        //判断是否存在该目录，没有则创建
-        if (!targetFile.exists()) {
-            targetFile.mkdirs();
+        if (dovecote == null){
+            return Result.error("无该鸽棚信息");
         }
 
-        //new带有绝对路径的文件对象（带文件名）
-        File saveFile = new File(targetFile, fileName);
+        String path = dovecote.getPicture();
+
+        //文件地址
+        InputStreamResource file = null;
         try {
-            // 保存文件到绝对路径中（带文件名）
-            file.transferTo(saveFile);
-        } catch (Exception e) {
+            file = new InputStreamResource(files.getInputStream(), files.getOriginalFilename());
+        } catch (IOException e) {
             e.printStackTrace();
-            return Result.error("保存图片失败！！！！");
         }
-
-        // 修改数据库照片的绝对地址
-        dovecote.setPicture(pathPicture + fileName);
-        boolean b = dovecoteService.updateById(dovecote);
-
-        // 如果上面都成功了，则删除文件夹中基地原先有的照片
-        if (b) {
-            if (originURL != null ) {
-                File fileDelete = new File(originURL);
-                //删除文件
-                fileDelete.delete();
+        //声明参数集合
+        HashMap<String, Object> paramMap = new HashMap<String, Object>();
+        //文件
+        paramMap.put("file", file);
+        //输出
+        paramMap.put("output","json");
+        //自定义路径
+        paramMap.put("path","dovecoteImage");
+        //场景
+        paramMap.put("scene","dovecoteImage");
+        //上传
+        String result= HttpUtil.post(GoFastDfsEnum.UPLOAD_PATH.getUsr(), paramMap);
+        Map<String,Object> mapType = JSON.parseObject(result,Map.class);
+        for (Object obj : mapType.keySet()){
+            if (obj.toString().equals("path")){
+                // 修改数据库照片的绝对地址
+                dovecote.setPicture(mapType.get(obj).toString());
             }
-        } else{
-            return Result.error("图片更新失败!!!");
         }
-        return Result.success("图片更新成功");
+        boolean b = dovecoteService.updateById(dovecote);
+        if (b && path != null && !path.equals(dovecote.getPicture())){
+            HashMap<String, Object> pathMap = new HashMap<>();
+            pathMap.put("path",path);
+            HttpUtil.post(GoFastDfsEnum.DELETE_PATH.getUsr(), pathMap);
+        }
+        //输出json结果
+        return Result.success("图片保存成功");
     }
 
-
-    @ApiOperation(value = "更新基地视频")
+    @ApiOperation(value = "更新鸽棚视频")
     @PostMapping("/uploadVideo/{id}")
     public Result uploadVideo(@PathVariable("id") Long id,
-                              @RequestParam("file") MultipartFile file) {
+                              @RequestParam("url") String url) {
         // 根据id获取基地信息
         Dovecote dovecote = dovecoteService.getById(id);
-
-        // 获取基地原先照片的地址
-        String originURL = dovecote.getVideo();
-
-        // 获得照片后缀
-        String fileName = file.getOriginalFilename();
-        String suffixName = fileName.substring(fileName.lastIndexOf("."));
-
-        /// 设置照片的名字为基地id+备注
-        fileName = id + "鸽棚视频-" + UUID.randomUUID().toString()+ "-" + suffixName;
-
-        //new带有绝对路径的文件对象（不带文件名）
-        File targetFile = new File(pathVideo);
-        //判断是否存在该目录，没有则创建
-        if (!targetFile.exists()) {
-            targetFile.mkdirs();
-        }
-
-        //new带有绝对路径的文件对象（带文件名）
-        File saveFile = new File(targetFile, fileName);
-        try {
-            // 保存文件到绝对路径中（带文件名）
-            file.transferTo(saveFile);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Result.error("保存视频失败！！！！");
-        }
-
-        // 修改数据库照片的绝对地址
-        dovecote.setVideo(pathVideo + fileName);
-        boolean b = dovecoteService.updateById(dovecote);
-
-        // 如果上面都成功了，则删除文件夹中基地原先有的照片
-        if (b) {
-            if (originURL != null ) {
-                File fileDelete = new File(originURL);
-                //删除文件
-                fileDelete.delete();
-            }
-        } else{
-            return Result.error("视频更新失败!!!");
-        }
-        return Result.success("视频更新成功");
+        dovecote.setVideo(url);
+        dovecoteService.updateById(dovecote);
+        return Result.success("保存视频成功");
     }
 }

@@ -73,5 +73,11 @@
         AND is_deleted = 0
         AND day(gmt_create) = day(now())
     </select>
-
+    <select id="getSumOfTypeAndMonthByBaseId" resultType="com.dove.breed.entity.DovecoteOutBill">
+        SELECT
+        *
+        FROM t_dovecote_out_bill
+        WHERE base_id = #{baseId}
+        AND month(gmt_create) = #{month}
+    </select>
 </mapper>

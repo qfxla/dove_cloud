@@ -57,8 +57,8 @@ public class ManualIncubationServiceImpl extends ServiceImpl<ManualIncubationMap
         ManualIncubation manualIncubation = convertUtil.convert(manualIncubationDto, ManualIncubation.class);
         manualIncubation.setBreeder(breeder);
 
-        List<ManualIncubation> todayData = manualIncubationMapper.getTodayData(manualIncubation.getBaseId(), manualIncubation.getDovecoteNumber());
-        if (todayData.size()>2){
+        List<ManualIncubation> thisDayData = manualIncubationMapper.getThisDayData(manualIncubation.getBaseId(), manualIncubation.getDovecoteNumber(),manualIncubation.getLaborTime());
+        if (thisDayData.size()>2){
             return 0;
         }
         int insert = manualIncubationMapper.insert(manualIncubation);

@@ -12,6 +12,13 @@
     <artifactId>pigeon_cloud_breed</artifactId>
 
     <dependencies>
+
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>4.5.1</version>
+        </dependency>
+
         <dependency>
             <groupId>com.dove</groupId>
             <artifactId>pigeon_cloud_common</artifactId>

@@ -28,10 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.xmlunit.util.Convert;
 
 import java.lang.ref.WeakReference;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -125,12 +122,14 @@ public class DovecoteOutBillServiceImpl extends ServiceImpl<DovecoteOutBillMappe
     public Map<String, Integer> getAllAmountByBaseIdAndDateAndType(Long baseId, String type, int year, int month, int day) {
         List<DovecoteOutBill> bills = dovecoteOutBillMapper.getBillByBaseIdAndDateAndType(baseId, type, year, month, day);
         Map<String, Integer> map = new HashMap<>();
+        int amount = 0;
         for (DovecoteOutBill bill : bills) {
             QueryWrapper<DovecoteOutBase> wrapper = new QueryWrapper<>();
             wrapper.eq("dovecote_out_bill",bill.getId())
                     .eq("is_deleted",0);
             List<DovecoteOutBase> bases = dovecoteOutBaseService.list(wrapper);
             for (DovecoteOutBase base : bases) {
+                amount += base.getAmount();
                 if (!map.containsKey(base.getTypeName())){
                     map.put(base.getTypeName(),base.getAmount());
                 }else {
@@ -138,6 +137,7 @@ public class DovecoteOutBillServiceImpl extends ServiceImpl<DovecoteOutBillMappe
                 }
             }
         }
+        map.put("amount",amount);
         return map;
     }
 
@@ -158,6 +158,12 @@ public class DovecoteOutBillServiceImpl extends ServiceImpl<DovecoteOutBillMappe
                 }
             }
         }
+        int amount = 0;
+        for (Map.Entry<String, Integer> entrySet : map.entrySet()) {
+            Integer value = entrySet.getValue();
+            amount += value;
+        }
+        map.put("amount",amount);
         return map;
     }
 
@@ -166,4 +172,63 @@ public class DovecoteOutBillServiceImpl extends ServiceImpl<DovecoteOutBillMappe
         List<DovecoteOutBill> dovecoteOutBill = dovecoteOutBillMapper.findDovecoteOutBillByTodayAndType(baseId,type);
         return dovecoteOutBill;
     }
+
+    @Override
+    public List<Map<String, Integer>> getAllDovecoteByTypeAndYearOfMonth(Long baseId, String type, int year) {
+        Calendar c = Calendar.getInstance();
+        int month = c.get(Calendar.MONTH);
+        List<Map<String, Integer>> list = new ArrayList<>();
+        for (int i = 1;i < month + 2;i++){
+            Map<String, Integer> map = getAllAmountByBaseIdAndMonthAndType(baseId, type, year, i);
+            map.put("month",i);
+            list.add(map);
+        }
+        return list;
+    }
+
+    @Override
+    public List<Map<String, Integer>> getSumOfTypeAndMonthByBaseId(Long baseId) {
+        Calendar c = Calendar.getInstance();
+        int month = c.get(Calendar.MONTH);
+        List<Map<String, Integer>> list = new ArrayList<>();
+        for (int i = 1;i < month + 2;i++){
+            HashMap<String, Integer> map = new HashMap<>();
+            map.put("肉鸽",0);
+            map.put("鸽蛋",0);
+            map.put("残次品",0);
+            map.put("鸽粪重量",0);
+            map.put("month",i);
+            List<DovecoteOutBill> list1 = dovecoteOutBillMapper.getSumOfTypeAndMonthByBaseId(baseId, i);
+            for (DovecoteOutBill dovecoteOutBill : list1) {
+               if (dovecoteOutBill.getType().equals("肉鸽")){
+                        map.put("肉鸽",map.get("肉鸽") + dovecoteOutBill.getAmount());
+                    }else if(dovecoteOutBill.getType().equals("鸽蛋")){
+                        map.put("鸽蛋",map.get("鸽蛋") + dovecoteOutBill.getAmount());
+                    }else if(dovecoteOutBill.getType().equals("残次品")){
+                        map.put("残次品",map.get("残次品") + dovecoteOutBill.getAmount());
+                    }else if(dovecoteOutBill.getType().equals("鸽粪重量")){
+                        map.put("鸽粪重量",map.get("鸽粪重量") + dovecoteOutBill.getAmount());
+                }
+            }
+            list.add(map);
+        }
+        return list;
+    }
+
+    public List<Map<String,Integer>> getEveryDaySumByType(Long baseId,String type){
+        ArrayList<Map<String, Integer>> list = new ArrayList<>();
+        for(int i = 0;i < 30;i++){
+            Map<String, Integer> map = GetMonth.getDay(-i);
+            int day = map.get("day");
+            int month = map.get("month");
+            int year = map.get("year");
+            Map<String, Integer> map1 = getAllAmountByBaseIdAndDateAndType(baseId, type, year, month, day);
+            map1.put("year",year);
+            map1.put("month",month);
+            map1.put("day",day);
+            list.add(map1);
+        }
+        return list;
+    }
+
 }

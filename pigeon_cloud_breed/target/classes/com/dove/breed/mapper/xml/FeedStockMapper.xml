@@ -60,10 +60,10 @@
             AND dovecote_number = #{dovecoteNumber}
         </if>
         <if test="feedType != null">
-            AND feed_type = #{feedType}
+            AND feed_type like "%${feedType}%"
         </if>
         AND year(gmt_create) = year(#{month})
-        AND month(gmt_create) = month(#{month})
+        AND month(gmt_create) = month(#{month}) + 1
     </select>
 
 

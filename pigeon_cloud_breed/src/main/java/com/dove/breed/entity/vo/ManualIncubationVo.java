@@ -1,5 +1,6 @@
 package com.dove.breed.entity.vo;
 
+import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -53,16 +54,17 @@ public class ManualIncubationVo {
     @ApiModelProperty(value = "时段(上午下午)")
     private String timeFrame;
 
+    @ExcelProperty(value = "时间" ,index = 9)
     @ApiModelProperty(value = "人工填写的时间")
     private Date laborTime;
 
-    @ExcelProperty(value = "创建时间" ,index = 9)
+    @ExcelIgnore
     //创建时间
     @ApiModelProperty(value = "创建时间")
     @TableField(value = "gmt_create", fill = FieldFill.INSERT)
     private Date gmtCreate;
 
-    @ExcelProperty(value = "修改时间" ,index = 10)
+    @ExcelIgnore
     //修改时间
     @ApiModelProperty(value = "修改时间")
     @TableField(value = "gmt_modified", fill = FieldFill.INSERT_UPDATE)
