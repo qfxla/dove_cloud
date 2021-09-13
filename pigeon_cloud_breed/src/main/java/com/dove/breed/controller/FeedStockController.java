@@ -12,6 +12,7 @@ import com.dove.breed.entity.FeedStock;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.dove.util.SecurityContextUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
@@ -72,6 +73,8 @@ public class FeedStockController {
     @ApiOperation(value = "列表（分页）")
     @GetMapping("/list/{pageNum}/{pageSize}")
     public Object list(@PathVariable("pageNum")Long pageNum, @PathVariable("pageSize")Long pageSize){
+        QueryWrapper<FeedStock> wrapper = new QueryWrapper<>();
+        wrapper.eq("guige", SecurityContextUtil.getUserDetails().getEnterpriseId());
         IPage<FeedStock> page = feedStockService.page(
         new Page<>(pageNum, pageSize), null);
         IPage<FeedStockVo> page1 = convertUtil.convert(page,FeedStockVo.class);
@@ -113,7 +116,7 @@ public class FeedStockController {
                                             @RequestParam(value = "dovecoteNumber",required = false)String dovecoteNumber,
                                             @RequestParam(value = "feedType",required = false)String feedType,
                                             @RequestParam(value = "month",required = true)String month){
-        List<FeedStockVo> list = feedStockService.getMonthlyStatementReport(baseId,dovecoteNumber,feedType,month);
+        List<FeedStockVo> list = feedStockService.getMonthlyStatementReport(baseId,dovecoteNumber,feedType,month,SecurityContextUtil.getUserDetails().getEnterpriseId());
         Page page = PageUtil.list2Page(list, pageNum, pageSize);
         return list == null ? Result.error("获取失败") : Result.success().data(page);
     }

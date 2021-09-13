@@ -45,8 +45,9 @@ public interface FeedStockMapper extends BaseMapper<FeedStock> {
      * @param dovecoteNumber
      * @param feedType
      * @param month
+     * @param guige
      * @return
      */
     List<FeedStockVo> getMonthlyStatementReport(@Param("baseId")Long baseId, @Param("dovecoteNumber")String dovecoteNumber,
-                                                @Param("feedType")String feedType,@Param("month")String month);
+                                                @Param("feedType")String feedType,@Param("month")String month,@Param("guige")Long guige);
 }

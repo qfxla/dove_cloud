@@ -39,6 +39,11 @@ public class BaseStockVo {
     @ApiModelProperty(value = "剩余量")
     private Integer amount;
 
+    //所属企业id
+    @ApiModelProperty(value = "所属企业id")
+    @TableField("guige")
+    private Long guige;
+
     //创建时间
     @ApiModelProperty(value = "创建时间")
     @TableField(value = "gmt_create", fill = FieldFill.INSERT)

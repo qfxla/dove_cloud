@@ -14,6 +14,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dove.breed.utils.ConvertUtil;
 import com.dove.breed.utils.GoFastDfsEnum;
 import com.dove.entity.Result;
+import com.dove.util.SecurityContextUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -60,6 +61,8 @@ public class BreedBaseController {
     @PostMapping("/save")
     public Result save(@RequestBody BreedBaseDto breedBaseDto){
         BreedBase breedBase = convertUtil.convert(breedBaseDto, BreedBase.class);
+        breedBase.setGuige(SecurityContextUtil.getUserDetails().getEnterpriseId());
+        breedBase.setEnterpriseId(SecurityContextUtil.getUserDetails().getEnterpriseId());
         boolean save = breedBaseService.save(breedBase);
         return save? Result.success("保存成功").data(breedBase) : Result.error("保存失败");
     }
@@ -75,6 +78,7 @@ public class BreedBaseController {
     @PostMapping("/get")
     public Result list(@RequestBody BreedBaseDto breedBaseDto){
         BreedBase breedBase = convertUtil.convert(breedBaseDto, BreedBase.class);
+        breedBase.setGuige(SecurityContextUtil.getUserDetails().getEnterpriseId());
         List<BreedBase> breedBaseList = breedBaseService.list(new QueryWrapper<>(breedBase));
         List<BreedBaseVo> breedBasesVoList = convertUtil.convert(breedBaseList,BreedBaseVo.class);
         return breedBaseList.size() > 0?Result.success("查询成功").data(breedBasesVoList) : Result.error("查询失败");
@@ -83,8 +87,9 @@ public class BreedBaseController {
     @ApiOperation(value = "列表（分页）")
     @GetMapping("/list/{pageNum}/{pageSize}")
     public Object list(@PathVariable("pageNum")Long pageNum, @PathVariable("pageSize")Long pageSize){
-        IPage<BreedBase> page = breedBaseService.page(
-        new Page<>(pageNum, pageSize), null);
+        QueryWrapper<BreedBase> wrapper = new QueryWrapper<>();
+        wrapper.eq("enterprise_id",SecurityContextUtil.getUserDetails().getEnterpriseId());
+        IPage<BreedBase> page = breedBaseService.page(new Page<>(pageNum, pageSize), wrapper);
         IPage<BreedBaseVo> page1 = convertUtil.convert(page, BreedBaseVo.class);
         return page1.getTotal() > 0?Result.success("分页成功").data(page1) : Result.error("分页失败");
     }

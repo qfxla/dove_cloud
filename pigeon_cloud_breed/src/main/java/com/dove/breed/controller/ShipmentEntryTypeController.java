@@ -10,6 +10,7 @@ import com.dove.breed.entity.ShipmentEntryType;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.dove.util.SecurityContextUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -46,6 +47,7 @@ public class ShipmentEntryTypeController {
     public Result save(@RequestBody ShipmentEntryTypeDto shipmentEntryTypeDto){
         ShipmentEntryType shipmentEntryType = new ShipmentEntryType();
         BeanUtils.copyProperties(shipmentEntryTypeDto,shipmentEntryType,ShipmentEntryType.class);
+        shipmentEntryType.setGuige(SecurityContextUtil.getUserDetails().getEnterpriseId());
         boolean save = shipmentEntryTypeService.save(shipmentEntryType);
         return save? Result.success("保存成功") : Result.error("保存失败");
     }

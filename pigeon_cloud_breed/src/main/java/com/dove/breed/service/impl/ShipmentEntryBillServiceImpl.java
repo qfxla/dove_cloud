@@ -18,6 +18,7 @@ import com.dove.breed.service.ShipmentEntryTypeService;
 import com.dove.breed.utils.ConvertUtil;
 import com.dove.entity.GlobalException;
 import com.dove.entity.StatusCode;
+import com.dove.util.SecurityContextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -66,7 +67,7 @@ public class ShipmentEntryBillServiceImpl extends ServiceImpl<ShipmentEntryBillM
     @Override
     public ShipmentEntryBillVo submitShipmentEntryBill(ShipmentEntryBillDto shipmentEntryBillDto, List<ShipmentEntryBaseDto> shipmentEntryBaseDtoList) {
         ShipmentEntryBill shipmentEntryBill = convertUtil.convert(shipmentEntryBillDto,ShipmentEntryBill.class);
-
+        shipmentEntryBill.setGuige(SecurityContextUtil.getUserDetails().getEnterpriseId());
 //        Lock lock = new ReentrantLock();
 //        lock.lock();
         shipmentEntryBillMapper.insert(shipmentEntryBill);
@@ -94,6 +95,7 @@ public class ShipmentEntryBillServiceImpl extends ServiceImpl<ShipmentEntryBillM
             billAmount += amount;
             billTotal += total;
             ShipmentEntryBase shipmentEntryBase = convertUtil.convert(po1, ShipmentEntryBase.class);
+            shipmentEntryBase.setGuige(SecurityContextUtil.getUserDetails().getEnterpriseId());
             //插入入库信息
             int insertBase = shipmentEntryBaseMapper.insert(shipmentEntryBase);
             if (insertBase <= 0) {
@@ -140,6 +142,7 @@ public class ShipmentEntryBillServiceImpl extends ServiceImpl<ShipmentEntryBillM
                 baseStock.setType(po.getType());
                 baseStock.setTypeName(po.getTypeName());
                 baseStock.setAmount(po.getAmount());
+                baseStock.setGuige(SecurityContextUtil.getUserDetails().getEnterpriseId());
                 boolean save = baseStockService.save(baseStock);
                 if (!save){
                     throw new GlobalException(StatusCode.ERROR,"库存更新失败");

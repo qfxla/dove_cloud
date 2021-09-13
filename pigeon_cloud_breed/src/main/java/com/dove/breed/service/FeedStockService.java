@@ -35,7 +35,7 @@ public interface FeedStockService extends IService<FeedStock> {
      * @param month
      * @return
      */
-    List<FeedStockVo> getMonthlyStatementReport(Long baseId, String dovecoteNumber,String feedType,String month);
+    List<FeedStockVo> getMonthlyStatementReport(Long baseId, String dovecoteNumber,String feedType,String month,Long guige);
 
     /**
      * 根据剩余饲料和ID更新月结表

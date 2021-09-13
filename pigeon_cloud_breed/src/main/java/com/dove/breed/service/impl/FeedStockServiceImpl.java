@@ -12,6 +12,7 @@ import com.dove.breed.service.DovecoteEntryBaseService;
 import com.dove.breed.service.FeedStockService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dove.breed.utils.GetMonth;
+import com.dove.util.SecurityContextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -143,6 +144,7 @@ public class FeedStockServiceImpl extends ServiceImpl<FeedStockMapper, FeedStock
                     feedStock.setUseAmount(useAmount);
                     feedStock.setAmount(0);
                     feedStock.setSpecifications(dovecoteEntryType.getSpecifications());
+                    feedStock.setGuige(SecurityContextUtil.getUserDetails().getEnterpriseId());
                     baseMapper.insert(feedStock);
                 }else if (one != null){
                     System.out.println(one.toString());
@@ -155,8 +157,8 @@ public class FeedStockServiceImpl extends ServiceImpl<FeedStockMapper, FeedStock
     }
 
     @Override
-    public List<FeedStockVo> getMonthlyStatementReport(Long baseId, String dovecoteNumber,String feedType,String month) {
-        return feedStockMapper.getMonthlyStatementReport(baseId, dovecoteNumber,feedType,month);
+    public List<FeedStockVo> getMonthlyStatementReport(Long baseId, String dovecoteNumber,String feedType,String month,Long guige) {
+        return feedStockMapper.getMonthlyStatementReport(baseId, dovecoteNumber,feedType,month,guige);
     }
 
     @Override

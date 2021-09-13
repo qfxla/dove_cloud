@@ -21,6 +21,7 @@ import com.dove.breed.utils.ConvertUtil;
 import com.dove.breed.utils.GetMonth;
 import com.dove.entity.GlobalException;
 import com.dove.entity.StatusCode;
+import com.dove.util.SecurityContextUtil;
 import io.swagger.annotations.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -72,6 +73,8 @@ public class DovecoteOutBillServiceImpl extends ServiceImpl<DovecoteOutBillMappe
         //根据日期生成批次号
         String farmBatch = GetMonth.getDateToString();
         dovecoteOutBill.setFarmBatch(farmBatch);
+        dovecoteOutBill.setGuige(SecurityContextUtil.getUserDetails().getEnterpriseId());
+        dovecoteOutBill.setGuige(SecurityContextUtil.getUserDetails().getEnterpriseId());
         Lock lock = new ReentrantLock();
         lock.lock();
         dovecoteOutBillMapper.insert(dovecoteOutBill);
@@ -103,6 +106,7 @@ public class DovecoteOutBillServiceImpl extends ServiceImpl<DovecoteOutBillMappe
             billTotal += total;
             billAmount += po1.getAmount();
             DovecoteOutBase dovecoteOutBase = convertUtil.convert(po1, DovecoteOutBase.class);
+            dovecoteOutBase.setGuige(SecurityContextUtil.getUserDetails().getEnterpriseId());
             //插入出库信息
             int insert = dovecoteOutBaseMapper.insert(dovecoteOutBase);
             if (insert <= 0){

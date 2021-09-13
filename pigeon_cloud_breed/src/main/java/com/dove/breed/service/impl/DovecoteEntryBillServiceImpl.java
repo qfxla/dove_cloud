@@ -30,6 +30,7 @@ import com.dove.breed.utils.ConvertUtil;
 import com.dove.entity.ConstantValue;
 import com.dove.entity.GlobalException;
 import com.dove.entity.StatusCode;
+import com.dove.util.SecurityContextUtil;
 import com.mysql.cj.exceptions.ClosedOnExpiredPasswordException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,7 +82,8 @@ public class DovecoteEntryBillServiceImpl extends ServiceImpl<DovecoteEntryBillM
         Page<DovecoteEntryBill> page = new Page<>(pageNum, pageSize);
         QueryWrapper<DovecoteEntryBill> wrapper = new QueryWrapper<>();
         wrapper.eq("base_id",baseId)
-        .eq("type","饲料");
+        .eq("type","饲料")
+        .eq("guige",SecurityContextUtil.getUserDetails().getEnterpriseId());
         if (dovecoteNumber != null){
             wrapper.like("dovecote_number",dovecoteNumber);
         }
@@ -116,6 +118,7 @@ public class DovecoteEntryBillServiceImpl extends ServiceImpl<DovecoteEntryBillM
     public DovecoteEntryBillVo submitDovecoteEntryBill(DovecoteEntryBillDto dovecoteEntryBillDto, List<DovecoteEntryBaseDto> dovecoteEntryBaseDtoList) {
         DovecoteEntryBill dovecoteEntryBill = convertUtil.convert(dovecoteEntryBillDto, DovecoteEntryBill.class);
         ReentrantLock lock = new ReentrantLock();
+        dovecoteEntryBill.setGuige(SecurityContextUtil.getUserDetails().getEnterpriseId());
         lock.lock();
         dovecoteEntryBillMapper.insert(dovecoteEntryBill);
         Long billId = dovecoteEntryBillMapper.getLatestBillId();
@@ -142,6 +145,7 @@ public class DovecoteEntryBillServiceImpl extends ServiceImpl<DovecoteEntryBillM
             billTotal += total;
             billAmount += po1.getAmount();
             DovecoteEntryBase dovecoteEntryBase = convertUtil.convert(po1, DovecoteEntryBase.class);
+            dovecoteEntryBase.setGuige(SecurityContextUtil.getUserDetails().getEnterpriseId());
             int insert = dovecoteEntryBaseMapper.insert(dovecoteEntryBase);
             if (insert <= 0){
                 throw new GlobalException(StatusCode.ERROR,"添加订单信息错误");

@@ -11,6 +11,7 @@ import com.dove.breed.entity.ShipmentEntryBase;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.dove.util.SecurityContextUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -47,6 +48,7 @@ public class ShipmentEntryBaseController {
     public Result save(@RequestBody ShipmentEntryBaseDto shipmentEntryBaseDto){
         ShipmentEntryBase shipmentEntryBase = new ShipmentEntryBase();
         BeanUtils.copyProperties(shipmentEntryBaseDto,shipmentEntryBase,ShipmentEntryBase.class);
+        shipmentEntryBase.setGuige(SecurityContextUtil.getUserDetails().getEnterpriseId());
         boolean save = shipmentEntryBaseService.save(shipmentEntryBase);
         return save? Result.success("保存成功") : Result.error("保存失败");
     }

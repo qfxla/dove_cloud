@@ -7,6 +7,7 @@ import com.dove.breed.entity.CageDaily;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.dove.util.SecurityContextUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +36,7 @@ public class CageDailyController {
     @ApiOperation(value = "新增")
     @PostMapping("/save")
     public Result save(@RequestBody CageDaily cageDaily){
+        cageDaily.setGuige(SecurityContextUtil.getUserDetails().getEnterpriseId());
         boolean save = cageDailyService.save(cageDaily);
         return save? Result.success("保存成功") : Result.error("保存失败");
     }
@@ -56,8 +58,10 @@ public class CageDailyController {
     @ApiOperation(value = "列表（分页）")
     @GetMapping("/list/{pageNum}/{pageSize}")
     public Object list(@PathVariable("pageNum")Long pageNum, @PathVariable("pageSize")Long pageSize){
+        QueryWrapper<CageDaily> wrapper = new QueryWrapper<>();
+        wrapper.eq("guige",SecurityContextUtil.getUserDetails().getEnterpriseId());
         IPage<CageDaily> page = cageDailyService.page(
-        new Page<>(pageNum, pageSize), null);
+        new Page<>(pageNum, pageSize), wrapper);
         return page.getTotal() > 0?Result.success("分页成功").data(page) : Result.error("分页失败");
     }
 
