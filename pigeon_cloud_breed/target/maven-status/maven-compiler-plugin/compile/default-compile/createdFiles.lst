@@ -33,6 +33,7 @@ com\dove\breed\entity\dto\ManualIncubationDto.class
 com\dove\breed\mapper\CageDailyMapper.class
 com\dove\breed\handler\MybatisPlusHandler.class
 com\dove\breed\service\impl\FeedStockServiceImpl.class
+com\dove\breed\utils\GoFastDfsEnum.class
 com\dove\breed\service\impl\ShipmentEntryTypeServiceImpl.class
 com\dove\breed\mapper\ShipmentOutBillMapper.class
 com\dove\breed\controller\CageController.class

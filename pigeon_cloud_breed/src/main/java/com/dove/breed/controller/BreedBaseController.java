@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 import okhttp3.ResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.InputStreamResource;
+import cn.hutool.core.io.resource.InputStreamResource;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
