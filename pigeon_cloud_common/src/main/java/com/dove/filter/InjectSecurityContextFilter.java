@@ -6,6 +6,8 @@ import com.dove.entity.Result;
 import com.dove.entity.UserDetailsImpl;
 import com.dove.util.ApplicationContextUtil;
 import com.dove.util.SecurityContextUtil;
+import com.dove.util.TokenManage;
+import io.jsonwebtoken.Claims;
 import jdk.nashorn.internal.ir.debug.JSONWriter;
 import jdk.nashorn.internal.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Value;
@@ -48,22 +50,42 @@ public class InjectSecurityContextFilter extends BasicAuthenticationFilter {
 				!request.getRequestURI().contains("/invoke") &&
 				!request.getRequestURI().contains("/trace")) {
 
-//			String userId = request.getHeader(ConstantValue.REQUEST_USER_ID);
-
-			String userId = "1367409141675012099";
-
+		Claims claims = TokenManage.parse(request.getHeader("token"));
+		if (claims != null && !claims.equals(null)) {
+			String userId = claims.getId();
+//			String userId = "1367409141675012099";
 			UserDetailsImpl userDetails = (UserDetailsImpl) redisTemplate.opsForValue()
-																	.get(ConstantValue.REDIS_USER_KEY + '_' + userId);
+					.get(ConstantValue.REDIS_USER_KEY + '_' + userId);
 
 			if (userDetails == null) {
-				response.setHeader("Content-Type","text/ plain;charset=utf-8");
+				response.setHeader("Content-Type", "text/ plain;charset=utf-8");
 
 				writeMessage(response.getWriter(), Result.error("用户未登录"));
 				return;
 			}
 			SecurityContextUtil.setSecurityContext(userDetails);
+		}else {
+			response.setHeader("Content-Type", "text/ plain;charset=utf-8");
+			writeMessage(response.getWriter(), Result.error("用户未登录"));
+			return;
 		}
+
+	  }
 		chain.doFilter(request, response);
+//			String userId = request.getHeader(ConstantValue.REQUEST_USER_ID);
+//
+//			UserDetailsImpl userDetails = (UserDetailsImpl) redisTemplate.opsForValue()
+//					.get(ConstantValue.REDIS_USER_KEY + '_' + userId);
+//
+//			if (userDetails == null) {
+//				response.setHeader("Content-Type","text/ plain;charset=utf-8");
+//
+//				writeMessage(response.getWriter(), Result.error("用户未登录"));
+//				return;
+//			}
+//			SecurityContextUtil.setSecurityContext(userDetails);
+//		}
+//		chain.doFilter(request, response);
 	}
 
 	public static void writeMessage(Writer writer, Result result){
