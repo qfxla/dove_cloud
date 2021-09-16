@@ -2,6 +2,7 @@ package com.dove.breed.service.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dove.breed.entity.CageReal;
+import com.dove.breed.entity.vo.CageRealVo;
 import com.dove.breed.mapper.CageRealMapper;
 import com.dove.breed.service.CageRealService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -29,26 +30,54 @@ public class CageRealServiceImpl extends ServiceImpl<CageRealMapper, CageReal> i
     private ConvertUtil convertUtil;
 
     @Override
-    public List<CageReal> getAllCage(Long baseId, String dovecoteNumber) {
-        List<CageReal> allCage = cageRealMapper.getAllCage(baseId, dovecoteNumber);
+    public List<CageRealVo> getAllCage(Long baseId, String dovecoteNumber) {
+        List<CageRealVo> allCage = cageRealMapper.getAllCage(baseId, dovecoteNumber);
+        for (CageRealVo cageRealVo : allCage) {
+            int row = cageRealVo.getRowNo();
+            int line = cageRealVo.getLine();
+            int column = cageRealVo.getColumnNo();
+            String position = row + "排" + line + "行" + column + "列";
+            cageRealVo.setPosition(position);
+        }
         return allCage;
     }
 
     @Override
-    public List<CageReal> getLayEggsTime(Long baseId, String dovecoteNumber) {
-        List<CageReal> layEggsTime = cageRealMapper.getLayEggsTime(baseId, dovecoteNumber);
+    public List<CageRealVo> getLayEggsTime(Long baseId, String dovecoteNumber) {
+        List<CageRealVo> layEggsTime = cageRealMapper.getLayEggsTime(baseId, dovecoteNumber);
+        for (CageRealVo cageRealVo : layEggsTime) {
+            int row = cageRealVo.getRowNo();
+            int line = cageRealVo.getLine();
+            int column = cageRealVo.getColumnNo();
+            String position = row + "排" + line + "行" + column + "列";
+            cageRealVo.setPosition(position);
+        }
         return layEggsTime;
     }
 
     @Override
-    public List<CageReal> getHatchTime(Long baseId, String dovecoteNumber) {
-        List<CageReal> hatchTime = cageRealMapper.getHatchTime(baseId, dovecoteNumber);
+    public List<CageRealVo> getHatchTime(Long baseId, String dovecoteNumber) {
+        List<CageRealVo> hatchTime = cageRealMapper.getHatchTime(baseId, dovecoteNumber);
+        for (CageRealVo cageRealVo : hatchTime) {
+            int row = cageRealVo.getRowNo();
+            int line = cageRealVo.getLine();
+            int column = cageRealVo.getColumnNo();
+            String position = row + "排" + line + "行" + column + "列";
+            cageRealVo.setPosition(position);
+        }
         return hatchTime;
     }
 
     @Override
-    public List<CageReal> getFeedTime(Long baseId, String dovecoteNumber) {
-        List<CageReal> feedTime = cageRealMapper.getFeedTime(baseId, dovecoteNumber);
+    public List<CageRealVo> getFeedTime(Long baseId, String dovecoteNumber) {
+        List<CageRealVo> feedTime = cageRealMapper.getFeedTime(baseId, dovecoteNumber);
+        for (CageRealVo cageRealVo : feedTime) {
+            int row = cageRealVo.getRowNo();
+            int line = cageRealVo.getLine();
+            int column = cageRealVo.getColumnNo();
+            String position = row + "排" + line + "行" + column + "列";
+            cageRealVo.setPosition(position);
+        }
         return feedTime;
     }
 }

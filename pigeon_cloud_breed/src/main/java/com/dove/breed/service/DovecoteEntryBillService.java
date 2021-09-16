@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.dove.breed.entity.DovecoteEntryBill;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import com.dove.breed.entity.DovecoteOutBill;
 import com.dove.breed.entity.dto.DovecoteEntryBaseFodderDto;
 import com.dove.breed.entity.dto.DovecoteEntryBillDto;
 
@@ -12,10 +13,12 @@ import com.dove.breed.entity.dto.DovecoteEntryBillDto;
 
 import com.dove.breed.entity.vo.DovecoteEntryBillVo;
 import com.dove.breed.entity.vo.DovecoteOutBillVo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -52,4 +55,6 @@ public interface DovecoteEntryBillService extends IService<DovecoteEntryBill> {
     DovecoteEntryBillVo submitDovecoteEntryBill(DovecoteEntryBillDto dovecoteEntryBillDto, List<DovecoteEntryBaseDto> dovecoteEntryBaseDtoList);
 
     List<DovecoteEntryBill> getAllEntryByIdAndType(Long baseId,String type);
+
+    Map<String, Integer> getAllAmountByBaseIdAndDateAndType(Long baseId, String type, int year, int month, int day);
 }

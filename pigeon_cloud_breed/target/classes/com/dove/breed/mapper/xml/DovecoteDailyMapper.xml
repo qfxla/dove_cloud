@@ -35,7 +35,7 @@
         SELECT count(*)
         FROM t_cage c LEFT JOIN t_cage_position p
                                 ON c.cage_id = p.cage_id
-        WHERE c.create_time >= DATE_SUB(NOW(),INTERVAL 1 HOUR )
+        WHERE c.create_time >= DATE_SUB(NOW(),INTERVAL 1 DAY )
           AND p.base_id = #{baseId}
           AND p.shack = #{dovecoteNumber}
           AND (c.state = 1 or c.state = 2)
@@ -46,7 +46,7 @@
         SELECT count(*)
         FROM t_cage c LEFT JOIN t_cage_position p
                                 ON c.cage_id = p.cage_id
-        WHERE c.create_time >= DATE_SUB(NOW(),INTERVAL 1 HOUR )
+        WHERE c.create_time >= DATE_SUB(NOW(),INTERVAL 1 DAY )
           AND p.base_id = #{baseId}
           AND p.shack = #{dovecoteNumber}
           AND c.state = 4
@@ -56,7 +56,7 @@
         SELECT count(*)
         FROM t_cage c LEFT JOIN t_cage_position p
                                 ON c.cage_id = p.cage_id
-        WHERE c.create_time >= DATE_SUB(NOW(),INTERVAL 1 HOUR )
+        WHERE c.create_time >= DATE_SUB(NOW(),INTERVAL 1 DAY )
           AND p.base_id = #{baseId}
           AND p.shack = #{dovecoteNumber}
           AND c.state = 3
@@ -66,7 +66,7 @@
             COUNT(*) amount, state, abnormal
         FROM t_cage c LEFT JOIN t_cage_position p
                                 ON c.cage_id = p.cage_id
-        WHERE c.create_time >= DATE_SUB(NOW(),INTERVAL 1 HOUR )
+        WHERE c.create_time >= DATE_SUB(NOW(),INTERVAL 1 DAY )
           AND p.base_id = #{baseId}
           AND p.shack = #{dovecoteNumber}
           AND state in (3,4,5)
@@ -80,6 +80,7 @@
             AND year(gmt_create) = #{year}
           AND month(gmt_create) = #{month}
           AND day(gmt_create) = #{day}
+        LIMIT 1
     </select>
     <select id="getAllDovecoteDaily" resultType="com.dove.breed.entity.vo.DovecoteDailyVo">
         SELECT
@@ -97,12 +98,18 @@
     </select>
     <select id="getToExcel" resultType="com.dove.breed.entity.DovecoteDaily">
         SELECT
-            base_id,dovecote_number,SUM(mat_eggs) mat_eggs,SUM(picture_eggs) picture_eggs,SUM(take_eggs) take_eggs,
-            SUM(single_eggs) single_eggs,SUM(unfertilized_eggs) unfertilized_eggs,SUM(damaged_eggs) damaged_eggs,
-            SUM(bad_eggs) bad_eggs,DATE_FORMAT(gmt_create, '%Y%m%d')
+            *
         FROM t_dovecote_daily
         WHERE base_id = #{baseId}
-        GROUP BY dovecote_number,DATE_FORMAT(gmt_create, '%Y%m%d')
+    </select>
+    <select id="get7DayOfOneDovecote" resultType="com.dove.breed.entity.DovecoteDaily">
+        SELECT base_id,dovecote_number,SUM(mat_eggs) mat_eggs,SUM(picture_eggs) picture_eggs,SUM(take_eggs) take_eggs,
+               SUM(single_eggs) single_eggs,SUM(unfertilized_eggs) unfertilized_eggs,SUM(damaged_eggs) damaged_eggs,
+               SUM(bad_eggs) bad_eggs
+        FROM t_dovecote_daily
+        WHERE base_id = #{baseId}
+        AND dovecote_number = #{dovecoteNumber}
+        AND gmt_create >= DATE_SUB(NOW(),INTERVAL 7 DAY )
     </select>
 
 

@@ -66,6 +66,13 @@ public class DovecoteDailyController {
         return Result.success("查询成功").data(page1);
     }
 
+    @ApiOperation(value = "获取一个鸽棚7天数据")
+    @GetMapping("/get7DayOfOneDovecote")
+    public Result get7DayOfOneDovecote(@RequestParam("baseId")Long baseId,@RequestParam("dovecoteNumber")String dovecoteNumber){
+        DovecoteDaily dovecoteDaily = dovecoteDailyService.get7DayOfOneDovecote(baseId, dovecoteNumber);
+        return dovecoteDaily.getBaseId() != 0L?Result.success("获取成功").data(dovecoteDaily) : Result.error("获取失败");
+    }
+
 
 //    @ApiOperation("导出鸽棚日结数据")
     @ApiOperation(value = "导出清单", notes = "export", produces = "application/octet-stream")

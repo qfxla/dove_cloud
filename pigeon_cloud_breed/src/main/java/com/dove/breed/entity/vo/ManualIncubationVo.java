@@ -69,4 +69,16 @@ public class ManualIncubationVo {
     @ApiModelProperty(value = "修改时间")
     @TableField(value = "gmt_modified", fill = FieldFill.INSERT_UPDATE)
     private Date gmtModified;
+
+    public ManualIncubationVo() {
+    }
+
+    public ManualIncubationVo(Long baseId, String dovecoteNumber, Integer one, Integer two, Integer three, Integer four) {
+        this.baseId = baseId;
+        this.dovecoteNumber = dovecoteNumber;
+        this.one = one;
+        this.two = two;
+        this.three = three;
+        this.four = four;
+    }
 }

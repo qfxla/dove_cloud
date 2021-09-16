@@ -9,6 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -58,7 +64,7 @@ public class DovecoteServiceImpl extends ServiceImpl<DovecoteMapper, Dovecote> i
     }
 
     @Override
-    public List<Long> rightByDays(Long baseId,String dovecoteNumber,int days) {
+    public List<Long> rightByDays(Long baseId,String dovecoteNumber,int days){
         //查找离查仔过来days天的cageId
         List<Long> list = dovecoteMapper.getCheckEggsToNow(baseId, dovecoteNumber, days);
         return list;

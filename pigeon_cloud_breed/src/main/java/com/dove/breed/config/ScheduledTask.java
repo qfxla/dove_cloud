@@ -29,9 +29,10 @@ public class ScheduledTask {
     @Autowired
     private FeedStockService feedStockService;
     /**
-     * 自动扫描，启动时间点之后小时执行一次
+     * 自动扫描，启动时间点之后每天11.30执行一次
      */
-    @Scheduled(cron = "0 0 0/1 * * ? ")
+//    @Scheduled(cron = "0 0 0 0/1 * ? ")
+    @Scheduled(cron = "0 30 23 * * ? ")
     public void getCurrentDate(){
         log.info("当前时间" + new Date());
         List<Dovecote> dovecoteList = dovecoteMapper.selectList(null);

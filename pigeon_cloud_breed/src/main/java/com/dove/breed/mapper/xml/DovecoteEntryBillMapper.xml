@@ -52,5 +52,15 @@
     <select id="getLatestBillId" resultType="java.lang.Long">
         SELECT MAX(id) FROM t_dovecote_entry_bill;
     </select>
+    <select id="getBillByBaseIdAndDateAndType" resultType="com.dove.breed.entity.DovecoteEntryBill">
+        SELECT *
+        FROM t_dovecote_entry_bill
+        WHERE base_id = #{baseId}
+            AND type = #{type}
+            AND is_deleted = 0
+            AND year(gmt_create) = #{year}
+          AND month(gmt_create) = #{month}
+          AND day(gmt_create) = #{day}
+    </select>
 
 </mapper>

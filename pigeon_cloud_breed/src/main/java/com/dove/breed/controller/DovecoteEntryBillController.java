@@ -1,10 +1,13 @@
 package com.dove.breed.controller;
 import com.alibaba.fastjson.JSON;
 
+import com.dove.breed.entity.DovecoteOutBill;
 import com.dove.breed.entity.dto.DovecoteEntryBaseDto;
 import com.dove.breed.entity.dto.DovecoteEntryBillDto;
 
+import com.dove.breed.entity.dto.DovecoteOutBaseDto;
 import com.dove.breed.entity.vo.DovecoteEntryBillVo;
+import com.dove.breed.service.DovecoteEntryBaseService;
 import com.dove.breed.utils.ConvertUtil;
 import com.dove.breed.utils.PageUtil;
 import com.dove.entity.Result;
@@ -47,18 +50,45 @@ public class DovecoteEntryBillController {
     @Autowired
     private ConvertUtil convertUtil;
 
+    @Autowired
+    private DovecoteEntryBaseService dovecoteEntryBaseService;
+
     @ApiOperation(value = "新增")
     @PostMapping("/save")
-    public Result save(@RequestBody DovecoteEntryBillDto dovecoteEntryBillDto){
-        DovecoteEntryBill dovecoteEntryBill = convertUtil.convert(dovecoteEntryBillDto, DovecoteEntryBill.class);
-        boolean save = dovecoteEntryBillService.save(dovecoteEntryBill);
-        return save? Result.success("保存成功") : Result.error("保存失败");
+    public Result save(@RequestParam("billId")Long billId,@RequestBody Map<String,Object> map){
+        //删除原订单号
+        dovecoteEntryBillService.removeById(billId);
+        QueryWrapper<DovecoteEntryBill> wrapper = new QueryWrapper<>();
+        wrapper.eq("dovecote_out_bill",billId).eq("is_deleted",0);
+        List<DovecoteEntryBill> bases = dovecoteEntryBillService.list(wrapper);
+        ArrayList<Long> list1 = new ArrayList<>();
+        for (DovecoteEntryBill base : bases) {
+            list1.add(base.getId());
+        }
+        dovecoteEntryBaseService.removeById(list1);
+        DovecoteEntryBillDto dovecoteEntryBillDto = null;
+        ArrayList<DovecoteEntryBaseDto> dovecoteEntryBaseDtoList = new ArrayList<>();
+        try {
+            dovecoteEntryBillDto = JSON.parseObject(JSON.toJSONString(map.get("dovecoteEntryBillDto")),DovecoteEntryBillDto.class);
+            List<DovecoteEntryBaseDto> list = JSON.parseObject(JSON.toJSONString(map.get("dovecoteEntryBaseDtoList")), ArrayList.class);
+            for (int i = 0;i < list.size();i++){
+                DovecoteEntryBaseDto po = JSON.parseObject(JSON.toJSONString(list.get(i)), DovecoteEntryBaseDto.class);
+                dovecoteEntryBaseDtoList.add(po);
+            }
+        }catch (Exception exception){
+            exception.printStackTrace();
+        }
+        DovecoteEntryBillVo dovecoteEntryBillVo = dovecoteEntryBillService.submitDovecoteEntryBill(dovecoteEntryBillDto, dovecoteEntryBaseDtoList);
+
+        return dovecoteEntryBillVo.getId() != null? Result.success("订单修改成功").data(dovecoteEntryBillVo) : Result.error("订单修改失败");
     }
 
     @ApiOperation(value = "根据id删除")
     @DeleteMapping("/delete/{id}")
     public Result delete(@PathVariable("id") Long id){
-        boolean b = dovecoteEntryBillService.removeById(id);
+        QueryWrapper<DovecoteEntryBill> wrapper = new QueryWrapper<>();
+        wrapper.eq("id",id);
+        boolean b = dovecoteEntryBillService.remove(wrapper);
         return b ? Result.success("删除成功") : Result.error("删除失败");
     }
 
@@ -163,4 +193,12 @@ public class DovecoteEntryBillController {
         return Result.success("获取成功").data(page);
     }
 
+    //用于求某天基地各类型总数
+    @ApiOperation("用于求某天基地各类型总数")
+    @GetMapping("/sumAllDovecoteByTypeAndDay")
+    public Result sumAllDovecoteByType(@RequestParam("baseId")Long baseId,@RequestParam("type")String type,
+                                       @RequestParam("year")int year,@RequestParam("month")int month,@RequestParam("day")int day){
+        Map<String, Integer> map = dovecoteEntryBillService.getAllAmountByBaseIdAndDateAndType(baseId, type, year, month, day);
+        return Result.success("获取成功").data(map);
+    }
 }

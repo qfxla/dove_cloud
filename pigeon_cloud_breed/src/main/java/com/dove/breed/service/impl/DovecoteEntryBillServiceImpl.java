@@ -11,6 +11,7 @@ import com.dove.breed.mapper.DovecoteEntryBaseMapper;
 import com.dove.breed.mapper.DovecoteEntryBillMapper;
 import com.dove.breed.mapper.DovecoteEntryTypeMapper;
 import com.dove.breed.service.BaseStockService;
+import com.dove.breed.service.DovecoteEntryBaseService;
 import com.dove.breed.service.DovecoteEntryBillService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dove.breed.utils.ConvertUtil;
@@ -39,9 +40,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.print.attribute.standard.NumberUp;
 import java.nio.channels.WritePendingException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -69,6 +68,9 @@ public class DovecoteEntryBillServiceImpl extends ServiceImpl<DovecoteEntryBillM
     private BaseStockService baseStockService;
     @Autowired
     private DovecoteEntryBillService dovecoteEntryBillService;
+
+    @Autowired
+    private DovecoteEntryBaseService dovecoteEntryBaseService;
 
     @Override
     public List<DovecoteEntryBillVo> findBillByGmt_createAndBaseId(Date startTime, Date endTime, Long dovecoteId) {
@@ -206,5 +208,28 @@ public class DovecoteEntryBillServiceImpl extends ServiceImpl<DovecoteEntryBillM
                 .eq("is_deleted",0);
         List<DovecoteEntryBill> list = dovecoteEntryBillService.list(wrapper);
         return list;
+    }
+
+    @Override
+    public Map<String, Integer> getAllAmountByBaseIdAndDateAndType(Long baseId, String type, int year, int month, int day) {
+        List<DovecoteEntryBill> bills = dovecoteEntryBillMapper.getBillByBaseIdAndDateAndType(baseId, type, year, month, day);
+        Map<String, Integer> map = new HashMap<>();
+        int amount = 0;
+        for (DovecoteEntryBill bill : bills) {
+            QueryWrapper<DovecoteEntryBase> wrapper = new QueryWrapper<>();
+            wrapper.eq("dovecote_out_bill",bill.getId())
+                    .eq("is_deleted",0);
+            List<DovecoteEntryBase> bases = dovecoteEntryBaseService.list(wrapper);
+            for (DovecoteEntryBase base : bases) {
+                amount += base.getAmount();
+                if (!map.containsKey(base.getTypeName())){
+                    map.put(base.getTypeName(),base.getAmount());
+                }else {
+                    map.put(base.getTypeName(),map.get(base.getTypeName())+base.getAmount());
+                }
+            }
+        }
+        map.put("amount",amount);
+        return map;
     }
 }

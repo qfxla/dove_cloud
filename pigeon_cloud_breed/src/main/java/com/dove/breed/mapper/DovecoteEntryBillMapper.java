@@ -2,6 +2,7 @@ package com.dove.breed.mapper;
 
 import com.dove.breed.entity.DovecoteEntryBill;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.dove.breed.entity.DovecoteOutBill;
 import com.dove.breed.entity.vo.DovecoteEntryBillVo;
 import com.dove.breed.entity.vo.DovecoteOutBillVo;
 import org.apache.ibatis.annotations.Mapper;
@@ -37,5 +38,8 @@ public interface DovecoteEntryBillMapper extends BaseMapper<DovecoteEntryBill> {
                                                       @Param("dovecoteNumber")String dovecoteNumber,
                                                         @Param("type")String type);
     Long getLatestBillId();
+
+    List<DovecoteEntryBill> getBillByBaseIdAndDateAndType(@Param("baseId")Long baseId, @Param("type")String type,
+                                                        @Param("year")int year, @Param("month")int month, @Param("day")int day);
 
 }

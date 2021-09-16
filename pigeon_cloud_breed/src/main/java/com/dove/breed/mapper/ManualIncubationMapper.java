@@ -29,4 +29,6 @@ public interface ManualIncubationMapper extends BaseMapper<ManualIncubation> {
 
     List<ManualIncubation> getByDate(@Param("baseId") Long baseId, @Param("year") int year,
                                      @Param("month") int month, @Param("day") int day);
+
+    List<ManualIncubation> get7DayOfOneIncubation(@Param("baseId")Long baseId,@Param("dovecoteNumber")String dovecoteNumber);
 }

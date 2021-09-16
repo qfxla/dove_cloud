@@ -7,6 +7,7 @@ import com.dove.breed.entity.ManualIncubation;
 import com.dove.breed.entity.dto.ManualIncubationDto;
 import com.dove.breed.entity.vo.ManualIncubationVo;
 import com.dove.breed.mapper.DovecoteMapper;
+import com.dove.breed.mapper.ManualIncubationMapper;
 import com.dove.breed.service.DovecoteService;
 import com.dove.breed.service.ManualIncubationService;
 import com.dove.breed.utils.ConvertUtil;
@@ -44,6 +45,8 @@ public class ManualIncubationController {
     private ConvertUtil convertUtil;
     @Autowired
     private DovecoteService dovecoteService;
+    @Autowired
+    private ManualIncubationMapper manualIncubationMapper;
 
     @ApiModelProperty("添加孵化机数据")
     @PostMapping("/addManualIncubationData")
@@ -109,5 +112,11 @@ public class ManualIncubationController {
         manualIncubationService.exportDailyData(response,baseId);
     }
 
+    @ApiOperation(value = "获取孵化机7天数据")
+    @GetMapping("/get7DayOfOneIncubation")
+    public Result get7DayOfOneIncubation(@RequestParam("baseId")Long baseId,@RequestParam("dovecoteNumber")String dovecoteNumber){
+        ManualIncubationVo manualIncubationVo = manualIncubationService.get7DayOfOneIncubation(baseId, dovecoteNumber);
+        return manualIncubationVo.getBaseId() != 0L?Result.success("获取成功").data(manualIncubationVo) : Result.error("获取失败");
+    }
 }
 

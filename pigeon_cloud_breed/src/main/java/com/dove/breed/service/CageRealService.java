@@ -2,6 +2,7 @@ package com.dove.breed.service;
 
 import com.dove.breed.entity.CageReal;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.dove.breed.entity.vo.CageRealVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -15,8 +16,8 @@ import java.util.List;
  * @since 2021-09-01
  */
 public interface CageRealService extends IService<CageReal> {
-    List<CageReal> getAllCage(Long baseId,String dovecoteNumber);
-    List<CageReal> getLayEggsTime(Long baseId,String dovecoteNumber);
-    List<CageReal> getHatchTime(Long baseId,String dovecoteNumber);
-    List<CageReal> getFeedTime(Long baseId,String dovecoteNumber);
+    List<CageRealVo> getAllCage(Long baseId, String dovecoteNumber);
+    List<CageRealVo> getLayEggsTime(Long baseId,String dovecoteNumber);
+    List<CageRealVo> getHatchTime(Long baseId,String dovecoteNumber);
+    List<CageRealVo> getFeedTime(Long baseId,String dovecoteNumber);
 }

@@ -4,6 +4,7 @@ import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dove.breed.entity.Dovecote;
 import com.dove.breed.entity.DovecoteDaily;
+import com.dove.breed.entity.DovecoteOutBase;
 import com.dove.breed.entity.vo.AbnormalVo;
 import com.dove.breed.entity.vo.DovecoteDailyVo;
 import com.dove.breed.entity.vo.DovecoteVo;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -47,26 +49,13 @@ public class DovecoteDailyServiceImpl extends ServiceImpl<DovecoteDailyMapper, D
     @Override
     public DovecoteDailyVo getDovecoteDaily(Long baseId, String dovecoteNumber, int year, int month, int day) {
         //查按小时的日结表信息
-        List<DovecoteDaily> list = dovecoteDailyMapper.getDovecoteDaily(baseId, dovecoteNumber, year, month, day);
-        Date updateTime = dovecoteDailyMapper.getUpdateTime();
-        //封装到按一天的
-        DovecoteDailyVo dovecoteDailyVo = new DovecoteDailyVo(baseId,dovecoteNumber,0,0,0,0,0,0,0);
-        for (DovecoteDaily po : list) {
-            dovecoteDailyVo.setMatEggs(dovecoteDailyVo.getMatEggs() + po.getMatEggs());
-            dovecoteDailyVo.setTakeEggs(dovecoteDailyVo.getTakeEggs() + po.getTakeEggs());
-            dovecoteDailyVo.setPictureEggs(dovecoteDailyVo.getPictureEggs() + po.getPictureEggs());
-            dovecoteDailyVo.setDamagedEggs(dovecoteDailyVo.getDamagedEggs() + po.getDamagedEggs());
-            dovecoteDailyVo.setSingleEggs(dovecoteDailyVo.getSingleEggs() + po.getSingleEggs());
-            dovecoteDailyVo.setBadEggs(dovecoteDailyVo.getBadEggs() + po.getBadEggs());
-            dovecoteDailyVo.setUnfertilizedEggs(dovecoteDailyVo.getUnfertilizedEggs() + po.getUnfertilizedEggs());
-        }
-        dovecoteDailyVo.setGmtModified(updateTime);
-
+        DovecoteDaily dovecoteDaily = dovecoteDailyMapper.getDovecoteDaily(baseId, dovecoteNumber, year, month, day);
+        DovecoteDailyVo dovecoteDailyVo = convertUtil.convert(dovecoteDaily, DovecoteDailyVo.class);
         return dovecoteDailyVo;
     }
 
 
-    //汇总历史表向日结表，按小时汇总
+    //汇总历史表向日结表，按天汇总
     @Override
     public int updateDovecoteDaily(Long baseId, String dovecoteNumber) {
         int amountOfMatEggs = dovecoteDailyMapper.getAmountOfMatEggs(baseId,dovecoteNumber);
@@ -146,6 +135,12 @@ public class DovecoteDailyServiceImpl extends ServiceImpl<DovecoteDailyMapper, D
     @Override
     public void importDictData(MultipartFile file) {
 
+    }
+
+    @Override
+    public DovecoteDaily get7DayOfOneDovecote(Long baseId, String dovecoteNumber) {
+        DovecoteDaily dovecoteDaily = dovecoteDailyMapper.get7DayOfOneDovecote(baseId, dovecoteNumber);
+        return dovecoteDaily;
     }
 }
 

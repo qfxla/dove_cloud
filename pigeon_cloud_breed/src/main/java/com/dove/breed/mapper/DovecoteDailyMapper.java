@@ -31,7 +31,7 @@ public interface DovecoteDailyMapper extends BaseMapper<DovecoteDaily> {
                                                 @Param("dovecoteNumber")String dovecoteNumber);
 
     //正常
-    List<DovecoteDaily> getDovecoteDaily(@Param("baseId")Long baseId,@Param("dovecoteNumber")String dovecoteNumber,
+    DovecoteDaily getDovecoteDaily(@Param("baseId")Long baseId,@Param("dovecoteNumber")String dovecoteNumber,
                                          @Param("year")int year,@Param("month")int month,@Param("day")int day);
     List<DovecoteDailyVo> getAllDovecoteDaily(@Param("baseId")Long baseId, @Param("year")int year,
                                               @Param("month")int month, @Param("day")int day);
@@ -39,4 +39,5 @@ public interface DovecoteDailyMapper extends BaseMapper<DovecoteDaily> {
 
     List<DovecoteDaily> getToExcel(@Param("baseId")Long baseId);
 
+    DovecoteDaily get7DayOfOneDovecote(@Param("baseId") Long baseId,@Param("dovecoteNumber") String dovecoteNumber);
 }

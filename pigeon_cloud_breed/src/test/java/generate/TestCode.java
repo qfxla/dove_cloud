@@ -1,7 +1,9 @@
 package generate;
 
+import com.alibaba.fastjson.JSON;
 import com.dove.breed.BreedApplication;
 import com.dove.breed.entity.*;
+import com.dove.breed.entity.dto.DovecoteDto;
 import com.dove.breed.entity.dto.DovecoteOutBillDto;
 import com.dove.breed.entity.dto.ManualIncubationDto;
 import com.dove.breed.entity.dto.ShipmentEntryBaseDto;
@@ -9,7 +11,9 @@ import com.dove.breed.entity.vo.*;
 import com.dove.breed.mapper.*;
 import com.dove.breed.service.*;
 import com.dove.breed.utils.ConvertUtil;
-import io.swagger.annotations.ApiOperation;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +21,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.awt.print.PrinterAbortException;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -69,15 +79,20 @@ public class TestCode {
     private ManualIncubationService manualIncubationService;
 
     @Test
-    public void test(){
-        List<Map<String, Integer>> list = dovecoteOutBillService.getEveryDaySumByType(12L, "肉鸽");
-        System.out.println(list);
+    public void test() throws IOException {
+        List<CageRealVo> a01 = cageRealMapper.getAllCage(3L, "A01");
+        System.out.println(a01);
     }
 
 
     @Test
-    public void test1(){
-        System.out.println(new Date().getHours());
+    public void test1() throws IOException {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://120.77.156.205:9804/breed/dovecote/get/5")
+                .build();
+        Response response = client.newCall(request).execute();
+        System.out.println(response.body().string());
     }
 
 }

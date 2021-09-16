@@ -99,4 +99,19 @@ public class ManualIncubationServiceImpl extends ServiceImpl<ManualIncubationMap
             e.printStackTrace();
         }
     }
+
+    @Override
+    public ManualIncubationVo get7DayOfOneIncubation(Long baseId,String dovecoteNumber) {
+        List<ManualIncubation> list = manualIncubationMapper.get7DayOfOneIncubation(baseId, dovecoteNumber);
+        ManualIncubationVo manualIncubationVo = new ManualIncubationVo(baseId,dovecoteNumber,0,0,0,0);
+        manualIncubationVo.setBaseId(baseId);
+        manualIncubationVo.setDovecoteNumber(dovecoteNumber);
+        for (ManualIncubation po : list) {
+            manualIncubationVo.setOne(manualIncubationVo.getOne() + po.getOne());
+            manualIncubationVo.setTwo(manualIncubationVo.getTwo() + po.getTwo());
+            manualIncubationVo.setThree(manualIncubationVo.getThree() + po.getThree());
+            manualIncubationVo.setFour(manualIncubationVo.getFour() + po.getFour());
+        }
+        return manualIncubationVo;
+    }
 }

@@ -11,6 +11,7 @@ D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\controller\
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\config\SwaggerConfig.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\Ip.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\controller\DovecoteEntryTypeController.java
+D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\vo\CageRealVo.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\service\DovecoteEntryBillService.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\mapper\DovecoteOutBillMapper.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\service\BreedBaseService.java
