@@ -107,4 +107,14 @@
           AND state = 5
           AND TO_DAYS(NOW()) - TO_DAYS(r.update_time) = #{days}
     </select>
+
+    <select id="getMaxAbnormal" resultType="com.dove.breed.entity.vo.CageRealVo">
+        SELECT * FROM (SELECT COUNT(*) totalAbnormal ,cage_id FROM (
+        SELECT c.id id,c.cage_id,c.state,c.abnormal,c.create_time FROM t_cage c                                             LEFT JOIN t_cage_position p ON c.`cage_id` = p.`cage_id`
+        WHERE c.create_time >= DATE_SUB(NOW(),INTERVAL 30 DAY )
+        AND p.`base_id` = #{baseId} AND p.`shack` = #{dovecoteNumber}
+        AND LEFT(c.abnormal,1) IN ('1','2','3','4','5')) t GROUP BY cage_id
+        ) t2 ORDER BY totalAbnormal DESC
+        LIMIT #{number}
+    </select>
 </mapper>

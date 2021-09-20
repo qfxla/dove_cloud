@@ -69,24 +69,24 @@ public class DovecoteDailyServiceImpl extends ServiceImpl<DovecoteDailyMapper, D
         for (AbnormalVo abnormalVo : abnormalVoList) {
             //照蛋或抽蛋操作
             if (abnormalVo.getState() != 5){
-                if (abnormalVo.getAbnormal() == "1"){
+                if (abnormalVo.getAbnormal().charAt(0) == '1'){
                     singleEggs += abnormalVo.getAmount();
-                }else if (abnormalVo.getAbnormal() == "2"){
+                }else if (abnormalVo.getAbnormal().charAt(0) == '2'){
                     unfertilizedEggs += abnormalVo.getAmount();
-                }else if (abnormalVo.getAbnormal() == "3"){
+                }else if (abnormalVo.getAbnormal().charAt(0) == '3'){
                     unfertilizedEggs += 2 * abnormalVo.getAmount();
-                }else if (abnormalVo.getAbnormal() == "4"){
+                }else if (abnormalVo.getAbnormal().charAt(0) == '4'){
                     damagedEggs += abnormalVo.getAmount();
-                }else if (abnormalVo.getAbnormal() == "5"){
+                }else if (abnormalVo.getAbnormal().charAt(0) == '5'){
                     damagedEggs += 2 * abnormalVo.getAmount();
                 }else {
                     throw new GlobalException(StatusCode.ERROR,"数据错误");
                 }
             }
             if (abnormalVo.getState() == 5){
-                if (abnormalVo.getAbnormal().indexOf(0) == '1'){
+                if (abnormalVo.getAbnormal().charAt(0) == '1'){
                     badEggs += abnormalVo.getAmount();
-                }else if (abnormalVo.getAbnormal().indexOf(1) == '2'){
+                }else if (abnormalVo.getAbnormal().charAt(0) == '2'){
                     badEggs += 2 * abnormalVo.getAmount();
                 }
             }

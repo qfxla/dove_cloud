@@ -26,4 +26,7 @@ public interface CageRealMapper extends BaseMapper<CageReal> {
                                 @Param("dovecoteNumber")String dovecoteNumber);
     List<CageRealVo> getFeedTime(@Param("baseId")Long baseId,
                                @Param("dovecoteNumber")String dovecoteNumber);
+    List<CageRealVo> addAbnormalData(@Param("cageId")Long cageId);
+
+
 }

@@ -21,6 +21,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -165,6 +166,14 @@ public class DovecoteController {
                               @RequestParam(value = "days")int days){
         List<CageRealVo> list = dovecoteService.rightByDays(baseId, dovecoteNumber, days);
         return Result.success("获取成功").data(list);
+    }
+
+    @ApiOperation("获得异常总数最多的鸽笼")
+    @GetMapping("/getMaxAbnormal")
+    public Result getMaxAbnormal(@RequestParam("baseId")Long baseId, @RequestParam("dovecoteNumber")String dovecoteNumber,
+                                 @RequestParam("number") @ApiParam(value = "前几") int number){
+        return null;
+
     }
 
     @ApiOperation(value = "更新鸽棚照片")

@@ -51,4 +51,11 @@
         AND p.shack = #{dovecoteNumber}
         AND r.state = 5
     </select>
+
+    <select id="addAbnormalData" resultType="com.dove.breed.entity.vo.CageRealVo">
+        SELECT * FROM t_cage
+        WHERE cage_id = #{cageId}
+        AND create_time >= DATE_SUB(NOW(),INTERVAL 30 DAY )
+        AND LEFT(abnormal,1) IN ('1','2','3','4','5')
+    </select>
 </mapper>

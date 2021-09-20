@@ -1,5 +1,6 @@
 package com.dove.breed.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dove.breed.entity.CageReal;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dove.breed.entity.vo.CageRealVo;
@@ -20,4 +21,6 @@ public interface CageRealService extends IService<CageReal> {
     List<CageRealVo> getLayEggsTime(Long baseId,String dovecoteNumber);
     List<CageRealVo> getHatchTime(Long baseId,String dovecoteNumber);
     List<CageRealVo> getFeedTime(Long baseId,String dovecoteNumber);
+    Page<CageRealVo> addAbnormal(Page<CageRealVo> page);
+
 }

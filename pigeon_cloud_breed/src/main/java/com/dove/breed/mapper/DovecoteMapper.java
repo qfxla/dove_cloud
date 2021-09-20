@@ -37,4 +37,9 @@ public interface DovecoteMapper extends BaseMapper<Dovecote> {
     List<CageRealVo> getCheckEggsToNow(@Param("baseId")Long baseId,
                                        @Param("dovecoteNumber")String dovecoteNumber,
                                        @Param("days")int days);
+
+    //获得异常数最多的前number个鸽笼
+    List<CageRealVo> getMaxAbnormal(@Param("baseId")Long baseId,
+                                    @Param("dovecoteNumber")String dovecoteNumber,
+                                    @Param("number")int number);
 }

@@ -11,10 +11,14 @@ import com.dove.breed.service.CageRealService;
 import com.dove.breed.utils.PageUtil;
 import com.dove.entity.Result;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.service.ApiInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,8 +45,8 @@ public class CageRealController {
                        @RequestParam("baseId") Long baseId, @RequestParam("dovecoteNumber") String dovecoteNumber) {
         List<CageRealVo> list = cageRealService.getAllCage(baseId, dovecoteNumber);
         Page<CageRealVo> page1 = PageUtil.list2Page(list,pageNum,pageSize);
-
-        return Result.success("查询成功").data(page1);
+        Page<CageRealVo> page2 = cageRealService.addAbnormal(page1);
+        return Result.success("查询成功").data(page2);
     }
 
     @ApiOperation("获取未产卵鸽笼")
@@ -51,7 +55,8 @@ public class CageRealController {
                                  @RequestParam("baseId") Long baseId, @RequestParam("dovecoteNumber") String dovecoteNumber){
         List<CageRealVo> list = cageRealService.getLayEggsTime(baseId, dovecoteNumber);
         Page<CageRealVo> page1 = PageUtil.list2Page(list,pageNum,pageSize);
-        return Result.success("查询成功").data(page1);
+        Page<CageRealVo> page2 = cageRealService.addAbnormal(page1);
+        return Result.success("查询成功").data(page2);
     }
 
     @ApiOperation("获取孵化中鸽笼")
@@ -60,7 +65,8 @@ public class CageRealController {
                                  @RequestParam("baseId") Long baseId, @RequestParam("dovecoteNumber") String dovecoteNumber){
         List<CageRealVo> list = cageRealService.getHatchTime(baseId, dovecoteNumber);
         Page<CageRealVo> page1 = PageUtil.list2Page(list,pageNum,pageSize);
-        return Result.success("查询成功").data(page1);
+        Page<CageRealVo> page2 = cageRealService.addAbnormal(page1);
+        return Result.success("查询成功").data(page2);
     }
 
     @ApiOperation("获取哺育中鸽笼")
@@ -69,7 +75,10 @@ public class CageRealController {
                                @RequestParam("baseId") Long baseId, @RequestParam("dovecoteNumber") String dovecoteNumber) {
         List<CageRealVo> list = cageRealService.getFeedTime(baseId, dovecoteNumber);
         Page<CageRealVo> page1 = PageUtil.list2Page(list,pageNum,pageSize);
-        return Result.success("查询成功").data(page1);
+        Page<CageRealVo> page2 = cageRealService.addAbnormal(page1);
+        return Result.success("查询成功").data(page2);
     }
+
+
 }
 

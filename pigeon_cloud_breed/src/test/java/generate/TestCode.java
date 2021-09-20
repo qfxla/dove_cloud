@@ -80,8 +80,7 @@ public class TestCode {
 
     @Test
     public void test() throws IOException {
-        List<CageRealVo> a01 = cageRealMapper.getAllCage(3L, "A01");
-        System.out.println(a01);
+        System.out.println(dovecoteService.getMaxAbnormal(3L, "A01", 2));
     }
 
 

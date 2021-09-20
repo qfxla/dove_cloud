@@ -31,4 +31,21 @@ public class CageRealVo {
     private Integer columnNo;
 
     private String Position;
+
+    //下面字段是近一个月异常
+    private Integer totalAbnormal;
+
+    private Integer singleEgg;
+
+    private Integer oneUnfertilized;
+
+    private Integer twoUnfertilized;
+
+    private Integer oneDamaged;
+
+    private Integer twoDamaged;
+
+    private Integer oneBad;
+
+    private Integer twoBad;
 }

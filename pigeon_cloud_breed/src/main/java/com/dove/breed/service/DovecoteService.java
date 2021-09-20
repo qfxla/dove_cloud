@@ -29,4 +29,6 @@ public interface DovecoteService extends IService<Dovecote> {
     List<String> getAllDovecoteNumber(Long baseId);
 
     List<CageRealVo> rightByDays(Long baseId, String dovecoteNumber, int days);
+
+    List<CageRealVo> getMaxAbnormal(Long baseId,String dovecoteNumber,int number);
 }
