@@ -3,6 +3,7 @@ package com.dove.breed.mapper;
 import com.dove.breed.entity.Dovecote;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dove.breed.entity.vo.AbnormalVo;
+import com.dove.breed.entity.vo.CageRealVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.security.core.parameters.P;
@@ -33,7 +34,7 @@ public interface DovecoteMapper extends BaseMapper<Dovecote> {
     List<String> getAllDovecoteNumber(@Param("baseId")Long baseId);
 
     //获取实时表中状态为查完仔的鸽笼
-    List<Long> getCheckEggsToNow(@Param("baseId")Long baseId,
-                                 @Param("dovecoteNumber")String dovecoteNumber,
-                                 @Param("days")int days);
+    List<CageRealVo> getCheckEggsToNow(@Param("baseId")Long baseId,
+                                       @Param("dovecoteNumber")String dovecoteNumber,
+                                       @Param("days")int days);
 }

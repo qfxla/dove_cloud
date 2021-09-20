@@ -112,11 +112,20 @@ public class ManualIncubationController {
         manualIncubationService.exportDailyData(response,baseId);
     }
 
-    @ApiOperation(value = "获取孵化机7天数据")
+    @ApiOperation(value = "获取孵化机7天总数据")
     @GetMapping("/get7DayOfOneIncubation")
     public Result get7DayOfOneIncubation(@RequestParam("baseId")Long baseId,@RequestParam("dovecoteNumber")String dovecoteNumber){
         ManualIncubationVo manualIncubationVo = manualIncubationService.get7DayOfOneIncubation(baseId, dovecoteNumber);
         return manualIncubationVo.getBaseId() != 0L?Result.success("获取成功").data(manualIncubationVo) : Result.error("获取失败");
     }
+
+    @ApiOperation(value = "获取孵化机7天各天数据")
+    @GetMapping("/getSevenDay")
+    public Result getSevenDay(@RequestParam("baseId")Long baseId,@RequestParam("dovecoteNumber")String dovecoteNumber){
+        List<ManualIncubation> list = manualIncubationService.getSevenDay(baseId, dovecoteNumber);
+        List<ManualIncubationVo> voList = convertUtil.convert(list, ManualIncubationVo.class);
+        return voList.size()>0 ? Result.success("获取成功").data(voList) : Result.error("获取失败");
+    }
+
 }
 

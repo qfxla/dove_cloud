@@ -48,6 +48,9 @@
     <insert id="insert">
         insert into t_dovecote (dovecote_id, dovecote_number, base_id, enterprise_id, director, contact_number, living_conditions, picture, video, into_production, cage_amount, cage_empty, guige)values
     </insert>
+    <sql id="cageRealVo">
+        r.cage_Id,r.state,r.abnormal,r.xf,r.update_time,p.bc_no,p.row_no,p.line,p.column_no
+    </sql>
 
 
     <select id="getNeedPictureEggs" resultType="java.lang.Integer">
@@ -94,13 +97,14 @@
         FROM t_dovecote
         WHERE base_id = #{baseId}
     </select>
-    <select id="getCheckEggsToNow" resultType="java.lang.Long">
-        SELECT c.cage_id
-        FROM t_cage_real c LEFT JOIN t_cage_position p
-        ON c.cage_id = p.cage_id
+    <select id="getCheckEggsToNow" resultType="com.dove.breed.entity.vo.CageRealVo">
+        SELECT
+        <include refid="cageRealVo"></include>
+        FROM t_cage_real r LEFT JOIN t_cage_position p
+                                     ON r.cage_id = p.cage_id
         WHERE p.base_id = #{baseId}
-        AND p.shack = #{dovecoteNumber}
-        AND state = 5
-        AND TO_DAYS(NOW()) - TO_DAYS(c.update_time) = #{days}
+          AND p.shack = #{dovecoteNumber}
+          AND state = 5
+          AND TO_DAYS(NOW()) - TO_DAYS(r.update_time) = #{days}
     </select>
 </mapper>

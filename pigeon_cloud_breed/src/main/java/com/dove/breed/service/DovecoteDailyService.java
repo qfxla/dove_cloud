@@ -32,4 +32,6 @@ public interface DovecoteDailyService extends IService<DovecoteDaily> {
     void importDictData(MultipartFile file);
 
     DovecoteDaily get7DayOfOneDovecote(Long baseId, String dovecoteNumber);
+
+    List<DovecoteDaily> getDataOf7Day(Long baseId,String dovecoteNumber);
 }

@@ -2,6 +2,7 @@ package com.dove.breed.service.impl;
 
 import com.dove.breed.entity.Dovecote;
 import com.dove.breed.entity.vo.AbnormalVo;
+import com.dove.breed.entity.vo.CageRealVo;
 import com.dove.breed.mapper.DovecoteMapper;
 import com.dove.breed.service.DovecoteService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -64,9 +65,16 @@ public class DovecoteServiceImpl extends ServiceImpl<DovecoteMapper, Dovecote> i
     }
 
     @Override
-    public List<Long> rightByDays(Long baseId,String dovecoteNumber,int days){
+    public List<CageRealVo> rightByDays(Long baseId, String dovecoteNumber, int days){
         //查找离查仔过来days天的cageId
-        List<Long> list = dovecoteMapper.getCheckEggsToNow(baseId, dovecoteNumber, days);
+        List<CageRealVo> list = dovecoteMapper.getCheckEggsToNow(baseId, dovecoteNumber, days);
+        for (CageRealVo cageRealVo : list) {
+            int row = cageRealVo.getRowNo();
+            int line = cageRealVo.getLine();
+            int column = cageRealVo.getColumnNo();
+            String position = row + "排" + line + "行" + column + "列";
+            cageRealVo.setPosition(position);
+        }
         return list;
     }
 

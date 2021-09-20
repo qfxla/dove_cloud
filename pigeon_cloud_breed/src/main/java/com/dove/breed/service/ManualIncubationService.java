@@ -27,4 +27,6 @@ public interface ManualIncubationService extends IService<ManualIncubation> {
     void exportDailyData(HttpServletResponse response, Long baseId);
 
     ManualIncubationVo get7DayOfOneIncubation(Long baseId,String dovecoteNumber);
+
+    List<ManualIncubation> getSevenDay(Long baseId, String dovecoteNumber);
 }

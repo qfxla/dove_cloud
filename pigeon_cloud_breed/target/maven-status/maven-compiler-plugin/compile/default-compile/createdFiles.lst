@@ -64,6 +64,7 @@ com\dove\breed\entity\dto\FeedStockDto.class
 com\dove\breed\mapper\DovecoteOutTypeMapper.class
 com\dove\breed\entity\vo\DovecoteVo.class
 com\dove\breed\service\impl\DovecoteOutBillServiceImpl.class
+com\dove\breed\entity\vo\CageRealVo.class
 com\dove\breed\controller\FeedStockController.class
 com\dove\breed\service\impl\ShipmentEntryBillServiceImpl.class
 com\dove\breed\entity\dto\DovecoteDto.class

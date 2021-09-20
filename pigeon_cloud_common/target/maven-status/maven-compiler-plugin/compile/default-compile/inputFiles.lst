@@ -13,6 +13,7 @@ D:\IDEA\pigeon_cloud\pigeon_cloud_common\src\main\java\com\dove\handler\AccessDe
 D:\IDEA\pigeon_cloud\pigeon_cloud_common\src\main\java\com\dove\config\WebSecurityConfig.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_common\src\main\java\com\dove\handler\ExceptionHandlerChain.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_common\src\main\java\com\dove\entity\ConstantValue.java
+D:\IDEA\pigeon_cloud\pigeon_cloud_common\src\main\java\com\dove\util\TokenManage.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_common\src\main\java\com\dove\entity\UserDetailsImpl.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_common\src\main\java\com\dove\entity\StatusCode.java
 D:\IDEA\pigeon_cloud\pigeon_cloud_common\src\main\java\com\dove\filter\InjectSecurityContextFilter.java

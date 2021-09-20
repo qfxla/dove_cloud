@@ -40,4 +40,6 @@ public interface DovecoteDailyMapper extends BaseMapper<DovecoteDaily> {
     List<DovecoteDaily> getToExcel(@Param("baseId")Long baseId);
 
     DovecoteDaily get7DayOfOneDovecote(@Param("baseId") Long baseId,@Param("dovecoteNumber") String dovecoteNumber);
+
+    List<DovecoteDaily> getDataOf7Day(@Param("baseId") Long baseId,@Param("dovecoteNumber") String dovecoteNumber);
 }

@@ -114,4 +114,10 @@ public class ManualIncubationServiceImpl extends ServiceImpl<ManualIncubationMap
         }
         return manualIncubationVo;
     }
+
+    @Override
+    public List<ManualIncubation> getSevenDay(Long baseId, String dovecoteNumber) {
+        List<ManualIncubation> sevenDay = manualIncubationMapper.getSevenDay(baseId, dovecoteNumber);
+        return sevenDay;
+    }
 }

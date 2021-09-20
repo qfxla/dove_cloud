@@ -7,7 +7,9 @@ import com.dove.breed.entity.Dovecote;
 import com.dove.breed.entity.DovecoteDaily;
 import com.dove.breed.entity.vo.DovecoteDailyVo;
 import com.dove.breed.service.DovecoteDailyService;
+import com.dove.breed.utils.ConvertUtil;
 import com.dove.breed.utils.PageUtil;
+import com.dove.entity.ConstantValue;
 import com.dove.entity.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -38,6 +40,9 @@ public class DovecoteDailyController {
 
     @Autowired
     private DovecoteDailyService dovecoteDailyService;
+
+    @Autowired
+    private ConvertUtil convertUtil;
 
     @ApiOperation(value = "获取日结表数据")
     @GetMapping("/getDovecoteDaily")
@@ -81,5 +86,12 @@ public class DovecoteDailyController {
         dovecoteDailyService.exportDailyData(response,baseId);
     }
 
+    @ApiOperation(value = "获取近7天详细数据")
+    @GetMapping("/getDataOf7Day")
+    public Result getDataOf7Day(@RequestParam("baseId")Long baseId,@RequestParam("dovecoteNumber")String dovecoteNumber){
+        List<DovecoteDaily> list = dovecoteDailyService.getDataOf7Day(baseId, dovecoteNumber);
+        List<DovecoteDailyVo> voList = convertUtil.convert(list, DovecoteDailyVo.class);
+        return voList.size()>0 ?Result.success("获取成功").data(voList) : Result.error("获取失败");
+    }
 }
 

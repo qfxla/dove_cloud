@@ -7,6 +7,7 @@ import com.dove.breed.entity.BreedBase;
 import com.dove.breed.entity.DovecoteEntryBill;
 import com.dove.breed.entity.dto.DovecoteDto;
 import com.dove.breed.entity.vo.AbnormalVo;
+import com.dove.breed.entity.vo.CageRealVo;
 import com.dove.breed.entity.vo.DovecoteVo;
 import com.dove.breed.utils.ConvertUtil;
 import com.dove.breed.utils.GoFastDfsEnum;
@@ -162,7 +163,7 @@ public class DovecoteController {
     public Result rightByDays(@RequestParam(value = "baseId")Long baseId,
                               @RequestParam(value = "dovecoteNumber")String dovecoteNumber,
                               @RequestParam(value = "days")int days){
-        List<Long> list = dovecoteService.rightByDays(baseId, dovecoteNumber, days);
+        List<CageRealVo> list = dovecoteService.rightByDays(baseId, dovecoteNumber, days);
         return Result.success("获取成功").data(list);
     }
 
