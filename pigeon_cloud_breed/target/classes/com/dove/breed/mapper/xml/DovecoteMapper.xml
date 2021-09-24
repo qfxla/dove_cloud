@@ -29,6 +29,11 @@
         <id column="abnormal" property="abnormal"/>
     </resultMap>
 
+    <resultMap id="DoveAmountOfStateMap" type="com.dove.breed.entity.vo.DoveAmountOfStateVo">
+        <id column="state" property="state"/>
+        <id column="amount" property="amount"/>
+    </resultMap>
+
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         dovecote_id, dovecote_number, base_id, enterprise_id, director, contact_number, living_conditions, picture, video, into_production, cage_amount, cage_empty, guige, gmt_create, gmt_modified, is_deleted, version
@@ -117,4 +122,13 @@
         ) t2 ORDER BY totalAbnormal DESC
         LIMIT #{number}
     </select>
+    <select id="getAmountOfState" resultType="com.dove.breed.entity.vo.DoveAmountOfStateVo" resultMap="DoveAmountOfStateMap">
+        SELECT r.state state ,COUNT(*) amount
+        FROM t_cage_real r LEFT JOIN t_cage_position p
+        ON r.cage_id = p.cage_id
+        WHERE p.base_id = #{baseId}
+        AND p.shack = #{dovecoteNumber}
+        GROUP BY r.state
+    </select>
+
 </mapper>

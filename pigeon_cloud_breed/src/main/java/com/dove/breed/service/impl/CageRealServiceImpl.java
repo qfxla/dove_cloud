@@ -4,18 +4,23 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dove.breed.entity.CageReal;
 import com.dove.breed.entity.vo.AbnormalVo;
 import com.dove.breed.entity.vo.CageRealVo;
+import com.dove.breed.mapper.CageMapper;
 import com.dove.breed.mapper.CageRealMapper;
 import com.dove.breed.service.CageRealService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.dove.breed.service.CageService;
 import com.dove.breed.utils.ConvertUtil;
+import com.dove.breed.utils.PageUtil;
 import com.dove.entity.GlobalException;
 import com.dove.entity.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.ConnectableFlux;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
 
 /**
  * <p>
@@ -31,6 +36,10 @@ public class CageRealServiceImpl extends ServiceImpl<CageRealMapper, CageReal> i
     private CageRealMapper cageRealMapper;
     @Autowired
     private ConvertUtil convertUtil;
+    @Autowired
+    private CageService cageService;
+    @Autowired
+    private ExecutorService executorService;
 
     @Override
     public List<CageRealVo> getAllCage(Long baseId, String dovecoteNumber) {
@@ -135,11 +144,104 @@ public class CageRealServiceImpl extends ServiceImpl<CageRealMapper, CageReal> i
             record.setOneUnfertilized(oneUnfertilizedEggs);
             record.setTwoUnfertilized(twoUnfertilizedEggs);
             record.setSingleEgg(singleEggs);
+            record.setLayEggCycle(cageService.getLayEggsCycleByCageId(record.getCageId()));
             recordsNew.add(record);
         }
         page.setRecords(recordsNew);
         return page;
     }
+    @Override
+    public Page<CageRealVo> getCageOfDiffState(Long baseId, String dovecoteNumber, String state,
+                                               int pageNum,int pageSize) throws InterruptedException {
+        int stateToInt = -1;
+        if (state.equals("无蛋")){
+            stateToInt = 0;
+        }else if (state.equals("将照蛋")){
+            stateToInt = 1;
+        }else if (state.equals("将抽蛋")){
+            stateToInt = 2;
+        }else if (state.equals("已照蛋")){
+            stateToInt = 4;
+        }else if (state.equals("已查仔")){
+            stateToInt = 5;
+        }else {
+            new GlobalException(StatusCode.ERROR,"无该状态，请重新输入！");
+        }
+        List<CageRealVo> cageRealVoList = cageRealMapper.getCageOfDiffState(baseId, dovecoteNumber, stateToInt);
+        Page<CageRealVo> page = PageUtil.list2Page(cageRealVoList, pageNum, pageSize);
+        List<CageRealVo> records = page.getRecords();
+        List<CageRealVo> recordNew = new ArrayList<>();
 
+        CountDownLatch cdl = new CountDownLatch(records.size());
+
+        //手动添加位置和异常
+        for (CageRealVo record : records) {
+            executorService.submit(() -> {
+                CageRealVo cageRealVo = addPositionAndAbnormal(record);
+                recordNew.add(cageRealVo);
+                cdl.countDown();
+            });
+        }
+        cdl.await();
+        executorService.shutdown();
+        page.setRecords(recordNew);
+        return page;
+    }
+
+    public CageRealVo addPositionAndAbnormal(CageRealVo record){
+        int row = record.getRowNo();
+        int line = record.getLine();
+        int column = record.getColumnNo();
+        String position = row + "排" + line + "行" + column + "列";
+        record.setPosition(position);
+
+
+        List<CageRealVo> cageRealVos = cageRealMapper.addAbnormalData(record.getCageId());
+        int totalAbnormal = 0;
+        int singleEggs = 0;
+        int oneUnfertilizedEggs = 0;
+        int twoUnfertilizedEggs = 0;
+        int oneDamagedEggs = 0;
+        int twoDamagedEggs = 0;
+        int oneBadEggs = 0;
+        int twoBadEggs = 0;
+        for (CageRealVo cageRealVo : cageRealVos) {
+            //照蛋或抽蛋操作
+            if (cageRealVo.getState() != 5){
+                if (cageRealVo.getAbnormal().charAt(0) == '1'){
+                    singleEggs++;
+                }else if (cageRealVo.getAbnormal().charAt(0)  == '2'){
+                    oneUnfertilizedEggs++;
+                }else if (cageRealVo.getAbnormal().charAt(0)  == '3'){
+                    twoUnfertilizedEggs++;
+                }else if (cageRealVo.getAbnormal().charAt(0)  == '4'){
+                    oneDamagedEggs++;
+                }else if (cageRealVo.getAbnormal().charAt(0)  == '5'){
+                    twoDamagedEggs++;
+                }else {
+                    System.out.println(cageRealVo.getAbnormal().indexOf(0));
+                    throw new GlobalException(StatusCode.ERROR,"数据错误");
+                }
+            }
+            if (cageRealVo.getState() == 5){
+                if (cageRealVo.getAbnormal().charAt(0)  == '1'){
+                    oneBadEggs++;
+                }else if (cageRealVo.getAbnormal().charAt(0)  == '2'){
+                    twoBadEggs++;
+                }
+            }
+        }
+        totalAbnormal = singleEggs + oneUnfertilizedEggs + twoUnfertilizedEggs + twoBadEggs + oneBadEggs + oneDamagedEggs + twoDamagedEggs;
+        record.setTotalAbnormal(totalAbnormal);
+        record.setOneBad(oneBadEggs);
+        record.setTwoBad(twoBadEggs);
+        record.setOneDamaged(oneDamagedEggs);
+        record.setTwoDamaged(twoDamagedEggs);
+        record.setOneUnfertilized(oneUnfertilizedEggs);
+        record.setTwoUnfertilized(twoUnfertilizedEggs);
+        record.setSingleEgg(singleEggs);
+        record.setLayEggCycle(cageService.getLayEggsCycleByCageId(record.getCageId()));
+        return record;
+    }
 
 }

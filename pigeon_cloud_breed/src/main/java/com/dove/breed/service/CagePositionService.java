@@ -14,4 +14,6 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface CagePositionService extends IService<CagePosition> {
     Long getCageId(Long baseId, String dovecoteNumber, int rowNo, int line, int columnNo);
+
+
 }

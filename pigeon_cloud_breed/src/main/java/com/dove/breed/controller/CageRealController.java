@@ -79,6 +79,13 @@ public class CageRealController {
         return Result.success("查询成功").data(page2);
     }
 
-
+    @ApiOperation("获得各状态的鸽笼信息")
+    @GetMapping("/getCageOfDiffState")
+    public Result getCageOfDiffState(@RequestParam("baseId")Long baseId,@RequestParam("dovecoteNumber")String dovecoteNumber,
+                                     @RequestParam("state")String state,@RequestParam("pageNum")int pageNum,
+                                     @RequestParam("pageSize")int pageSize) throws InterruptedException {
+        Page<CageRealVo> page = cageRealService.getCageOfDiffState(baseId, dovecoteNumber, state, pageNum, pageSize);
+        return Result.success("获取成功").data(page) ;
+    }
 }
 

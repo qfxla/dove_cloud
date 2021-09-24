@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -31,4 +32,10 @@ public interface DovecoteService extends IService<Dovecote> {
     List<CageRealVo> rightByDays(Long baseId, String dovecoteNumber, int days);
 
     List<CageRealVo> getMaxAbnormal(Long baseId,String dovecoteNumber,int number);
+
+    Map<String,Integer> getAmountOfState(Long baseId,String dovecoteNumber);
+
+    List<CageRealVo> getBestLayEggCycle(Long baseId,String dovecoteNumber,int number);
+
+
 }

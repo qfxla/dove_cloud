@@ -1,11 +1,14 @@
 package com.dove.breed.controller;
 import com.alibaba.fastjson.JSON;
 
-import com.dove.breed.entity.DovecoteOutBill;
+import com.dove.breed.entity.DovecoteEntryBase;
+import com.dove.breed.entity.DovecoteEntryBill;
 import com.dove.breed.entity.dto.DovecoteEntryBaseDto;
 import com.dove.breed.entity.dto.DovecoteEntryBillDto;
 
-import com.dove.breed.entity.dto.DovecoteOutBaseDto;
+import com.dove.breed.entity.dto.DovecoteEntryBaseDto;
+import com.dove.breed.entity.dto.DovecoteEntryBillDto;
+import com.dove.breed.entity.vo.DovecoteEntryBillVo;
 import com.dove.breed.entity.vo.DovecoteEntryBillVo;
 import com.dove.breed.service.DovecoteEntryBaseService;
 import com.dove.breed.utils.ConvertUtil;
@@ -59,7 +62,7 @@ public class DovecoteEntryBillController {
         //删除原订单号
         dovecoteEntryBillService.removeById(billId);
         QueryWrapper<DovecoteEntryBill> wrapper = new QueryWrapper<>();
-        wrapper.eq("dovecote_out_bill",billId).eq("is_deleted",0);
+        wrapper.eq("dovecote_Entry_bill",billId).eq("is_deleted",0);
         List<DovecoteEntryBill> bases = dovecoteEntryBillService.list(wrapper);
         ArrayList<Long> list1 = new ArrayList<>();
         for (DovecoteEntryBill base : bases) {
@@ -119,15 +122,38 @@ public class DovecoteEntryBillController {
     }
 
     @ApiOperation(value = "根据id修改")
-    @PostMapping("/update/{id}")
-    public Result update(@PathVariable("id") Long id, @RequestBody DovecoteEntryBillDto dovecoteEntryBillDto){
-        DovecoteEntryBill dovecoteEntryBill = convertUtil.convert(dovecoteEntryBillDto, DovecoteEntryBill.class);
-        dovecoteEntryBill.setId(id);
-        boolean b = dovecoteEntryBillService.updateById(dovecoteEntryBill);
-        return b?Result.success("修改成功") : Result.error("修改失败");
+    @PostMapping("/update")
+    public Result update(@RequestParam("billId")Long billId,@RequestBody Map<String,Object> map){
+        //删除原订单号
+        dovecoteEntryBillService.removeById(billId);
+        QueryWrapper<DovecoteEntryBase> wrapper = new QueryWrapper<>();
+        wrapper.eq("dovecote_entry_bill",billId)
+                .eq("is_deleted",0);
+        List<DovecoteEntryBase> bases = dovecoteEntryBaseService.list(wrapper);
+        ArrayList<Long> list1 = new ArrayList<>();
+        for (DovecoteEntryBase base : bases) {
+            list1.add(base.getId());
+        }
+        dovecoteEntryBaseService.removeByIds(list1);
+
+        DovecoteEntryBillDto dovecoteEntryBillDto = null;
+        ArrayList<DovecoteEntryBaseDto> dovecoteEntryBaseDtoList = new ArrayList<>();
+        try {
+            dovecoteEntryBillDto = JSON.parseObject(JSON.toJSONString(map.get("dovecoteEntryBillDto")), DovecoteEntryBillDto.class);
+            List<DovecoteEntryBaseDto> list = JSON.parseObject(JSON.toJSONString(map.get("dovecoteEntryBaseDtoList")),ArrayList.class);
+            for (int i = 0;i < list.size();i++){
+                //数组内容得在解析一遍手动放进去
+                DovecoteEntryBaseDto po = JSON.parseObject(JSON.toJSONString(list.get(i)), DovecoteEntryBaseDto.class);
+                dovecoteEntryBaseDtoList.add(po);
+            }
+        }catch (Exception exception){
+            exception.printStackTrace();
+        }
+        DovecoteEntryBillVo dovecoteEntryBillVo = dovecoteEntryBillService.submitDovecoteEntryBill(dovecoteEntryBillDto,dovecoteEntryBaseDtoList);
+        return dovecoteEntryBillVo.getId() != null?Result.success("订单修改成功").data(dovecoteEntryBillVo) : Result.error("订单修改失败");
     }
 
-    @ApiOperation(value = "根据创建时间和基地id查询ShipmentOutBill")
+    @ApiOperation(value = "根据创建时间和基地id查询ShipmentEntryBill")
     @GetMapping("/findBillByGmt_createAndBaseId/{startTime}/{endTime}/{dovecoteId}")
     public Result findBillByGmt_createAndBaseId(@PathVariable("startTime") Date startTime, @PathVariable("endTime") Date endTime, @PathVariable("dovecoteId")Long dovecoteId){
         List<DovecoteEntryBillVo> list = dovecoteEntryBillService.findBillByGmt_createAndBaseId(startTime, endTime, dovecoteId);
@@ -148,8 +174,8 @@ public class DovecoteEntryBillController {
     }
 
     @ApiOperation(value = "提交出库单")
-    @PostMapping("/submitDovecoteOutBill")
-    public Result submitDovecoteOutBill(@RequestBody Map<String,Object> map){
+    @PostMapping("/submitDovecoteEntryBill")
+    public Result submitDovecoteEntryBill(@RequestBody Map<String,Object> map){
         DovecoteEntryBillDto dovecoteEntryBillDto = null;
         ArrayList<DovecoteEntryBaseDto> dovecoteEntryBaseDtoList = new ArrayList<>();
         try {

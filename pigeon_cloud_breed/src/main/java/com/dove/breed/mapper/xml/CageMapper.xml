@@ -17,8 +17,7 @@
         SELECT create_time
         FROM t_cage
         WHERE cage_id = #{cageId}
-        AND xf = 0
-        AND state = 0
+        AND state in (1,2)
         ORDER BY create_time DESC
         LIMIT 0,1
     </select>
@@ -26,8 +25,7 @@
         SELECT create_time
         FROM t_cage
         WHERE cage_id = #{cageId}
-        AND xf = 0
-        AND state = 0
+        AND state in (1,2)
         ORDER BY create_time DESC
         LIMIT 1,1
     </select>

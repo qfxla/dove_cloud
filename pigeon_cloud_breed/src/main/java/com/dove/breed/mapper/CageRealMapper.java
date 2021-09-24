@@ -28,5 +28,8 @@ public interface CageRealMapper extends BaseMapper<CageReal> {
                                @Param("dovecoteNumber")String dovecoteNumber);
     List<CageRealVo> addAbnormalData(@Param("cageId")Long cageId);
 
+    List<CageRealVo> getCageOfDiffState(@Param("baseId")Long baseId,
+                                        @Param("dovecoteNumber")String dovecoteNumber,
+                                        @Param("state")int state);
 
 }

@@ -32,6 +32,8 @@ public class CageRealVo {
 
     private String Position;
 
+    private int layEggCycle;
+
     //下面字段是近一个月异常
     private Integer totalAbnormal;
 
@@ -48,4 +50,6 @@ public class CageRealVo {
     private Integer oneBad;
 
     private Integer twoBad;
+
+
 }

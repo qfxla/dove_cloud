@@ -1,9 +1,11 @@
 package com.dove.breed.controller;
 import com.alibaba.fastjson.JSON;
+import com.dove.breed.entity.ShipmentEntryBase;
 import com.dove.breed.entity.dto.ShipmentEntryBaseDto;
 import com.dove.breed.entity.dto.ShipmentEntryBillDto;
 import com.dove.breed.entity.vo.DovecoteOutBillVo;
 import com.dove.breed.entity.vo.ShipmentEntryBillVo;
+import com.dove.breed.service.ShipmentEntryBaseService;
 import com.dove.breed.utils.ConvertUtil;
 import com.dove.breed.utils.PageUtil;
 import com.dove.entity.Result;
@@ -47,6 +49,9 @@ public class ShipmentEntryBillController {
 
     @Autowired
     private ConvertUtil convertUtil;
+
+    @Autowired
+    private ShipmentEntryBaseService shipmentEntryBaseService;
 
     @ApiOperation(value = "新增")
     @PostMapping("/save")
@@ -93,12 +98,34 @@ public class ShipmentEntryBillController {
 
     @ApiOperation(value = "根据id修改")
     @PostMapping("/update/{id}")
-    public Result update(@PathVariable("id") Long id, @RequestBody ShipmentEntryBillDto shipmentEntryBillDto){
-        ShipmentEntryBill shipmentEntryBill = new ShipmentEntryBill();
-        BeanUtils.copyProperties(shipmentEntryBillDto,shipmentEntryBill,ShipmentEntryBill.class);
-        shipmentEntryBill.setId(id);
-        boolean b = shipmentEntryBillService.updateById(shipmentEntryBill);
-        return b?Result.success("修改成功") : Result.error("修改失败");
+    public Result update(@PathVariable("id") Long id, @RequestBody Map<String,Object> map){
+        //删除原订单号
+        shipmentEntryBillService.removeById(id);
+        QueryWrapper<ShipmentEntryBase> wrapper = new QueryWrapper<>();
+        wrapper.eq("shipment_entry_bill",id).eq("is_deleted",0);
+        List<ShipmentEntryBase> bases = shipmentEntryBaseService.list(wrapper);
+        ArrayList<Long> list1 = new ArrayList<>();
+        for (ShipmentEntryBase base : bases) {
+            list1.add(base.getId());
+        }
+        shipmentEntryBaseService.removeByIds(list1);
+        ShipmentEntryBillDto shipmentEntryBillDto = null;
+        ArrayList<ShipmentEntryBaseDto> shipmentEntryBaseDtoList = new ArrayList<>();
+        try {
+            shipmentEntryBillDto = JSON.parseObject(JSON.toJSONString(map.get("shipmentEntryBillDto")),ShipmentEntryBillDto.class);
+            List<ShipmentEntryBaseDto> list = JSON.parseObject(JSON.toJSONString(map.get("shipmentEntryBaseDtoList")),ArrayList.class);
+            for(int i = 0;i<list.size();i++){
+                //数组内容得再解析一遍手动放进去
+                ShipmentEntryBaseDto po = JSON.parseObject(JSON.toJSONString(list.get(i)),ShipmentEntryBaseDto.class);
+                shipmentEntryBaseDtoList.add(po);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        ShipmentEntryBillVo shipmentEntryBillVo = shipmentEntryBillService.submitShipmentEntryBill(shipmentEntryBillDto, shipmentEntryBaseDtoList);
+
+        return shipmentEntryBillVo.getId() != null?Result.success("修改成功") : Result.error("修改失败");
     }
 
     @ApiOperation(value = "根据创建时间和基地id查询ShipmentEntryBill")

@@ -4,6 +4,7 @@ import com.dove.breed.entity.Dovecote;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dove.breed.entity.vo.AbnormalVo;
 import com.dove.breed.entity.vo.CageRealVo;
+import com.dove.breed.entity.vo.DoveAmountOfStateVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.security.core.parameters.P;
@@ -42,4 +43,8 @@ public interface DovecoteMapper extends BaseMapper<Dovecote> {
     List<CageRealVo> getMaxAbnormal(@Param("baseId")Long baseId,
                                     @Param("dovecoteNumber")String dovecoteNumber,
                                     @Param("number")int number);
+    //获得鸽子各状态的数量
+    List<DoveAmountOfStateVo> getAmountOfState(@Param("baseId")Long baseId,
+                                               @Param("dovecoteNumber")String dovecoteNumber);
+
 }

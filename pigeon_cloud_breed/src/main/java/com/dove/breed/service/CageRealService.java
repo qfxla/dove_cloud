@@ -22,5 +22,5 @@ public interface CageRealService extends IService<CageReal> {
     List<CageRealVo> getHatchTime(Long baseId,String dovecoteNumber);
     List<CageRealVo> getFeedTime(Long baseId,String dovecoteNumber);
     Page<CageRealVo> addAbnormal(Page<CageRealVo> page);
-
+    Page<CageRealVo> getCageOfDiffState(Long baseId,String dovecoteNumber,String state,int pageNum,int pageSize) throws InterruptedException;
 }

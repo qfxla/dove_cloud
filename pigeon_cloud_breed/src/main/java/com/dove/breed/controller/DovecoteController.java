@@ -172,9 +172,25 @@ public class DovecoteController {
     @GetMapping("/getMaxAbnormal")
     public Result getMaxAbnormal(@RequestParam("baseId")Long baseId, @RequestParam("dovecoteNumber")String dovecoteNumber,
                                  @RequestParam("number") @ApiParam(value = "前几") int number){
-        return null;
+        List<CageRealVo> cages = dovecoteService.getMaxAbnormal(baseId, dovecoteNumber, number);
+        return cages.size() > 0 ?Result.success("获取成功").data(cages) : Result.error("获取失败");
 
     }
+
+    @ApiOperation("获得将照蛋什么的各数量")
+    @GetMapping("/getAmountOfState")
+    public Result getAmountOfState(@RequestParam("baseId")Long baseId,@RequestParam("dovecoteNumber")String dovecoteNumber){
+        Map<String, Integer> map = dovecoteService.getAmountOfState(baseId, dovecoteNumber);
+        return Result.success("获取成功").data(map);
+    }
+
+    @ApiOperation("获得产蛋周期排行榜")
+    @GetMapping("/getBestLayEggCycle")
+    public Result getBestLayEggCycle(@RequestParam("baseId")Long baseId,@RequestParam("dovecoteNumber")String dovecoteNumber){
+        return null;
+    }
+
+
 
     @ApiOperation(value = "更新鸽棚照片")
     @PostMapping("/uploadPicture/{id}")

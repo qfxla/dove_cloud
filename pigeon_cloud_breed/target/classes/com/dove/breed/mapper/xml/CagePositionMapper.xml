@@ -18,5 +18,18 @@
         WHERE base_id = #{baseId} AND shack = #{dovecoteNumber}
         AND `row_no` = #{rowNo} AND line = #{line} AND `column_no` = #{columnNo}
     </select>
+    <select id="getPosition" resultType="com.dove.breed.entity.CagePosition">
+        SELECT *
+        FROM t_cage_position
+        WHERE cage_id = #{cageId}
+    </select>
+    <select id="getAllCageIdOfDovecote" resultType="java.lang.Long">
+        SELECT r.cage_id
+        FROM t_cage_real r LEFT JOIN t_cage_position p
+        ON r.`cage_id` = p.`cage_id`
+        WHERE r.state != 5
+        AND p.base_id = #{baseId}
+        AND p.shack = #{dovecoteNumber}
+    </select>
 
 </mapper>

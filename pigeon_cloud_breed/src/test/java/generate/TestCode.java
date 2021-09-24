@@ -29,6 +29,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
 
 /**
  * @author zcj
@@ -77,21 +80,64 @@ public class TestCode {
     private DovecoteOutBaseMapper dovecoteOutBaseMapper;
     @Autowired
     private ManualIncubationService manualIncubationService;
+    @Autowired
+    private CageService cageService;
+
+    @Autowired
+    private ExecutorService executorService;
 
     @Test
-    public void test() throws IOException {
-        System.out.println(dovecoteService.getMaxAbnormal(3L, "A01", 2));
+    public void test() throws IOException, InterruptedException {
+//        List<Map<String, Object>> list = new ArrayList<>();
+//        for (int i = 0; i < 1000;i++){
+//            Map<String, Object> map = new HashMap<>();
+//            map.put("index",i);
+//            list.add(map);
+//        }
+//
+//        Long start = System.currentTimeMillis();
+//        for (Map<String, Object> map : list) {
+//            Thread.sleep(10);
+//            System.out.println(map.get("index"));
+//        }
+//        Long end = System.currentTimeMillis();
+//        System.out.println(end-start);  //15661
     }
 
 
     @Test
-    public void test1() throws IOException {
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url("http://120.77.156.205:9804/breed/dovecote/get/5")
-                .build();
-        Response response = client.newCall(request).execute();
-        System.out.println(response.body().string());
+    public void test1() throws IOException, InterruptedException {
+//        List<Map<String, Object>> list = new ArrayList<>();
+//        for (int i = 0; i < 1000;i++){
+//            Map<String, Object> map = new HashMap<>();
+//            map.put("index",i);
+//            list.add(map);
+//        }
+//
+//        CountDownLatch cdl = new CountDownLatch(list.size());
+//
+//        Long start = System.currentTimeMillis();
+//        for (Map<String, Object> map : list) {
+//            executorService.submit(() -> {
+//                try {
+//                    Thread.sleep(10);
+//                    System.out.println(map.get("index"));
+//                } catch (InterruptedException e) {
+//                    new RuntimeException();
+//                }
+//                cdl.countDown();
+//            });
+//
+//        }
+//        cdl.await();
+//        executorService.shutdown();
+//        Long end = System.currentTimeMillis();
+//        System.out.println(end-start);   //4557
+    }
+
+    @Test
+    public void test3(){
+
     }
 
 }

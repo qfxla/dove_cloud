@@ -36,7 +36,7 @@ public class CageServiceImpl extends ServiceImpl<CageMapper, Cage> implements Ca
         } catch (Exception exception) {
             exception.printStackTrace();
         }
-        int cycle = (int)(lastOne.getTime() - lastTwo.getTime())/(60*60*1000);
+        int cycle = (int)(lastOne.getTime() - lastTwo.getTime())/(24*60*60*1000);
         return cycle;
     }
 }
