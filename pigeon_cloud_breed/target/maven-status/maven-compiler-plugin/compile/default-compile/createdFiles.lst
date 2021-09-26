@@ -94,6 +94,7 @@ com\dove\breed\entity\CagePosition.class
 com\dove\breed\config\ScheduledTask.class
 com\dove\breed\entity\dto\ShipmentOutBillDto.class
 com\dove\breed\service\DovecoteOutBaseService.class
+com\dove\breed\entity\vo\MonitorBaseVo.class
 com\dove\breed\service\DovecoteEntryBillService.class
 com\dove\breed\controller\IpController.class
 com\dove\breed\entity\BreedBase.class
@@ -174,6 +175,7 @@ com\dove\breed\mapper\IpMapper.class
 com\dove\breed\mapper\PictureMapper.class
 com\dove\breed\entity\vo\PictureVo.class
 com\dove\breed\entity\ShipmentEntryBill.class
+com\dove\breed\entity\dto\MonitorBaseDto.class
 com\dove\breed\entity\Ip.class
 com\dove\breed\service\FeedStockService.class
 com\dove\breed\controller\DovecoteOutTypeController.class

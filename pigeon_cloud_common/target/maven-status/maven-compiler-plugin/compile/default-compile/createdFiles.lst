@@ -14,6 +14,7 @@ com\dove\entity\Result.class
 com\dove\filter\InjectSecurityContextFilter.class
 com\dove\entity\UserDetailsImpl.class
 com\dove\handler\ExceptionHandlerController.class
+com\dove\util\TokenManage.class
 com\dove\handler\GlobalExceptionHandler.class
 com\dove\config\RedisConfig.class
 com\dove\handler\BadCredentialsExceptionHandler.class

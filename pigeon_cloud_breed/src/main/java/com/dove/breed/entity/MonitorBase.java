@@ -46,8 +46,8 @@ public class MonitorBase extends Model<MonitorBase> {
     @ApiModelProperty(value = "视频名称")
     private String videoName;
 
-    @ApiModelProperty(value = "视频类型")
-    private String type;
+    @ApiModelProperty(value = "视频类型(基地，鸽棚，投喂机)")
+    private Integer type;
 
     @ApiModelProperty(value = "摄像头监控位置")
     private String monitoringLocation;
@@ -65,7 +65,7 @@ public class MonitorBase extends Model<MonitorBase> {
     private String validateCode;
 
     @ApiModelProperty(value = "设备使用状态")
-    private String statusCode;
+    private Integer statusCode;
 
     @ApiModelProperty(value = "身份令牌")
     private String accessToken;

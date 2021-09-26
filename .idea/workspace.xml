@@ -5,34 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="645abc3d-b03c-4334-95cb-dc1d4aa2b2bc" name="Default Changelist" comment="月结表">
-      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/controller/CageRealController.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/controller/CageRealController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/controller/DovecoteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/controller/DovecoteController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/controller/DovecoteEntryBillController.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/controller/DovecoteEntryBillController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/controller/ShipmentEntryBillController.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/controller/ShipmentEntryBillController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/controller/ShipmentOutBillController.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/controller/ShipmentOutBillController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/vo/CageRealVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/vo/CageRealVo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/CagePositionMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/CagePositionMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/CageRealMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/CageRealMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/DovecoteMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/DovecoteMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/xml/CageMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/xml/CageMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/xml/CagePositionMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/xml/CagePositionMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/xml/CageRealMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/xml/CageRealMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/xml/DovecoteMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/xml/DovecoteMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/CagePositionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/CagePositionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/CageRealService.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/CageRealService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/DovecoteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/DovecoteService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/impl/CageRealServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/impl/CageRealServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/impl/CageServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/impl/CageServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/impl/DovecoteServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/impl/DovecoteServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/test/java/CodeGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/test/java/CodeGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/test/java/generate/TestCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/test/java/generate/TestCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/controller/MonitorBaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/controller/MonitorBaseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/MonitorBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/entity/MonitorBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/MonitorBaseMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/MonitorBaseMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/xml/MonitorBaseMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/mapper/xml/MonitorBaseMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/MonitorBaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/MonitorBaseService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/impl/MonitorBaseServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_breed/src/main/java/com/dove/breed/service/impl/MonitorBaseServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/application.yml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/BaseStockMapper.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/BreedBaseMapper.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/BusinessBreedingMapper.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/CageDailyMapper.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/CageMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/CagePictureMapper.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/CagePositionMapper.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/CageRealMapper.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/DovecoteDailyMapper.xml" beforeDir="false" />
@@ -46,6 +31,8 @@
       <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/FeedStockMapper.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/IpMapper.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/ManualIncubationMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/MonitorBaseMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/PictureMapper.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/ShipmentEntryBaseMapper.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/ShipmentEntryBillMapper.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/classes/com/dove/breed/mapper/xml/ShipmentEntryTypeMapper.xml" beforeDir="false" />
@@ -60,6 +47,10 @@
       <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/pigeon_cloud_breed-1.0-SNAPSHOT.jar.original" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/surefire-reports/TEST-generate.TestCode.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pigeon_cloud_breed/target/surefire-reports/generate.TestCode.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/dove/filter/InjectSecurityContextFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/pigeon_cloud_common/src/main/java/com/dove/filter/InjectSecurityContextFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_common/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_common/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pigeon_cloud_common/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,15 +108,13 @@
     </key>
   </component>
   <component name="RunManager" selected="Spring Boot.BreedApplication">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -231,7 +220,10 @@
       <workItem from="1632189181149" duration="2340000" />
       <workItem from="1632236695147" duration="717000" />
       <workItem from="1632313076863" duration="60183000" />
-      <workItem from="1632486749103" duration="4404000" />
+      <workItem from="1632486749103" duration="4471000" />
+      <workItem from="1632534337354" duration="14568000" />
+      <workItem from="1632575172008" duration="998000" />
+      <workItem from="1632660304825" duration="1668000" />
     </task>
     <servers />
   </component>

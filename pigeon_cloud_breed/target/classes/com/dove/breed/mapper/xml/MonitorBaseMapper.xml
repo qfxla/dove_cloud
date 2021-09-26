@@ -8,6 +8,7 @@
         <result column="base_id" property="baseId" />
         <result column="dovecote_number" property="dovecoteNumber" />
         <result column="video_name" property="videoName" />
+        <result column="type" property="type" />
         <result column="monitoring_location" property="monitoringLocation" />
         <result column="video_url" property="videoUrl" />
         <result column="create_by" property="createBy" />
@@ -15,6 +16,7 @@
         <result column="validate_code" property="validateCode" />
         <result column="status_code" property="statusCode" />
         <result column="access_token" property="accessToken" />
+        <result column="guige" property="guige"/>
         <result column="gmt_create" property="gmtCreate" />
         <result column="gmt_modified" property="gmtModified" />
         <result column="is_deleted" property="deleted" />
@@ -23,7 +25,33 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, base_id, base_name, video_name, monitoring_location, video_url, create_by, device_serial, validate_code, status_code, access_token, gmt_create, gmt_modified, is_deleted, version
+        id, base_id, video_name, `type`, monitoring_location, video_url, create_by, device_serial, validate_code, status_code, access_token, guige, gmt_create, gmt_modified, is_deleted, version
     </sql>
+    <sql id="Vo_Column_List">
+        id, video_name, `type`, monitoring_location, video_url, create_by, device_serial, gmt_modified
+    </sql>
+    <select id="selectList" resultType="com.dove.breed.entity.vo.MonitorBaseVo">
+        select <include refid="Vo_Column_List"/>
+        from t_monitor_base
+        where guige = #{enterpriseId}
+    </select>
+    <select id="listByType" resultType="com.dove.breed.entity.vo.MonitorBaseVo">
+        select <include refid="Vo_Column_List"/>
+        from t_monitor_base
+        where guige = #{enterpriseId}
+        and base_id  = #{baseId}
+        and `type` = #{type}
+        <if test="type == 3">
+            and dovecote_number = #{dovecoteNumber}
+        </if>
+        <if test="statusCode != null">
+            and status_code = #{statusCode}
+        </if>
+    </select>
+    <select id="getVoById" resultType="com.dove.breed.entity.vo.MonitorBaseVo">
+        select <include refid="Vo_Column_List"/>
+        from t_monitor_base
+        where id = #{id}
+    </select>
 
 </mapper>

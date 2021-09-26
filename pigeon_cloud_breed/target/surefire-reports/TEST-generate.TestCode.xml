@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="3" failures="0" name="generate.TestCode" time="0.437" errors="0" skipped="0">
+<testsuite tests="3" failures="0" name="generate.TestCode" time="0.469" errors="0" skipped="0">
   <properties>
     <property name="idea.version" value="2020.3.2"/>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
@@ -30,7 +30,7 @@
     <property name="maven.ext.class.path" value="D:\IDEA\IntelliJ IDEA 2020.3.2\plugins\maven\lib\maven-event-listener.jar"/>
     <property name="classworlds.conf" value="D:\IDEA\IntelliJ IDEA 2020.3.2\plugins\maven\lib\maven3\bin\m2.conf"/>
     <property name="sun.jnu.encoding" value="GBK"/>
-    <property name="java.library.path" value="D:\IDEA\IntelliJ IDEA 2020.3.2\jbr\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\JDK11\jdk-11.0.11\bin;D:\mycat\bin;D:\apache-maven-3.5.2\bin;D:\Cloud相关文件\Consul;D:\桌面\linux相关文件\;C:\Program Files (x86)\NetSarang\Xftp 7\;D:\app\nodejs\;C:\Users\清风徐来\AppData\Local\Microsoft\WindowsApps;C:\Program Files\MySQL\MySQL Server 8.0\bin;C:\Program Files\JDK11\jdk-11.0.11\jre\bin;C:\Users\清风徐来\AppData\Local\Pandoc\;D:\MsysGit\新建文件夹\Git\cmd;D:\app\VSCode\Microsoft VS Code\bin;C:\Users\清风徐来\AppData\Roaming\npm;."/>
+    <property name="java.library.path" value="D:\IDEA\IntelliJ IDEA 2020.3.2\jbr\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\JDK11\jdk-11.0.11\bin;D:\mycat\bin;D:\apache-maven-3.5.2\bin;D:\Cloud相关文件\Consul;D:\桌面\linux相关文件\;C:\Program Files (x86)\NetSarang\Xftp 7\;D:\app\nodejs\;D:\app\bin;C:\Users\清风徐来\AppData\Local\Microsoft\WindowsApps;C:\Program Files\MySQL\MySQL Server 8.0\bin;C:\Program Files\JDK11\jdk-11.0.11\jre\bin;C:\Users\清风徐来\AppData\Local\Pandoc\;D:\MsysGit\新建文件夹\Git\cmd;D:\app\VSCode\Microsoft VS Code\bin;C:\Users\清风徐来\AppData\Roaming\npm;."/>
     <property name="maven.conf" value="D:\IDEA\IntelliJ IDEA 2020.3.2\plugins\maven\lib\maven3/conf"/>
     <property name="jdk.debug" value="release"/>
     <property name="java.class.version" value="55.0"/>
@@ -64,7 +64,7 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="generate.TestCode" name="test" time="0.428"/>
-  <testcase classname="generate.TestCode" name="test1" time="0.004"/>
-  <testcase classname="generate.TestCode" name="test3" time="0.005"/>
+  <testcase classname="generate.TestCode" name="test" time="0.46"/>
+  <testcase classname="generate.TestCode" name="test1" time="0.005"/>
+  <testcase classname="generate.TestCode" name="test3" time="0.004"/>
 </testsuite>

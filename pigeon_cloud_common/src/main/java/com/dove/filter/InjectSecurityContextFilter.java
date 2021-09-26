@@ -48,43 +48,42 @@ public class InjectSecurityContextFilter extends BasicAuthenticationFilter {
 				!request.getRequestURI().contains("/invoke") &&
 				!request.getRequestURI().contains("/trace")) {
 
-//			Claims claims = TokenManage.parse(request.getHeader("token"));
-//			if (claims != null && !claims.equals(null)) {
-//			String userId = claims.getId();
-////			String userId = "1367409141675012099";
-//			UserDetailsImpl userDetails = (UserDetailsImpl) redisTemplate.opsForValue()
-//					.get(ConstantValue.REDIS_USER_KEY + '_' + userId);
-//
-//			if (userDetails == null) {
-//				response.setHeader("Content-Type", "text/ plain;charset=utf-8");
-//
-//				writeMessage(response.getWriter(), Result.error("用户未登录"));
-//				return;
-//			}
-//			SecurityContextUtil.setSecurityContext(userDetails);
-//		}else {
-//			response.setHeader("Content-Type", "text/ plain;charset=utf-8");
-//			writeMessage(response.getWriter(), Result.error("用户未登录"));
-//			return;
-//		}
-//
-//	  }
-//		chain.doFilter(request, response);
-			Long userId = 1367409141675012099L;
-//			String userId = request.getHeader(ConstantValue.REQUEST_USER_ID);
-
+			Claims claims = TokenManage.parse(request.getHeader("token"));
+			if (claims != null && !claims.equals(null)) {
+			String userId = claims.getId();
 			UserDetailsImpl userDetails = (UserDetailsImpl) redisTemplate.opsForValue()
 					.get(ConstantValue.REDIS_USER_KEY + '_' + userId);
 
 			if (userDetails == null) {
-				response.setHeader("Content-Type","text/ plain;charset=utf-8");
+				response.setHeader("Content-Type", "text/ plain;charset=utf-8");
 
 				writeMessage(response.getWriter(), Result.error("用户未登录"));
 				return;
 			}
 			SecurityContextUtil.setSecurityContext(userDetails);
+		}else {
+			response.setHeader("Content-Type", "text/ plain;charset=utf-8");
+			writeMessage(response.getWriter(), Result.error("用户未登录"));
+			return;
 		}
+
+	  }
 		chain.doFilter(request, response);
+//			Long userId = 1381879053740490753L;
+////			String userId = request.getHeader(ConstantValue.REQUEST_USER_ID);
+//
+//			UserDetailsImpl userDetails = (UserDetailsImpl) redisTemplate.opsForValue()
+//					.get(ConstantValue.REDIS_USER_KEY + '_' + userId);
+//
+//			if (userDetails == null) {
+//				response.setHeader("Content-Type","text/ plain;charset=utf-8");
+//
+//				writeMessage(response.getWriter(), Result.error("用户未登录"));
+//				return;
+//			}
+//			SecurityContextUtil.setSecurityContext(userDetails);
+//		}
+//		chain.doFilter(request, response);
 	}
 
 	public static void writeMessage(Writer writer, Result result){
