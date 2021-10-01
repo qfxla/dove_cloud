@@ -218,8 +218,6 @@ public class DovecoteController {
         paramMap.put("file", file);
         //输出
         paramMap.put("output","json");
-        //自定义路径
-        paramMap.put("path","dovecoteImage");
         //场景
         paramMap.put("scene","dovecoteImage");
         //上传
