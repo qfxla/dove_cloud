@@ -36,7 +36,7 @@ public class CagePictureController {
     @Autowired
     private CagePictureService cagePictureService;
 
-    String UPLOAD_PATH = "http://120.77.156.205:9800/upload";
+    String UPLOAD_PATH = "http://120.77.156.205:9800/group1/upload";
 
     @PostMapping("/upload")
     public String upload2(MultipartFile file) {
