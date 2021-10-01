@@ -117,8 +117,8 @@ public class FeedStockServiceImpl extends ServiceImpl<FeedStockMapper, FeedStock
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void updateDovecoteMonth(Long baseId, String dovecoteNumber) {
-        List<Integer> billIdList = dovecoteEntryBillMapper.getAllIdByBaseIdAndDovecoteNumber(baseId,dovecoteNumber,GetMonth.getDifferenceNowToMonth(-1));
-        for (Integer billId : billIdList) {
+        List<Long> billIdList = dovecoteEntryBillMapper.getAllIdByBaseIdAndDovecoteNumber(baseId,dovecoteNumber,GetMonth.getDifferenceNowToMonth(-1));
+        for (Long billId : billIdList) {
             List<DovecoteEntryBase> baseList = dovecoteEntryBaseMapper.getAllByBillId(billId);
             for (DovecoteEntryBase base : baseList) {
                 DovecoteEntryType dovecoteEntryType = dovecoteEntryTypeMapper.selectById(base.getTypeId());
@@ -131,11 +131,13 @@ public class FeedStockServiceImpl extends ServiceImpl<FeedStockMapper, FeedStock
                 Integer StockAmount = base.getAmount();
                 StockAmount = StockAmount == null ? 0 : StockAmount;
                 //使用数量
-                Integer lastResidueFeed  = feedStockMapper.getLastMonthFeed(GetMonth.getDifferenceNowToMonth(-2));
-                lastResidueFeed = lastResidueFeed == null ? 0: lastResidueFeed;
-                Integer useAmount = StockAmount + lastResidueFeed;
+                Integer useAmount = StockAmount;
 
                 if (one == null){
+                    Integer lastResidueFeed  = feedStockMapper.getLastMonthFeed(baseId,dovecoteNumber,base.getTypeName(),GetMonth.getDifferenceNowToMonth(-1));
+                    lastResidueFeed = lastResidueFeed == null ? 0: lastResidueFeed;
+                    useAmount = useAmount + lastResidueFeed;
+
                     FeedStock feedStock = new FeedStock();
                     feedStock.setBaseId(baseId);
                     feedStock.setFeedType(base.getTypeName());
@@ -144,7 +146,6 @@ public class FeedStockServiceImpl extends ServiceImpl<FeedStockMapper, FeedStock
                     feedStock.setUseAmount(useAmount);
                     feedStock.setAmount(0);
                     feedStock.setSpecifications(dovecoteEntryType.getSpecifications());
-                    feedStock.setGuige(SecurityContextUtil.getUserDetails().getEnterpriseId());
                     baseMapper.insert(feedStock);
                 }else if (one != null){
                     System.out.println(one.toString());

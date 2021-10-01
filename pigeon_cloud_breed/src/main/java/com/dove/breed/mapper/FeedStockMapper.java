@@ -26,7 +26,9 @@ public interface FeedStockMapper extends BaseMapper<FeedStock> {
      * @param lastMonthTime
      * @return
      */
-    Integer getLastMonthFeed(@Param("lastMonthTime")String lastMonthTime);
+    Integer getLastMonthFeed(@Param("baseId")Long baseId, @Param("dovecoteNumber")String dovecoteNumber,
+                             @Param("typeName")String typeName,
+                            @Param("lastMonthTime")String lastMonthTime);
 
     /**
      * 确定当月是否有相同规格饲料和名字的饲料月结

@@ -27,7 +27,7 @@ public interface DovecoteEntryBaseMapper extends BaseMapper<DovecoteEntryBase> {
      * @param billId
      * @return
      */
-    List<DovecoteEntryBase> getAllByBillId( @Param("billId")Integer billId);
+    List<DovecoteEntryBase> getAllByBillId( @Param("billId")Long billId);
 
     /**
      * 通过订单号查询订单的详细信息

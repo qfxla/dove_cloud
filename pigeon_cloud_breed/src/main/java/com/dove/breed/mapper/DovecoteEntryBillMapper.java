@@ -31,7 +31,7 @@ public interface DovecoteEntryBillMapper extends BaseMapper<DovecoteEntryBill> {
      * @param dovecoteNumber
      * @return
      */
-    List<Integer> getAllIdByBaseIdAndDovecoteNumber(@Param("baseId")Long baseId, @Param("dovecoteNumber")String dovecoteNumber,
+    List<Long> getAllIdByBaseIdAndDovecoteNumber(@Param("baseId")Long baseId, @Param("dovecoteNumber")String dovecoteNumber,
                                                     @Param("lastMonth")String lastMonth);
 
     List<DovecoteEntryBillVo> findBillByDovecoteAndType(@Param("baseId")Long baseId,

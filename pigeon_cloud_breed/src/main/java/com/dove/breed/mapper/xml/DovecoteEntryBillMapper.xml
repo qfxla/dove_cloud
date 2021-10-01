@@ -33,10 +33,11 @@
         WHERE base_id = #{baseId} And gmt_create between #{startTime} and #{endTime}
     </select>
 
-    <select id="getAllIdByBaseIdAndDovecoteNumber" resultType="java.lang.Integer">
+    <select id="getAllIdByBaseIdAndDovecoteNumber" resultType="java.lang.Long">
         SELECT id
         FROM t_dovecote_entry_bill
         WHERE base_id = #{baseId}
+        AND `type` = "饲料"
         AND dovecote_number = #{dovecoteNumber}
         AND year(gmt_create) = year(#{lastMonth})
         AND month(gmt_create) = month(#{lastMonth})
