@@ -61,6 +61,9 @@ public class MonitorBase extends Model<MonitorBase> {
     @ApiModelProperty(value = "设备序列号")
     private String deviceSerial;
 
+    @ApiModelProperty(value = "管道序号")
+    private Integer aisle;
+
     @ApiModelProperty(value = "设备验证码")
     private String validateCode;
 
@@ -89,7 +92,7 @@ public class MonitorBase extends Model<MonitorBase> {
 
     @ApiModelProperty(value = "乐观锁")
     @Version
-    @TableField("is_deleted")
+    @TableField("version")
     private Integer version;
 
 

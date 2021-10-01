@@ -23,13 +23,17 @@
         FROM t_cage_position
         WHERE cage_id = #{cageId}
     </select>
-    <select id="getAllCageIdOfDovecote" resultType="java.lang.Long">
-        SELECT r.cage_id
-        FROM t_cage_real r LEFT JOIN t_cage_position p
-        ON r.`cage_id` = p.`cage_id`
-        WHERE r.state != 5
-        AND p.base_id = #{baseId}
-        AND p.shack = #{dovecoteNumber}
+<!--    <select id="getAllCageIdOfDovecote" resultType="java.lang.Long">-->
+<!--        SELECT r.cage_id-->
+<!--        FROM t_cage_real r LEFT JOIN t_cage_position p-->
+<!--        ON r.`cage_id` = p.`cage_id`-->
+<!--        WHERE r.state != 5-->
+<!--        AND p.base_id = #{baseId}-->
+<!--        AND p.shack = #{dovecoteNumber}-->
+<!--    </select>-->
+    <select id="getAllCageId" resultType="java.lang.Long">
+        SELECT cage_id
+        FROM t_cage_position
     </select>
 
 </mapper>

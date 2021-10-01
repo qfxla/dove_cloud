@@ -17,10 +17,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * <p>
@@ -171,16 +173,15 @@ public class CageRealServiceImpl extends ServiceImpl<CageRealMapper, CageReal> i
         Page<CageRealVo> page = PageUtil.list2Page(cageRealVoList, pageNum, pageSize);
         List<CageRealVo> records = page.getRecords();
         List<CageRealVo> recordNew = new ArrayList<>();
-
         CountDownLatch cdl = new CountDownLatch(records.size());
 
         //手动添加位置和异常
         for (CageRealVo record : records) {
-            executorService.submit(() -> {
+//            executorService.execute(() -> {
                 CageRealVo cageRealVo = addPositionAndAbnormal(record);
                 recordNew.add(cageRealVo);
                 cdl.countDown();
-            });
+//            });
         }
         cdl.await();
         executorService.shutdown();

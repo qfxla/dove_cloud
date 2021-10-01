@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
-
 /**
  * <p>
  * 摄像头信息 前端控制器
@@ -48,12 +47,9 @@ public class MonitorBaseController {
     @ApiOperation(value = "根据摄像头类型查询所有的摄像头")
     @GetMapping(value = "/baseId/{current}/{size}")
     public Result findByBaseId(@RequestParam("基地id")Long baseId,@RequestParam("摄像头类型(1基地，2鸽棚，3投喂机)") Integer type,
-                               @RequestParam(value = "鸽棚编号(当类型为(3)投喂机时需要填写)",required = false)String dovecoteNumber,
+                               @RequestParam(value = "鸽棚编号(当类型为(3)投喂机时才可以选择是否填写，否则禁用)",required = false)String dovecoteNumber,
                                @RequestParam(value = "设备使用状态(1使用中，2未启用，3故障)",required = false)Integer statusCode,
                                @PathVariable int current,@PathVariable int size){
-        if (type == 3){
-            Assert.assertNotNull(dovecoteNumber);
-        }
         List<MonitorBaseVo> list = monitorBaseService.listByType(baseId, type, dovecoteNumber, statusCode, SecurityContextUtil.getUserDetails().getEnterpriseId());
         return Result.success().data(PageUtil.list2Page(list, current, size));
     }
@@ -61,7 +57,6 @@ public class MonitorBaseController {
     @ApiOperation(value = "添加摄像头")
     @PostMapping(value = "/add")
     public Result add(@RequestBody MonitorBaseDto monitorBaseDto){
-
         return monitorBaseService.add(monitorBaseDto) ? Result.success(): Result.error();
     }
 

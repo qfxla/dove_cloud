@@ -11,6 +11,7 @@ import com.dove.breed.entity.vo.*;
 import com.dove.breed.mapper.*;
 import com.dove.breed.service.*;
 import com.dove.breed.utils.ConvertUtil;
+import com.dove.breed.utils.Image2Mp4;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -21,10 +22,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.awt.print.PrinterAbortException;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -82,57 +80,26 @@ public class TestCode {
     private ManualIncubationService manualIncubationService;
     @Autowired
     private CageService cageService;
-
     @Autowired
     private ExecutorService executorService;
+    @Autowired
+    private Image2Mp4 image2Mp4;
+    @Autowired
+    private CagePictureMapper cagePictureMapper;
+    @Autowired
+    private CageVideoMapper cageVideoMapper;
 
     @Test
     public void test() throws IOException, InterruptedException {
-//        List<Map<String, Object>> list = new ArrayList<>();
-//        for (int i = 0; i < 1000;i++){
-//            Map<String, Object> map = new HashMap<>();
-//            map.put("index",i);
-//            list.add(map);
-//        }
-//
-//        Long start = System.currentTimeMillis();
-//        for (Map<String, Object> map : list) {
-//            Thread.sleep(10);
-//            System.out.println(map.get("index"));
-//        }
-//        Long end = System.currentTimeMillis();
-//        System.out.println(end-start);  //15661
+//        CageVideo cageVideo = new CageVideo(2344L, "/group1/img.mp4");
+//        int insert = cageVideoMapper.insert(cageVideo);
+        int i = cageVideoMapper.deleteById(1443015982309244929L);
+        System.out.println(i);
     }
 
 
     @Test
     public void test1() throws IOException, InterruptedException {
-//        List<Map<String, Object>> list = new ArrayList<>();
-//        for (int i = 0; i < 1000;i++){
-//            Map<String, Object> map = new HashMap<>();
-//            map.put("index",i);
-//            list.add(map);
-//        }
-//
-//        CountDownLatch cdl = new CountDownLatch(list.size());
-//
-//        Long start = System.currentTimeMillis();
-//        for (Map<String, Object> map : list) {
-//            executorService.submit(() -> {
-//                try {
-//                    Thread.sleep(10);
-//                    System.out.println(map.get("index"));
-//                } catch (InterruptedException e) {
-//                    new RuntimeException();
-//                }
-//                cdl.countDown();
-//            });
-//
-//        }
-//        cdl.await();
-//        executorService.shutdown();
-//        Long end = System.currentTimeMillis();
-//        System.out.println(end-start);   //4557
     }
 
     @Test

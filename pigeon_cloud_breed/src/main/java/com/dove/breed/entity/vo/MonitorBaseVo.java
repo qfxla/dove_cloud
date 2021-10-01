@@ -40,6 +40,9 @@ public class MonitorBaseVo {
     @ApiModelProperty(value = "设备使用状态")
     private Integer statusCode;
 
+    @ApiModelProperty(value = "管道序号")
+    private Integer aisle;
+
     @ApiModelProperty(value = "更新时间")
     @TableField(value = "gmt_modified",fill = FieldFill.INSERT_UPDATE)
     private Date gmtModified;

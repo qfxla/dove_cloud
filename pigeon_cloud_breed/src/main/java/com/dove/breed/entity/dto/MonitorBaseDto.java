@@ -43,6 +43,9 @@ public class MonitorBaseDto{
     @ApiModelProperty(value = "设备序列号")
     private String deviceSerial;
 
+    @ApiModelProperty(value = "管道序号")
+    private Integer aisle;
+
     @ApiModelProperty(value = "设备验证码")
     private String validateCode;
 

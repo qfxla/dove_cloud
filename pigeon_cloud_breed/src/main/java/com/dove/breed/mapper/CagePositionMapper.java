@@ -29,4 +29,7 @@ public interface CagePositionMapper extends BaseMapper<CagePosition> {
 
 //    //产蛋周期排行榜用，获取一个鸽棚的不包括查仔状态的所有cageId
 //    List<Long> getAllCageIdOfDovecote(@Param("baseId")Long baseId,@Param("dovecoteNumber")String dovecoteNumber);
+
+    //获取所有cageId
+    List<Long> getAllCageId();
 }

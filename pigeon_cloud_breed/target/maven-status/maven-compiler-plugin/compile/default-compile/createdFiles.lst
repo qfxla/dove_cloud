@@ -19,6 +19,7 @@ com\dove\breed\entity\dto\BreedBaseDto.class
 com\dove\breed\entity\DovecoteOutBill.class
 com\dove\breed\controller\ManualIncubationController.class
 com\dove\breed\service\BusinessBreedingService.class
+com\dove\breed\utils\Image2Mp4.class
 com\dove\breed\controller\ShipmentEntryBaseController.class
 com\dove\breed\service\DovecoteDailyService.class
 com\dove\breed\entity\vo\UseOfFeedVo.class
@@ -28,6 +29,7 @@ com\dove\breed\entity\vo\ShipmentEntryBaseVo.class
 com\dove\breed\entity\Cage.class
 com\dove\breed\entity\dto\DovecoteOutTypeDto.class
 com\dove\breed\service\impl\MonitorBaseServiceImpl.class
+com\dove\breed\entity\CageVideo.class
 com\dove\breed\entity\vo\DovecoteOutBaseVo.class
 com\dove\breed\mapper\DovecoteEntryTypeMapper.class
 com\dove\breed\config\WebMvcConfig$String2DateConverter.class
@@ -58,6 +60,7 @@ com\dove\breed\service\CagePositionService.class
 com\dove\breed\mapper\MonitorBaseMapper.class
 com\dove\breed\service\impl\DovecoteDailyServiceImpl.class
 com\dove\breed\service\impl\DovecoteServiceImpl.class
+com\dove\breed\controller\CageVideoController.class
 com\dove\breed\BreedApplication.class
 com\dove\breed\entity\FeedStock.class
 com\dove\breed\service\DovecoteService.class
@@ -66,11 +69,13 @@ com\dove\breed\mapper\DovecoteDailyMapper.class
 com\dove\breed\mapper\DovecoteMapper.class
 com\dove\breed\mapper\ShipmentEntryTypeMapper.class
 com\dove\breed\controller\ShipmentOutTypeController.class
+com\dove\breed\service\CageVideoService.class
 com\dove\breed\entity\dto\FeedStockDto.class
 com\dove\breed\mapper\DovecoteOutTypeMapper.class
 com\dove\breed\entity\vo\DovecoteVo.class
 com\dove\breed\service\impl\DovecoteOutBillServiceImpl.class
 com\dove\breed\entity\vo\CageRealVo.class
+com\dove\breed\service\impl\CageVideoServiceImpl.class
 com\dove\breed\controller\FeedStockController.class
 com\dove\breed\service\impl\ShipmentEntryBillServiceImpl.class
 com\dove\breed\entity\MonitorBase.class
@@ -83,6 +88,7 @@ com\dove\breed\entity\vo\DovecoteEntryBaseShowVo.class
 com\dove\breed\entity\CagePicture.class
 com\dove\breed\service\ManualIncubationService.class
 com\dove\breed\controller\ShipmentEntryBillController.class
+com\dove\breed\mapper\CageVideoMapper.class
 com\dove\breed\controller\DovecoteEntryBillController.class
 com\dove\breed\entity\dto\DovecoteEntryTypeDto.class
 com\dove\breed\utils\PageUtil.class

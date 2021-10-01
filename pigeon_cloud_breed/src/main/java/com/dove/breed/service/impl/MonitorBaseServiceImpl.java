@@ -58,7 +58,7 @@ public class MonitorBaseServiceImpl extends ServiceImpl<MonitorBaseMapper, Monit
         JSONObject data = s.getJSONObject("data");
         String accessToken = data.getString("accessToken");
         monitorVideo.setAccessToken(accessToken);
-        String url1="https://open.ys7.com/ezopen/h5/iframe_se?url=ezopen://"+monitorVideo.getValidateCode()+"@open.ys7.com/"+monitorVideo.getDeviceSerial()+"/1.live&autoplay=0&audio=1&accessToken="+monitorVideo.getAccessToken()+"&templete=2";
+        String url1 = "https://open.ys7.com/ezopen/h5/iframe_se?url=ezopen://open.ys7.com/"+monitorVideo.getDeviceSerial()+"/"+monitorVideo.getAisle()+".live&autoplay=1&accessToken="+monitorVideo.getAccessToken()+"&templete=2";
         monitorVideo.setVideoUrl(url1);
         return monitorBaseMapper.insert(monitorVideo) >0;
     }
@@ -78,7 +78,7 @@ public class MonitorBaseServiceImpl extends ServiceImpl<MonitorBaseMapper, Monit
         JSONObject data = s.getJSONObject("data");
         String accessToken = data.getString("accessToken");
         monitorVideo.setAccessToken(accessToken);
-        String url1="https://open.ys7.com/ezopen/h5/iframe_se?url=ezopen://"+monitorVideo.getValidateCode()+"@open.ys7.com/"+monitorVideo.getDeviceSerial()+"/1.live&autoplay=0&audio=1&accessToken="+monitorVideo.getAccessToken()+"&templete=2";
+        String url1 = "https://open.ys7.com/ezopen/h5/iframe_se?url=ezopen://open.ys7.com/"+monitorVideo.getDeviceSerial()+"/"+monitorVideo.getAisle()+".live&autoplay=1&accessToken="+monitorVideo.getAccessToken()+"&templete=2";
         monitorVideo.setVideoUrl(url1);
         monitorBaseMapper.updateById(monitorVideo);
     }
@@ -108,9 +108,9 @@ public class MonitorBaseServiceImpl extends ServiceImpl<MonitorBaseMapper, Monit
         JSONObject data = s.getJSONObject("data");
         String accessToken = data.getString("accessToken");
         monitorBase.setAccessToken(accessToken);
-        String url1="https://open.ys7.com/ezopen/h5/iframe_se?url=ezopen://"+monitorBase.getValidateCode()+"@open.ys7.com/"+monitorBase.getDeviceSerial()+"/1.live&autoplay=0&audio=1&accessToken="+monitorBase.getAccessToken()+"&templete=2";
+        String url1 = "https://open.ys7.com/ezopen/h5/iframe_se?url=ezopen://open.ys7.com/"+monitorBase.getDeviceSerial()+"/"+monitorBase.getAisle()+".live&autoplay=1&accessToken="+monitorBase.getAccessToken()+"&templete=2";
         monitorBase.setVideoUrl(url1);
-        return monitorBaseMapper.updateById(monitorBase) > 0;
+        return monitorBaseMapper.updateById(monitorBase)>0;
     }
 
     @Override

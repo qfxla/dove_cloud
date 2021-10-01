@@ -1,12 +1,25 @@
 package com.dove.breed.controller;
 
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.dove.breed.service.CagePictureService;
+import com.dove.breed.service.CagePositionService;
+import com.dove.breed.utils.Image2Mp4;
+import io.swagger.annotations.Api;
 import okhttp3.*;
+import org.bytedeco.javacv.FrameRecorder;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -16,9 +29,13 @@ import org.springframework.web.multipart.MultipartFile;
  * @author zcj
  * @since 2021-09-23
  */
+@Api(tags = "鸽笼图片表")
 @RestController
 @RequestMapping("/breed/cage-picture")
 public class CagePictureController {
+    @Autowired
+    private CagePictureService cagePictureService;
+
     String UPLOAD_PATH = "http://120.77.156.205:9800/upload";
 
     @PostMapping("/upload")
@@ -54,5 +71,6 @@ public class CagePictureController {
 
         return result;
     }
+
 }
 

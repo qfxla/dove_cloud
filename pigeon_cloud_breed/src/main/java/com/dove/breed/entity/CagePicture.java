@@ -1,13 +1,12 @@
 package com.dove.breed.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.util.Date;
-import com.baomidou.mybatisplus.annotation.Version;
-import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 /**
  * <p>
@@ -17,6 +16,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @author zcj
  * @since 2021-09-23
  */
+@Data
 @TableName("t_cage_picture")
 @ApiModel(value="CagePicture对象", description="鸽笼图片表")
 public class CagePicture implements Serializable {
@@ -36,82 +36,21 @@ public class CagePicture implements Serializable {
         @ApiModelProperty(value = "py处理完图片")
         private String processPic;
 
+        //创建时间
         @ApiModelProperty(value = "创建时间")
+        @TableField(value = "gmt_create", fill = FieldFill.INSERT)
         private Date gmtCreate;
 
+        //修改时间
         @ApiModelProperty(value = "修改时间")
+        @TableField(value = "gmt_modified", fill = FieldFill.INSERT_UPDATE)
         private Date gmtModified;
 
+        //逻辑删除
         @ApiModelProperty(value = "逻辑删除")
-        private Boolean isDeleted;
+        @TableField("is_deleted")
+        @TableLogic
+        private Boolean deleted;
 
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getCageId() {
-        return cageId;
-    }
-
-    public void setCageId(Long cageId) {
-        this.cageId = cageId;
-    }
-
-    public String getPic() {
-        return pic;
-    }
-
-    public void setPic(String pic) {
-        this.pic = pic;
-    }
-
-    public String getProcessPic() {
-        return processPic;
-    }
-
-    public void setProcessPic(String processPic) {
-        this.processPic = processPic;
-    }
-
-    public Date getGmtCreate() {
-        return gmtCreate;
-    }
-
-    public void setGmtCreate(Date gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
-
-    public Date getGmtModified() {
-        return gmtModified;
-    }
-
-    public void setGmtModified(Date gmtModified) {
-        this.gmtModified = gmtModified;
-    }
-
-    public Boolean getDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(Boolean isDeleted) {
-        this.isDeleted = isDeleted;
-    }
-
-    @Override
-    public String toString() {
-        return "CagePicture{" +
-        "id=" + id +
-        ", cageId=" + cageId +
-        ", pic=" + pic +
-        ", processPic=" + processPic +
-        ", gmtCreate=" + gmtCreate +
-        ", gmtModified=" + gmtModified +
-        ", isDeleted=" + isDeleted +
-        "}";
-    }
 }
