@@ -25,7 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/breed/cage-video")
 public class CageVideoController {
 
-    String UPLOAD_PATH = "http://120.77.156.205:9800/upload";
+    String UPLOAD_PATH = "http://120.77.156.205:9800/group1/upload";
 
     @PostMapping("/upload")
     public String upload2(MultipartFile file) {
