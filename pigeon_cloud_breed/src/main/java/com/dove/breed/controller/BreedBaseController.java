@@ -138,8 +138,6 @@ public class BreedBaseController {
         paramMap.put("file", file);
         //输出
         paramMap.put("output","json");
-        //自定义路径
-        paramMap.put("path","baseImage");
         //场景
         paramMap.put("scene","baseImage");
         //上传
