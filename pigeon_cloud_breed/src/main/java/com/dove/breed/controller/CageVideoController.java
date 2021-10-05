@@ -28,7 +28,7 @@ public class CageVideoController {
     @Autowired
             private Image2Mp4 image2Mp4;
 
-    String UPLOAD_PATH = "http://120.77.156.205:9800/upload";
+    String UPLOAD_PATH = "http://120.77.156.205:9800/group1/upload";
 
     @PostMapping("/upload")
     public String upload2(MultipartFile file) {
