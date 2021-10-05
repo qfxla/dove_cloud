@@ -91,10 +91,6 @@ public class TestCode {
 
     @Test
     public void test() throws IOException, InterruptedException {
-//        CageVideo cageVideo = new CageVideo(2344L, "/group1/img.mp4");
-//        int insert = cageVideoMapper.insert(cageVideo);
-        int i = cageVideoMapper.deleteById(1443015982309244929L);
-        System.out.println(i);
     }
 
 

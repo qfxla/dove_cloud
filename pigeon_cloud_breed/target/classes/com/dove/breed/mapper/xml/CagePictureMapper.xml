@@ -17,5 +17,6 @@
         FROM t_cage_picture
         WHERE cage_id = #{cageId}
         AND DATEDIFF(gmt_create,NOW())=-1
+        ORDER by gmt_create asc
     </select>
 </mapper>

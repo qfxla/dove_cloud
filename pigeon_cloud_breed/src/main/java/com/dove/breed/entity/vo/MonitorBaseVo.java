@@ -22,6 +22,12 @@ public class MonitorBaseVo {
     @TableId(value = "id", type = IdType.ID_WORKER)
     private Long id;
 
+    @ApiModelProperty(value = "基地编号")
+    private Long baseId;
+
+    @ApiModelProperty(value = "鸽棚编号")
+    private String dovecoteNumber;
+
     @ApiModelProperty(value = "视频名称")
     private String videoName;
 

@@ -5,6 +5,7 @@ import com.dove.breed.utils.Image2Mp4;
 import io.swagger.annotations.Api;
 import okhttp3.*;
 import org.bytedeco.javacv.FrameRecorder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,8 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("/breed/cage-video")
 public class CageVideoController {
+    @Autowired
+            private Image2Mp4 image2Mp4;
 
     String UPLOAD_PATH = "http://120.77.156.205:9800/upload";
 
@@ -59,6 +62,12 @@ public class CageVideoController {
         }
 
         return result;
+    }
+
+    @GetMapping("/heihei")
+    public void updateVideo() throws FrameRecorder.Exception {
+        System.out.println("1111111111");
+        image2Mp4.updateMp4();
     }
 
 }
