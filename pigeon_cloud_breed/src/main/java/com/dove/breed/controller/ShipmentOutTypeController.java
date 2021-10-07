@@ -42,14 +42,6 @@ public class ShipmentOutTypeController {
     @Autowired
     private ConvertUtil convertUtil;
 
-    @ApiOperation(value = "新增")
-    @PostMapping("/save")
-    public Result save(@RequestBody ShipmentOutTypeDto shipmentOutTypeDto){
-        ShipmentOutType shipmentOutType = new ShipmentOutType();
-        BeanUtils.copyProperties(shipmentOutTypeDto,shipmentOutType,ShipmentOutType.class);
-        boolean save = shipmentOutTypeService.save(shipmentOutType);
-        return save? Result.success("保存成功") : Result.error("保存失败");
-    }
 
     @ApiOperation(value = "根据id删除")
     @DeleteMapping("/delete/{id}")
@@ -87,7 +79,7 @@ public class ShipmentOutTypeController {
 
     @ApiOperation(value = "根据id修改")
     @PostMapping("/update/{id}")
-    public Result update(@PathVariable("id") Long id, @RequestBody ShipmentOutTypeDto shipmentOutTypeDto){
+    public Result update(@PathVariable("id") Integer id, @RequestBody ShipmentOutTypeDto shipmentOutTypeDto){
         ShipmentOutType shipmentOutType = new ShipmentOutType();
         BeanUtils.copyProperties(shipmentOutTypeDto,shipmentOutType,ShipmentOutType.class);
         shipmentOutType.setTypeId(id);
@@ -95,5 +87,10 @@ public class ShipmentOutTypeController {
         return b?Result.success("修改成功") : Result.error("修改失败");
     }
 
+//    @ApiOperation(value = "新增出库类型")
+//    @PostMapping("/saveType")
+//    public Result save(@RequestBody ShipmentOutTypeDto shipmentOutTypeDto){
+//
+//    }
 
 }

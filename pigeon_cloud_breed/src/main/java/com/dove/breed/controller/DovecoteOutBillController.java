@@ -85,37 +85,37 @@ public class DovecoteOutBillController {
     }
 
 
-    @ApiOperation(value = "根据id修改")
-    @PostMapping("/update")
-    public Result update(@RequestParam("billId")Long billId,@RequestBody Map<String,Object> map){
-        //删除原订单号
-        dovecoteOutBillService.removeById(billId);
-        QueryWrapper<DovecoteOutBase> wrapper = new QueryWrapper<>();
-        wrapper.eq("dovecote_out_bill",billId)
-                .eq("is_deleted",0);
-        List<DovecoteOutBase> bases = dovecoteOutBaseService.list(wrapper);
-        ArrayList<Long> list1 = new ArrayList<>();
-        for (DovecoteOutBase base : bases) {
-            list1.add(base.getId());
-        }
-        dovecoteOutBaseService.removeByIds(list1);
-
-        DovecoteOutBillDto dovecoteOutBillDto = null;
-        ArrayList<DovecoteOutBaseDto> dovecoteOutBaseDtoList = new ArrayList<>();
-        try {
-            dovecoteOutBillDto = JSON.parseObject(JSON.toJSONString(map.get("dovecoteOutBillDto")), DovecoteOutBillDto.class);
-            List<DovecoteOutBaseDto> list = JSON.parseObject(JSON.toJSONString(map.get("dovecoteOutBaseDtoList")),ArrayList.class);
-            for (int i = 0;i < list.size();i++){
-                //数组内容得在解析一遍手动放进去
-                DovecoteOutBaseDto po = JSON.parseObject(JSON.toJSONString(list.get(i)), DovecoteOutBaseDto.class);
-                dovecoteOutBaseDtoList.add(po);
-            }
-        }catch (Exception exception){
-            exception.printStackTrace();
-        }
-        DovecoteOutBillVo dovecoteOutBillVo = dovecoteOutBillService.submitDovecoteOutBill(dovecoteOutBillDto,dovecoteOutBaseDtoList);
-        return dovecoteOutBillVo.getId() != null?Result.success("订单修改成功").data(dovecoteOutBillVo) : Result.error("订单修改失败");
-    }
+//    @ApiOperation(value = "根据id修改")
+//    @PostMapping("/update")
+//    public Result update(@RequestParam("billId")Long billId,@RequestBody Map<String,Object> map){
+//        //删除原订单号
+//        dovecoteOutBillService.removeById(billId);
+//        QueryWrapper<DovecoteOutBase> wrapper = new QueryWrapper<>();
+//        wrapper.eq("dovecote_out_bill",billId)
+//                .eq("is_deleted",0);
+//        List<DovecoteOutBase> bases = dovecoteOutBaseService.list(wrapper);
+//        ArrayList<Long> list1 = new ArrayList<>();
+//        for (DovecoteOutBase base : bases) {
+//            list1.add(base.getId());
+//        }
+//        dovecoteOutBaseService.removeByIds(list1);
+//
+//        DovecoteOutBillDto dovecoteOutBillDto = null;
+//        ArrayList<DovecoteOutBaseDto> dovecoteOutBaseDtoList = new ArrayList<>();
+//        try {
+//            dovecoteOutBillDto = JSON.parseObject(JSON.toJSONString(map.get("dovecoteOutBillDto")), DovecoteOutBillDto.class);
+//            List<DovecoteOutBaseDto> list = JSON.parseObject(JSON.toJSONString(map.get("dovecoteOutBaseDtoList")),ArrayList.class);
+//            for (int i = 0;i < list.size();i++){
+//                //数组内容得在解析一遍手动放进去
+//                DovecoteOutBaseDto po = JSON.parseObject(JSON.toJSONString(list.get(i)), DovecoteOutBaseDto.class);
+//                dovecoteOutBaseDtoList.add(po);
+//            }
+//        }catch (Exception exception){
+//            exception.printStackTrace();
+//        }
+//        DovecoteOutBillVo dovecoteOutBillVo = dovecoteOutBillService.submitDovecoteOutBill(dovecoteOutBillDto,dovecoteOutBaseDtoList);
+//        return dovecoteOutBillVo.getId() != null?Result.success("订单修改成功").data(dovecoteOutBillVo) : Result.error("订单修改失败");
+//    }
 
     @ApiOperation(value = "根据创建时间和基地id查询ShipmentOutBill")
     @GetMapping("/findBillByGmt_createAndBaseId/{startTime}/{endTime}/{dovecoteId}")
@@ -137,25 +137,25 @@ public class DovecoteOutBillController {
         return Result.success("查询成功").data(page);
     }
 
-    @ApiOperation(value = "提交入库单")
-    @PostMapping("/submitDovecoteOutBill")
-    public Result submitDovecoteOutBill(@RequestBody Map<String,Object> map){
-        DovecoteOutBillDto dovecoteOutBillDto = null;
-        ArrayList<DovecoteOutBaseDto> dovecoteOutBaseDtoList = new ArrayList<>();
-        try {
-            dovecoteOutBillDto = JSON.parseObject(JSON.toJSONString(map.get("dovecoteOutBillDto")), DovecoteOutBillDto.class);
-            List<DovecoteOutBaseDto> list = JSON.parseObject(JSON.toJSONString(map.get("dovecoteOutBaseDtoList")),ArrayList.class);
-            for (int i = 0;i < list.size();i++){
-                //数组内容得在解析一遍手动放进去
-                DovecoteOutBaseDto po = JSON.parseObject(JSON.toJSONString(list.get(i)), DovecoteOutBaseDto.class);
-                dovecoteOutBaseDtoList.add(po);
-            }
-        }catch (Exception exception){
-            exception.printStackTrace();
-        }
-        DovecoteOutBillVo dovecoteOutBillVo = dovecoteOutBillService.submitDovecoteOutBill(dovecoteOutBillDto,dovecoteOutBaseDtoList);
-        return dovecoteOutBillVo != null?Result.success("提交成功").data(dovecoteOutBillVo) : Result.error("提交失败");
-    }
+//    @ApiOperation(value = "提交入库单")
+//    @PostMapping("/submitDovecoteOutBill")
+//    public Result submitDovecoteOutBill(@RequestBody Map<String,Object> map){
+//        DovecoteOutBillDto dovecoteOutBillDto = null;
+//        ArrayList<DovecoteOutBaseDto> dovecoteOutBaseDtoList = new ArrayList<>();
+//        try {
+//            dovecoteOutBillDto = JSON.parseObject(JSON.toJSONString(map.get("dovecoteOutBillDto")), DovecoteOutBillDto.class);
+//            List<DovecoteOutBaseDto> list = JSON.parseObject(JSON.toJSONString(map.get("dovecoteOutBaseDtoList")),ArrayList.class);
+//            for (int i = 0;i < list.size();i++){
+//                //数组内容得在解析一遍手动放进去
+//                DovecoteOutBaseDto po = JSON.parseObject(JSON.toJSONString(list.get(i)), DovecoteOutBaseDto.class);
+//                dovecoteOutBaseDtoList.add(po);
+//            }
+//        }catch (Exception exception){
+//            exception.printStackTrace();
+//        }
+//        DovecoteOutBillVo dovecoteOutBillVo = dovecoteOutBillService.submitDovecoteOutBill(dovecoteOutBillDto,dovecoteOutBaseDtoList);
+//        return dovecoteOutBillVo != null?Result.success("提交成功").data(dovecoteOutBillVo) : Result.error("提交失败");
+//    }
 
     //用于求某天基地各类型总数
     @ApiOperation("用于求某天基地各类型总数")

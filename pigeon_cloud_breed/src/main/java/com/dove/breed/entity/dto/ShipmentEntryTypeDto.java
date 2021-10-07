@@ -1,6 +1,8 @@
 package com.dove.breed.entity.dto;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -11,6 +13,16 @@ import lombok.Data;
 @Data
 public class ShipmentEntryTypeDto {
     private static final long serialVersionUID = 1L;
+
+    //基地id
+    @ApiModelProperty(value = "基地id")
+    @TableField(value = "base_id")
+    private Long baseId;
+
+    //产品编号
+    @ApiModelProperty(value = "产品编号")
+    @TableField(value = "product_number")
+    private Integer productNumber;
 
     //名称
     @ApiModelProperty(value = "名称")

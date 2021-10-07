@@ -52,6 +52,7 @@ com\dove\breed\service\impl\DovecoteEntryBaseServiceImpl.class
 com\dove\breed\entity\DovecoteEntryBase.class
 com\dove\breed\controller\PictureController.class
 com\dove\breed\entity\dto\DovecoteEntryBaseDto.class
+com\dove\breed\handler\GlobalHandler.class
 com\dove\breed\entity\vo\ShipmentEntryBillVo.class
 com\dove\breed\entity\vo\ShipmentEntryTypeVo.class
 com\dove\breed\entity\BusinessBreeding.class

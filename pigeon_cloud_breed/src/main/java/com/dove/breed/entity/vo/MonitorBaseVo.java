@@ -43,11 +43,17 @@ public class MonitorBaseVo {
     @ApiModelProperty(value = "创建者")
     private String createBy;
 
-    @ApiModelProperty(value = "设备使用状态")
-    private Integer statusCode;
+    @ApiModelProperty(value = "设备序列号")
+    private String deviceSerial;
 
     @ApiModelProperty(value = "管道序号")
     private Integer aisle;
+
+    @ApiModelProperty(value = "设备验证码")
+    private String validateCode;
+
+    @ApiModelProperty(value = "设备使用状态")
+    private Integer statusCode;
 
     @ApiModelProperty(value = "更新时间")
     @TableField(value = "gmt_modified",fill = FieldFill.INSERT_UPDATE)

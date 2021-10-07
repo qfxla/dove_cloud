@@ -88,7 +88,7 @@ public class ShipmentEntryTypeController {
 
     @ApiOperation(value = "根据id修改")
     @PostMapping("/update/{id}")
-    public Result update(@PathVariable("id") Long id, @RequestBody ShipmentEntryTypeDto shipmentEntryTypeDto){
+    public Result update(@PathVariable("id") Integer id, @RequestBody ShipmentEntryTypeDto shipmentEntryTypeDto){
         ShipmentEntryType shipmentEntryType = new ShipmentEntryType();
         BeanUtils.copyProperties(shipmentEntryTypeDto,shipmentEntryType,ShipmentEntryType.class);
         shipmentEntryType.setTypeId(id);

@@ -31,7 +31,17 @@ public class ShipmentEntryType extends Model<ShipmentEntryType> {
     //主键
     @ApiModelProperty(value = "主键")
     @TableId(value = "type_id", type = IdType.AUTO)
-    private Long typeId;
+    private Integer typeId;
+
+    //基地id
+    @ApiModelProperty(value = "基地id")
+    @TableField(value = "base_id")
+    private Long baseId;
+
+    //产品编号
+    @ApiModelProperty(value = "产品编号")
+    @TableField(value = "product_number")
+    private Integer productNumber;
 
     //名称
     @ApiModelProperty(value = "名称")

@@ -28,7 +28,7 @@
         id, base_id, video_name, `type`, monitoring_location, video_url, create_by, device_serial, validate_code, status_code, access_token, guige, gmt_create, gmt_modified, is_deleted, version
     </sql>
     <sql id="Vo_Column_List">
-        id, video_name, `type`, monitoring_location, video_url, create_by, device_serial, gmt_modified
+        id, base_id, dovecote_number, video_name, `type`, monitoring_location, video_url, status_code, create_by, device_serial, aisle, validate_code, gmt_modified
     </sql>
     <select id="selectList" resultType="com.dove.breed.entity.vo.MonitorBaseVo">
         select <include refid="Vo_Column_List"/>

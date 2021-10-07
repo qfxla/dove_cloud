@@ -38,6 +38,11 @@ public class DovecoteOutBill extends Model<DovecoteOutBill> {
     @TableField(value = "farm_batch")
     private String farmBatch;
 
+    //对应基地出库单id
+    @ApiModelProperty(value = "对应基地出库单id")
+    @TableField(value = "shipment_out_bill")
+    private Long shipmentOutBill;
+
     //产量所属基地id
     @ApiModelProperty(value = "产量所属基地id")
     @TableField("base_id")

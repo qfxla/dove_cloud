@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @author zcj
  * @creat 2021-08-20-19:47
@@ -42,4 +44,6 @@ public class ShipmentOutBillDto {
     @TableField("destination")
     private String destination;
 
+    //基地出库单下的鸽棚出库单
+    private List<DovecoteOutBillDto> dovecoteOutBillDtoList;
 }

@@ -1,7 +1,9 @@
 package com.dove.breed.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dove.breed.entity.ShipmentOutBill;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.dove.breed.entity.dto.ShipmentOutBillDto;
 import com.dove.breed.entity.vo.ShipmentOutBillVo;
 import org.apache.ibatis.annotations.Param;
 
@@ -19,5 +21,9 @@ import java.util.List;
 public interface ShipmentOutBillService extends IService<ShipmentOutBill> {
     List<ShipmentOutBillVo> findBillByGmt_createAndBaseId(Date startTime, Date endTime, Long baseId);
 
-    int saveBill(ShipmentOutBill shipmentOutBill);
+    int saveBill(ShipmentOutBillDto shipmentOutBillDto);
+
+    Page<ShipmentOutBillVo> getShipmentOutBill(Long baseId, String type, int pageNum, int pageSize);
+
+    Page<ShipmentOutBillVo> getShipmentOutBillByDate(Long baseId,String type,Date date,int pageNum,int pageSize);
 }

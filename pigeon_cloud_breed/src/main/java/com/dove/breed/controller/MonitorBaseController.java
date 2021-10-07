@@ -46,9 +46,9 @@ public class MonitorBaseController {
 
     @ApiOperation(value = "根据摄像头类型查询所有的摄像头")
     @GetMapping(value = "/baseId/{current}/{size}")
-    public Result findByBaseId(@RequestParam("基地id")Long baseId,@RequestParam("摄像头类型(1基地，2鸽棚，3投喂机)") Integer type,
-                               @RequestParam(value = "鸽棚编号(当类型为(3)投喂机时才可以选择是否填写，否则禁用)",required = false)String dovecoteNumber,
-                               @RequestParam(value = "设备使用状态(1使用中，2未启用，3故障)",required = false)Integer statusCode,
+    public Result findByBaseId(@RequestParam("baseId")Long baseId,@RequestParam("type") Integer type,
+                               @RequestParam(value = "dovecoteNumber",required = false)String dovecoteNumber,
+                               @RequestParam(value = "statusCode",required = false)Integer statusCode,
                                @PathVariable int current,@PathVariable int size){
         List<MonitorBaseVo> list = monitorBaseService.listByType(baseId, type, dovecoteNumber, statusCode, SecurityContextUtil.getUserDetails().getEnterpriseId());
         return Result.success().data(PageUtil.list2Page(list, current, size));

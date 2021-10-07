@@ -171,8 +171,8 @@ public class DovecoteController {
     @ApiOperation("获得异常总数最多的鸽笼")
     @GetMapping("/getMaxAbnormal")
     public Result getMaxAbnormal(@RequestParam("baseId")Long baseId, @RequestParam("dovecoteNumber")String dovecoteNumber,
-                                 @RequestParam("number") @ApiParam(value = "前几") int number){
-        List<CageRealVo> cages = dovecoteService.getMaxAbnormal(baseId, dovecoteNumber, number);
+                                 @RequestParam("pageNum")int pageNum,@RequestParam("pageSize")int pageSize){
+        List<CageRealVo> cages = dovecoteService.getMaxAbnormal(baseId, dovecoteNumber,pageNum,pageSize);
         return cages.size() > 0 ?Result.success("获取成功").data(cages) : Result.error("获取失败");
 
     }

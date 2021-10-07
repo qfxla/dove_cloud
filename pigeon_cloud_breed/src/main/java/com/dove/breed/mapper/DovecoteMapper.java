@@ -42,7 +42,8 @@ public interface DovecoteMapper extends BaseMapper<Dovecote> {
     //获得异常数最多的前number个鸽笼
     List<CageRealVo> getMaxAbnormal(@Param("baseId")Long baseId,
                                     @Param("dovecoteNumber")String dovecoteNumber,
-                                    @Param("number")int number);
+                                    @Param("start")int start,
+                                    @Param("pageSize")int pageSize);
     //获得鸽子各状态的数量
     List<DoveAmountOfStateVo> getAmountOfState(@Param("baseId")Long baseId,
                                                @Param("dovecoteNumber")String dovecoteNumber);

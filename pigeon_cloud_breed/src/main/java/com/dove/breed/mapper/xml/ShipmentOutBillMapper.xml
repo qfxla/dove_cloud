@@ -35,5 +35,24 @@
         FROM t_shipment_out_bill
         WHERE base_id = #{baseId} And gmt_create between #{startTime} and #{endTime}
     </select>
+    <select id="getHowManyOfToday" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM t_shipment_out_bill
+        WHERE is_deleted = 0
+        AND type = #{type}
+        AND day(gmt_modified) = day(now())
+    </select>
+    <select id="getLastBill" resultType="java.lang.Long">
+        SELECT MAX(id) FROM t_shipment_out_bill;
+    </select>
+    <select id="getShipmentOutBillByDate" resultType="com.dove.breed.entity.ShipmentOutBill">
+        SELECT *
+        FROM t_shipment_out_bill
+        WHERE is_deleted = 0
+        AND type = #{type}
+        AND base_id = #{baseId}
+        AND is_deleted = 0
+        AND date_format(gmt_create,'%y%m%d') = date_format(#{date},'%y%m%d')
+    </select>
 
 </mapper>

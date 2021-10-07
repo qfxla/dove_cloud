@@ -11,6 +11,7 @@ import com.dove.breed.entity.vo.*;
 import com.dove.breed.mapper.*;
 import com.dove.breed.service.*;
 import com.dove.breed.utils.ConvertUtil;
+import com.dove.breed.utils.GetMonth;
 import com.dove.breed.utils.Image2Mp4;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -91,11 +92,17 @@ public class TestCode {
 
     @Test
     public void test() throws IOException, InterruptedException {
+        DovecoteEntryBase dovecoteEntryBase = new DovecoteEntryBase();
+        dovecoteEntryBase.setType("ii");
+        DovecoteEntryBaseVo convert = convertUtil.convert(dovecoteEntryBase, DovecoteEntryBaseVo.class);
+        System.out.println(convert);
     }
-
-
     @Test
     public void test1() throws IOException, InterruptedException {
+        ShipmentOutBill shipmentOutBill = new ShipmentOutBill();
+        shipmentOutBill.setTotal(10);
+        ShipmentOutBillVo convert = convertUtil.convert(shipmentOutBill, ShipmentOutBillVo.class);
+        System.out.println(convert);
     }
 
     @Test

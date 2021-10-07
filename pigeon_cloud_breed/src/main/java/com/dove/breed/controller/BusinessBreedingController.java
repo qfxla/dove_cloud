@@ -22,13 +22,13 @@ import java.util.List;
     import org.springframework.web.bind.annotation.RestController;
 
 /**
-* <p>
-    * 商家表 前端控制器
-    * </p>
-*
-* @author zcj
-* @since 2021-08-18
-*/
+ * <p>
+ * 商家表 前端控制器
+ * </p>
+ *
+ * @author zcj
+ * @since 2021-08-18
+ */
 @CrossOrigin
 @Slf4j
 @Api(tags = "商家表")
@@ -67,11 +67,25 @@ public class BusinessBreedingController {
         return businessBreedingVoList.size() > 0?Result.success("查询成功").data(businessBreedingVoList) : Result.error("查询失败");
     }
 
+    @ApiOperation(value = "根据类型获取商家信息")
+    @GetMapping("/listByType/{pageNum}/{pageSize}")
+    public Object list(@PathVariable("pageNum")Long pageNum, @PathVariable("pageSize")Long pageSize,
+                       @RequestParam(value = "type") String type){
+        QueryWrapper<BusinessBreeding> wrapper = new QueryWrapper<>();
+        wrapper.eq("type", type).eq("guige",SecurityContextUtil.getUserDetails().getEnterpriseId());
+        IPage<BusinessBreeding> page = businessBreedingService.page(
+                new Page<>(pageNum, pageSize), wrapper);
+        IPage<BusinessBreedingVo> page1 = convertUtil.convert(page, BusinessBreedingVo.class);
+        return page1.getTotal() > 0?Result.success("分页成功").data(page1) : Result.error("分页失败");
+    }
+
     @ApiOperation(value = "列表（分页）")
     @GetMapping("/list/{pageNum}/{pageSize}")
     public Object list(@PathVariable("pageNum")Long pageNum, @PathVariable("pageSize")Long pageSize){
+        QueryWrapper<BusinessBreeding> wrapper = new QueryWrapper<>();
+        wrapper.eq("guige",SecurityContextUtil.getUserDetails().getEnterpriseId());
         IPage<BusinessBreeding> page = businessBreedingService.page(
-        new Page<>(pageNum, pageSize), null);
+                new Page<>(pageNum, pageSize), wrapper);
         IPage<BusinessBreedingVo> page1 = convertUtil.convert(page, BusinessBreedingVo.class);
         return page1.getTotal() > 0?Result.success("分页成功").data(page1) : Result.error("分页失败");
     }
@@ -92,6 +106,5 @@ public class BusinessBreedingController {
         boolean b = businessBreedingService.updateById(businessBreeding);
         return b?Result.success("修改成功") : Result.error("修改失败");
     }
-
-
 }
+

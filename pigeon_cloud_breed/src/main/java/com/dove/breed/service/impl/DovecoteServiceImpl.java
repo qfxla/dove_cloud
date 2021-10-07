@@ -100,9 +100,10 @@ public class DovecoteServiceImpl extends ServiceImpl<DovecoteMapper, Dovecote> i
     }
 
     @Override
-    public List<CageRealVo> getMaxAbnormal(Long baseId, String dovecoteNumber, int number){
+    public List<CageRealVo> getMaxAbnormal(Long baseId, String dovecoteNumber,int pageNum,int pageSize){
+        int start = pageSize * (pageNum - 1);
         //获取异常数最多的前number个鸽笼（cageId和TotalAbnormal）
-        List<CageRealVo> cageRealVoList = dovecoteMapper.getMaxAbnormal(baseId, dovecoteNumber, number);
+        List<CageRealVo> cageRealVoList = dovecoteMapper.getMaxAbnormal(baseId, dovecoteNumber,start, pageSize);
         Future<List<CageRealVo>> future1 = executorService.submit(() -> addAbnormal(cageRealVoList));
         Future<List<CageRealVo>> future2 = executorService.submit(() -> addPosition(cageRealVoList));
         while (!(future1.isDone() && future2.isDone())){

@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author zcj
@@ -30,6 +31,8 @@ public class DovecoteOutBillVo {
     @ApiModelProperty(value = "对应基地出库单批次号")
     @TableField(value = "farm_batch")
     private String farmBatch;
+
+
 
     //所选类型
     @ApiModelProperty(value = "订单类型")
@@ -70,4 +73,6 @@ public class DovecoteOutBillVo {
     @ApiModelProperty(value = "修改时间")
     @TableField(value = "gmt_modified", fill = FieldFill.INSERT_UPDATE)
     private Date gmtModified;
+
+    private List<DovecoteOutBaseVo> dovecoteOutBaseVoList;
 }

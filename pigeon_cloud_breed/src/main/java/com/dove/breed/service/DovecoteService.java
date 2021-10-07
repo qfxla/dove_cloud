@@ -31,7 +31,7 @@ public interface DovecoteService extends IService<Dovecote> {
 
     List<CageRealVo> rightByDays(Long baseId, String dovecoteNumber, int days);
 
-    List<CageRealVo> getMaxAbnormal(Long baseId,String dovecoteNumber,int number);
+    List<CageRealVo> getMaxAbnormal(Long baseId,String dovecoteNumber,int pageNum,int pageSize);
 
     Map<String,Integer> getAmountOfState(Long baseId,String dovecoteNumber);
 

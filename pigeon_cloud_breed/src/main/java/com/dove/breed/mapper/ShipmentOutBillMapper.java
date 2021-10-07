@@ -1,5 +1,6 @@
 package com.dove.breed.mapper;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dove.breed.entity.ShipmentOutBill;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dove.breed.entity.vo.ShipmentEntryBillVo;
@@ -22,4 +23,10 @@ import java.util.List;
 @Mapper
 public interface ShipmentOutBillMapper extends BaseMapper<ShipmentOutBill> {
     List<ShipmentOutBillVo> findBillByGmt_createAndBaseId(@Param("startTime") Date startTime, @Param("endTime")Date endTime, @Param("baseId")Long baseId);
+
+    int getHowManyOfToday(@Param("baseId")Long baseId,@Param("type")String type);
+    Long getLastBill();
+
+    List<ShipmentOutBill> getShipmentOutBillByDate(@Param("baseId")Long baseId, @Param("type")String type,
+                                                   @Param("date")Date date);
 }

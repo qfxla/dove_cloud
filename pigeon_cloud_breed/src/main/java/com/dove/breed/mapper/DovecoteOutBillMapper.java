@@ -40,4 +40,5 @@ public interface DovecoteOutBillMapper extends BaseMapper<DovecoteOutBill> {
 
     List<DovecoteOutBill> getSumOfTypeAndMonthByBaseId(@Param("baseId")Long baseId,@Param("month")int month);
 
+    int getHowManyOfToday(@Param("baseId")Long baseId);
 }

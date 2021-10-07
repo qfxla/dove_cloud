@@ -29,6 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.xmlunit.util.Convert;
 
 import java.lang.ref.WeakReference;
+import java.text.DecimalFormat;
 import java.util.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -66,61 +67,69 @@ public class DovecoteOutBillServiceImpl extends ServiceImpl<DovecoteOutBillMappe
         return bills;
     }
 
-    @Transactional
-    @Override
-    public DovecoteOutBillVo submitDovecoteOutBill(DovecoteOutBillDto dovecoteOutBillDto, List<DovecoteOutBaseDto> dovecoteOutBaseDtoList) {
-        DovecoteOutBill dovecoteOutBill = convertUtil.convert(dovecoteOutBillDto, DovecoteOutBill.class);
-        //根据日期生成批次号
-        String farmBatch = GetMonth.getDateToString();
-        dovecoteOutBill.setFarmBatch(farmBatch);
-        dovecoteOutBill.setGuige(SecurityContextUtil.getUserDetails().getEnterpriseId());
-        dovecoteOutBill.setGuige(SecurityContextUtil.getUserDetails().getEnterpriseId());
-        Lock lock = new ReentrantLock();
-        lock.lock();
-        dovecoteOutBillMapper.insert(dovecoteOutBill);
-        Long billId = dovecoteOutBillMapper.getLatestBillId();
-        lock.unlock();
-        int billTotal = 0;
-        int billAmount = 0;
-        for (DovecoteOutBaseDto po1 : dovecoteOutBaseDtoList) {
-            //把入库信息的订单号设置为添加的入库单单号
-            po1.setDovecoteOutBill(billId);
-            //查找有无这个typeName对应的typeId，set进去base中
-            QueryWrapper<DovecoteOutType> wrapper = new QueryWrapper<>();
-            wrapper.eq("name",po1.getTypeName());
-            //因为name是唯一的，所以结果是null或者List只有一个对象
-            List<DovecoteOutType> dovecoteOutTypeList = dovecoteOutTypeService.list(wrapper);
-            Long typeId = 0L;
-            if (dovecoteOutTypeList.size() != 0){
-                typeId = dovecoteOutTypeList.get(0).getTypeId();
-            }
-            po1.setTypeId(typeId);
-            //设置base的total
-            int total = 0;
-            if (po1.getUnitPrice() != null){
-                total = po1.getAmount() * po1.getUnitPrice();
-            }else {
-                total = 0;
-            }
-            po1.setTotal(total);
-            billTotal += total;
-            billAmount += po1.getAmount();
-            DovecoteOutBase dovecoteOutBase = convertUtil.convert(po1, DovecoteOutBase.class);
-            dovecoteOutBase.setGuige(SecurityContextUtil.getUserDetails().getEnterpriseId());
-            //插入出库信息
-            int insert = dovecoteOutBaseMapper.insert(dovecoteOutBase);
-            if (insert <= 0){
-                throw new GlobalException(StatusCode.ERROR,"添加订单信息错误");
-            }
-        }
-        DovecoteOutBill dovecoteOutBill1 = dovecoteOutBillMapper.selectById(billId);
-        dovecoteOutBill1.setTotal(billTotal);
-        dovecoteOutBill1.setAmount(billAmount);
-        dovecoteOutBillMapper.updateById(dovecoteOutBill1);
-        DovecoteOutBillVo result = convertUtil.convert(dovecoteOutBill1, DovecoteOutBillVo.class);
-        return result;
-
-    }
+//    @Transactional
+//    @Override
+//    public DovecoteOutBillVo submitDovecoteOutBill(DovecoteOutBillDto dovecoteOutBillDto, List<DovecoteOutBaseDto> dovecoteOutBaseDtoList) {
+//        DovecoteOutBill dovecoteOutBill = convertUtil.convert(dovecoteOutBillDto, DovecoteOutBill.class);
+//        //根据日期和基地生成批次号
+//        String date = GetMonth.getDateToString();//20211001
+////        DecimalFormat decimalFormat = new DecimalFormat("00");
+////        Long baseId = dovecoteOutBill.getBaseId();
+////        String format = decimalFormat.format(baseId);//001号基地
+////        //获取这是该基地的第几批
+////        int howManyOfToday = dovecoteOutBillMapper.getHowManyOfToday(baseId);
+////        DecimalFormat decimalFormat1 = new DecimalFormat("000");
+////        String format1 = decimalFormat1.format(howManyOfToday); //今天的第几批
+////        String farmBatch = date + format + format1;
+//        dovecoteOutBill.setFarmBatch(date);
+//
+//        dovecoteOutBill.setGuige(SecurityContextUtil.getUserDetails().getEnterpriseId());
+//        Lock lock = new ReentrantLock();
+//        lock.lock();
+//        dovecoteOutBillMapper.insert(dovecoteOutBill);
+//        Long billId = dovecoteOutBillMapper.getLatestBillId();
+//        lock.unlock();
+//        int billTotal = 0;
+//        int billAmount = 0;
+//        for (DovecoteOutBaseDto po1 : dovecoteOutBaseDtoList) {
+//            //把入库信息的订单号设置为添加的入库单单号
+//            po1.setDovecoteOutBill(billId);
+//            //查找有无这个typeName对应的typeId，set进去base中
+//            QueryWrapper<DovecoteOutType> wrapper = new QueryWrapper<>();
+//            wrapper.eq("name",po1.getTypeName());
+//            //因为name是唯一的，所以结果是null或者List只有一个对象
+//            List<DovecoteOutType> dovecoteOutTypeList = dovecoteOutTypeService.list(wrapper);
+//            Long typeId = 0L;
+//            if (dovecoteOutTypeList.size() != 0){
+//                typeId = dovecoteOutTypeList.get(0).getTypeId();
+//            }
+//            po1.setTypeId(typeId);
+//            //设置base的total
+//            int total = 0;
+//            if (po1.getUnitPrice() != null){
+//                total = po1.getAmount() * po1.getUnitPrice();
+//            }else {
+//                total = 0;
+//            }
+//            po1.setTotal(total);
+//            billTotal += total;
+//            billAmount += po1.getAmount();
+//            DovecoteOutBase dovecoteOutBase = convertUtil.convert(po1, DovecoteOutBase.class);
+//            dovecoteOutBase.setGuige(SecurityContextUtil.getUserDetails().getEnterpriseId());
+//            //插入出库信息
+//            int insert = dovecoteOutBaseMapper.insert(dovecoteOutBase);
+//            if (insert <= 0){
+//                throw new GlobalException(StatusCode.ERROR,"添加订单信息错误");
+//            }
+//        }
+//        DovecoteOutBill dovecoteOutBill1 = dovecoteOutBillMapper.selectById(billId);
+//        dovecoteOutBill1.setTotal(billTotal);
+//        dovecoteOutBill1.setAmount(billAmount);
+//        dovecoteOutBillMapper.updateById(dovecoteOutBill1);
+//        DovecoteOutBillVo result = convertUtil.convert(dovecoteOutBill1, DovecoteOutBillVo.class);
+//        return result;
+//
+//    }
 
     @Override
     public Map<String, Integer> getAllAmountByBaseIdAndDateAndType(Long baseId, String type, int year, int month, int day) {

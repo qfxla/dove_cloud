@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author zcj
@@ -76,5 +77,6 @@ public class DovecoteEntryBaseVo {
     @ApiModelProperty(value = "修改时间")
     @TableField(value = "gmt_modified", fill = FieldFill.INSERT_UPDATE)
     private Date gmtModified;
+
 
 }

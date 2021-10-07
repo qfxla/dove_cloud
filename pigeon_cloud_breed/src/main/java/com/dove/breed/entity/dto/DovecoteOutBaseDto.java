@@ -10,20 +10,20 @@ import lombok.Data;
  */
 @Data
 public class DovecoteOutBaseDto {
-    //对应的出仓单id
-    @ApiModelProperty(value = "对应的出仓单id")
-    @TableField("dovecote_out_bill")
-    private Long dovecoteOutBill;
-
-    //类型
-    @ApiModelProperty(value = "类型")
-    @TableField("type")
-    private String type;
-
-    //产品编号
-    @ApiModelProperty(value = "产品编号")
-    @TableField("type_id")
-    private Long typeId;
+//    //对应的出仓单id
+//    @ApiModelProperty(value = "对应的出仓单id")
+//    @TableField("dovecote_out_bill")
+//    private Long dovecoteOutBill;
+//
+//    //类型
+//    @ApiModelProperty(value = "类型")
+//    @TableField("type")
+//    private String type;
+//
+//    //产品编号
+//    @ApiModelProperty(value = "产品编号")
+//    @TableField("type_id")
+//    private Long typeId;
 
     //名称
     @ApiModelProperty(value = "名称")
@@ -40,11 +40,11 @@ public class DovecoteOutBaseDto {
     @ApiModelProperty(value = "单价")
     @TableField("unit_price")
     private Integer unitPrice;
-
-    //总价
-    @ApiModelProperty(value = "总价")
-    @TableField("total")
-    private Integer total;
+//
+//    //总价
+//    @ApiModelProperty(value = "总价")
+//    @TableField("total")
+//    private Integer total;
 
     //备注
     @ApiModelProperty(value = "备注")

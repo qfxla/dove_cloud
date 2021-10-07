@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author zcj
@@ -66,6 +67,8 @@ public class ShipmentOutBillVo {
     @ApiModelProperty(value = "目的地")
     @TableField("destination")
     private String destination;
+
+    private List<DovecoteOutBillVo> dovecoteOutBillVoList;
 
     //创建时间
     @ApiModelProperty(value = "创建时间")

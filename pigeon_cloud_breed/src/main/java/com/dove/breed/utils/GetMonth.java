@@ -23,17 +23,11 @@ public class GetMonth {
     }
 
     public static String getDateToString(){
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
         Calendar c = Calendar.getInstance();
         c.setTime(new Date());
         Date date = c.getTime();
         String dateString = format.format(date);
-        StringBuilder stringBuilder = new StringBuilder(dateString);
-        int i = stringBuilder.indexOf("-");
-        StringBuilder stringBuilder1 = stringBuilder.delete(i, i + 1);
-        int i1 = stringBuilder1.indexOf("-");
-        StringBuilder stringBuilder2 = stringBuilder1.delete(i1, i1 + 1);
-        dateString = stringBuilder2.toString();
         return dateString;
     }
 

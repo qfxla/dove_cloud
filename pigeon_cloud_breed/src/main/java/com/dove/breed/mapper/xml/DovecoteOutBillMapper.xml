@@ -6,6 +6,7 @@
     <resultMap id="BaseResultMap" type="com.dove.breed.entity.DovecoteOutBill">
         <id column="id" property="id" />
         <result column="farm_batch" property="farmBatch"/>
+        <result column="shipment_out_bill" property="shipmentOutBill"/>
         <result column="base_id" property="baseId" />
         <result column="type" property="type"/>
         <result column="amount" property="amount"/>
@@ -79,5 +80,11 @@
         FROM t_dovecote_out_bill
         WHERE base_id = #{baseId}
         AND month(gmt_create) = #{month}
+    </select>
+    <select id="getHowManyOfToday" resultType="java.lang.Integer">
+        SELECT COUNT(*) amount
+        FROM t_dovecote_out_bill
+        WHERE is_deleted = 0
+        AND day(gmt_create) = day(now())
     </select>
 </mapper>

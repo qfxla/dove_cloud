@@ -12,6 +12,7 @@ import com.dove.breed.service.DovecoteOutBillService;
 import com.dove.breed.service.ShipmentEntryBaseService;
 import com.dove.breed.service.ShipmentOutBaseService;
 import com.dove.breed.utils.ConvertUtil;
+import com.dove.breed.utils.PageUtil;
 import com.dove.entity.Result;
 
 
@@ -61,71 +62,29 @@ public class ShipmentOutBillController {
     private ShipmentOutBaseService shipmentOutBaseService;
 
 
-    @ApiOperation(value = "根据id删除")
-    @DeleteMapping("/delete/{id}")
-    public Result delete(@PathVariable("id") Long id){
-        boolean b = shipmentOutBillService.removeById(id);
-        return b ? Result.success("删除成功") : Result.error("删除失败");
+    @ApiOperation(value = "提交基地出库单")
+    @PostMapping("/submit")
+    public Result submit(@RequestBody ShipmentOutBillDto shipmentOutBillDto){
+        int i = shipmentOutBillService.saveBill(shipmentOutBillDto);
+        return i == 1?Result.success("添加成功") : Result.error("添加失败");
     }
 
-    @ApiOperation(value = "条件查询")
-    @PostMapping("/get")
-    public Result list(@RequestBody(required = false) ShipmentOutBillDto shipmentOutBillDto){
-        ShipmentOutBill shipmentOutBill = new ShipmentOutBill();
-        BeanUtils.copyProperties(shipmentOutBillDto,shipmentOutBill,ShipmentOutBill.class);
-        List<ShipmentOutBill> shipmentOutBillList = shipmentOutBillService.list(new QueryWrapper<>(shipmentOutBill));
-        List<ShipmentOutBillVo> shipmentOutBillVoList = convertUtil.convert(shipmentOutBillList,ShipmentOutBillVo.class);
-        return shipmentOutBillList.size() > 0?Result.success("查询成功").data(shipmentOutBillVoList) : Result.error("查询失败");
+    @ApiOperation(value = "展示基地出库单")
+    @GetMapping("/getShipmentOutBill")
+    public Result getShipmentOutBill(@RequestParam("baseId")Long baseId,@RequestParam("type")String type,
+                                     @RequestParam("pageNum")int pageNum,@RequestParam("pageSize")int pageSize){
+        Page<ShipmentOutBillVo> page = shipmentOutBillService.getShipmentOutBill(baseId, type, pageNum, pageSize);
+        return Result.success("获取成功").data(page);
     }
 
-    @ApiOperation(value = "列表（分页）")
-    @GetMapping("/list/{pageNum}/{pageSize}")
-    public Object list(@PathVariable("pageNum")Long pageNum, @PathVariable("pageSize")Long pageSize){
-        IPage<ShipmentOutBill> page = shipmentOutBillService.page(
-        new Page<>(pageNum, pageSize), null);
-        IPage<ShipmentOutBillVo> page1 = convertUtil.convert(page,ShipmentOutBillVo.class);
-        return page1.getTotal() > 0?Result.success("分页成功").data(page1) : Result.error("分页失败");
+    @ApiOperation(value = "查某天的基地出库单")
+    @GetMapping("/getShipmentOutBillByDate")
+    public Result getShipmentOutBillByDate(@RequestParam("baseId")Long baseId,
+                                            @RequestParam("type")String type,
+                                           @RequestParam("date") @ApiParam(value = "格式为2000-10-10字符串") Date date,
+                                           @RequestParam("pageNum")int pageNum,
+                                           @RequestParam("pageSize")int pageSize){
+        Page<ShipmentOutBillVo> page = shipmentOutBillService.getShipmentOutBillByDate(baseId, type, date, pageNum, pageSize);
+        return Result.success("获取成功").data(page);
     }
-
-    @ApiOperation(value = "详情")
-    @GetMapping("/get/{id}")
-    public Result get(@PathVariable("id") Long id){
-        ShipmentOutBill shipmentOutBill = shipmentOutBillService.getById(id);
-        ShipmentOutBillVo shipmentOutBillVo = convertUtil.convert(shipmentOutBill,ShipmentOutBillVo.class);
-        return shipmentOutBill != null? Result.success("查询成功").data(shipmentOutBillVo) : Result.error("查询失败");
-    }
-
-//    @ApiOperation(value = "根据id修改")
-//    @PostMapping("/update/{id}")
-//    public Result update(@PathVariable("id") Long id, @RequestBody Map<String,Object> map){
-//        //删除原订单号
-//        shipmentOutBillService.removeById(id);
-//        QueryWrapper<ShipmentOutBase> wrapper = new QueryWrapper<>();
-//        wrapper.eq("shipment_out_bill",id).eq("is_deleted",0);
-//        List<ShipmentOutBase> bases = shipmentOutBaseService.list(wrapper);
-//        ArrayList<Long> list1 = new ArrayList<>();
-//        for (ShipmentOutBase base : bases) {
-//            list1.add(base.getId());
-//        }
-//        shipmentOutBaseService.removeByIds(list1);
-//        ShipmentOutBillDto shipmentOutBillDto = null;
-//        ArrayList<ShipmentOutBaseDto> shipmentOutBaseDtoList = new ArrayList<>();
-//        try {
-//            shipmentOutBillDto = JSON.parseObject(JSON.toJSONString(map.get("shipmentOutBillDto")),ShipmentOutBillDto.class);
-//            List<ShipmentOutBaseDto> list = JSON.parseObject(JSON.toJSONString(map.get("shipmentOutBaseDtoList")),ArrayList.class);
-//            for(int i = 0;i<list.size();i++){
-//                //数组内容得再解析一遍手动放进去
-//                ShipmentOutBaseDto po = JSON.parseObject(JSON.toJSONString(list.get(i)),ShipmentOutBaseDto.class);
-//                shipmentOutBaseDtoList.add(po);
-//            }
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-//
-//        ShipmentOutBillVo shipmentOutBillVo = shipmentOutBillService.submitShipmentOutBill(shipmentOutBillDto, shipmentOutBaseDtoList);
-//
-//        return shipmentOutBillVo.getId() != null?Result.success("修改成功") : Result.error("修改失败");
-//    }
-
-
 }
