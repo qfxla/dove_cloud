@@ -35,7 +35,7 @@ public class ShipmentOutBaseVo {
     //产品编号
     @ApiModelProperty(value = "产品编号")
     @TableField("type_id")
-    private Long typeId;
+    private Integer typeId;
 
     //名称
     @ApiModelProperty(value = "名称")

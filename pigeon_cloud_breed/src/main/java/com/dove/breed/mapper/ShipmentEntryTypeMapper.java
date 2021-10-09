@@ -19,4 +19,6 @@ import java.util.List;
 @Mapper
 public interface ShipmentEntryTypeMapper extends BaseMapper<ShipmentEntryType> {
     List<ShipmentEntryTypeVo> getTypeNameByType(@Param("type") String type);
+
+    int getMaxProductNumber(@Param("baseId") Long baseId);
 }

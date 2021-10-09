@@ -83,7 +83,7 @@ public class ShipmentEntryBillServiceImpl extends ServiceImpl<ShipmentEntryBillM
             wrapper.eq("name",po1.getTypeName());
                     //因为name是唯一的，所以结果是null或者这个List只有一个对象
             List<ShipmentEntryType> shipmentEntryType = shipmentEntryTypeService.list(wrapper);
-            Long typeId = 0L;
+            int typeId = 0;
             if (shipmentEntryType.size() != 0){
                 typeId = shipmentEntryType.get(0).getTypeId();
             }
@@ -136,7 +136,7 @@ public class ShipmentEntryBillServiceImpl extends ServiceImpl<ShipmentEntryBillM
                 List<ShipmentEntryType> shipmentEntryType = shipmentEntryTypeService.list(wrapper2);
                 Long typeId = 0L;
                 if (shipmentEntryType.size() != 0){
-                    typeId = shipmentEntryType.get(0).getTypeId();
+                    typeId = Long.valueOf(shipmentEntryType.get(0).getTypeId());
                 }
                 baseStock.setTypeId(typeId);
                 baseStock.setType(po.getType());

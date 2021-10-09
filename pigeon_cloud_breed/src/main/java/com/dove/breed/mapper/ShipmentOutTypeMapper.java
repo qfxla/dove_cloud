@@ -3,6 +3,7 @@ package com.dove.breed.mapper;
 import com.dove.breed.entity.ShipmentOutType;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -14,5 +15,6 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface ShipmentOutTypeMapper extends BaseMapper<ShipmentOutType> {
+    int getMaxProductNumber(@Param("baseId") Long baseId);
 
 }

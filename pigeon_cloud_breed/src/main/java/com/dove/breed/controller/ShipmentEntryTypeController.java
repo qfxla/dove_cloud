@@ -1,7 +1,10 @@
 package com.dove.breed.controller;
+import com.dove.breed.entity.ShipmentOutType;
 import com.dove.breed.entity.dto.ShipmentEntryTypeDto;
+import com.dove.breed.entity.dto.ShipmentOutTypeDto;
 import com.dove.breed.entity.vo.ShipmentEntryTypeVo;
 import com.dove.breed.utils.ConvertUtil;
+import com.dove.breed.utils.PageUtil;
 import com.dove.entity.Result;
 
 
@@ -10,6 +13,7 @@ import com.dove.breed.entity.ShipmentEntryType;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.dove.entity.StatusCode;
 import com.dove.util.SecurityContextUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -42,15 +46,6 @@ public class ShipmentEntryTypeController {
     @Autowired
     private ConvertUtil convertUtil;
 
-    @ApiOperation(value = "新增")
-    @PostMapping("/save")
-    public Result save(@RequestBody ShipmentEntryTypeDto shipmentEntryTypeDto){
-        ShipmentEntryType shipmentEntryType = new ShipmentEntryType();
-        BeanUtils.copyProperties(shipmentEntryTypeDto,shipmentEntryType,ShipmentEntryType.class);
-        shipmentEntryType.setGuige(SecurityContextUtil.getUserDetails().getEnterpriseId());
-        boolean save = shipmentEntryTypeService.save(shipmentEntryType);
-        return save? Result.success("保存成功") : Result.error("保存失败");
-    }
 
     @ApiOperation(value = "根据id删除")
     @DeleteMapping("/delete/{id}")
@@ -71,11 +66,13 @@ public class ShipmentEntryTypeController {
 
     @ApiOperation(value = "列表（分页）")
     @GetMapping("/list/{pageNum}/{pageSize}")
-    public Object list(@PathVariable("pageNum")Long pageNum, @PathVariable("pageSize")Long pageSize){
-        IPage<ShipmentEntryType> page = shipmentEntryTypeService.page(
-        new Page<>(pageNum, pageSize), null);
-        IPage<ShipmentEntryTypeVo> page1 = convertUtil.convert(page,ShipmentEntryTypeVo.class);
-        return page1.getTotal() > 0?Result.success("分页成功").data(page1) : Result.error("分页失败");
+    public Object list(@PathVariable("pageNum")int pageNum, @PathVariable("pageSize")int pageSize,
+                       @RequestParam("baseId")Long baseId,@RequestParam("type")String type){
+        QueryWrapper<ShipmentEntryType> wrapper = new QueryWrapper<>();
+        wrapper.eq("base_id",baseId).eq("is_deleted",0).eq("type",type);
+        List<ShipmentEntryType> list = shipmentEntryTypeService.list(wrapper);
+        Page page = PageUtil.list2Page(list, pageNum, pageSize);
+        return page.getTotal() > 0?Result.success("分页成功").data(page) : Result.error("分页失败");
     }
 
     @ApiOperation(value = "详情")
@@ -103,4 +100,17 @@ public class ShipmentEntryTypeController {
         return typeVoList != null?Result.success("获取成功").data(typeVoList) : Result.error("获取失败");
     }
 
+
+    @ApiOperation(value = "新增出库类型")
+    @PostMapping("/saveType")
+    public Result save(@RequestBody ShipmentEntryTypeDto shipmentEntryTypeDto){
+        int save = shipmentEntryTypeService.save(shipmentEntryTypeDto);
+        if (save == 0){
+            return Result.error(StatusCode.ERROR,"添加失败");
+        }else if (save == 2){
+            return Result.error(StatusCode.DUPLICATE,"已有该产品编号");
+        }else {
+            return Result.success("添加成功");
+        }
+    }
 }

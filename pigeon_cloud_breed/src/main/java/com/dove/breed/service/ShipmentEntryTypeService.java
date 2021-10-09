@@ -2,6 +2,8 @@ package com.dove.breed.service;
 
 import com.dove.breed.entity.ShipmentEntryType;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.dove.breed.entity.dto.ShipmentEntryTypeDto;
+import com.dove.breed.entity.dto.ShipmentOutTypeDto;
 import com.dove.breed.entity.vo.ShipmentEntryTypeVo;
 import org.apache.ibatis.annotations.Param;
 
@@ -17,4 +19,5 @@ import java.util.List;
  */
 public interface ShipmentEntryTypeService extends IService<ShipmentEntryType> {
     List<ShipmentEntryTypeVo> getTypeNameByType(String type);
+    int save(ShipmentEntryTypeDto shipmentEntryTypeDto);
 }
