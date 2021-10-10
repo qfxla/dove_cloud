@@ -1,6 +1,7 @@
 package generate;
-
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.dove.breed.BreedApplication;
 import com.dove.breed.entity.*;
 import com.dove.breed.entity.dto.DovecoteDto;
@@ -13,22 +14,18 @@ import com.dove.breed.service.*;
 import com.dove.breed.utils.ConvertUtil;
 import com.dove.breed.utils.GetMonth;
 import com.dove.breed.utils.Image2Mp4;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.awt.print.PrinterAbortException;
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.concurrent.CountDownLatch;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
@@ -98,11 +95,15 @@ public class TestCode {
         System.out.println(convert);
     }
     @Test
-    public void test1() throws IOException, InterruptedException {
-        ShipmentOutBill shipmentOutBill = new ShipmentOutBill();
-        shipmentOutBill.setTotal(10);
-        ShipmentOutBillVo convert = convertUtil.convert(shipmentOutBill, ShipmentOutBillVo.class);
-        System.out.println(convert);
+    public void test1() throws Exception{
+        File file = new File("D:\\桌面\\json文件\\金绿公司整体介绍图\\鸽棚数量，肉鸽出栏数等.txt");
+        String stringData = FileUtils.readFileToString(file, "UTF-8");
+        List<Object> list = (List<Object>) JSONArray.parse(stringData);
+
+        JSONObject jsonObject = JSON.parseObject(list.get(0).toString());
+        jsonObject.put("myName","zcj");
+        System.out.println(jsonObject);
+
     }
 
     @Test

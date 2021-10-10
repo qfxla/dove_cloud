@@ -61,3 +61,10 @@ dove:
       core-pool-size: 3
       maxinum-pool-size: 5
       keep-alive-time: 18000
+
+
+BASE_UI_URL:
+  country: D:\\桌面\json文件\\国家图\\
+  province: D:\\桌面\json文件\\省份图\\
+  city: D:\\桌面\json文件\\梅州图\\
+  companyIntroduction: D:\\桌面\json文件\\金绿公司整体介绍图\\
