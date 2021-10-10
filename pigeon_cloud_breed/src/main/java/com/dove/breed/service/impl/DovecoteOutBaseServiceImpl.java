@@ -6,6 +6,8 @@ import com.dove.breed.service.DovecoteOutBaseService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  * 鸽棚出仓信息表 服务实现类
@@ -16,5 +18,6 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class DovecoteOutBaseServiceImpl extends ServiceImpl<DovecoteOutBaseMapper, DovecoteOutBase> implements DovecoteOutBaseService {
+
 
 }

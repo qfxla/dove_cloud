@@ -68,3 +68,11 @@ BASE_UI_URL:
   province: D:\\桌面\json文件\\省份图\\
   city: D:\\桌面\json文件\\梅州图\\
   companyIntroduction: D:\\桌面\json文件\\金绿公司整体介绍图\\
+  shipment: D:\\桌面\json文件\\基地\\
+#
+#BASE_UI_URL:
+#  country: /root/dove/pigeon_cloud_breed/json文件/国家图/
+#  province: /root/dove/pigeon_cloud_breed/json文件/省份图/
+#  city: /root/dove/pigeon_cloud_breed/json文件/梅州图/
+#  companyIntroduction: /root/dove/pigeon_cloud_breed/json文件/金绿公司整体介绍图/
+#  shipment: /root/dove/pigeon_cloud_breed/json文件/基地/

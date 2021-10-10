@@ -1,6 +1,7 @@
 package com.dove.breed.controller;
 import com.alibaba.excel.converters.shortconverter.ShortBooleanConverter;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.dove.breed.entity.DovecoteOutBill;
 import com.dove.breed.entity.ShipmentOutBase;
 import com.dove.breed.entity.dto.ShipmentOutBaseDto;
@@ -80,11 +81,35 @@ public class ShipmentOutBillController {
     @ApiOperation(value = "查某天的基地出库单")
     @GetMapping("/getShipmentOutBillByDate")
     public Result getShipmentOutBillByDate(@RequestParam("baseId")Long baseId,
-                                            @RequestParam("type")String type,
+                                           @RequestParam("type")String type,
                                            @RequestParam("date") @ApiParam(value = "格式为2000-10-10字符串") Date date,
                                            @RequestParam("pageNum")int pageNum,
                                            @RequestParam("pageSize")int pageSize){
         Page<ShipmentOutBillVo> page = shipmentOutBillService.getShipmentOutBillByDate(baseId, type, date, pageNum, pageSize);
         return Result.success("获取成功").data(page);
+    }
+
+    @ApiOperation(value = "删除基地出库单")
+    @DeleteMapping("/deletedBill")
+    public Result deletedBill(@RequestParam("billId")Long billId){
+        int i = shipmentOutBillService.deletedBill(billId);
+        return i == 1?Result.success("删除成功") : Result.error("删除失败");
+    }
+
+    @ApiOperation(value = "基地月结")
+    @GetMapping("/getMonthly")
+    public Result getMonthly(@RequestParam("baseId")Long baseId,
+                             @RequestParam("type")String type,
+                             @RequestParam("year")int year,
+                             @RequestParam("month")int month){
+        Map<String, JSONObject> map = shipmentOutBillService.getMonthly(baseId, type, year, month);
+        return map.size() != 0? Result.success("获取成功").data(map) : Result.error("获取失败");
+    }
+
+    @ApiOperation(value = "根据批次号订单")
+    @GetMapping("/getByFarmBatch")
+    public Result getByFarmBatch(@RequestParam("farmBatch")String farmBatch){
+        ShipmentOutBillVo shipmentOutBillVo = shipmentOutBillService.getByFarmBatch(farmBatch);
+        return shipmentOutBillVo != null? Result.success("获取成功").data(shipmentOutBillVo) : Result.error("无该批次号");
     }
 }

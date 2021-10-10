@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.security.core.parameters.P;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -48,4 +49,7 @@ public interface DovecoteMapper extends BaseMapper<Dovecote> {
     List<DoveAmountOfStateVo> getAmountOfState(@Param("baseId")Long baseId,
                                                @Param("dovecoteNumber")String dovecoteNumber);
 
+
+    //查一个基地某个月份的总异常数
+    List<Map<String,Object>> uiGetAbnormalOfShipment(@Param("baseId")Long baseId);
 }

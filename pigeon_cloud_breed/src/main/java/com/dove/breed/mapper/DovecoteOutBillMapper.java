@@ -1,6 +1,7 @@
 package com.dove.breed.mapper;
 
 import com.dove.breed.entity.DovecoteEntryBill;
+import com.dove.breed.entity.DovecoteOutBase;
 import com.dove.breed.entity.DovecoteOutBill;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dove.breed.entity.vo.DovecoteOutBillVo;
@@ -41,4 +42,5 @@ public interface DovecoteOutBillMapper extends BaseMapper<DovecoteOutBill> {
     List<DovecoteOutBill> getSumOfTypeAndMonthByBaseId(@Param("baseId")Long baseId,@Param("month")int month);
 
     int getHowManyOfToday(@Param("baseId")Long baseId);
+
 }

@@ -148,6 +148,8 @@ public class DovecoteDailyServiceImpl extends ServiceImpl<DovecoteDailyMapper, D
         List<DovecoteDaily> list = dovecoteDailyMapper.getDataOf7Day(baseId, dovecoteNumber);
         return list;
     }
+
+
 }
 
 

@@ -1,12 +1,14 @@
 package com.dove.breed.mapper;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.dove.breed.entity.DovecoteOutBill;
 import com.dove.breed.entity.ShipmentOutBill;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dove.breed.entity.vo.ShipmentEntryBillVo;
 import com.dove.breed.entity.vo.ShipmentOutBillVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Date;
@@ -29,4 +31,6 @@ public interface ShipmentOutBillMapper extends BaseMapper<ShipmentOutBill> {
 
     List<ShipmentOutBill> getShipmentOutBillByDate(@Param("baseId")Long baseId, @Param("type")String type,
                                                    @Param("date")Date date);
+    List<DovecoteOutBill> getDovecoteBillThisMonth(@Param("baseId")Long baseId, @Param("type")String type,
+                                                   @Param("year")int year, @Param("month")int month);
 }

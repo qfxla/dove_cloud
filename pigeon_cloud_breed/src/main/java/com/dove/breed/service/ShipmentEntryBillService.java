@@ -23,4 +23,6 @@ public interface ShipmentEntryBillService extends IService<ShipmentEntryBill> {
 
     ShipmentEntryBillVo submitShipmentEntryBill(ShipmentEntryBillDto shipmentEntryBillDto,
                                                 List<ShipmentEntryBaseDto> shipmentEntryBaseDtoList);
+
+    int deletedBill(Long billId);
 }

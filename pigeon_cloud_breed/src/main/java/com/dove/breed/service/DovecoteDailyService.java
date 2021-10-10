@@ -34,4 +34,6 @@ public interface DovecoteDailyService extends IService<DovecoteDaily> {
     DovecoteDaily get7DayOfOneDovecote(Long baseId, String dovecoteNumber);
 
     List<DovecoteDaily> getDataOf7Day(Long baseId,String dovecoteNumber);
+
+
 }

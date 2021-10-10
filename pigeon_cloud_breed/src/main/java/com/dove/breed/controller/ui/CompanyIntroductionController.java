@@ -45,7 +45,6 @@ public class CompanyIntroductionController {
         Object o = objects.get(0);
         JSONObject jsonObject = JSONObject.parseObject(o.toString());
         jsonObject.put("amountOfDovecote",list.size());
-//        return jsonObject.size() > 0?Result.success("获取成功").data(jsonObject) : Result.error(StatusCode.ERROR,"文件不存在或无数据");
         return Result.success().data(jsonObject);
     }
 

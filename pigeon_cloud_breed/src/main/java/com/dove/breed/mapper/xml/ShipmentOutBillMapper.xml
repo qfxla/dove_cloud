@@ -54,5 +54,15 @@
         AND is_deleted = 0
         AND date_format(gmt_create,'%y%m%d') = date_format(#{date},'%y%m%d')
     </select>
+    <select id="getDovecoteBillThisMonth" resultType="com.dove.breed.entity.DovecoteOutBill">
+        SELECT * FROM
+            t_dovecote_out_bill
+        WHERE base_id = #{baseId}
+                  AND is_deleted = 0
+                  AND TYPE = #{type}
+                AND year(gmt_create) = year(now())
+                  AND MONTH(gmt_create) = MONTH(NOW())
+
+    </select>
 
 </mapper>

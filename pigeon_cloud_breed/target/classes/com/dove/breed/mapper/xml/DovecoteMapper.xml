@@ -29,6 +29,7 @@
         <id column="abnormal" property="abnormal"/>
     </resultMap>
 
+
     <resultMap id="DoveAmountOfStateMap" type="com.dove.breed.entity.vo.DoveAmountOfStateVo">
         <id column="state" property="state"/>
         <id column="amount" property="amount"/>
@@ -129,6 +130,14 @@
         WHERE p.base_id = #{baseId}
         AND p.shack = #{dovecoteNumber}
         GROUP BY r.state
+    </select>
+    <select id="uiGetAbnormalOfShipment" resultType="java.util.Map">
+        select sum(single_eggs) single_eggs,sum(unfertilized_eggs) unfertilized_eggs,
+               sum(damaged_eggs) damaged_eggs,sum(bad_eggs) bad_eggs,DATE_FORMAT(gmt_create,'%Y-%m') gmt_create
+        from t_dovecote_daily
+        where base_id = #{baseId}
+        group by DATE_FORMAT(gmt_create,'%Y-%m')
+            limit 6
     </select>
 
 </mapper>

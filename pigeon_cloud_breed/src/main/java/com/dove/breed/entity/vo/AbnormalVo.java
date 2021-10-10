@@ -11,4 +11,5 @@ public class AbnormalVo {
     int state;
     String abnormal;
     int amount;
+
 }

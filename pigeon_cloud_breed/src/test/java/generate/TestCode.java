@@ -86,13 +86,12 @@ public class TestCode {
     private CagePictureMapper cagePictureMapper;
     @Autowired
     private CageVideoMapper cageVideoMapper;
+    @Autowired
+    private ShipmentOutBillService shipmentOutBillService;
 
     @Test
     public void test() throws IOException, InterruptedException {
-        DovecoteEntryBase dovecoteEntryBase = new DovecoteEntryBase();
-        dovecoteEntryBase.setType("ii");
-        DovecoteEntryBaseVo convert = convertUtil.convert(dovecoteEntryBase, DovecoteEntryBaseVo.class);
-        System.out.println(convert);
+        shipmentOutBillService.getMonthly(3L,"肉鸽",2021,9);
     }
     @Test
     public void test1() throws Exception{

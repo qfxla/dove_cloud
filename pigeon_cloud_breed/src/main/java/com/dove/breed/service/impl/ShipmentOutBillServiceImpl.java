@@ -1,6 +1,8 @@
 package com.dove.breed.service.impl;
 
 import ch.qos.logback.core.joran.conditional.ThenOrElseActionBase;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dove.breed.entity.DovecoteOutBase;
@@ -28,9 +30,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -188,5 +189,90 @@ public class ShipmentOutBillServiceImpl extends ServiceImpl<ShipmentOutBillMappe
         page.setRecords(records);
         return page;
 
+    }
+
+    @Transactional
+    @Override
+    public int deletedBill(Long billId) {
+        if (!shipmentOutBillService.removeById(billId)){
+            throw new GlobalException(StatusCode.ERROR,"失败1");
+        }
+        QueryWrapper<DovecoteOutBill> wrapper1 = new QueryWrapper<>();
+        wrapper1.eq("shipment_out_bill",billId).eq("is_deleted",0);
+        List<DovecoteOutBill> dovecoteOutBills = dovecoteOutBillService.list(wrapper1);
+        for (DovecoteOutBill dovecoteOutBill : dovecoteOutBills) {
+            if (dovecoteOutBillService.removeById(dovecoteOutBill.getId())){
+                QueryWrapper<DovecoteOutBase> wrapper2 = new QueryWrapper<>();
+                wrapper2.eq("dovecote_out_bill",dovecoteOutBill.getId()).eq("is_deleted",0);
+                if (!dovecoteOutBaseService.remove(wrapper2)){
+                    throw new GlobalException(StatusCode.ERROR,"失败2");
+                }
+            }else {
+                throw new GlobalException(StatusCode.ERROR,"失败3");
+            }
+        }
+        return 1;
+    }
+
+    @Override
+    public Map<String,JSONObject> getMonthly(Long baseId, String type,int year,int month) {
+        //找这个月的鸽棚出库单
+        List<DovecoteOutBill> dovecoteBills = shipmentOutBillMapper.getDovecoteBillThisMonth(baseId, type, year, month);
+        //"A01":[{},{}]
+        Map<String, List<DovecoteOutBill>> map = dovecoteBills.stream().collect(
+                Collectors.groupingBy(
+                        dovecoteBill -> dovecoteBill.getDovecoteNumber()
+                ));
+        Map<String,JSONObject> res =  new HashMap();
+        for (Map.Entry<String, List<DovecoteOutBill>> entrySet : map.entrySet()) {
+            List<DovecoteOutBill> bills = entrySet.getValue();   //同一鸽棚不同订单
+            JSONObject jsonObject = new JSONObject();
+            for (DovecoteOutBill bill : bills) {
+                int total = 0;
+                QueryWrapper<DovecoteOutBase> wrapper = new QueryWrapper<>();
+                wrapper.eq("dovecote_out_bill",bill.getId());
+                List<DovecoteOutBase> bases = dovecoteOutBaseService.list(wrapper);
+                for (DovecoteOutBase base : bases) {
+                    if (!jsonObject.containsKey(base.getTypeName())){
+                        jsonObject.put(base.getTypeName(),base.getAmount());
+                        total += base.getAmount();
+                    }else {
+                        Integer amount = (Integer)jsonObject.get(base.getTypeName());
+                        jsonObject.put(base.getTypeName(),amount + base.getAmount());
+                        total += amount;
+                    }
+                }
+                jsonObject.put("total",total);
+            }
+            res.put(entrySet.getKey(),jsonObject);
+        }
+        return res;
+    }
+
+    @Override
+    public ShipmentOutBillVo getByFarmBatch(String farmBatch) {
+
+        QueryWrapper<ShipmentOutBill> wrapper = new QueryWrapper<>();
+        wrapper.eq("farm_batch",farmBatch);
+        List<ShipmentOutBill> list = shipmentOutBillService.list(wrapper);
+        ShipmentOutBillVo shipmentOutBillVo = convertUtil.convert(list.get(0),ShipmentOutBillVo.class);
+
+//        List<DovecoteOutBillVo> list1 = new ArrayList<>();
+        Long shipmentOutBillId = shipmentOutBillVo.getId();
+        QueryWrapper<DovecoteOutBill> wrapper1 = new QueryWrapper<>();
+        wrapper1.eq("shipment_out_bill",shipmentOutBillId).eq("is_deleted",0);
+        List<DovecoteOutBill> dovecoteOutBillList = dovecoteOutBillService.list(wrapper1);
+        List<DovecoteOutBillVo> dovecoteOutBillVoList = convertUtil.convert(dovecoteOutBillList, DovecoteOutBillVo.class);
+        for (DovecoteOutBillVo dovecoteOutBillVo : dovecoteOutBillVoList) {
+            Long dovecoteOutBillId = dovecoteOutBillVo.getId();
+            QueryWrapper<DovecoteOutBase> wrapper2 = new QueryWrapper<>();
+            wrapper2.eq("dovecote_out_bill",dovecoteOutBillId).eq("is_deleted",0);
+            List<DovecoteOutBase> dovecoteOutBaseList = dovecoteOutBaseService.list(wrapper2);
+            List<DovecoteOutBaseVo> dovecoteOutBaseVoList = convertUtil.convert(dovecoteOutBaseList, DovecoteOutBaseVo.class);
+            dovecoteOutBillVo.setDovecoteOutBaseVoList(dovecoteOutBaseVoList);
+        }
+
+        shipmentOutBillVo.setDovecoteOutBillVoList(dovecoteOutBillVoList);
+        return shipmentOutBillVo;
     }
 }

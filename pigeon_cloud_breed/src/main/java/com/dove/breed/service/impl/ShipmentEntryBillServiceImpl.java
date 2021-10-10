@@ -12,6 +12,7 @@ import com.dove.breed.mapper.BaseStockMapper;
 import com.dove.breed.mapper.ShipmentEntryBaseMapper;
 import com.dove.breed.mapper.ShipmentEntryBillMapper;
 import com.dove.breed.service.BaseStockService;
+import com.dove.breed.service.ShipmentEntryBaseService;
 import com.dove.breed.service.ShipmentEntryBillService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dove.breed.service.ShipmentEntryTypeService;
@@ -57,6 +58,10 @@ public class ShipmentEntryBillServiceImpl extends ServiceImpl<ShipmentEntryBillM
 
     @Autowired
     private BaseStockService baseStockService;
+    @Autowired
+    private ShipmentEntryBillService shipmentEntryBillService;
+    @Autowired
+    private ShipmentEntryBaseService shipmentEntryBaseService;
 
     @Override
     public List<ShipmentEntryBillVo> findBillByGmt_createAndShipmentId(Date startTime, Date endTime,Long baseId) {
@@ -115,6 +120,32 @@ public class ShipmentEntryBillServiceImpl extends ServiceImpl<ShipmentEntryBillM
         return result;
     }
 
+    @Transactional
+    @Override
+    public int deletedBill(Long billId) {
+        //删除基地进库单
+        boolean b = shipmentEntryBillService.removeById(billId);
+        //删除基地进库单信息
+        QueryWrapper<ShipmentEntryBase> wrapper1 = new QueryWrapper<>();
+        wrapper1.eq("shipment_entry_bill",billId).eq("is_deleted",0);
+        List<ShipmentEntryBase> list = shipmentEntryBaseService.list(wrapper1);
+        //把库存减回去
+        for (ShipmentEntryBase shipmentEntryBase : list) {
+            QueryWrapper<BaseStock> wrapper2 = new QueryWrapper<>();
+            wrapper2.eq("type_name",shipmentEntryBase.getTypeName()).eq("is_deleted",0);
+            List<BaseStock> list1 = baseStockService.list(wrapper2);
+            if (list.size() != 0){
+                BaseStock baseStock = list1.get(0);
+                baseStock.setAmount(baseStock.getAmount() - shipmentEntryBase.getAmount());
+                baseStockService.updateById(baseStock);
+            }
+            if (!shipmentEntryBaseService.removeById(shipmentEntryBase.getId())){
+                throw new GlobalException(StatusCode.ERROR,"错误1");
+            }
+        }
+        return 1;
+    }
+
     private int addToStock(Long baseId,List<ShipmentEntryBaseDto> shipmentEntryBaseDtoList){
         for (ShipmentEntryBaseDto po : shipmentEntryBaseDtoList) {
             QueryWrapper<BaseStock> wrapper = new QueryWrapper<>();
@@ -151,5 +182,7 @@ public class ShipmentEntryBillServiceImpl extends ServiceImpl<ShipmentEntryBillM
         }
         return 1;
     }
+
+
 
 }

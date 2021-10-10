@@ -164,7 +164,7 @@ public class DovecoteEntryBillServiceImpl extends ServiceImpl<DovecoteEntryBillM
         return result;
     }
 
-    private int cutToStock(Long baseId,List<DovecoteEntryBaseDto> dovecoteEntryBaseDtoList){
+    public int cutToStock(Long baseId,List<DovecoteEntryBaseDto> dovecoteEntryBaseDtoList){
         for (DovecoteEntryBaseDto po : dovecoteEntryBaseDtoList) {
             QueryWrapper<BaseStock> wrapper = new QueryWrapper<>();
             wrapper.eq("type_name",po.getTypeName());

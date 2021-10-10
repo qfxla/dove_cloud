@@ -63,10 +63,10 @@ public class ShipmentEntryBillController {
     }
 
     @ApiOperation(value = "根据id删除")
-    @DeleteMapping("/delete/{id}")
-    public Result delete(@PathVariable("id") Long id){
-        boolean b = shipmentEntryBillService.removeById(id);
-        return b ? Result.success("删除成功") : Result.error("删除失败");
+    @DeleteMapping("/deletedBill")
+    public Result deletedBill(@RequestParam("billId") Long billId){
+        int i = shipmentEntryBillService.deletedBill(billId);
+        return i == 1 ? Result.success("删除成功") : Result.error("删除失败");
     }
 
     @ApiOperation(value = "条件查询")
@@ -122,9 +122,7 @@ public class ShipmentEntryBillController {
         }catch (Exception e){
             e.printStackTrace();
         }
-
         ShipmentEntryBillVo shipmentEntryBillVo = shipmentEntryBillService.submitShipmentEntryBill(shipmentEntryBillDto, shipmentEntryBaseDtoList);
-
         return shipmentEntryBillVo.getId() != null?Result.success("修改成功") : Result.error("修改失败");
     }
 

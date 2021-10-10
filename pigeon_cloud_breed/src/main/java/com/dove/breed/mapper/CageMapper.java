@@ -20,4 +20,5 @@ import java.util.List;
 public interface CageMapper extends BaseMapper<Cage> {
     Date getLastOneLayEggsByCageId(@Param("cageId")Long cageId);
     Date getLastTwoLayEggsByCageId(@Param("cageId")Long cageId);
+
 }

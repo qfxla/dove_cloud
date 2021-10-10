@@ -1,5 +1,6 @@
 package com.dove.breed.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dove.breed.entity.ShipmentOutBill;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -9,6 +10,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -26,4 +28,10 @@ public interface ShipmentOutBillService extends IService<ShipmentOutBill> {
     Page<ShipmentOutBillVo> getShipmentOutBill(Long baseId, String type, int pageNum, int pageSize);
 
     Page<ShipmentOutBillVo> getShipmentOutBillByDate(Long baseId,String type,Date date,int pageNum,int pageSize);
+
+    int deletedBill(Long billId);
+
+    Map<String, JSONObject> getMonthly(Long baseId, String type, int year, int month);
+
+    ShipmentOutBillVo getByFarmBatch(String farmBatch);
 }
