@@ -3,11 +3,11 @@ package com.dove.breed.controller.ui;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dove.breed.entity.Dovecote;
 import com.dove.breed.entity.ShipmentOutBill;
+import com.dove.breed.entity.vo.MonitorBaseVo;
+import com.dove.breed.mapper.CageRealMapper;
 import com.dove.breed.mapper.DovecoteMapper;
-import com.dove.breed.service.DovecoteOutBaseService;
-import com.dove.breed.service.DovecoteOutBillService;
-import com.dove.breed.service.DovecoteService;
-import com.dove.breed.service.ShipmentOutBillService;
+import com.dove.breed.mapper.ManualIncubationMapper;
+import com.dove.breed.service.*;
 import com.dove.breed.utils.GetFileData;
 import com.dove.entity.Result;
 import com.dove.entity.StatusCode;
@@ -49,6 +49,14 @@ public class ShipmentController {
     private ShipmentOutBillService shipmentOutBillService;
     @Autowired
     private DovecoteMapper dovecoteMapper;
+    @Autowired
+    private CageRealMapper cageRealMapper;
+    @Autowired
+    private DovecoteService dovecoteService;
+    @Autowired
+    private ManualIncubationMapper manualIncubationMapper;
+    @Autowired
+    private MonitorBaseService monitorBaseService;
 
     @ApiOperation("肉鸽出栏曲线图")
     @GetMapping("getOutOfBreedingDove")
@@ -87,6 +95,56 @@ public class ShipmentController {
     public Result doveAge(){
         String path = baseUrl + "鸽龄分布.txt";
         System.out.println(path);
-        return null;
+        List<Object> jsonObject = GetFileData.getJsonObject(path);
+        return jsonObject.size() > 0?Result.success("获取成功").data(jsonObject) : Result.error(StatusCode.ERROR,"文件不存在或无数据");
+    }
+
+    @ApiOperation("鸽笼状态分布")
+    @GetMapping("doveStatus")
+    public Result doveStatus(){
+        String path = baseUrl + "鸽笼状态分布.txt";
+        System.out.println(path);
+        int layTime = cageRealMapper.uiGetLayEggsTimeAmount(3L);
+        int hatchTime = cageRealMapper.uiGetHatchTime(3L);
+        int feedTime = cageRealMapper.uiGetFeedTime(3L);
+        Map<String, Integer> map = new HashMap<>();
+        map.put("layTime",layTime);
+        map.put("hatchTime",hatchTime);
+        map.put("feedTime",feedTime);
+        return Result.success("获取成功").data(map);
+    }
+
+    @ApiOperation("基地生产信息")
+    @GetMapping("productionInformation")
+    public Result productionInformation(){
+        String path = baseUrl + "生产信息.txt";
+        System.out.println(path);
+        List<Object> jsonObject = GetFileData.getJsonObject(path);
+        return jsonObject.size() > 0?Result.success("获取成功").data(jsonObject) : Result.error(StatusCode.ERROR,"文件不存在或无数据");
+    }
+
+    @ApiOperation("养殖基地人员分布")
+    @GetMapping("personnelDistribution")
+    public Result personnelDistribution(){
+        String path = baseUrl + "人员分布.txt";
+        System.out.println(path);
+        List<Object> jsonObject = GetFileData.getJsonObject(path);
+        return jsonObject.size() > 0?Result.success("获取成功").data(jsonObject) : Result.error(StatusCode.ERROR,"文件不存在或无数据");
+    }
+
+    @ApiOperation("孵化机记录分布")
+    @GetMapping("incubatorData")
+    public Result incubatorData(){
+        String path = baseUrl + "孵化记录.txt";
+        System.out.println(path);
+        Map<String, Integer> map = manualIncubationMapper.uiGetDataOfShipToday(3L);
+        return Result.success("获取成功").data(map);
+    }
+
+    @ApiOperation("视频接口")
+    @GetMapping("video")
+    public Result video(){
+        List<MonitorBaseVo> list = monitorBaseService.list(1354412676377280515L);
+        return list.size() != 0? Result.success("获取成功").data(list) : Result.error("暂无数据");
     }
 }

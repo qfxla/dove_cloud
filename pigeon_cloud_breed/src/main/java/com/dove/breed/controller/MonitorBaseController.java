@@ -38,15 +38,10 @@ public class MonitorBaseController {
     @Resource
     private MonitorBaseService monitorBaseService;
 
-    @ApiOperation(value = "分页查寻所有摄像头")
-    @GetMapping(value = "/{current}/{size}")
-    public Result findAll(@PathVariable int current, @PathVariable int size){
-        return Result.success().data(PageUtil.list2Page(monitorBaseService.list(SecurityContextUtil.getUserDetails().getEnterpriseId()),current,size));
-    }
-
     @ApiOperation(value = "根据摄像头类型查询所有的摄像头")
     @GetMapping(value = "/baseId/{current}/{size}")
-    public Result findByBaseId(@RequestParam("baseId")Long baseId,@RequestParam("type") Integer type,
+    public Result findByBaseId(@RequestParam(value = "baseId",required = false)Long baseId,
+                               @RequestParam(value = "type",required = false) Integer type,
                                @RequestParam(value = "dovecoteNumber",required = false)String dovecoteNumber,
                                @RequestParam(value = "statusCode",required = false)Integer statusCode,
                                @PathVariable int current,@PathVariable int size){
@@ -90,9 +85,9 @@ public class MonitorBaseController {
 
     @ApiOperation(value = "更新摄像头信息")
     @PostMapping(value = "/update")
-    public Result upData(@RequestBody MonitorBaseDto monitorBaseDto){
-        monitorBaseService.upData(monitorBaseDto);
-        MonitorBase vs = monitorBaseService.getById(monitorBaseDto.getId());
+    public Result upData(@PathVariable("id") Long id,@RequestBody MonitorBaseDto monitorBaseDto){
+        monitorBaseService.upData(id,monitorBaseDto);
+        MonitorBase vs = monitorBaseService.getById(id);
         return Result.success().data(vs);
     }
 

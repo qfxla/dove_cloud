@@ -52,6 +52,7 @@ public class CountryController {
     @GetMapping("getFiveArea")
     public Result getFiveArea(){
         String path = baseUrl + "c_5个典型区域.txt";
+        System.out.println(path);
         List<Object> jsonObject = GetFileData.getJsonObject(path);
         return jsonObject.size() > 0?Result.success("获取成功").data(jsonObject) : Result.error("文件不存在或无数据");
     }

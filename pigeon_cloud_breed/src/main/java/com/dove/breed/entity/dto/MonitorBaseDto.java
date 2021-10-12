@@ -18,10 +18,6 @@ public class MonitorBaseDto{
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "id")
-    @TableId(value = "id", type = IdType.ID_WORKER)
-    private Long id;
-
     @ApiModelProperty(value = "基地编号")
     private Long baseId;
 

@@ -250,10 +250,10 @@ public class ShipmentOutBillServiceImpl extends ServiceImpl<ShipmentOutBillMappe
     }
 
     @Override
-    public ShipmentOutBillVo getByFarmBatch(String farmBatch) {
+    public ShipmentOutBillVo getByFarmBatch(String farmBatch,Long baseId,String type) {
 
         QueryWrapper<ShipmentOutBill> wrapper = new QueryWrapper<>();
-        wrapper.eq("farm_batch",farmBatch);
+        wrapper.eq("farm_batch",farmBatch).eq("type",type).eq("base_id",baseId);
         List<ShipmentOutBill> list = shipmentOutBillService.list(wrapper);
         ShipmentOutBillVo shipmentOutBillVo = convertUtil.convert(list.get(0),ShipmentOutBillVo.class);
 

@@ -108,8 +108,10 @@ public class ShipmentOutBillController {
 
     @ApiOperation(value = "根据批次号订单")
     @GetMapping("/getByFarmBatch")
-    public Result getByFarmBatch(@RequestParam("farmBatch")String farmBatch){
-        ShipmentOutBillVo shipmentOutBillVo = shipmentOutBillService.getByFarmBatch(farmBatch);
+    public Result getByFarmBatch(@RequestParam("farmBatch")String farmBatch,
+                                 @RequestParam("baseId")Long baseId,
+                                 @RequestParam("type")String type){
+        ShipmentOutBillVo shipmentOutBillVo = shipmentOutBillService.getByFarmBatch(farmBatch,baseId,type);
         return shipmentOutBillVo != null? Result.success("获取成功").data(shipmentOutBillVo) : Result.error("无该批次号");
     }
 }

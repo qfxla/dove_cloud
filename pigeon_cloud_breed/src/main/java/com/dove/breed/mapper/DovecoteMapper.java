@@ -1,5 +1,6 @@
 package com.dove.breed.mapper;
 
+import com.dove.breed.entity.Cage;
 import com.dove.breed.entity.Dovecote;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dove.breed.entity.vo.AbnormalVo;
@@ -50,6 +51,7 @@ public interface DovecoteMapper extends BaseMapper<Dovecote> {
                                                @Param("dovecoteNumber")String dovecoteNumber);
 
 
-    //查一个基地某个月份的总异常数
+    //查一个鸽棚某个月份的总异常数
     List<Map<String,Object>> uiGetAbnormalOfShipment(@Param("baseId")Long baseId);
+
 }

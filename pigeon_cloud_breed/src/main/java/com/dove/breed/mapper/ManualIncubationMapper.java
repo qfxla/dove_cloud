@@ -8,6 +8,7 @@ import org.springframework.security.core.parameters.P;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -33,4 +34,6 @@ public interface ManualIncubationMapper extends BaseMapper<ManualIncubation> {
     List<ManualIncubation> get7DayOfOneIncubation(@Param("baseId")Long baseId,@Param("dovecoteNumber")String dovecoteNumber);
 
     List<ManualIncubation> getSevenDay(@Param("baseId") Long baseId,@Param("dovecoteNumber") String dovecoteNumber);
+
+    Map<String,Integer> uiGetDataOfShipToday(@Param("baseId")Long baseId);
 }

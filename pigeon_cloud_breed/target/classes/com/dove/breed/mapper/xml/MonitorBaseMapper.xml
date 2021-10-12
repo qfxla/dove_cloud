@@ -40,9 +40,13 @@
         select <include refid="Vo_Column_List"/>
         from t_monitor_base
         where guige = #{enterpriseId}
-        and base_id  = #{baseId}
-        and `type` = #{type}
         and is_deleted = 0
+        <if test="baseId != null">
+            and base_id = #{baseId}
+        </if>
+        <if test="type != null">
+            and `type` = #{type}
+        </if>
         <if test="type == 3 and dovecoteNumber != null">
             and dovecote_number = #{dovecoteNumber}
         </if>

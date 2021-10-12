@@ -59,5 +59,11 @@
         AND labor_time >= DATE_SUB(NOW(),INTERVAL 7 DAY )
         GROUP BY labor_time
     </select>
+    <select id="uiGetDataOfShipToday" resultType="java.util.Map">
+        SELECT SUM(`one`) one ,SUM(`two`) two,SUM(`three`) three,SUM(`four`) four
+        FROM t_manual_incubation
+        WHERE base_id = #{baseId}
+                  AND DAY(gmt_create) = DAY(NOW())
+    </select>
 
 </mapper>

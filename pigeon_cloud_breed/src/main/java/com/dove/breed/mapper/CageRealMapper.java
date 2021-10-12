@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -31,5 +32,9 @@ public interface CageRealMapper extends BaseMapper<CageReal> {
     List<CageRealVo> getCageOfDiffState(@Param("baseId")Long baseId,
                                         @Param("dovecoteNumber")String dovecoteNumber,
                                         @Param("state")int state);
+
+    int uiGetLayEggsTimeAmount(@Param("baseId")Long baseId);
+    int uiGetHatchTime(@Param("baseId")Long baseId);
+    int uiGetFeedTime(@Param("baseId")Long baseId);
 
 }

@@ -68,4 +68,25 @@
         AND r.state = #{state}
         AND is_deleted = 0
     </select>
+    <select id="uiGetLayEggsTimeAmount" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM t_cage_real r LEFT JOIN t_cage_position p
+        ON r.cage_id = p.cage_id
+        WHERE p.base_id = #{baseId}
+        AND r.state = 0
+    </select>
+    <select id="uiGetHatchTime" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM t_cage_real r LEFT JOIN t_cage_position p
+        ON r.cage_id = p.cage_id
+        WHERE p.base_id = #{baseId}
+        AND r.state != 0 AND r.state != 5
+    </select>
+    <select id="uiGetFeedTime" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM t_cage_real r LEFT JOIN t_cage_position p
+        ON r.cage_id = p.cage_id
+        WHERE p.base_id = #{baseId}
+        AND r.state = 5
+    </select>
 </mapper>

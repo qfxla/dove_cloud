@@ -64,8 +64,9 @@ public class MonitorBaseServiceImpl extends ServiceImpl<MonitorBaseMapper, Monit
     }
 
     @Override
-    public void upData(MonitorBaseDto monitorBaseDto) {
+    public void upData(Long id, MonitorBaseDto monitorBaseDto) {
         MonitorBase monitorVideo = convertUtil.convert(monitorBaseDto, MonitorBase.class);
+        monitorVideo.setId(id);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/x-www-form-urlencoded");
         MultiValueMap<String, Object> postParameters = new LinkedMultiValueMap<>();

@@ -18,7 +18,7 @@ import java.util.List;
 public interface MonitorBaseService extends IService<MonitorBase> {
     boolean add(MonitorBaseDto monitorBaseDto);
 
-    void upData(MonitorBaseDto monitorBaseDto);
+    void upData(Long id, MonitorBaseDto monitorBaseDto);
 
     List<MonitorBaseVo> list(Long enterpriseId);
 

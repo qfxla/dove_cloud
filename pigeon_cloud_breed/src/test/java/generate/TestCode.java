@@ -91,7 +91,8 @@ public class TestCode {
 
     @Test
     public void test() throws IOException, InterruptedException {
-        shipmentOutBillService.getMonthly(3L,"肉鸽",2021,9);
+        List<Map<String, Object>> list = dovecoteOutBillMapper.uiOutOfBreedingDove(3L, "A01");
+        System.out.println(list);
     }
     @Test
     public void test1() throws Exception{

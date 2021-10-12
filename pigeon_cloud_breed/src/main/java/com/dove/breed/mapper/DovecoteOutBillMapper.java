@@ -8,9 +8,11 @@ import com.dove.breed.entity.vo.DovecoteOutBillVo;
 import com.dove.breed.entity.vo.ShipmentEntryBillVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.context.annotation.PropertySource;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -43,4 +45,6 @@ public interface DovecoteOutBillMapper extends BaseMapper<DovecoteOutBill> {
 
     int getHowManyOfToday(@Param("baseId")Long baseId);
 
+
+    List<Map<String ,Object>> uiOutOfBreedingDove(@Param("baseId")Long baseId,@Param("dovecoteNumber")String dovecoteNumber);
 }
