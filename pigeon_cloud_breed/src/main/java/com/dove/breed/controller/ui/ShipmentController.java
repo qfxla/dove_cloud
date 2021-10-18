@@ -1,7 +1,9 @@
 package com.dove.breed.controller.ui;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dove.breed.entity.Dovecote;
+import com.dove.breed.entity.MonitorBase;
 import com.dove.breed.entity.ShipmentOutBill;
 import com.dove.breed.entity.vo.MonitorBaseVo;
 import com.dove.breed.mapper.CageRealMapper;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.nio.file.Watchable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,7 +63,7 @@ public class ShipmentController {
 
     @ApiOperation("肉鸽出栏曲线图")
     @GetMapping("getOutOfBreedingDove")
-    public Result getBreedingDove(){
+    public Result getBreedingDove() throws Exception {
         String path = baseUrl + "肉鸽出栏.txt";
         System.out.println(path);
         QueryWrapper<ShipmentOutBill> wrapper = new QueryWrapper<>();
@@ -69,15 +72,21 @@ public class ShipmentController {
                 Collectors.groupingBy(
                         shipmentOutBill -> shipmentOutBill.getGmtCreate().getMonth()
                 ));
-        Map<Integer, Integer> map1 = new HashMap<>();
+//        Map<Integer, Integer> map1 = new HashMap<>();
+        List<Object> objects = new ArrayList<>();
         for (Map.Entry<Integer, List<ShipmentOutBill>> entrySet : map.entrySet()) {
             int total = 0;
             for (ShipmentOutBill shipmentOutBill : entrySet.getValue()) {
                 total += shipmentOutBill.getTotal();
             }
-            map1.put(entrySet.getKey() + 1,total);
+//            map1.put(entrySet.getKey() + 1,total);
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("month",entrySet.getKey() + 1);
+            jsonObject.put("amount",total);
+            Object o = JSONObject.toJavaObject(jsonObject, Object.class);
+            objects.add(jsonObject);
         }
-        return map1.size() > 0?Result.success("获取成功").data(map1) : Result.error(StatusCode.ERROR,"文件不存在或无数据");
+        return objects.size() > 0?Result.success("获取成功").data(objects) : Result.error(StatusCode.ERROR,"文件不存在或无数据");
     }
 
     @ApiOperation("异常情况")
@@ -144,7 +153,7 @@ public class ShipmentController {
     @ApiOperation("视频接口")
     @GetMapping("video")
     public Result video(){
-        List<MonitorBaseVo> list = monitorBaseService.list(1354412676377280515L);
+        List<MonitorBase> list = monitorBaseService.list(null);
         return list.size() != 0? Result.success("获取成功").data(list) : Result.error("暂无数据");
     }
 }

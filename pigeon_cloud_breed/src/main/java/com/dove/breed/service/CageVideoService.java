@@ -2,6 +2,7 @@ package com.dove.breed.service;
 
 import com.dove.breed.entity.CageVideo;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.dove.breed.entity.vo.CageRealVo;
 
 /**
  * <p>
@@ -12,5 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2021-09-28
  */
 public interface CageVideoService extends IService<CageVideo> {
-
+    void addCageVideo(CageRealVo cageRealVo);
 }

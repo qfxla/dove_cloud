@@ -17,7 +17,7 @@ import java.util.List;
  */
 public interface MonitorBaseMapper extends BaseMapper<MonitorBase> {
 
-    List<MonitorBaseVo> selectList(@Param("enterpriseId") Long enterpriseId);
+//    List<MonitorBaseVo> selectList(@Param("enterpriseId") Long enterpriseId);
 
     List<MonitorBaseVo> listByType(@Param("baseId") Long baseId, @Param("type") Integer type, @Param("dovecoteNumber") String dovecoteNumber,
                                    @Param("statusCode") Integer statusCode, @Param("enterpriseId") Long enterpriseId);

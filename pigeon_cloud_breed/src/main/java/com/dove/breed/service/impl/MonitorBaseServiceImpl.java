@@ -85,18 +85,13 @@ public class MonitorBaseServiceImpl extends ServiceImpl<MonitorBaseMapper, Monit
     }
 
     @Override
-    public List<MonitorBaseVo> list(Long enterpriseId) {
-        return monitorBaseMapper.selectList(enterpriseId);
-    }
-
-    @Override
     public List<MonitorBaseVo> listByType(Long baseId, Integer type, String dovecoteNumber, Integer statusCode, Long enterpriseId) {
         return monitorBaseMapper.listByType(baseId, type, dovecoteNumber, statusCode, enterpriseId);
     }
 
     @Override
-    public boolean updateToken(Long id) {
-        MonitorBase monitorBase = baseMapper.selectById(id);
+    public boolean updateToken() {
+        List<MonitorBase> monitorBaseList = baseMapper.selectList(null);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/x-www-form-urlencoded");
         MultiValueMap<String, Object> postParameters = new LinkedMultiValueMap<>();
@@ -108,10 +103,13 @@ public class MonitorBaseServiceImpl extends ServiceImpl<MonitorBaseMapper, Monit
         assert s != null;
         JSONObject data = s.getJSONObject("data");
         String accessToken = data.getString("accessToken");
-        monitorBase.setAccessToken(accessToken);
-        String url1 = "https://open.ys7.com/ezopen/h5/iframe_se?url=ezopen://open.ys7.com/"+monitorBase.getDeviceSerial()+"/"+monitorBase.getAisle()+".live&autoplay=1&accessToken="+monitorBase.getAccessToken()+"&templete=2";
-        monitorBase.setVideoUrl(url1);
-        return monitorBaseMapper.updateById(monitorBase)>0;
+        for (MonitorBase monitorBase : monitorBaseList) {
+            monitorBase.setAccessToken(accessToken);
+            String url1 = "https://open.ys7.com/ezopen/h5/iframe_se?url=ezopen://open.ys7.com/" + monitorBase.getDeviceSerial() + "/" + monitorBase.getAisle() + ".live&autoplay=1&accessToken=" + monitorBase.getAccessToken() + "&templete=2";
+            monitorBase.setVideoUrl(url1);
+            monitorBaseMapper.updateById(monitorBase);
+        }
+        return true;
     }
 
     @Override

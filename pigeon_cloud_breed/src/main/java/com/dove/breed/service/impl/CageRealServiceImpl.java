@@ -6,9 +6,11 @@ import com.dove.breed.entity.vo.AbnormalVo;
 import com.dove.breed.entity.vo.CageRealVo;
 import com.dove.breed.mapper.CageMapper;
 import com.dove.breed.mapper.CageRealMapper;
+import com.dove.breed.service.CagePictureService;
 import com.dove.breed.service.CageRealService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dove.breed.service.CageService;
+import com.dove.breed.service.CageVideoService;
 import com.dove.breed.utils.ConvertUtil;
 import com.dove.breed.utils.PageUtil;
 import com.dove.entity.GlobalException;
@@ -42,6 +44,10 @@ public class CageRealServiceImpl extends ServiceImpl<CageRealMapper, CageReal> i
     private CageService cageService;
     @Autowired
     private ExecutorService executorService;
+    @Autowired
+    private CageVideoService cageVideoService;
+    @Autowired
+    private CagePictureService cagePictureService;
 
     @Override
     public List<CageRealVo> getAllCage(Long baseId, String dovecoteNumber) {
@@ -51,6 +57,8 @@ public class CageRealServiceImpl extends ServiceImpl<CageRealMapper, CageReal> i
             int line = cageRealVo.getLine();
             int column = cageRealVo.getColumnNo();
             String position = row + "排" + line + "行" + column + "列";
+            cageVideoService.addCageVideo(cageRealVo);
+            cagePictureService.addCagePic(cageRealVo);
             cageRealVo.setPosition(position);
         }
         return allCage;
@@ -64,6 +72,8 @@ public class CageRealServiceImpl extends ServiceImpl<CageRealMapper, CageReal> i
             int line = cageRealVo.getLine();
             int column = cageRealVo.getColumnNo();
             String position = row + "排" + line + "行" + column + "列";
+            cageVideoService.addCageVideo(cageRealVo);
+            cagePictureService.addCagePic(cageRealVo);
             cageRealVo.setPosition(position);
         }
         return layEggsTime;
@@ -77,6 +87,8 @@ public class CageRealServiceImpl extends ServiceImpl<CageRealMapper, CageReal> i
             int line = cageRealVo.getLine();
             int column = cageRealVo.getColumnNo();
             String position = row + "排" + line + "行" + column + "列";
+            cageVideoService.addCageVideo(cageRealVo);
+            cagePictureService.addCagePic(cageRealVo);
             cageRealVo.setPosition(position);
         }
         return hatchTime;
@@ -90,6 +102,8 @@ public class CageRealServiceImpl extends ServiceImpl<CageRealMapper, CageReal> i
             int line = cageRealVo.getLine();
             int column = cageRealVo.getColumnNo();
             String position = row + "排" + line + "行" + column + "列";
+            cageVideoService.addCageVideo(cageRealVo);
+            cagePictureService.addCagePic(cageRealVo);
             cageRealVo.setPosition(position);
         }
         return feedTime;
@@ -179,6 +193,8 @@ public class CageRealServiceImpl extends ServiceImpl<CageRealMapper, CageReal> i
         for (CageRealVo record : records) {
 //            executorService.execute(() -> {
                 CageRealVo cageRealVo = addPositionAndAbnormal(record);
+            cageVideoService.addCageVideo(cageRealVo);
+            cagePictureService.addCagePic(cageRealVo);
                 recordNew.add(cageRealVo);
                 cdl.countDown();
 //            });

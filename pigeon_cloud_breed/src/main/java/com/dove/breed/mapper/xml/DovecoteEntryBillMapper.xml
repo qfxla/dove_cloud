@@ -26,10 +26,10 @@
     <sql id="DovecoteEntryBillVo">
         id, dovecote_number,type,amount, base_id,handler, total, remark, guige, gmt_create, gmt_modified
     </sql>
-    <select id="findBillByGmt_createAndDovecoteId" resultType="com.dove.breed.entity.vo.DovecoteEntryBillVo">
+    <select id="findBillByGmt_createAndBaseId" resultType="com.dove.breed.entity.vo.DovecoteEntryBillVo">
         SELECT
         <include refid="DovecoteEntryBillVo"/>
-        FROM t_shipment_entry_bill
+        FROM t_dovecote_entry_bill
         WHERE base_id = #{baseId} And gmt_create between #{startTime} and #{endTime}
     </select>
 

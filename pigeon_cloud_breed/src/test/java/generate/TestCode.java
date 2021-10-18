@@ -2,6 +2,7 @@ package generate;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dove.breed.BreedApplication;
 import com.dove.breed.entity.*;
 import com.dove.breed.entity.dto.DovecoteDto;
@@ -22,10 +23,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
@@ -88,22 +86,16 @@ public class TestCode {
     private CageVideoMapper cageVideoMapper;
     @Autowired
     private ShipmentOutBillService shipmentOutBillService;
+    @Autowired
+    private MonitorBaseService monitorBaseService;
+    @Autowired
+    private DovecoteEntryBillMapper dovecoteEntryBillMapper;
 
     @Test
     public void test() throws IOException, InterruptedException {
-        List<Map<String, Object>> list = dovecoteOutBillMapper.uiOutOfBreedingDove(3L, "A01");
-        System.out.println(list);
     }
     @Test
     public void test1() throws Exception{
-        File file = new File("D:\\桌面\\json文件\\金绿公司整体介绍图\\鸽棚数量，肉鸽出栏数等.txt");
-        String stringData = FileUtils.readFileToString(file, "UTF-8");
-        List<Object> list = (List<Object>) JSONArray.parse(stringData);
-
-        JSONObject jsonObject = JSON.parseObject(list.get(0).toString());
-        jsonObject.put("myName","zcj");
-        System.out.println(jsonObject);
-
     }
 
     @Test

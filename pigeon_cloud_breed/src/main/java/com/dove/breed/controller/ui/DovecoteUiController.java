@@ -89,7 +89,7 @@ public class DovecoteUiController {
 
     @ApiOperation("鸽笼异常排行")
     @GetMapping("abnormalRanking")
-    public Result abnormalRanking(){
+    public Result abnormalRanking() throws InterruptedException {
         List<CageRealVo> cages = dovecoteService.getMaxAbnormal(3L, "A01", 1, 5);
         return cages.size() > 0? Result.success("获取成功").data(cages) : Result.error("获取失败");
     }

@@ -73,8 +73,8 @@ public class DovecoteEntryBillServiceImpl extends ServiceImpl<DovecoteEntryBillM
     private DovecoteEntryBaseService dovecoteEntryBaseService;
 
     @Override
-    public List<DovecoteEntryBillVo> findBillByGmt_createAndBaseId(Date startTime, Date endTime, Long dovecoteId) {
-        List<DovecoteEntryBillVo> result = dovecoteEntryBillMapper.findBillByGmt_createAndDovecoteId(startTime, endTime, dovecoteId);
+    public List<DovecoteEntryBillVo> findBillByGmt_createAndBaseId(Date startTime, Date endTime, Long baseId) {
+        List<DovecoteEntryBillVo> result = dovecoteEntryBillMapper.findBillByGmt_createAndBaseId(startTime, endTime, baseId);
         return result;
     }
 

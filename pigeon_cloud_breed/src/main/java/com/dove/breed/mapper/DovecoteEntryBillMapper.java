@@ -21,9 +21,9 @@ import java.util.List;
  */
 @Mapper
 public interface DovecoteEntryBillMapper extends BaseMapper<DovecoteEntryBill> {
-    List<DovecoteEntryBillVo> findBillByGmt_createAndDovecoteId(@Param("startTime") Date startTime,
+    List<DovecoteEntryBillVo> findBillByGmt_createAndBaseId(@Param("startTime") Date startTime,
                                                                 @Param("endTime")Date endTime,
-                                                                @Param("shipmentId")Long dovecoteId);
+                                                                @Param("baseId")Long baseId);
 
     /**
      * 根据基地id和鸽棚编号获取所有对应当月订单的id

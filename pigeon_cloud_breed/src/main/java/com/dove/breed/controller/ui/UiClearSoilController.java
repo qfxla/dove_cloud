@@ -23,7 +23,7 @@ import java.util.List;
 @Api(tags = "ui-清粪图")
 @RestController
 @RequestMapping("/ui/clearSoil")
-public class ClearSoilController {
+public class UiClearSoilController {
     @Value("${BASE_UI_URL.clearSoil}")
     private String baseUrl;
 

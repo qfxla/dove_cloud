@@ -51,5 +51,8 @@ public class CageRealVo {
 
     private Integer twoBad;
 
+    private String picUrl;
+
+    private String videoUrl;
 
 }

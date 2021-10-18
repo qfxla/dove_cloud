@@ -77,14 +77,14 @@ public class MonitorBaseController {
         return monitorBaseService.update(mv,updateWrapper) ? Result.success(): Result.error();
     }
 
-    @ApiOperation(value = "根据id更新Token")
-    @PostMapping(value = "/updateToken/{id}")
-    public Result updateToken(@PathVariable Long id){
-        return monitorBaseService.updateToken(id) ? Result.success(): Result.error();
-    }
+//    @ApiOperation(value = "根据id更新Token")
+//    @PostMapping(value = "/updateToken/{id}")
+//    public Result updateToken(@PathVariable Long id){
+//        return monitorBaseService.updateToken(id) ? Result.success(): Result.error();
+//    }
 
     @ApiOperation(value = "更新摄像头信息")
-    @PostMapping(value = "/update")
+    @PostMapping(value = "/update/{id}")
     public Result upData(@PathVariable("id") Long id,@RequestBody MonitorBaseDto monitorBaseDto){
         monitorBaseService.upData(id,monitorBaseDto);
         MonitorBase vs = monitorBaseService.getById(id);

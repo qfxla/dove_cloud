@@ -19,4 +19,11 @@
         AND DATEDIFF(gmt_create,NOW())=-1
         ORDER by gmt_create asc
     </select>
+    <select id="getCageVideoByCageId" resultType="com.dove.breed.entity.CagePicture">
+        SELECT *
+        FROM t_cage_picture
+        WHERE cage_id = #{cageId}
+        ORDER By id DESC
+            LIMIT 1
+    </select>
 </mapper>

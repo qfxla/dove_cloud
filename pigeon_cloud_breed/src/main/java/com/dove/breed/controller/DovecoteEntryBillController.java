@@ -154,9 +154,9 @@ public class DovecoteEntryBillController {
     }
 
     @ApiOperation(value = "根据创建时间和基地id查询ShipmentEntryBill")
-    @GetMapping("/findBillByGmt_createAndBaseId/{startTime}/{endTime}/{dovecoteId}")
-    public Result findBillByGmt_createAndBaseId(@PathVariable("startTime") Date startTime, @PathVariable("endTime") Date endTime, @PathVariable("dovecoteId")Long dovecoteId){
-        List<DovecoteEntryBillVo> list = dovecoteEntryBillService.findBillByGmt_createAndBaseId(startTime, endTime, dovecoteId);
+    @GetMapping("/findBillByGmt_createAndBaseId/{startTime}/{endTime}/{baseId}")
+    public Result findBillByGmt_createAndBaseId(@PathVariable("startTime") Date startTime, @PathVariable("endTime") Date endTime, @PathVariable("baseId")Long baseId){
+        List<DovecoteEntryBillVo> list = dovecoteEntryBillService.findBillByGmt_createAndBaseId(startTime, endTime, baseId);
         return list.size()>0?Result.success("查找成功").data(list):Result.error("查找失败");
     }
 

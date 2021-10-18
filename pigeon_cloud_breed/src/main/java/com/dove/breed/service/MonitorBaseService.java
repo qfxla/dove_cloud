@@ -20,11 +20,9 @@ public interface MonitorBaseService extends IService<MonitorBase> {
 
     void upData(Long id, MonitorBaseDto monitorBaseDto);
 
-    List<MonitorBaseVo> list(Long enterpriseId);
-
     List<MonitorBaseVo> listByType(Long baseId, Integer type, String dovecoteNumber, Integer statusCode, Long enterpriseId);
 
-    boolean updateToken(Long id);
+    boolean updateToken();
 
     List<MonitorBaseVo> getVoById(Long id);
 }

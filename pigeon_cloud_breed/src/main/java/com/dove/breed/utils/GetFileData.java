@@ -21,6 +21,7 @@ public class GetFileData {
         try {
             File file = new File(path);
             String stringData = FileUtils.readFileToString(file, "UTF-8");
+            //因为文件中对象我统一用数组包起来了，所以用这个
             list = (List<Object>)JSONArray.parse(stringData);
         }catch (Exception e){
             System.out.println("我报错了");

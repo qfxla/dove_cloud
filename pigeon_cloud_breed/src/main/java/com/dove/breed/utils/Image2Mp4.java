@@ -47,12 +47,12 @@ public class Image2Mp4 {
     //定时器要调用的方法，遍历所有鸽笼，把图片转为视频
     public void updateMp4() throws FrameRecorder.Exception {
         //获取所有鸽笼
-        List<Long> cageIds = cagePositionMapper.getAllCageId();
-        //遍历所有鸽笼
-        for (Long cageId : cageIds) {
-            //根据cageId获取该cage前一天的24张图片
-            List<String> urls = cagePictureMapper.getYesterdayUrl(cageId);
-            if (urls.size() != 0){
+            List<Long> cageIds = cagePositionMapper.getAllCageId();
+            //遍历所有鸽笼
+            for (Long cageId : cageIds) {
+                //根据cageId获取该cage前一天的24张图片
+                List<String> urls = cagePictureMapper.getYesterdayUrl(cageId);
+                if (urls.size() != 0){
                 Map<Integer, File> imgMap = new HashMap<Integer, File>();
                 int num = 0;
                 for (String url : urls) {
@@ -69,27 +69,6 @@ public class Image2Mp4 {
         }
     }
 
-//    public void test() throws FrameRecorder.Exception {
-//        //合成的MP4
-//        String mp4SavePath3 = "/usr/local/go-fastdfs/files/cageVideo/img.mp4";
-//        //图片地址 这里面放了24张图片
-//        String img = "/usr/local/go-fastdfs/files/cageVideo/image";
-//        int width = 1600;
-//        int height = 900;
-//        //读取所有图片
-//        File file = new File(img);
-//        File[] files = file.listFiles();
-//        Map<Integer, File> imgMap = new HashMap<Integer, File>();
-//        int num = 0;
-//        for (File imgFile : files) {
-//            imgMap.put(num, imgFile);
-//            num++;
-//        }
-//        File file1 = new File(mp4SavePath3);
-////        createMp4(file1, imgMap, width, height);
-//    }
-
-//    private static void createMp4(String mp4SavePath, Map<Integer, File> imgMap, int width, int height) throws FrameRecorder.Exception {
     protected void createMp4(File file1, Map<Integer, File> imgMap, int width, int height, Long cageId) throws FrameRecorder.Exception {
         //视频宽高最好是按照常见的视频的宽高  16：9  或者 9：16
         FFmpegFrameRecorder recorder = new FFmpegFrameRecorder(file1, width, height);

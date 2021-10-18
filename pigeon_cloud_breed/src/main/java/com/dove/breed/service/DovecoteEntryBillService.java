@@ -29,7 +29,7 @@ import java.util.Map;
  * @since 2021-08-18
  */
 public interface DovecoteEntryBillService extends IService<DovecoteEntryBill> {
-    List<DovecoteEntryBillVo> findBillByGmt_createAndBaseId(Date startTime, Date endTime, Long dovecoteId);
+    List<DovecoteEntryBillVo> findBillByGmt_createAndBaseId(Date startTime, Date endTime, Long baseId);
 
 //    void submitDovecoteEntryBill(DovecoteEntryBillDto dovecoteEntryBillDto, ArrayList<DovecoteEntryBaseFodderDto> dovecoteEntryBaseFodderDtoList);
 

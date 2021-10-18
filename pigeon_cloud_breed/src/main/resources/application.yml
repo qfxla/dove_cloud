@@ -84,7 +84,7 @@ BASE_UI_URL:
   companyIntroduction: /root/dove/pigeon_cloud_breed/json文件/金绿公司整体介绍图/
   shipment: /root/dove/pigeon_cloud_breed/json文件/基地/
   dovecote: /root/dove/pigeon_cloud_breed/json文件/鸽棚图/
-  feed: /root/dove/pigeon_cloud_breed/json文件/喂养图/
+  feed: /root/dove/pigeon_cloud_breed/json文件/投喂图/
   drink: /root/dove/pigeon_cloud_breed/json文件/饮水图/
   clearSoil: /root/dove/pigeon_cloud_breed/json文件/清粪图/
   cage: /root/dove/pigeon_cloud_breed/json文件/鸽笼图/
