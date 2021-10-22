@@ -16,6 +16,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -38,6 +40,9 @@ public class MonitorBaseController {
     @Resource
     private MonitorBaseService monitorBaseService;
 
+    @Autowired
+    private RedisTemplate redisTemplate;
+
     @ApiOperation(value = "根据摄像头类型查询所有的摄像头")
     @GetMapping(value = "/baseId/{current}/{size}")
     public Result findByBaseId(@RequestParam(value = "baseId",required = false)Long baseId,
@@ -46,7 +51,14 @@ public class MonitorBaseController {
                                @RequestParam(value = "statusCode",required = false)Integer statusCode,
                                @PathVariable int current,@PathVariable int size){
         List<MonitorBaseVo> list = monitorBaseService.listByType(baseId, type, dovecoteNumber, statusCode, SecurityContextUtil.getUserDetails().getEnterpriseId());
-        return Result.success().data(PageUtil.list2Page(list, current, size));
+        Page page = PageUtil.list2Page(list, current, size);
+        List<MonitorBaseVo> records = page.getRecords();
+        for (MonitorBaseVo record : records) {
+            String accessToken = (String) redisTemplate.opsForValue().get("accessToken");
+            String url = "https://open.ys7.com/ezopen/h5/iframe_se?url=ezopen://open.ys7.com/"+record.getDeviceSerial()+"/"+record.getAisle()+".live&autoplay=1&accessToken="+accessToken+"&templete=2";
+            record.setVideoUrl(url);
+        }
+        return Result.success().data(page);
     }
 
     @ApiOperation(value = "添加摄像头")
@@ -63,7 +75,7 @@ public class MonitorBaseController {
 
     @ApiOperation(value = "根据id查询摄像头信息")
     @GetMapping(value = "/{id}")
-    public Result findByid(@PathVariable Long id){
+    public Result findById(@PathVariable Long id){
         return Result.success().data(monitorBaseService.getVoById(id));
     }
 

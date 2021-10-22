@@ -1,13 +1,12 @@
 package com.dove.breed.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.util.Date;
-import com.baomidou.mybatisplus.annotation.Version;
-import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 /**
  * <p>
@@ -17,162 +16,53 @@ import io.swagger.annotations.ApiModelProperty;
  * @author zcj
  * @since 2021-10-13
  */
+@Data
 @TableName("t_clear_soil")
 @ApiModel(value="ClearSoil对象", description="清粪信息表")
 public class ClearSoil implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-        @ApiModelProperty(value = "主键")
-        @TableId(value = "id", type = IdType.ID_WORKER)
+    @ApiModelProperty(value = "主键")
+    @TableId(value = "id", type = IdType.ID_WORKER)
     private Long id;
 
-        @ApiModelProperty(value = "鸽棚编号")
-        private String dovecoteNumber;
+    @ApiModelProperty(value = "鸽棚编号")
+    private String dovecoteNumber;
 
-        @ApiModelProperty(value = "基地编号")
-        private Long baseId;
+    @ApiModelProperty(value = "基地编号")
+    private Long baseId;
 
-        @ApiModelProperty(value = "清理时间")
-        private Date clearTime;
+    @ApiModelProperty(value = "清理时间")
+    private Date clearTime;
 
-        @ApiModelProperty(value = "重量")
-        private Integer weight;
+    @ApiModelProperty(value = "重量")
+    private Integer weight;
 
-        @ApiModelProperty(value = "重量的单位")
-        private String type;
+    @ApiModelProperty(value = "重量的单位")
+    private String type;
 
-        @ApiModelProperty(value = "操作人")
-        private String operator;
+    @ApiModelProperty(value = "操作人")
+    private String operator;
 
-        @ApiModelProperty(value = "企业id")
-        private Long guige;
+    @ApiModelProperty(value = "企业id")
+    private Long guige;
 
-        @ApiModelProperty(value = "创建时间")
-        private Date gmtCreate;
+    @ApiModelProperty(value = "创建时间")
+    @TableField(fill = FieldFill.INSERT)
+    private Date gmtCreate;
 
-        @ApiModelProperty(value = "更新时间")
-        private Date gmtModified;
+    @ApiModelProperty(value = "更新时间")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private Date gmtModified;
 
-        @ApiModelProperty(value = "逻辑删除")
-        private Boolean isDeleted;
+    //逻辑删除(0否,1是)
+    @ApiModelProperty(value = "逻辑删除(0否,1是)")
+    @TableField("is_deleted")
+    @TableLogic
+    private Boolean deleted;
 
-        @ApiModelProperty(value = "版本号")
-        @Version
+    @ApiModelProperty(value = "版本号")
+    @Version
     private Integer version;
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getDovecoteNumber() {
-        return dovecoteNumber;
-    }
-
-    public void setDovecoteNumber(String dovecoteNumber) {
-        this.dovecoteNumber = dovecoteNumber;
-    }
-
-    public Long getBaseId() {
-        return baseId;
-    }
-
-    public void setBaseId(Long baseId) {
-        this.baseId = baseId;
-    }
-
-    public Date getClearTime() {
-        return clearTime;
-    }
-
-    public void setClearTime(Date clearTime) {
-        this.clearTime = clearTime;
-    }
-
-    public Integer getWeight() {
-        return weight;
-    }
-
-    public void setWeight(Integer weight) {
-        this.weight = weight;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getOperator() {
-        return operator;
-    }
-
-    public void setOperator(String operator) {
-        this.operator = operator;
-    }
-
-    public Long getGuige() {
-        return guige;
-    }
-
-    public void setGuige(Long guige) {
-        this.guige = guige;
-    }
-
-    public Date getGmtCreate() {
-        return gmtCreate;
-    }
-
-    public void setGmtCreate(Date gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
-
-    public Date getGmtModified() {
-        return gmtModified;
-    }
-
-    public void setGmtModified(Date gmtModified) {
-        this.gmtModified = gmtModified;
-    }
-
-    public Boolean getDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(Boolean isDeleted) {
-        this.isDeleted = isDeleted;
-    }
-
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
-    }
-
-    @Override
-    public String toString() {
-        return "ClearSoil{" +
-        "id=" + id +
-        ", dovecoteNumber=" + dovecoteNumber +
-        ", baseId=" + baseId +
-        ", clearTime=" + clearTime +
-        ", weight=" + weight +
-        ", type=" + type +
-        ", operator=" + operator +
-        ", guige=" + guige +
-        ", gmtCreate=" + gmtCreate +
-        ", gmtModified=" + gmtModified +
-        ", isDeleted=" + isDeleted +
-        ", version=" + version +
-        "}";
-    }
 }

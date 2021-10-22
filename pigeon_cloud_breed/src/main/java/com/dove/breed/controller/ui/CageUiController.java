@@ -36,7 +36,7 @@ public class CageUiController {
 
     @ApiOperation("获取6个鸽笼详细信息")
     @GetMapping("doveDetails")
-    public Result doveDetails(){
+    public Result doveDetails() throws InterruptedException {
         //鸽笼信息
         List<CageRealVo> list = cageRealService.getAllCage(3L, "A01");
         Page page1 = PageUtil.list2Page(list, 1, 6);

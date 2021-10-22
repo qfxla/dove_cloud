@@ -52,9 +52,6 @@ public class MonitorBase extends Model<MonitorBase> {
     @ApiModelProperty(value = "摄像头监控位置")
     private String monitoringLocation;
 
-    @ApiModelProperty(value = "视频路径")
-    private String videoUrl;
-
     @ApiModelProperty(value = "创建者")
     private String createBy;
 
@@ -69,9 +66,6 @@ public class MonitorBase extends Model<MonitorBase> {
 
     @ApiModelProperty(value = "设备使用状态")
     private Integer statusCode;
-
-    @ApiModelProperty(value = "身份令牌")
-    private String accessToken;
 
     @ApiModelProperty(value = "所属企业id")
     @TableField("guige")

@@ -22,5 +22,5 @@ public interface MonitorBaseMapper extends BaseMapper<MonitorBase> {
     List<MonitorBaseVo> listByType(@Param("baseId") Long baseId, @Param("type") Integer type, @Param("dovecoteNumber") String dovecoteNumber,
                                    @Param("statusCode") Integer statusCode, @Param("enterpriseId") Long enterpriseId);
 
-    List<MonitorBaseVo> getVoById(@Param("id") Long id);
+    MonitorBaseVo getVoById(@Param("id") Long id);
 }

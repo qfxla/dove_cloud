@@ -28,7 +28,9 @@ import com.dove.util.SecurityContextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import springfox.documentation.spring.web.json.Json;
 
+import javax.print.attribute.standard.JobSheets;
 import java.text.DecimalFormat;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -227,22 +229,42 @@ public class ShipmentOutBillServiceImpl extends ServiceImpl<ShipmentOutBillMappe
         for (Map.Entry<String, List<DovecoteOutBill>> entrySet : map.entrySet()) {
             List<DovecoteOutBill> bills = entrySet.getValue();   //同一鸽棚不同订单
             JSONObject jsonObject = new JSONObject();
-            for (DovecoteOutBill bill : bills) {
-                int total = 0;
-                QueryWrapper<DovecoteOutBase> wrapper = new QueryWrapper<>();
-                wrapper.eq("dovecote_out_bill",bill.getId());
-                List<DovecoteOutBase> bases = dovecoteOutBaseService.list(wrapper);
-                for (DovecoteOutBase base : bases) {
-                    if (!jsonObject.containsKey(base.getTypeName())){
-                        jsonObject.put(base.getTypeName(),base.getAmount());
-                        total += base.getAmount();
-                    }else {
-                        Integer amount = (Integer)jsonObject.get(base.getTypeName());
-                        jsonObject.put(base.getTypeName(),amount + base.getAmount());
-                        total += amount;
+            if (type == "肉鸽"){
+                for (DovecoteOutBill bill : bills) {
+                    int total = 0;
+                    QueryWrapper<DovecoteOutBase> wrapper = new QueryWrapper<>();
+                    wrapper.eq("dovecote_out_bill",bill.getId());
+                    List<DovecoteOutBase> bases = dovecoteOutBaseService.list(wrapper);
+                    for (DovecoteOutBase base : bases) {
+                        if (!jsonObject.containsKey(base.getTypeName())){
+                            jsonObject.put(base.getTypeName(),base.getAmount());
+                            total += base.getAmount();
+                        }else {
+                            Integer amount = (Integer)jsonObject.get(base.getTypeName());
+                            jsonObject.put(base.getTypeName(),amount + base.getAmount());
+                            total += amount;
+                        }
                     }
+                    jsonObject.put("total",total);
                 }
-                jsonObject.put("total",total);
+            }else {
+                for (DovecoteOutBill bill : bills) {
+                    int total = 0;
+                    QueryWrapper<DovecoteOutBase> wrapper = new QueryWrapper<>();
+                    wrapper.eq("dovecote_out_bill",bill.getId());
+                    List<DovecoteOutBase> bases = dovecoteOutBaseService.list(wrapper);
+                    for (DovecoteOutBase base : bases) {
+                        if (!jsonObject.containsKey(base.getType())){
+                            jsonObject.put(base.getType(),base.getAmount());
+                            total += base.getAmount();
+                        }else {
+                            Integer amount = (Integer)jsonObject.get(base.getType());
+                            jsonObject.put(base.getType(),amount + base.getAmount());
+                            total += amount;
+                        }
+                    }
+                    jsonObject.put("total",total);
+                }
             }
             res.put(entrySet.getKey(),jsonObject);
         }
@@ -274,5 +296,86 @@ public class ShipmentOutBillServiceImpl extends ServiceImpl<ShipmentOutBillMappe
 
         shipmentOutBillVo.setDovecoteOutBillVoList(dovecoteOutBillVoList);
         return shipmentOutBillVo;
+    }
+
+
+    @Override
+    public List<JSONObject> getAllTypeAmountOfMonth(Long baseId,int year) {
+        List<Map<String, Object>> listMap = shipmentOutBillMapper.getAllTypeAmountOfMonth(baseId,year);
+        List<JSONObject> list = new ArrayList<>();
+        for (int i = 0;i < 12 ;i++){
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("month",i + 1);
+            jsonObject.put("meetDove",0);
+            jsonObject.put("abnormalDove",0);
+            jsonObject.put("doveEggs",0);
+            jsonObject.put("doveShit",0);
+            jsonObject.put("disabledDove",0);
+            list.add(jsonObject);
+        }
+        for (Map<String, Object> map : listMap) {
+            int month = (int)map.get("month");
+            JSONObject jsonObject = list.get(month - 1);
+            jsonObject.put("month",month);
+            switch (map.get("type").toString()){
+                case "肉鸽": jsonObject.put("meetDove",Integer.valueOf(map.get("amount").toString()));
+                break;
+                case "异常鸽": jsonObject.put("abnormalDove",Integer.valueOf(map.get("amount").toString()));
+                break;
+                case "鸽蛋": jsonObject.put("doveEggs",Integer.valueOf(map.get("amount").toString()));
+                break;
+                case "鸽粪": jsonObject.put("doveShit",Integer.valueOf(map.get("amount").toString()));
+                break;
+                case "残次品": jsonObject.put("disabledDove",Integer.valueOf(map.get("amount").toString()));
+                break;
+                default: throw new GlobalException(StatusCode.ERROR,"无该type");
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public List<JSONObject> getKindOfMeetDoveAmountByDate(Long baseId,int pageNum,int pageSize) {
+        int start = (pageNum - 1) * pageSize;
+        List<Map<String,String>> mapList =  shipmentOutBillMapper.getKindOfMeetDoveAmountByDate(baseId,start,pageSize);
+        ArrayList<JSONObject> jsonObjects = new ArrayList<>(mapList.size());
+        Map<String, Integer> havingDate = new HashMap<>();
+        for (Map<String, String> map : mapList) {
+            if (havingDate.containsKey(map.get("date"))){
+                JSONObject jsonObject = jsonObjects.get(havingDate.get(map.get("date")));
+                QueryWrapper<DovecoteOutBase> wrapper = new QueryWrapper<>();
+                wrapper.eq("dovecote_out_bill",map.get("id"));
+                List<DovecoteOutBase> bases = dovecoteOutBaseService.list(wrapper);
+                for (DovecoteOutBase base : bases) {
+                    jsonObject.put(base.getTypeName(),Integer.valueOf(String.valueOf(base.getAmount())) + base.getAmount());
+                }
+            }else {
+                havingDate.put(map.get("date"),jsonObjects.size());
+                JSONObject jsonObject = new JSONObject();
+                QueryWrapper<DovecoteOutBase> wrapper = new QueryWrapper<>();
+                wrapper.eq("dovecote_out_bill",map.get("id"));
+                List<DovecoteOutBase> bases = dovecoteOutBaseService.list(wrapper);
+                jsonObject.put("五两鸽",0);
+                jsonObject.put("六两鸽",0);
+                jsonObject.put("七两鸽",0);
+                for (DovecoteOutBase base : bases) {
+                    jsonObject.put(base.getTypeName(),Integer.valueOf(String.valueOf(base.getAmount())));
+                }
+                jsonObject.put("date",map.get("date"));
+                jsonObjects.add(jsonObject);
+            }
+        }
+
+        return jsonObjects;
+    }
+
+    @Override
+    public JSONObject getAllTypeAmountOfYear(Long baseId, int year) {
+        List<Map<String, String>> mapList = shipmentOutBillMapper.getAllTypeAmountOfYear(baseId, year);
+        JSONObject jsonObject = new JSONObject();
+        for (Map<String, String> stringStringMap : mapList) {
+            jsonObject.put(stringStringMap.get("type"),stringStringMap.get("amount"));
+        }
+        return jsonObject;
     }
 }

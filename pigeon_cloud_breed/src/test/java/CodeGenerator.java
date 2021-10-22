@@ -73,7 +73,7 @@ public class CodeGenerator {
         // 5、策略配置
         StrategyConfig strategy = new StrategyConfig();
 
-        strategy.setInclude("t_drinking","t_feed","t_clear_soil");
+        strategy.setInclude("t_forecast_warning");
 
 
         strategy.setNaming(NamingStrategy.underline_to_camel);//数据库表映射到实体的命名策略

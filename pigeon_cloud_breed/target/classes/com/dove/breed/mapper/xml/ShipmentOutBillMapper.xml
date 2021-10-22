@@ -64,5 +64,29 @@
                   AND MONTH(gmt_create) = MONTH(NOW())
 
     </select>
+    <select id="getAllTypeAmountOfMonth" resultType="java.util.Map">
+        SELECT month(gmt_create) month,type,sum(amount) amount
+        FROM t_shipment_out_bill
+        WHERE is_deleted = 0
+        AND base_id = #{baseId}
+        AND year(gmt_create) = #{year}
+        GROUP BY month(gmt_create),type
+    </select>
+    <select id="getKindOfMeetDoveAmountByDate" resultType="java.util.Map">
+        SELECT DATE_FORMAT(gmt_create,'%y%m%d') date ,id
+        FROM t_dovecote_out_bill
+        WHERE base_id = #{baseId}
+          AND TYPE = "肉鸽"
+        GROUP BY DATE_FORMAT(gmt_create,'%y%m%d'),id
+        order by DATE_FORMAT(gmt_create,'%y%m%d') desc
+    </select>
+    <select id="getAllTypeAmountOfYear" resultType="java.util.Map">
+        SELECT type,sum(amount) amount
+        FROM t_shipment_out_bill
+        WHERE is_deleted = 0
+        AND base_id = #{baseId}
+        AND year(gmt_create) = #{year}
+        GROUP BY type
+    </select>
 
 </mapper>

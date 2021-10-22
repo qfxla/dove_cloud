@@ -9,6 +9,7 @@ import com.dove.breed.entity.dto.DrinkingDto;
 import com.dove.breed.entity.vo.DrinkingVo;
 import com.dove.breed.service.DrinkingService;
 import com.dove.breed.utils.ConvertUtil;
+import com.dove.breed.utils.PageUtil;
 import com.dove.entity.Result;
 import com.dove.util.SecurityContextUtil;
 import io.swagger.annotations.Api;
@@ -55,19 +56,24 @@ public class DrinkingController {
         return b ? Result.success("删除成功") : Result.error("删除失败");
     }
 
-    @ApiOperation(value = "条件查询")
-    @PostMapping("/get")
-    public Result list(@RequestBody Drinking drinking){
-        List<Drinking> drinkingList = drinkingService.list(new QueryWrapper<>(drinking));
-        return drinkingList.size() > 0?Result.success("查询成功").data(drinkingList) : Result.error("查询失败");
+    @ApiOperation(value = "列表（分页）")
+    @GetMapping("/list/{current}/{size}")
+    public Object list(@RequestParam(value = "baseId", required = false) Long baseId,
+                       @RequestParam(value = "dovecoteNumber", required = false) String dovecoteNumber,
+                       @RequestParam(value = "operator", required = false) String operator,
+                       @RequestParam(value = "startTime",required = false) String startTime,
+                       @RequestParam(value = "endTime",required = false)String endTime,
+                       @PathVariable("current")Integer current, @PathVariable("size")Integer size){
+        List<DrinkingVo> list = drinkingService.listByType(baseId, dovecoteNumber, operator,startTime, endTime, SecurityContextUtil.getUserDetails().getEnterpriseId());
+        Page page = PageUtil.list2Page(list, current, size);
+        return page.getTotal() > 0?Result.success("分页成功").data(page) : Result.error("分页失败");
     }
 
-    @ApiOperation(value = "列表（分页）")
-    @GetMapping("/list/{pageNum}/{pageSize}")
-    public Object list(@PathVariable("pageNum")Long pageNum, @PathVariable("pageSize")Long pageSize){
-        IPage<Drinking> page = drinkingService.page(
-                new Page<>(pageNum, pageSize), null);
-        return page.getTotal() > 0? Result.success("分页成功").data(page) : Result.error("分页失败");
+    @ApiOperation(value = "获取所有操作人")
+    @GetMapping("/getAllOperator")
+    public Result getAllOperator(){
+        List<String> operatorList = drinkingService.getAllOperator();
+        return operatorList != null? Result.success("查询成功").data(operatorList) : Result.error("查询失败");
     }
 
     @ApiOperation(value = "详情")
@@ -75,7 +81,7 @@ public class DrinkingController {
     public Result get(@PathVariable("id") Long id){
         Drinking drinking = drinkingService.getById(id);
         DrinkingVo drinkingVo = convertUtil.convert(drinking, DrinkingVo.class);
-        return drinkingVo == null? Result.success("查询成功").data(drinkingVo) : Result.error("查询失败");
+        return drinkingVo != null? Result.success("查询成功").data(drinkingVo) : Result.error("查询失败");
     }
 
     @ApiOperation(value = "根据id修改")

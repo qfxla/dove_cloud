@@ -141,6 +141,12 @@
             <version>1.5.2</version>
         </dependency>
 
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.hibernate/hibernate-validator &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.hibernate</groupId>-->
+<!--            <artifactId>hibernate-validator</artifactId>-->
+<!--            <version>5.4.1.Final</version>-->
+<!--        </dependency>-->
     </dependencies>
     <packaging>jar</packaging>
     <build>

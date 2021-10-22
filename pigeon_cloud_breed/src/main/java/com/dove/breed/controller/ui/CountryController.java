@@ -31,32 +31,14 @@ public class CountryController {
     @Value("${BASE_UI_URL.country}")
     public String baseUrl;
 
-    @ApiOperation("肉鸽出栏，种鸽存栏，鸽蛋总量")
+    @ApiOperation("养殖基本信息")
     @GetMapping("getBreedingDove")
     public Result getBreedingDove(){
-        String path = baseUrl + "c_肉鸽出栏数等.txt";
+        String path = baseUrl + "c_养殖基本信息.txt";
         System.out.println(path);
         List<Object> jsonObject = GetFileData.getJsonObject(path);
         return jsonObject.size() > 0?Result.success("获取成功").data(jsonObject) : Result.error(StatusCode.ERROR,"文件不存在或无数据");
     }
-
-    @ApiOperation("各地种乳鸽存栏柱状图")
-    @GetMapping("getHistogram")
-    public Result getHistogram(){
-        String path = baseUrl + "c_各地种乳鸽存栏柱状图.txt";
-        List<Object> jsonObject = GetFileData.getJsonObject(path);
-        return jsonObject.size() > 0?Result.success("获取成功").data(jsonObject) : Result.error("文件不存在或无数据");
-    }
-
-    @ApiOperation("5个典型区域")
-    @GetMapping("getFiveArea")
-    public Result getFiveArea(){
-        String path = baseUrl + "c_5个典型区域.txt";
-        System.out.println(path);
-        List<Object> jsonObject = GetFileData.getJsonObject(path);
-        return jsonObject.size() > 0?Result.success("获取成功").data(jsonObject) : Result.error("文件不存在或无数据");
-    }
-
     @ApiOperation("乳鸽、老鸽、鸽蛋价格走势")
     @GetMapping("getDovePriceTendency")
     public Result getDovePriceTendency(){
@@ -89,4 +71,26 @@ public class CountryController {
         return jsonObject.size() > 0?Result.success("获取成功").data(jsonObject) : Result.error("文件不存在或无数据");
     }
 
+    @ApiOperation("区域品种展示")
+    @GetMapping("showBound")
+    public Result showBound(){
+        String path = baseUrl + "c_区域品种展示.txt";
+        List<Object> jsonObject = GetFileData.getJsonObject(path);
+        return jsonObject.size() > 0?Result.success("获取成功").data(jsonObject) : Result.error("文件不存在或无数据");
+    }
+
+    @ApiOperation("全国种鸽乳鸽存栏")
+    @GetMapping("liveStock")
+    public Result liveStock(){
+        String path = baseUrl + "c_全国种鸽乳鸽存栏.txt";
+        List<Object> jsonObject = GetFileData.getJsonObject(path);
+        return jsonObject.size() > 0?Result.success("获取成功").data(jsonObject) : Result.error("文件不存在或无数据");
+    }
+    @ApiOperation("历年规模")
+    @GetMapping("yearScale")
+    public Result yearScale(){
+        String path = baseUrl + "c_历年规模.txt";
+        List<Object> jsonObject = GetFileData.getJsonObject(path);
+        return jsonObject.size() > 0?Result.success("获取成功").data(jsonObject) : Result.error("文件不存在或无数据");
+    }
 }

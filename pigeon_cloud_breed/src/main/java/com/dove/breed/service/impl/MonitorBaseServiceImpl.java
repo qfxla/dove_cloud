@@ -12,6 +12,7 @@ import com.dove.breed.utils.ConvertUtil;
 import com.dove.breed.utils.MonitorEnum;
 import com.dove.util.SecurityContextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ import javax.annotation.Resource;
 import javax.swing.*;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
@@ -41,25 +43,13 @@ public class MonitorBaseServiceImpl extends ServiceImpl<MonitorBaseMapper, Monit
 
     private ConvertUtil convertUtil = new ConvertUtil();
 
+    @Autowired
+    private RedisTemplate redisTemplate;
+
     @Override
     public boolean add(MonitorBaseDto monitorBaseDto){
         MonitorBase monitorVideo = convertUtil.convert(monitorBaseDto, MonitorBase.class);
-        monitorVideo.setId(null);
         monitorVideo.setGuige(SecurityContextUtil.getUserDetails().getEnterpriseId());
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Type", "application/x-www-form-urlencoded");
-        MultiValueMap<String, Object> postParameters = new LinkedMultiValueMap<>();
-        postParameters.add(MonitorEnum.MONITOR_USER.getKey(), MonitorEnum.MONITOR_USER.getValue());
-        postParameters.add(MonitorEnum.MONITOR_PASSWORD.getKey(), MonitorEnum.MONITOR_PASSWORD.getValue());
-        HttpEntity<MultiValueMap<String, Object>> httpEntity = new HttpEntity<>(postParameters, headers);
-        RestTemplate client = new RestTemplate();
-        JSONObject s = client.postForObject(MonitorEnum.MONITOR_URL.getValue(), httpEntity, JSONObject.class);
-        assert s != null;
-        JSONObject data = s.getJSONObject("data");
-        String accessToken = data.getString("accessToken");
-        monitorVideo.setAccessToken(accessToken);
-        String url1 = "https://open.ys7.com/ezopen/h5/iframe_se?url=ezopen://open.ys7.com/"+monitorVideo.getDeviceSerial()+"/"+monitorVideo.getAisle()+".live&autoplay=1&accessToken="+monitorVideo.getAccessToken()+"&templete=2";
-        monitorVideo.setVideoUrl(url1);
         return monitorBaseMapper.insert(monitorVideo) >0;
     }
 
@@ -67,20 +57,6 @@ public class MonitorBaseServiceImpl extends ServiceImpl<MonitorBaseMapper, Monit
     public void upData(Long id, MonitorBaseDto monitorBaseDto) {
         MonitorBase monitorVideo = convertUtil.convert(monitorBaseDto, MonitorBase.class);
         monitorVideo.setId(id);
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Type", "application/x-www-form-urlencoded");
-        MultiValueMap<String, Object> postParameters = new LinkedMultiValueMap<>();
-        postParameters.add(MonitorEnum.MONITOR_USER.getKey(), MonitorEnum.MONITOR_USER.getValue());
-        postParameters.add(MonitorEnum.MONITOR_PASSWORD.getKey(), MonitorEnum.MONITOR_PASSWORD.getValue());
-        HttpEntity<MultiValueMap<String, Object>> httpEntity = new HttpEntity<>(postParameters, headers);
-        RestTemplate client = new RestTemplate();
-        JSONObject s = client.postForObject(MonitorEnum.MONITOR_URL.getValue(), httpEntity, JSONObject.class);
-        assert s != null;
-        JSONObject data = s.getJSONObject("data");
-        String accessToken = data.getString("accessToken");
-        monitorVideo.setAccessToken(accessToken);
-        String url1 = "https://open.ys7.com/ezopen/h5/iframe_se?url=ezopen://open.ys7.com/"+monitorVideo.getDeviceSerial()+"/"+monitorVideo.getAisle()+".live&autoplay=1&accessToken="+monitorVideo.getAccessToken()+"&templete=2";
-        monitorVideo.setVideoUrl(url1);
         monitorBaseMapper.updateById(monitorVideo);
     }
 
@@ -91,7 +67,6 @@ public class MonitorBaseServiceImpl extends ServiceImpl<MonitorBaseMapper, Monit
 
     @Override
     public boolean updateToken() {
-        List<MonitorBase> monitorBaseList = baseMapper.selectList(null);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/x-www-form-urlencoded");
         MultiValueMap<String, Object> postParameters = new LinkedMultiValueMap<>();
@@ -103,17 +78,19 @@ public class MonitorBaseServiceImpl extends ServiceImpl<MonitorBaseMapper, Monit
         assert s != null;
         JSONObject data = s.getJSONObject("data");
         String accessToken = data.getString("accessToken");
-        for (MonitorBase monitorBase : monitorBaseList) {
-            monitorBase.setAccessToken(accessToken);
-            String url1 = "https://open.ys7.com/ezopen/h5/iframe_se?url=ezopen://open.ys7.com/" + monitorBase.getDeviceSerial() + "/" + monitorBase.getAisle() + ".live&autoplay=1&accessToken=" + monitorBase.getAccessToken() + "&templete=2";
-            monitorBase.setVideoUrl(url1);
-            monitorBaseMapper.updateById(monitorBase);
-        }
+        redisTemplate.opsForValue().set("accessToken",accessToken,7, TimeUnit.DAYS);
         return true;
     }
 
     @Override
-    public List<MonitorBaseVo> getVoById(Long id) {
-        return monitorBaseMapper.getVoById(id);
+    public MonitorBaseVo getVoById(Long id) {
+        MonitorBaseVo monitorBaseVo = monitorBaseMapper.getVoById(id);
+        System.out.println("66");
+        System.out.println(redisTemplate.hasKey("accessToken"));
+        String accessToken = (String) redisTemplate.opsForValue().get("accessToken");
+        System.out.println("55");
+        String url = "https://open.ys7.com/ezopen/h5/iframe_se?url=ezopen://open.ys7.com/"+monitorBaseVo.getDeviceSerial()+"/"+monitorBaseVo.getAisle()+".live&autoplay=1&accessToken="+accessToken+"&templete=2";
+        monitorBaseVo.setVideoUrl(url);
+        return monitorBaseVo;
     }
 }

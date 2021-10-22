@@ -114,4 +114,31 @@ public class ShipmentOutBillController {
         ShipmentOutBillVo shipmentOutBillVo = shipmentOutBillService.getByFarmBatch(farmBatch,baseId,type);
         return shipmentOutBillVo != null? Result.success("获取成功").data(shipmentOutBillVo) : Result.error("无该批次号");
     }
+
+    @ApiOperation(value = "每月该基地各种type总数")
+    @GetMapping("/getAllTypeAmountOfMonth")
+    public Result getAllTypeAmountOfMonth(@RequestParam("baseId")Long baseId,@RequestParam("pageNum")int pageNum,
+                                          @RequestParam("pageSize")int pageSize,@RequestParam("year")int year){
+        List<JSONObject> list = shipmentOutBillService.getAllTypeAmountOfMonth(baseId,year);
+        Page page = PageUtil.list2Page(list, pageNum, pageSize);
+        return page.getSize() > 0?Result.success("获取成功").data(page) : Result.error("无数据");
+    }
+
+    @ApiOperation(value = "某年该基地各种type总数")
+    @GetMapping("/getAllTypeAmountOfYear")
+    public Result getAllTypeAmountOfYear(@RequestParam("baseId")Long baseId,@RequestParam("year")int year){
+        JSONObject jsonObject = shipmentOutBillService.getAllTypeAmountOfYear(baseId, year);
+        return Result.success("获取成功").data(jsonObject);
+    }
+
+    @ApiOperation(value = "求近些天各肉鸽类型出库总数")
+    @GetMapping("/getKindOfMeetDoveAmountByDate")
+    public Result getKindOfMeetDoveAmountByDate(@RequestParam("baseId")Long baseId,
+                                                @RequestParam("pageNum")int pageNum,
+                                                @RequestParam("pageSize")int pageSize){
+        List<JSONObject> list = shipmentOutBillService.getKindOfMeetDoveAmountByDate(baseId,pageNum,pageSize);
+        Page page = PageUtil.list2Page(list, pageNum, pageSize);
+        return Result.success("获取成功").data(page);
+    }
+
 }

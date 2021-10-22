@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -33,4 +34,12 @@ public interface ShipmentOutBillMapper extends BaseMapper<ShipmentOutBill> {
                                                    @Param("date")Date date);
     List<DovecoteOutBill> getDovecoteBillThisMonth(@Param("baseId")Long baseId, @Param("type")String type,
                                                    @Param("year")int year, @Param("month")int month);
+
+    List<Map<String,Object>> getAllTypeAmountOfMonth(@Param("baseId") Long baseId,@Param("year")int year);
+
+    List<Map<String, String>> getKindOfMeetDoveAmountByDate(@Param("baseId") Long baseId,
+                                                            @Param("start") int start,
+                                                            @Param("pageSize") int pageSize);
+
+    List<Map<String,String>> getAllTypeAmountOfYear(@Param("baseId") Long baseId,@Param("year") int year);
 }

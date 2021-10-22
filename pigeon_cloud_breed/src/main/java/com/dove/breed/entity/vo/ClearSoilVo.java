@@ -21,9 +21,6 @@ import java.util.Date;
  * @since 2021-10-12
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-@TableName("t_clear_soil")
 @ApiModel(value = "ClearSoil对象", description = "清粪信息表")
 public class ClearSoilVo implements Serializable {
 
@@ -33,14 +30,13 @@ public class ClearSoilVo implements Serializable {
     @ApiModelProperty(value = "主键")
     @TableId(value = "id", type = IdType.ID_WORKER)
     private Long id;
+    //基地编号
+    @ApiModelProperty(value = "基地编号")
+    private Long baseId;
 
     //鸽棚编号
     @ApiModelProperty(value = "鸽棚编号")
     private String dovecoteNumber;
-
-    //基地编号
-    @ApiModelProperty(value = "基地编号")
-    private Long baseId;
 
     //清理时间
     @ApiModelProperty(value = "清理时间")

@@ -9,6 +9,7 @@ import com.dove.breed.entity.dto.ClearSoilDto;
 import com.dove.breed.entity.vo.ClearSoilVo;
 import com.dove.breed.service.ClearSoilService;
 import com.dove.breed.utils.ConvertUtil;
+import com.dove.breed.utils.PageUtil;
 import com.dove.entity.Result;
 import com.dove.util.SecurityContextUtil;
 import io.swagger.annotations.Api;
@@ -31,7 +32,7 @@ import java.util.List;
 @Slf4j
 @Api(tags = "清粪信息表")
 @RestController
-@RequestMapping("/breed/clear-soil")
+@RequestMapping("/breed/clearSoil")
 public class ClearSoilController {
 
     private ConvertUtil convertUtil = new ConvertUtil();
@@ -55,19 +56,24 @@ public class ClearSoilController {
         return b ? Result.success("删除成功") : Result.error("删除失败");
     }
 
-    @ApiOperation(value = "条件查询")
-    @PostMapping("/get")
-    public Result list(@RequestBody ClearSoil clearSoil){
-        List<ClearSoil> clearSoilList = clearSoilService.list(new QueryWrapper<>(clearSoil));
-        return clearSoilList.size() > 0?Result.success("查询成功").data(clearSoilList) : Result.error("查询失败");
+    @ApiOperation(value = "列表（分页）")
+    @GetMapping("/list/{current}/{size}")
+    public Object list(@RequestParam(value = "baseId", required = false) Long baseId,
+                       @RequestParam(value = "dovecoteNumber", required = false) String dovecoteNumber,
+                       @RequestParam(value = "operator", required = false) String operator,
+                       @RequestParam(value = "startTime",required = false) String startTime,
+                       @RequestParam(value = "endTime",required = false)String endTime,
+                       @PathVariable("current")Integer current, @PathVariable("size")Integer size){
+        List<ClearSoilVo> list = clearSoilService.listByType(baseId, dovecoteNumber, operator,startTime, endTime, SecurityContextUtil.getUserDetails().getEnterpriseId());
+        Page page = PageUtil.list2Page(list, current, size);
+        return page.getTotal() > 0?Result.success("分页成功").data(page) : Result.error("分页失败");
     }
 
-    @ApiOperation(value = "列表（分页）")
-    @GetMapping("/list/{pageNum}/{pageSize}")
-    public Object list(@PathVariable("pageNum")Long pageNum, @PathVariable("pageSize")Long pageSize){
-        IPage<ClearSoil> page = clearSoilService.page(
-                new Page<>(pageNum, pageSize), null);
-        return page.getTotal() > 0?Result.success("分页成功").data(page) : Result.error("分页失败");
+    @ApiOperation(value = "获取所有操作人")
+    @GetMapping("/getAllOperator")
+    public Result getAllOperator(){
+        List<String> operatorList = clearSoilService.getAllOperator();
+        return operatorList != null? Result.success("查询成功").data(operatorList) : Result.error("查询失败");
     }
 
     @ApiOperation(value = "详情")
@@ -75,7 +81,7 @@ public class ClearSoilController {
     public Result get(@PathVariable("id") Long id){
         ClearSoil clearSoil = clearSoilService.getById(id);
         ClearSoilVo clearSoilVo = convertUtil.convert(clearSoil, ClearSoilVo.class);
-        return clearSoilVo == null? Result.success("查询成功").data(clearSoilVo) : Result.error("查询失败");
+        return clearSoilVo != null? Result.success("查询成功").data(clearSoilVo) : Result.error("查询失败");
     }
 
     @ApiOperation(value = "根据id修改")

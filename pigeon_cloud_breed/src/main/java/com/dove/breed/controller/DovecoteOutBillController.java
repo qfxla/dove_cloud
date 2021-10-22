@@ -8,6 +8,7 @@ import com.dove.breed.entity.dto.DovecoteOutBaseDto;
 import com.dove.breed.entity.dto.DovecoteOutBillDto;
 import com.dove.breed.entity.vo.DovecoteEntryBillVo;
 import com.dove.breed.entity.vo.DovecoteOutBillVo;
+import com.dove.breed.entity.vo.ManualIncubationVo;
 import com.dove.breed.entity.vo.ShipmentOutBillVo;
 import com.dove.breed.service.DovecoteEntryBaseService;
 import com.dove.breed.service.DovecoteOutBaseService;
@@ -22,6 +23,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -229,4 +231,16 @@ public class DovecoteOutBillController {
     }
 
 
+    @ApiOperation(value = "求该基地中出库订单，倒叙")
+    @GetMapping("/getBillByBaseId")
+    public Result getBillByBaseId(@RequestParam("baseId")Long baseId,@RequestParam("pageNum")int pageNum,
+                                  @RequestParam("pageSize")int pageSize){
+        QueryWrapper<DovecoteOutBill> wrapper = new QueryWrapper<>();
+        wrapper.eq("base_id",baseId);
+        List<DovecoteOutBill> list = dovecoteOutBillService.list(wrapper);
+        List<DovecoteOutBillVo> list1 = convertUtil.convert(list, DovecoteOutBillVo.class);
+        list1 = list1.stream().sorted(Comparator.comparing(DovecoteOutBillVo::getGmtCreate).reversed()).collect(Collectors.toList());
+        Page page = PageUtil.list2Page(list1, pageNum, pageSize);
+        return page.getSize() > 0? Result.success("获取成功").data(page) : Result.error("获取失败");
+    }
 }

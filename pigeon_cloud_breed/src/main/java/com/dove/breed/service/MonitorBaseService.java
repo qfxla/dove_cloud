@@ -24,5 +24,5 @@ public interface MonitorBaseService extends IService<MonitorBase> {
 
     boolean updateToken();
 
-    List<MonitorBaseVo> getVoById(Long id);
+    MonitorBaseVo getVoById(Long id);
 }

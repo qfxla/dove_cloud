@@ -17,7 +17,7 @@ import java.util.List;
  * @since 2021-09-01
  */
 public interface CageRealService extends IService<CageReal> {
-    List<CageRealVo> getAllCage(Long baseId, String dovecoteNumber);
+    List<CageRealVo> getAllCage(Long baseId, String dovecoteNumber) throws InterruptedException;
     List<CageRealVo> getLayEggsTime(Long baseId,String dovecoteNumber);
     List<CageRealVo> getHatchTime(Long baseId,String dovecoteNumber);
     List<CageRealVo> getFeedTime(Long baseId,String dovecoteNumber);

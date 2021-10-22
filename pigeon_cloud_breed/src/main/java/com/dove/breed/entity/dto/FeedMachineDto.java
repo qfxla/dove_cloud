@@ -18,11 +18,8 @@ import java.io.Serializable;
  * @since 2021-10-12
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-@TableName("t_feed")
-@ApiModel(value = "Feed对象", description = "投喂信息表")
-public class FeedDto implements Serializable {
+@ApiModel(value = "FeedMachineDto对象", description = "创建投喂机表")
+public class FeedMachineDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -34,21 +31,16 @@ public class FeedDto implements Serializable {
     @ApiModelProperty(value = "基地编号")
     private Long baseId;
 
-    //饲料名
-    @ApiModelProperty(value = "饲料名")
-    private String name;
+    @ApiModelProperty(value = "投喂机编号")
+    private String feedNumber;
 
-    //饲料规格
-    @ApiModelProperty(value = "饲料规格")
-    private String type;
+    @ApiModelProperty(value = "转速")
+    private String rev;
 
-    //使用数量
-    @ApiModelProperty(value = "使用数量")
-    private Integer number;
+    @ApiModelProperty(value = "开关")
+    private Integer isOpen;
 
-    //操作人
-    @ApiModelProperty(value = "操作人")
-    private String operator;
-
+    @ApiModelProperty(value = "方向")
+    private Integer direction;
 
 }

@@ -63,30 +63,30 @@ dove:
       keep-alive-time: 18000
 
 
-#BASE_UI_URL:
-#  country: D:\\桌面\json文件\\国家图\\
-#  province: D:\\桌面\json文件\\省份图\\
-#  city: D:\\桌面\json文件\\梅州图\\
-#  companyIntroduction: D:\\桌面\json文件\\金绿公司整体介绍图\\
-#  shipment: D:\\桌面\json文件\\基地\\
-#  dovecote: D:\\桌面\json文件\\鸽棚图\\
-#  cage: D:\\桌面\json文件\\鸽笼图\\
-#  feed: D:\\桌面\json文件\\投喂图\\
-#  drink: D:\\桌面\json文件\\饮水图\\
-#  clearSoil: D:\\桌面\json文件\\清粪图\\
-#  slaughters: D:\\桌面\json文件\\屠宰加工图\\
-#  sell: D:\\桌面\json文件\\销售图\\
-
 BASE_UI_URL:
-  country: /root/dove/pigeon_cloud_breed/json文件/国家图/
-  province: /root/dove/pigeon_cloud_breed/json文件/省份图/
-  city: /root/dove/pigeon_cloud_breed/json文件/梅州图/
-  companyIntroduction: /root/dove/pigeon_cloud_breed/json文件/金绿公司整体介绍图/
-  shipment: /root/dove/pigeon_cloud_breed/json文件/基地/
-  dovecote: /root/dove/pigeon_cloud_breed/json文件/鸽棚图/
-  feed: /root/dove/pigeon_cloud_breed/json文件/投喂图/
-  drink: /root/dove/pigeon_cloud_breed/json文件/饮水图/
-  clearSoil: /root/dove/pigeon_cloud_breed/json文件/清粪图/
-  cage: /root/dove/pigeon_cloud_breed/json文件/鸽笼图/
-  slaughters: /root/dove/pigeon_cloud_breed/json文件/屠宰加工图/
-  sell: /root/dove/pigeon_cloud_breed/json文件/销售图/
+  country: D:\\桌面\json文件\\国家图\\
+  province: D:\\桌面\json文件\\省份图\\
+  city: D:\\桌面\json文件\\梅州图\\
+  companyIntroduction: D:\\桌面\json文件\\金绿公司整体介绍图\\
+  shipment: D:\\桌面\json文件\\基地\\
+  dovecote: D:\\桌面\json文件\\鸽棚图\\
+  cage: D:\\桌面\json文件\\鸽笼图\\
+  feed: D:\\桌面\json文件\\投喂图\\
+  drink: D:\\桌面\json文件\\饮水图\\
+  clearSoil: D:\\桌面\json文件\\清粪图\\
+  slaughters: D:\\桌面\json文件\\屠宰加工图\\
+  sell: D:\\桌面\json文件\\销售图\\
+
+#BASE_UI_URL:
+#  country: /root/dove/pigeon_cloud_breed/json文件/国家图/
+#  province: /root/dove/pigeon_cloud_breed/json文件/省份图/
+#  city: /root/dove/pigeon_cloud_breed/json文件/梅州图/
+#  companyIntroduction: /root/dove/pigeon_cloud_breed/json文件/金绿公司整体介绍图/
+#  shipment: /root/dove/pigeon_cloud_breed/json文件/基地/
+#  dovecote: /root/dove/pigeon_cloud_breed/json文件/鸽棚图/
+#  feed: /root/dove/pigeon_cloud_breed/json文件/投喂图/
+#  drink: /root/dove/pigeon_cloud_breed/json文件/饮水图/
+#  clearSoil: /root/dove/pigeon_cloud_breed/json文件/清粪图/
+#  cage: /root/dove/pigeon_cloud_breed/json文件/鸽笼图/
+#  slaughters: /root/dove/pigeon_cloud_breed/json文件/屠宰加工图/
+#  sell: /root/dove/pigeon_cloud_breed/json文件/销售图/

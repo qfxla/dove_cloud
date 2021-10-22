@@ -70,11 +70,11 @@ public class ScheduledTask {
         }
     }
 
-    /**
-     * 自动扫描，启动时间点之后每周执行一次
-     */
-    @Scheduled(cron = "* * * * * 1 ")
-    public void updateVideoToken(){
-        monitorBaseService.updateToken();
-    }
+//    /**
+//     * 自动扫描，启动时间点之后每周执行一次
+//     */
+//    @Scheduled(cron = "* * * * * 1 ")
+//    public void updateVideoToken(){
+//        monitorBaseService.updateToken();
+//    }
 }

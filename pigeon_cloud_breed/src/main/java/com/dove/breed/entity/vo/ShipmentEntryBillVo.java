@@ -66,5 +66,4 @@ public class ShipmentEntryBillVo{
     @TableField(value = "gmt_modified")
     private Date gmtModified;
 
-
 }

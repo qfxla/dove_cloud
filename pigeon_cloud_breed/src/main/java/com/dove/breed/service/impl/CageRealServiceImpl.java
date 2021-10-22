@@ -16,15 +16,16 @@ import com.dove.breed.utils.PageUtil;
 import com.dove.entity.GlobalException;
 import com.dove.entity.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.embedded.undertow.ConfigurableUndertowWebServerFactory;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.*;
 
 /**
  * <p>
@@ -48,11 +49,35 @@ public class CageRealServiceImpl extends ServiceImpl<CageRealMapper, CageReal> i
     private CageVideoService cageVideoService;
     @Autowired
     private CagePictureService cagePictureService;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
+//    @Override
+//    public List<CageRealVo> getAllCage(Long baseId, String dovecoteNumber) {
+//        List<CageRealVo> allCage = cageRealMapper.getAllCage(baseId, dovecoteNumber);
+//        for (CageRealVo cageRealVo : allCage) {
+//            int row = cageRealVo.getRowNo();
+//            int line = cageRealVo.getLine();
+//            int column = cageRealVo.getColumnNo();
+//            String position = row + "排" + line + "行" + column + "列";
+//            cageVideoService.addCageVideo(cageRealVo);
+//            cagePictureService.addCagePic(cageRealVo);
+//            cageRealVo.setPosition(position);
+//        }
+//        return allCage;
+//    }
+    @Transactional
     @Override
-    public List<CageRealVo> getAllCage(Long baseId, String dovecoteNumber) {
+    public List<CageRealVo> getAllCage(Long baseId, String dovecoteNumber) throws InterruptedException {
+        //查redis，如果有直接返回
+        String redisPath = "cageReal:getAllCage:" + baseId + ":" + dovecoteNumber;
+        List<CageRealVo> list = redisTemplate.opsForList().range(redisPath, 0, -1);
+        if (list.size() != 0){
+            return list;
+        }
+        //如果redis没有，先查数据库
         List<CageRealVo> allCage = cageRealMapper.getAllCage(baseId, dovecoteNumber);
-        for (CageRealVo cageRealVo : allCage) {
+        for (CageRealVo cageRealVo : allCage) {                     // 635
             int row = cageRealVo.getRowNo();
             int line = cageRealVo.getLine();
             int column = cageRealVo.getColumnNo();
@@ -60,6 +85,11 @@ public class CageRealServiceImpl extends ServiceImpl<CageRealMapper, CageReal> i
             cageVideoService.addCageVideo(cageRealVo);
             cagePictureService.addCagePic(cageRealVo);
             cageRealVo.setPosition(position);
+        }
+        //存redis
+        for (CageRealVo cageRealVo : allCage) {
+            redisTemplate.opsForList().leftPush(redisPath,cageRealVo);
+            redisTemplate.expire(redisPath,60 * 60 * 24,TimeUnit.SECONDS);  //一天
         }
         return allCage;
     }

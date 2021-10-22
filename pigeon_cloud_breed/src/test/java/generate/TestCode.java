@@ -3,6 +3,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dove.breed.BreedApplication;
 import com.dove.breed.entity.*;
 import com.dove.breed.entity.dto.DovecoteDto;
@@ -12,9 +13,9 @@ import com.dove.breed.entity.dto.ShipmentEntryBaseDto;
 import com.dove.breed.entity.vo.*;
 import com.dove.breed.mapper.*;
 import com.dove.breed.service.*;
-import com.dove.breed.utils.ConvertUtil;
-import com.dove.breed.utils.GetMonth;
-import com.dove.breed.utils.Image2Mp4;
+import com.dove.breed.utils.*;
+import com.dove.entity.GlobalException;
+import com.dove.entity.StatusCode;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,6 +25,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
@@ -90,12 +92,21 @@ public class TestCode {
     private MonitorBaseService monitorBaseService;
     @Autowired
     private DovecoteEntryBillMapper dovecoteEntryBillMapper;
+    @Autowired
+    private CageVideoService cageVideoService;
+    @Autowired
+    private CagePictureService cagePictureService;
+    @Autowired
+    private ShipmentOutBillMapper shipmentOutBillMapper;
 
     @Test
     public void test() throws IOException, InterruptedException {
+        List<JSONObject> list = shipmentOutBillService.getKindOfMeetDoveAmountByDate(3L, 1, 10);
+        System.out.println(list);
     }
     @Test
     public void test1() throws Exception{
+
     }
 
     @Test

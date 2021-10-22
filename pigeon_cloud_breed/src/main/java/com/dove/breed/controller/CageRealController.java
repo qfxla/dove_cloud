@@ -42,10 +42,13 @@ public class CageRealController {
     @ApiOperation("获取所有鸽笼")
     @GetMapping("/list/{pageNum}/{pageSize}")
     public Result list(@PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize,
-                       @RequestParam("baseId") Long baseId, @RequestParam("dovecoteNumber") String dovecoteNumber) {
+                       @RequestParam("baseId") Long baseId, @RequestParam("dovecoteNumber") String dovecoteNumber) throws InterruptedException {
+        long start = System.currentTimeMillis();
         List<CageRealVo> list = cageRealService.getAllCage(baseId, dovecoteNumber);
         Page<CageRealVo> page1 = PageUtil.list2Page(list,pageNum,pageSize);
         Page<CageRealVo> page2 = cageRealService.addAbnormal(page1);
+        long end = System.currentTimeMillis();
+        System.out.println("总耗时"+(end - start));
         return Result.success("查询成功").data(page2);
     }
 

@@ -14,6 +14,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dove.entity.GlobalException;
 import com.dove.entity.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -107,12 +108,6 @@ public class DovecoteServiceImpl extends ServiceImpl<DovecoteMapper, Dovecote> i
         System.out.println("1111");
         addAbnormal(cageRealVoList);
         addPosition(cageRealVoList);
-//        Future<List<CageRealVo>> future1 = executorService.submit(() -> addAbnormal(cageRealVoList));
-//        Future<List<CageRealVo>> future2 = executorService.submit(() -> addPosition(cageRealVoList));
-//        while (!(future1.isDone() && future2.isDone())){
-//            Thread.sleep(300);
-//        }
-//        executorService.shutdown();
         return cageRealVoList;
     }
 
