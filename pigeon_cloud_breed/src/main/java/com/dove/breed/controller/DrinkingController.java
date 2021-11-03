@@ -29,6 +29,7 @@ import java.util.List;
  * @since 2021-10-12
  */
 
+@CrossOrigin
 @Slf4j
 @Api(tags = "饮水信息表")
 @RestController
@@ -50,10 +51,17 @@ public class DrinkingController {
     }
 
     @ApiOperation(value = "根据id删除")
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public Result delete(@PathVariable("id") Long id){
         boolean b = drinkingService.removeById(id);
         return b ? Result.success("删除成功") : Result.error("删除失败");
+    }
+
+    @ApiOperation(value = "批量删除")
+    @DeleteMapping("/deleteList")
+    public Result delete(@RequestParam("idList") List idList){
+        boolean b = drinkingService.removeByIds(idList);
+        return b ? Result.success("批量删除成功") : Result.error("批量删除失败");
     }
 
     @ApiOperation(value = "列表（分页）")
@@ -67,13 +75,6 @@ public class DrinkingController {
         List<DrinkingVo> list = drinkingService.listByType(baseId, dovecoteNumber, operator,startTime, endTime, SecurityContextUtil.getUserDetails().getEnterpriseId());
         Page page = PageUtil.list2Page(list, current, size);
         return page.getTotal() > 0?Result.success("分页成功").data(page) : Result.error("分页失败");
-    }
-
-    @ApiOperation(value = "获取所有操作人")
-    @GetMapping("/getAllOperator")
-    public Result getAllOperator(){
-        List<String> operatorList = drinkingService.getAllOperator();
-        return operatorList != null? Result.success("查询成功").data(operatorList) : Result.error("查询失败");
     }
 
     @ApiOperation(value = "详情")

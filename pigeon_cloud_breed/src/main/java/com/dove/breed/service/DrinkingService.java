@@ -18,5 +18,4 @@ public interface DrinkingService extends IService<Drinking> {
 
     List<DrinkingVo> listByType(Long baseId, String dovecoteNumber, String operator, String startTime, String endTime, Long enterpriseId);
 
-    List<String> getAllOperator();
 }

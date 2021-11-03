@@ -30,6 +30,7 @@ import java.util.List;
  * @since 2021-10-12
  */
 
+@CrossOrigin
 @Slf4j
 @Api(tags = "投喂机信息表")
 @RestController
@@ -50,29 +51,27 @@ public class FeedMachineController {
         return save? Result.success("保存成功") : Result.error("保存失败");
     }
 
-    @ApiOperation(value = "更新投喂机中的饲料")
-    @PostMapping("/addFeed/{id}")
-    public Result addFeed(@PathVariable("id") Long id,
-                          @RequestParam("operator") String operator,
-                          @RequestBody FeedMachineAddFeedDto feedMachineAddFeedDto){
-        boolean addFeed = feedMachineService.addFeed(id,operator,feedMachineAddFeedDto);
-        return addFeed? Result.success("保存成功") : Result.error("保存失败");
-    }
-
     @ApiOperation(value = "根据id删除")
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public Result delete(@PathVariable("id") Long id){
         boolean b = feedMachineService.removeById(id);
         return b ? Result.success("删除成功") : Result.error("删除失败");
+    }
+
+    @ApiOperation(value = "批量删除")
+    @DeleteMapping("/deleteList")
+    public Result delete(@RequestParam("idList") List idList){
+        boolean b = feedMachineService.removeByIds(idList);
+        return b ? Result.success("批量删除成功") : Result.error("批量删除失败");
     }
 
     @ApiOperation(value = "列表（分页）")
     @GetMapping("/list/{current}/{size}")
     public Object list(@RequestParam(value = "baseId", required = false) Long baseId,
                        @RequestParam(value = "dovecoteNumber", required = false) String dovecoteNumber,
-                       @RequestParam(value = "isOpen", required = false) Integer isOpen,
+                       @RequestParam(value = "open", required = false) Integer open,
                        @PathVariable(value = "current")Integer current, @PathVariable("size")Integer size){
-        List<FeedMachineVo> list = feedMachineService.listByType(baseId, dovecoteNumber, isOpen, SecurityContextUtil.getUserDetails().getEnterpriseId());
+        List<FeedMachineVo> list = feedMachineService.listByType(baseId, dovecoteNumber, open, SecurityContextUtil.getUserDetails().getEnterpriseId());
         Page page = PageUtil.list2Page(list, current, size);
         return page.getTotal() > 0?Result.success("分页成功").data(page) : Result.error("分页失败");
     }
@@ -92,5 +91,22 @@ public class FeedMachineController {
         feedMachine.setId(id);
         boolean b = feedMachineService.updateById(feedMachine);
         return b?Result.success("修改成功") : Result.error("修改失败");
+    }
+
+    @ApiOperation(value = "开机")
+    @PostMapping("/open/{id}")
+    public Result open(@PathVariable("id") Long id,
+                       @RequestBody(required = false) FeedMachineAddFeedDto feedMachineAddFeedDto){
+        boolean open = feedMachineService.open(id,feedMachineAddFeedDto);
+        return open? Result.success("启动成功") : Result.error("启动失败");
+    }
+
+    @ApiOperation(value = "关机")
+    @PostMapping("/shutdown")
+    public Result shutdown(@RequestParam(value = "machineNumber") String machineNumber,
+                           @RequestParam("operator") String operator,
+                           @RequestParam("number") Integer number){
+        boolean shutdown = feedMachineService.shutdown(machineNumber,operator,number);
+        return shutdown? Result.success("关机成功") : Result.error("关机失败");
     }
 }

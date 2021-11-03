@@ -17,6 +17,4 @@ import java.util.List;
 public interface ClearSoilService extends IService<ClearSoil> {
 
     List<ClearSoilVo> listByType(Long baseId, String dovecoteNumber, String operator, String startTime, String endTime, Long enterpriseId);
-
-    List<String> getAllOperator();
 }

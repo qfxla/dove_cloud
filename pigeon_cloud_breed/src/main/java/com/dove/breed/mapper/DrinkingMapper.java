@@ -21,5 +21,4 @@ public interface DrinkingMapper extends BaseMapper<Drinking> {
                                 @Param("operator")String operator, @Param("startTime")String startTime,
                                 @Param("endTime")String endTime, @Param("enterpriseId")Long enterpriseId);
 
-    List<String> getAllOperator();
 }

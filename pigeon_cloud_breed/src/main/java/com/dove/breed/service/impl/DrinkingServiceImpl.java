@@ -29,8 +29,4 @@ public class DrinkingServiceImpl extends ServiceImpl<DrinkingMapper, Drinking> i
         return drinkingMapper.listByType(baseId, dovecoteNumber, operator, startTime, endTime, enterpriseId);
     }
 
-    @Override
-    public List<String> getAllOperator() {
-        return drinkingMapper.getAllOperator();
-    }
 }

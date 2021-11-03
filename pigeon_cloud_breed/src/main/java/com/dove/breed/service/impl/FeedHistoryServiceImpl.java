@@ -23,9 +23,4 @@ public class FeedHistoryServiceImpl extends ServiceImpl<FeedHistoryMapper, FeedH
     public List<FeedHistoryVo> listByType(Long baseId, String dovecoteNumber, String feedNumber, String operator, String startTime, String endTime, Long enterpriseId) {
         return feedHistoryMapper.listByType(baseId, dovecoteNumber, feedNumber, operator, startTime, endTime, enterpriseId);
     }
-
-    @Override
-    public List<String> getAllOperator() {
-        return feedHistoryMapper.getAllOperator();
-    }
 }

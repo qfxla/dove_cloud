@@ -33,6 +33,9 @@ public class ClearSoil implements Serializable {
     @ApiModelProperty(value = "基地编号")
     private Long baseId;
 
+    @ApiModelProperty(value = "清粪机编号,不能重复")
+    private String machineNumber;
+
     @ApiModelProperty(value = "清理时间")
     private Date clearTime;
 

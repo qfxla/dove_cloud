@@ -17,7 +17,9 @@ import java.util.List;
  */
 public interface FeedMachineService extends IService<FeedMachine> {
 
-    List<FeedMachineVo> listByType(Long baseId, String dovecoteNumber, Integer isOpen, Long enterpriseId);
+    List<FeedMachineVo> listByType(Long baseId, String dovecoteNumber, Integer open, Long enterpriseId);
 
-    boolean addFeed(Long id, String operator, FeedMachineAddFeedDto feedMachineAddFeedDto);
+    boolean open(Long id, FeedMachineAddFeedDto feedMachineAddFeedDto);
+
+    boolean shutdown(String machineNumber, String operator, Integer number);
 }

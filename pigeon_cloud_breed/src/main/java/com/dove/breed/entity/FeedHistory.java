@@ -30,7 +30,7 @@ public class FeedHistory implements Serializable {
     private Long baseId;
 
     @ApiModelProperty(value = "投喂机编号")
-    private String feedNumber;
+    private String machineNumber;
 
     @ApiModelProperty(value = "饲料名")
     private String name;

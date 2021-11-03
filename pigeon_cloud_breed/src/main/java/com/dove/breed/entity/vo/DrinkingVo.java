@@ -42,6 +42,9 @@ public class DrinkingVo implements Serializable {
     @ApiModelProperty(value = "基地编号")
     private Long baseId;
 
+    @ApiModelProperty(value = "投喂机编号,不能重复")
+    private String machineNumber;
+
     //开始时间
     @ApiModelProperty(value = "开始时间")
     private Date startTime;

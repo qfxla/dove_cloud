@@ -5,6 +5,7 @@ import com.dove.breed.entity.FeedMachine;
 import com.dove.breed.entity.vo.FeedMachineVo;
 import org.apache.ibatis.annotations.Param;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -18,5 +19,5 @@ import java.util.List;
 public interface FeedMachineMapper extends BaseMapper<FeedMachine> {
 
     List<FeedMachineVo> listByType(@Param("baseId") Long baseId, @Param("dovecoteNumber") String dovecoteNumber,
-                                   @Param("isOpen")Integer isOpen, @Param("enterpriseId") Long enterpriseId);
+                                   @Param("open")Integer open, @Param("enterpriseId") Long enterpriseId);
 }

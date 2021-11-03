@@ -35,6 +35,9 @@ public class DrinkingDto implements Serializable {
     @ApiModelProperty(value = "鸽棚编号")
     private String dovecoteNumber;
 
+    @ApiModelProperty(value = "投喂机编号,不能重复")
+    private String machineNumber;
+
     //开始时间
     @ApiModelProperty(value = "开始时间")
     private Date startTime;

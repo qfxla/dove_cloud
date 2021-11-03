@@ -33,8 +33,8 @@ public class FeedMachine implements Serializable {
     @ApiModelProperty(value = "基地编号")
     private Long baseId;
 
-    @ApiModelProperty(value = "投喂机编号")
-    private String feedNumber;
+    @ApiModelProperty(value = "投喂机编号,不能重复")
+    private String machineNumber;
 
     @ApiModelProperty(value = "饲料名")
     private String name;
@@ -45,11 +45,27 @@ public class FeedMachine implements Serializable {
     @ApiModelProperty(value = "使用数量")
     private Integer number;
 
+    @ApiModelProperty(value = "开始时间")
+    private Date startTime;
+
+    @ApiModelProperty(value = "停止时间")
+    private Date stopTime;
+
+    @ApiModelProperty(value = "行走速度")
+    private String speed;
+
+    @ApiModelProperty(value = "停留时间(秒)")
+    private Integer standingTime;
+
+    @ApiModelProperty(value = "维护周期(天)")
+    private Integer maintenancePeriod;
+
     @ApiModelProperty(value = "转速")
     private String rev;
 
     @ApiModelProperty(value = "开关")
-    private Integer isOpen;
+    @TableField("is_open")
+    private Boolean open;
 
     @ApiModelProperty(value = "方向")
     private Integer direction;

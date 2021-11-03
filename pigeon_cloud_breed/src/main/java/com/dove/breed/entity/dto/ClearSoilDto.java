@@ -1,6 +1,7 @@
 package com.dove.breed.entity.dto;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -34,6 +35,9 @@ public class ClearSoilDto implements Serializable {
     //基地编号
     @ApiModelProperty(value = "基地编号")
     private Long baseId;
+
+    @ApiModelProperty(value = "清粪机编号,不能重复")
+    private String machineNumber;
 
     //清理时间
     @ApiModelProperty(value = "清理时间")

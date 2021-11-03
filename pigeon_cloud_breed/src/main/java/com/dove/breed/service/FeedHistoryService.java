@@ -14,5 +14,4 @@ public interface FeedHistoryService extends IService<FeedHistory> {
 
     List<FeedHistoryVo> listByType(Long baseId, String dovecoteNumber, String feedNumber, String operator, String startTime, String endTime, Long enterpriseId);
 
-    List<String> getAllOperator();
 }

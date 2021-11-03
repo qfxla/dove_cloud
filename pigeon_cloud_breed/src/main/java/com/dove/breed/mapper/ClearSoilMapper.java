@@ -20,6 +20,4 @@ public interface ClearSoilMapper extends BaseMapper<ClearSoil> {
     List<ClearSoilVo> listByType(@Param("baseId") Long baseId, @Param("dovecoteNumber")String dovecoteNumber,
                                  @Param("operator")String operator, @Param("startTime")String startTime,
                                  @Param("endTime")String endTime, @Param("enterpriseId")Long enterpriseId);
-
-    List<String> getAllOperator();
 }

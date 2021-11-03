@@ -1,5 +1,6 @@
 package com.dove.breed.entity.dto;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -8,6 +9,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -32,13 +34,29 @@ public class FeedMachineDto implements Serializable {
     private Long baseId;
 
     @ApiModelProperty(value = "投喂机编号")
-    private String feedNumber;
+    private String machineNumber;
+
+    @ApiModelProperty(value = "开始时间")
+    private Date startTime;
+
+    @ApiModelProperty(value = "停止时间")
+    private Date stopTime;
+
+    @ApiModelProperty(value = "行走速度")
+    private String speed;
+
+    @ApiModelProperty(value = "停留时间(秒)")
+    private Integer standingTime;
+
+    @ApiModelProperty(value = "维护周期(天)")
+    private Integer maintenancePeriod;
 
     @ApiModelProperty(value = "转速")
     private String rev;
 
     @ApiModelProperty(value = "开关")
-    private Integer isOpen;
+    @TableField("is_open")
+    private Boolean open;
 
     @ApiModelProperty(value = "方向")
     private Integer direction;

@@ -38,6 +38,9 @@ public class ClearSoilVo implements Serializable {
     @ApiModelProperty(value = "鸽棚编号")
     private String dovecoteNumber;
 
+    @ApiModelProperty(value = "清粪机编号,不能重复")
+    private String machineNumber;
+
     //清理时间
     @ApiModelProperty(value = "清理时间")
     private Date clearTime;

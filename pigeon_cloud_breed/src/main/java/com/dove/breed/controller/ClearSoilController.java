@@ -1,8 +1,6 @@
 package com.dove.breed.controller;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dove.breed.entity.ClearSoil;
 import com.dove.breed.entity.dto.ClearSoilDto;
@@ -18,7 +16,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -29,6 +30,7 @@ import java.util.List;
  * @since 2021-10-12
  */
 
+@CrossOrigin
 @Slf4j
 @Api(tags = "清粪信息表")
 @RestController
@@ -50,10 +52,17 @@ public class ClearSoilController {
     }
 
     @ApiOperation(value = "根据id删除")
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public Result delete(@PathVariable("id") Long id){
         boolean b = clearSoilService.removeById(id);
         return b ? Result.success("删除成功") : Result.error("删除失败");
+    }
+
+    @ApiOperation(value = "批量删除")
+    @DeleteMapping("/deleteList")
+    public Result delete(@RequestParam("idList") List idList){
+        boolean b = clearSoilService.removeByIds(idList);
+        return b ? Result.success("批量删除成功") : Result.error("批量删除失败");
     }
 
     @ApiOperation(value = "列表（分页）")
@@ -67,13 +76,6 @@ public class ClearSoilController {
         List<ClearSoilVo> list = clearSoilService.listByType(baseId, dovecoteNumber, operator,startTime, endTime, SecurityContextUtil.getUserDetails().getEnterpriseId());
         Page page = PageUtil.list2Page(list, current, size);
         return page.getTotal() > 0?Result.success("分页成功").data(page) : Result.error("分页失败");
-    }
-
-    @ApiOperation(value = "获取所有操作人")
-    @GetMapping("/getAllOperator")
-    public Result getAllOperator(){
-        List<String> operatorList = clearSoilService.getAllOperator();
-        return operatorList != null? Result.success("查询成功").data(operatorList) : Result.error("查询失败");
     }
 
     @ApiOperation(value = "详情")

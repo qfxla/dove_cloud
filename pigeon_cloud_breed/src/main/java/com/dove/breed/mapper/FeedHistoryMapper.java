@@ -18,5 +18,4 @@ public interface FeedHistoryMapper extends BaseMapper<FeedHistory> {
                                    @Param("startTime")String startTime, @Param("endTime")String endTime,
                                    @Param("enterpriseId")Long enterpriseId);
 
-    List<String> getAllOperator();
 }

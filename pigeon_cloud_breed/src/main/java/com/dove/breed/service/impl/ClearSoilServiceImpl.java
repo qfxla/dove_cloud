@@ -27,9 +27,4 @@ public class ClearSoilServiceImpl extends ServiceImpl<ClearSoilMapper, ClearSoil
     public List<ClearSoilVo> listByType(Long baseId, String dovecoteNumber, String operator, String startTime, String endTime, Long enterpriseId) {
         return clearSoilMapper.listByType(baseId, dovecoteNumber, operator,startTime, endTime,enterpriseId);
     }
-
-    @Override
-    public List<String> getAllOperator() {
-        return clearSoilMapper.getAllOperator();
-    }
 }
