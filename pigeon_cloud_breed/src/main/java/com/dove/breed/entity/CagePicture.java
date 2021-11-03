@@ -33,6 +33,12 @@ public class CagePicture implements Serializable {
         @ApiModelProperty(value = "图片地址")
         private String pic;
 
+        @ApiModelProperty(value = "图片名称")
+        private String picName;
+
+        @ApiModelProperty(value = "上传时间")
+        private Date time;
+
         @ApiModelProperty(value = "py处理完图片")
         private String processPic;
 

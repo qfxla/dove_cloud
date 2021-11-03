@@ -118,6 +118,16 @@
         AND dovecote_number = #{dovecoteNumber}
         AND gmt_create >= DATE_SUB(NOW(),INTERVAL 7 DAY )
     </select>
+    <select id="getDoveAbnormal" resultType="java.util.Map">
+        SELECT * FROM (
+                          SELECT SUM(single_eggs) single_eggs,SUM(unfertilized_eggs) unfertilized_eggs,
+                                 SUM(damaged_eggs) damaged_eggs,SUM(bad_eggs) bad_eggs,MONTH(gmt_create) MONTH
+                          FROM t_dovecote_daily
+                          GROUP BY MONTH(gmt_create)
+                          ORDER BY MONTH DESC
+                      ) t
+            LIMIT 1,3
+    </select>
 
 
 </mapper>

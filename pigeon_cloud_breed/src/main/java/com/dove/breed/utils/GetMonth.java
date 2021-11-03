@@ -22,12 +22,12 @@ public class GetMonth {
         return mon;
     }
 
-    public static String getDateToString(){
+    public static String getDateToString(Date date){
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
         Calendar c = Calendar.getInstance();
-        c.setTime(new Date());
-        Date date = c.getTime();
-        String dateString = format.format(date);
+        c.setTime(date);
+        Date date1 = c.getTime();
+        String dateString = format.format(date1);
         return dateString;
     }
 

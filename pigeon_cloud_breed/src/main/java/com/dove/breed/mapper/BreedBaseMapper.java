@@ -3,6 +3,7 @@ package com.dove.breed.mapper;
 import com.dove.breed.entity.BreedBase;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -16,5 +17,6 @@ import java.util.List;
  */
 @Mapper
 public interface BreedBaseMapper extends BaseMapper<BreedBase> {
-
+    //查某个基地绩效最高的鸽棚编号
+    String getTheBestDovecote(@Param("baseId")Long baseId);
 }

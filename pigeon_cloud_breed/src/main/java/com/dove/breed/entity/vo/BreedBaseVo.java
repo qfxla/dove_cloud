@@ -30,6 +30,15 @@ public class BreedBaseVo {
     @TableField("principal_name")
     private String principalName;
 
+    //鸽棚数量
+    private Integer numberOfDovecote;
+
+    //饲养员数量
+    private Integer numberOfBreeder;
+
+    //进一个月绩效最好的鸽棚
+    private String theBestDovecote;
+
     //养殖基地简介
     @ApiModelProperty(value = "养殖基地简介")
     @TableField("introduction")

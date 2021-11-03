@@ -22,11 +22,12 @@ import java.util.List;
  * @author zcj
  * @creat 2021-10-09-20:20
  */
-@CrossOrigin
-@Slf4j
-@Api(tags = "ui-公司介绍图")
-@RestController
-@RequestMapping("/ui/companyIntroduction")
+@Deprecated
+//@CrossOrigin
+//@Slf4j
+//@Api(tags = "ui-公司介绍图")
+//@RestController
+//@RequestMapping("/ui/companyIntroduction")
 public class CompanyIntroductionController {
 
     @Autowired

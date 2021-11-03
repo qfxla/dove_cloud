@@ -89,4 +89,11 @@
         WHERE p.base_id = #{baseId}
         AND r.state = 5
     </select>
+    <select id="getStateByCageId" resultType="com.dove.breed.entity.vo.CageRealVo">
+        SELECT
+        <include refid="cageRealVo"></include>
+        FROM t_cage_real r LEFT JOIN t_cage_position p
+        ON r.cage_id = p.cage_id
+        WHERE r.cage_id = #{cageId}
+    </select>
 </mapper>

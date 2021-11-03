@@ -30,6 +30,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -236,7 +238,11 @@ public class DovecoteOutBillController {
     public Result getBillByBaseId(@RequestParam("baseId")Long baseId,@RequestParam("pageNum")int pageNum,
                                   @RequestParam("pageSize")int pageSize){
         QueryWrapper<DovecoteOutBill> wrapper = new QueryWrapper<>();
-        wrapper.eq("base_id",baseId);
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime localDateTime = now.plusDays(-15);
+        Date date = Date.from( localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+        wrapper.eq("base_id",baseId).ge("gmt_create",date);
+
         List<DovecoteOutBill> list = dovecoteOutBillService.list(wrapper);
         List<DovecoteOutBillVo> list1 = convertUtil.convert(list, DovecoteOutBillVo.class);
         list1 = list1.stream().sorted(Comparator.comparing(DovecoteOutBillVo::getGmtCreate).reversed()).collect(Collectors.toList());

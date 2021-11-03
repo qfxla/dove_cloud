@@ -32,6 +32,7 @@ public interface CageRealMapper extends BaseMapper<CageReal> {
     List<CageRealVo> getCageOfDiffState(@Param("baseId")Long baseId,
                                         @Param("dovecoteNumber")String dovecoteNumber,
                                         @Param("state")int state);
+    CageRealVo getStateByCageId(@Param("cageId")Long cageId);
 
     int uiGetLayEggsTimeAmount(@Param("baseId")Long baseId);
     int uiGetHatchTime(@Param("baseId")Long baseId);

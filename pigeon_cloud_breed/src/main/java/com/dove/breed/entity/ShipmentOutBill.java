@@ -3,11 +3,13 @@ package com.dove.breed.entity;
 import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.dove.breed.entity.vo.DovecoteOutBillVo;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -49,6 +51,13 @@ public class ShipmentOutBill extends Model<ShipmentOutBill> {
     @ApiModelProperty(value = "基地名称")
     @TableField("base_name")
     private String baseName;
+
+    //出库时间
+    @ApiModelProperty(value = "出库时间")
+    @TableField("out_time")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    private Date outTime;
 
     //类型
     @ApiModelProperty(value = "类型")

@@ -2,8 +2,7 @@ package com.dove.breed.controller.ui;
 
 import com.dove.breed.entity.vo.CageRealVo;
 import com.dove.breed.mapper.CageRealMapper;
-import com.dove.breed.mapper.DovecoteMapper;
-import com.dove.breed.mapper.DovecoteOutBillMapper;
+import com.dove.breed.service.CageRealService;
 import com.dove.breed.service.DovecoteService;
 import com.dove.breed.utils.GetFileData;
 import com.dove.entity.Result;
@@ -20,51 +19,45 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author zcj
- * @creat 2021-10-10-23:00
+ * @creat 2021-10-24-9:53
  */
-@Deprecated
-//@CrossOrigin
-//@Slf4j
-////@Api(tags = "ui-鸽棚图")
-//@RestController
-//@RequestMapping("/ui/dovecote")
-public class DovecoteUiController {
-    @Value("${BASE_UI_URL.dovecote}")
+@CrossOrigin
+@Slf4j
+@Api(tags = "ui-养殖主页")
+@RestController
+@RequestMapping("/ui/breedPage")
+public class BreedPage {
+    @Value("${BASE_UI_URL.breedPage}")
     public String baseUrl;
-
-    @Autowired
-    private DovecoteOutBillMapper dovecoteOutBillMapper;
     @Autowired
     private CageRealMapper cageRealMapper;
     @Autowired
-    private DovecoteMapper dovecoteMapper;
-    @Autowired
     private DovecoteService dovecoteService;
+    @Autowired
+    private CageRealService cageRealService;
 
-    @ApiOperation("肉鸽鸽龄分布")
-    @GetMapping("doveAge")
-    public Result doveAge(){
+    @ApiOperation("肉鸽出栏曲线图")
+    @GetMapping("outOfMeetDove")
+    public Result outOfMeetDove(){
+        String path = baseUrl + "肉鸽出栏曲线图.txt";
+        System.out.println(path);
+        List<Object> jsonObject = GetFileData.getJsonObject(path);
+        return jsonObject.size() > 0?Result.success("获取成功").data(jsonObject) : Result.error(StatusCode.ERROR,"文件不存在或无数据");
+    }
+
+    @ApiOperation("鸽龄分布")
+    @GetMapping("AgeOfDove")
+    public Result AgeOfDove(){
         String path = baseUrl + "鸽龄分布.txt";
         System.out.println(path);
         List<Object> jsonObject = GetFileData.getJsonObject(path);
         return jsonObject.size() > 0?Result.success("获取成功").data(jsonObject) : Result.error(StatusCode.ERROR,"文件不存在或无数据");
     }
 
-    @ApiOperation("肉鸽出栏曲线")
-    @GetMapping("outOfBreedingDove")
-    public Result outOfBreedingDove(){
-        String path = baseUrl + "肉鸽出栏曲线.txt";
-        System.out.println(path);
-        //直接查一个基地总肉鸽出库数据即可，按月分
-        List<Map<String, Object>> list = dovecoteOutBillMapper.uiOutOfBreedingDove(3L, "A01");
-        return list.size() != 0?Result.success("获取成功").data(list) : Result.error("无数据");
-    }
-
-    @ApiOperation("鸽棚生产信息")
+    @ApiOperation("生产信息")
     @GetMapping("productionInformation")
     public Result productionInformation(){
         String path = baseUrl + "生产信息.txt";
@@ -88,10 +81,26 @@ public class DovecoteUiController {
         return Result.success("获取成功").data(map);
     }
 
-    @ApiOperation("鸽笼异常排行")
-    @GetMapping("abnormalRanking")
-    public Result abnormalRanking() throws InterruptedException {
-        List<CageRealVo> cages = dovecoteService.getMaxAbnormal(3L, "A01", 1, 5);
-        return cages.size() > 0? Result.success("获取成功").data(cages) : Result.error("获取失败");
+    @ApiOperation("操作提醒列表")
+    @GetMapping("operationRemind")
+    public Result operationRemind(){
+        String path = baseUrl + "操作提醒列表.txt";
+        System.out.println(path);
+        List<Object> jsonObject = GetFileData.getJsonObject(path);
+        return jsonObject.size() > 0?Result.success("获取成功").data(jsonObject) : Result.error(StatusCode.ERROR,"文件不存在或无数据");
+    }
+
+    @ApiOperation("异常板单")
+    @GetMapping("getMaxAbnormal")
+    public Result getMaxAbnormal() throws InterruptedException {
+        List<CageRealVo> list = dovecoteService.getMaxAbnormal(3L, "A01", 1, 3);
+        return Result.success("获取成功").data(list);
+    }
+
+    @ApiOperation("鸽笼图")
+    @GetMapping("cageInfo")
+    public Result cageInfo() throws InterruptedException {
+        List<CageRealVo> list = cageRealService.getAllCage(3L, "A01");
+        return Result.success("获取成功").data(list);
     }
 }

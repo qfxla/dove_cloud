@@ -6,6 +6,8 @@
         <id column="id" property="id" />
         <result column="cage_id" property="cageId"/>
         <result column="pic" property="pic"/>
+        <result column="pic_name" property="picName"/>
+        <result column="time" property="time"/>
         <result column="process_pic" property="processPic"/>
         <result column="gmt_create" property="gmtCreate" />
         <result column="gmt_modified" property="gmtModified" />

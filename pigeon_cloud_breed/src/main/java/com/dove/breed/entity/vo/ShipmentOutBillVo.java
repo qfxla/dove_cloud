@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.List;
@@ -37,6 +39,13 @@ public class ShipmentOutBillVo {
     @ApiModelProperty(value = "基地名称")
     @TableField("base_name")
     private String baseName;
+
+    //出库时间
+    @ApiModelProperty(value = "出库时间")
+    @TableField("out_time")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    private Date outTime;
 
     //类型
     @ApiModelProperty(value = "类型")

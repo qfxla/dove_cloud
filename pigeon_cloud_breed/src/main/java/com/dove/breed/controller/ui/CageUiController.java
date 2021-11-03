@@ -23,11 +23,12 @@ import java.util.List;
  * @author zcj
  * @creat 2021-10-11-15:43
  */
-@CrossOrigin
-@Slf4j
-@Api(tags = "ui-鸽笼图")
-@RestController
-@RequestMapping("/ui/cage")
+@Deprecated
+//@CrossOrigin
+//@Slf4j
+////@Api(tags = "ui-鸽笼图")
+//@RestController
+//@RequestMapping("/ui/cage")
 public class CageUiController {
     @Value("${BASE_UI_URL.cage}")
     public String baseUrl;

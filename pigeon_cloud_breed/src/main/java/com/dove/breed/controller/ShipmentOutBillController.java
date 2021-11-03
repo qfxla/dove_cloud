@@ -2,6 +2,7 @@ package com.dove.breed.controller;
 import com.alibaba.excel.converters.shortconverter.ShortBooleanConverter;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.dove.breed.entity.DovecoteOutBill;
 import com.dove.breed.entity.ShipmentOutBase;
 import com.dove.breed.entity.dto.ShipmentOutBaseDto;
@@ -29,12 +30,15 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.nio.channels.WritePendingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.RestController;
 
@@ -102,16 +106,14 @@ public class ShipmentOutBillController {
                              @RequestParam("type")String type,
                              @RequestParam("year")int year,
                              @RequestParam("month")int month){
-        Map<String, JSONObject> map = shipmentOutBillService.getMonthly(baseId, type, year, month);
-        return map.size() != 0? Result.success("获取成功").data(map) : Result.error("获取失败");
+        List<JSONObject> jsonObjects = shipmentOutBillService.getMonthly(baseId, type, year, month);
+        return jsonObjects.size() != 0? Result.success("获取成功").data(jsonObjects) : Result.error("获取失败");
     }
 
     @ApiOperation(value = "根据批次号订单")
     @GetMapping("/getByFarmBatch")
-    public Result getByFarmBatch(@RequestParam("farmBatch")String farmBatch,
-                                 @RequestParam("baseId")Long baseId,
-                                 @RequestParam("type")String type){
-        ShipmentOutBillVo shipmentOutBillVo = shipmentOutBillService.getByFarmBatch(farmBatch,baseId,type);
+    public Result getByFarmBatch(@RequestParam("farmBatch")String farmBatch){
+        ShipmentOutBillVo shipmentOutBillVo = shipmentOutBillService.getByFarmBatch(farmBatch);
         return shipmentOutBillVo != null? Result.success("获取成功").data(shipmentOutBillVo) : Result.error("无该批次号");
     }
 
@@ -141,4 +143,25 @@ public class ShipmentOutBillController {
         return Result.success("获取成功").data(page);
     }
 
+
+    @ApiOperation(value = "根据基地id查批次")
+    @GetMapping("/getFarmBatchByBaseId")
+    public Result getFarmBatchByBaseId(@RequestParam("baseId")Long baseId,
+                                       @RequestParam(value = "date",required = false)Date date){
+        QueryWrapper<ShipmentOutBill> wrapper = new QueryWrapper<>();
+        if (date != null){
+            wrapper.eq("base_id",baseId).eq("out_time",date);
+        }
+        wrapper.eq("base_id",baseId);
+        List<ShipmentOutBill> list = shipmentOutBillService.list(wrapper);
+        list = list.stream().sorted(Comparator.comparing(ShipmentOutBill::getOutTime).reversed()).collect(Collectors.toList());
+        List<ShipmentOutBillVo> shipmentOutBillVoList = convertUtil.convert(list, ShipmentOutBillVo.class);
+        if (date != null){
+            if (shipmentOutBillVoList.size() > 20){
+                return Result.success("获取成功").data(shipmentOutBillVoList.subList(1,20));
+            }
+            return Result.success("获取成功").data(shipmentOutBillVoList);
+        }
+        return Result.success("获取成功").data(shipmentOutBillVoList);
+    }
 }

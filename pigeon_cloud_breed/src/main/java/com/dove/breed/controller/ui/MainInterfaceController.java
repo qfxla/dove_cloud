@@ -16,78 +16,76 @@ import java.util.List;
 
 /**
  * @author zcj
- * @creat 2021-10-11-23:23
+ * @creat 2021-10-22-20:37
  */
 @CrossOrigin
 @Slf4j
-@Api(tags = "ui-屠宰加工储运")
+@Api(tags = "ui-主界面图")
 @RestController
-@RequestMapping("/ui/slaughters")
-public class SlaughtersController{
-    @Value("${BASE_UI_URL.slaughters}")
+@RequestMapping("/ui/mainInterface")
+public class MainInterfaceController {
+    @Value("${BASE_UI_URL.mainInterface}")
     public String baseUrl;
 
-    @ApiOperation("加工厂人员分布")
-    @GetMapping("personnelDistributionOfProcess")
+    @ApiOperation("基地相关数据统计")
+    @GetMapping("baseData")
+    public Result baseData(){
+        String path = baseUrl + "基地相关数据统计.txt";
+        System.out.println(path);
+        List<Object> jsonObject = GetFileData.getJsonObject(path);
+        return jsonObject.size() > 0?Result.success("获取成功").data(jsonObject) : Result.error(StatusCode.ERROR,"文件不存在或无数据");
+    }
+
+    @ApiOperation("经济产值走势")
+    @GetMapping("economicTrend")
+    public Result economicTrend(){
+        String path = baseUrl + "经济产值走势.txt";
+        System.out.println(path);
+        List<Object> jsonObject = GetFileData.getJsonObject(path);
+        return jsonObject.size() > 0?Result.success("获取成功").data(jsonObject) : Result.error(StatusCode.ERROR,"文件不存在或无数据");
+    }
+
+    @ApiOperation("基地人员分布")
+    @GetMapping("personAttribute")
+    public Result personAttribute(){
+        String path = baseUrl + "基地人员分布.txt";
+        System.out.println(path);
+        List<Object> jsonObject = GetFileData.getJsonObject(path);
+        return jsonObject.size() > 0?Result.success("获取成功").data(jsonObject) : Result.error(StatusCode.ERROR,"文件不存在或无数据");
+    }
+
+    @ApiOperation("深加工产品分类")
+    @GetMapping("processCategory")
+    public Result processCategory(){
+        String path = baseUrl + "深加工产品分类.txt";
+        System.out.println(path);
+        List<Object> jsonObject = GetFileData.getJsonObject(path);
+        return jsonObject.size() > 0?Result.success("获取成功").data(jsonObject) : Result.error(StatusCode.ERROR,"文件不存在或无数据");
+    }
+
+    @ApiOperation("基地肉鸽去向")
+    @GetMapping("doveDestination")
+    public Result doveDestination(){
+        String path = baseUrl + "基地肉鸽去向.txt";
+        System.out.println(path);
+        List<Object> jsonObject = GetFileData.getJsonObject(path);
+        return jsonObject.size() > 0?Result.success("获取成功").data(jsonObject) : Result.error(StatusCode.ERROR,"文件不存在或无数据");
+    }
+
+    @ApiOperation("历年规模")
+    @GetMapping("yearScale")
+    public Result yearScale(){
+        String path = baseUrl + "历年规模.txt";
+        List<Object> jsonObject = GetFileData.getJsonObject(path);
+        return jsonObject.size() > 0?Result.success("获取成功").data(jsonObject) : Result.error("文件不存在或无数据");
+    }
+
+    @ApiOperation("养殖基本信息")
+    @GetMapping("getBreedingDove")
     public Result getBreedingDove(){
-        String path = baseUrl + "加工厂人员分布.txt";
+        String path = baseUrl + "养殖基本信息.txt";
         System.out.println(path);
         List<Object> jsonObject = GetFileData.getJsonObject(path);
         return jsonObject.size() > 0?Result.success("获取成功").data(jsonObject) : Result.error(StatusCode.ERROR,"文件不存在或无数据");
     }
-
-    @ApiOperation("加工数量统计")
-    @GetMapping("amountOfProcess")
-    public Result amountOfProcess(){
-        String path = baseUrl + "加工数量统计.txt";
-        System.out.println(path);
-        List<Object> jsonObject = GetFileData.getJsonObject(path);
-        return jsonObject.size() > 0?Result.success("获取成功").data(jsonObject) : Result.error(StatusCode.ERROR,"文件不存在或无数据");
-    }
-
-    @ApiOperation("储运状态")
-    @GetMapping("transportation")
-    public Result transportation(){
-        String path = baseUrl + "储运状态.txt";
-        System.out.println(path);
-        List<Object> jsonObject = GetFileData.getJsonObject(path);
-        return jsonObject.size() > 0?Result.success("获取成功").data(jsonObject) : Result.error(StatusCode.ERROR,"文件不存在或无数据");
-    }
-
-    @ApiOperation("屠宰厂人员分布")
-    @GetMapping("personnelDistributionOfSlaughter")
-    public Result personnelDistributionOfSlaughter(){
-        String path = baseUrl + "屠宰厂人员分布.txt";
-        System.out.println(path);
-        List<Object> jsonObject = GetFileData.getJsonObject(path);
-        return jsonObject.size() > 0?Result.success("获取成功").data(jsonObject) : Result.error(StatusCode.ERROR,"文件不存在或无数据");
-    }
-
-    @ApiOperation("历史屠宰数量统计（近30天）")
-    @GetMapping("amountOfMonth")
-    public Result amountOfMonth(){
-        String path = baseUrl + "历史屠宰数量统计（近30天）.txt";
-        System.out.println(path);
-        List<Object> jsonObject = GetFileData.getJsonObject(path);
-        return jsonObject.size() > 0?Result.success("获取成功").data(jsonObject) : Result.error(StatusCode.ERROR,"文件不存在或无数据");
-    }
-
-    @ApiOperation("历史屠宰数量统计（近1年）")
-    @GetMapping("amountOfYear")
-    public Result amountOfYear(){
-        String path = baseUrl + "历史屠宰数量统计（近1年）.txt";
-        System.out.println(path);
-        List<Object> jsonObject = GetFileData.getJsonObject(path);
-        return jsonObject.size() > 0?Result.success("获取成功").data(jsonObject) : Result.error(StatusCode.ERROR,"文件不存在或无数据");
-    }
-
-    @ApiOperation("肉鸽去向")
-    @GetMapping("WhereDoveTo")
-    public Result WhereDoveTo(){
-        String path = baseUrl + "肉鸽去向.txt";
-        System.out.println(path);
-        List<Object> jsonObject = GetFileData.getJsonObject(path);
-        return jsonObject.size() > 0?Result.success("获取成功").data(jsonObject) : Result.error(StatusCode.ERROR,"文件不存在或无数据");
-    }
-
 }

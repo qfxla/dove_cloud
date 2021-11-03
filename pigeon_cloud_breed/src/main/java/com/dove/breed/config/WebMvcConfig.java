@@ -1,7 +1,6 @@
 package com.dove.breed.config;
 
 import lombok.SneakyThrows;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.format.FormatterRegistry;
@@ -27,6 +26,5 @@ public class WebMvcConfig implements WebMvcConfigurer {
             return sdf.parse(s);
         }
     }
-
 
 }

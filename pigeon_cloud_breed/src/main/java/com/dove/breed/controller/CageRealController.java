@@ -90,5 +90,12 @@ public class CageRealController {
         Page<CageRealVo> page = cageRealService.getCageOfDiffState(baseId, dovecoteNumber, state, pageNum, pageSize);
         return Result.success("获取成功").data(page) ;
     }
+
+    @ApiOperation("根据cageId查鸽笼状态")
+    @GetMapping("/getStateByCageId")
+    public Result getStateByCageId(@RequestParam("cageId")Long cageId){
+        CageRealVo cageRealVo = cageRealService.getStateByCageId(cageId);
+        return Result.success("获取成功").data(cageRealVo);
+    }
 }
 

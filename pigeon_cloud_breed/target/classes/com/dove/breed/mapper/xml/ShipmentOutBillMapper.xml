@@ -60,8 +60,8 @@
         WHERE base_id = #{baseId}
                   AND is_deleted = 0
                   AND TYPE = #{type}
-                AND year(gmt_create) = year(now())
-                  AND MONTH(gmt_create) = MONTH(NOW())
+                AND year(gmt_create) = #{year}
+                  AND MONTH(gmt_create) = #{month}
 
     </select>
     <select id="getAllTypeAmountOfMonth" resultType="java.util.Map">

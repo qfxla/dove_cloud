@@ -1,9 +1,12 @@
 package com.dove.breed.entity.dto;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,6 +31,13 @@ public class ShipmentOutBillDto {
     @ApiModelProperty(value = "类型")
     @TableField("type")
     private String type;
+
+    //出库时间
+    @ApiModelProperty(value = "出库时间")
+    @TableField("outTime")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    private Date outTime;
 
     //经手人
     @ApiModelProperty(value = "经手人")

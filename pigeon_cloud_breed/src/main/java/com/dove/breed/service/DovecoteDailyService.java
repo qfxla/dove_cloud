@@ -1,5 +1,6 @@
 package com.dove.breed.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.dove.breed.entity.DovecoteDaily;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dove.breed.entity.vo.AbnormalVo;
@@ -35,5 +36,5 @@ public interface DovecoteDailyService extends IService<DovecoteDaily> {
 
     List<DovecoteDaily> getDataOf7Day(Long baseId,String dovecoteNumber);
 
-
+    List<JSONObject> getDoveAbnormal();
 }

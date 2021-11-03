@@ -35,11 +35,12 @@ import java.util.stream.Collectors;
  * @author zcj
  * @creat 2021-10-10-14:42
  */
-@CrossOrigin
-@Slf4j
-@Api(tags = "ui-基地图")
-@RestController
-@RequestMapping("/ui/shipment")
+@Deprecated
+//@CrossOrigin
+//@Slf4j
+////@Api(tags = "ui-基地图")
+//@RestController
+//@RequestMapping("/ui/shipment")
 public class ShipmentController {
     @Value("${BASE_UI_URL.shipment}")
     public String baseUrl;

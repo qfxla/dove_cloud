@@ -4,15 +4,20 @@ package com.dove.breed.controller;
 
 import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSON;
+import com.dove.breed.entity.Dovecote;
 import com.dove.breed.entity.dto.BreedBaseDto;
 import com.dove.breed.entity.vo.BreedBaseVo;
+import com.dove.breed.entity.vo.CageRealVo;
+import com.dove.breed.mapper.BreedBaseMapper;
 import com.dove.breed.service.BreedBaseService;
 import com.dove.breed.entity.BreedBase;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.dove.breed.service.DovecoteService;
 import com.dove.breed.utils.ConvertUtil;
 import com.dove.breed.utils.GoFastDfsEnum;
+import com.dove.breed.utils.PageUtil;
 import com.dove.entity.Result;
 import com.dove.util.SecurityContextUtil;
 import io.swagger.annotations.Api;
@@ -26,10 +31,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 
 import org.springframework.web.bind.annotation.RequestBody;
@@ -56,6 +58,12 @@ public class BreedBaseController {
 
     @Autowired
     private ConvertUtil convertUtil;
+
+    @Autowired
+    private DovecoteService dovecoteService;
+
+    @Autowired
+    private BreedBaseMapper breedBaseMapper;
 
     @ApiOperation(value = "新增")
     @PostMapping("/save")
@@ -86,12 +94,24 @@ public class BreedBaseController {
 
     @ApiOperation(value = "列表（分页）")
     @GetMapping("/list/{pageNum}/{pageSize}")
-    public Object list(@PathVariable("pageNum")Long pageNum, @PathVariable("pageSize")Long pageSize){
+    public Object list(@PathVariable("pageNum")int pageNum, @PathVariable("pageSize")int pageSize){
         QueryWrapper<BreedBase> wrapper = new QueryWrapper<>();
         wrapper.eq("enterprise_id",SecurityContextUtil.getUserDetails().getEnterpriseId());
-        IPage<BreedBase> page = breedBaseService.page(new Page<>(pageNum, pageSize), wrapper);
-        IPage<BreedBaseVo> page1 = convertUtil.convert(page, BreedBaseVo.class);
-        return page1.getTotal() > 0?Result.success("分页成功").data(page1) : Result.error("分页失败");
+        List<BreedBase> list = breedBaseService.list(wrapper);
+        List<BreedBaseVo> breedBaseVos = convertUtil.convert(list, BreedBaseVo.class);
+
+        List<BreedBaseVo> breedBaseVos1 = breedBaseVos.parallelStream().collect(ArrayList::new,(arrayList, breedBaseVo) -> {
+            QueryWrapper<Dovecote> wrapper1 = new QueryWrapper<>();
+            wrapper1.eq("base_id",breedBaseVo.getId()).eq("is_deleted",0);
+            List<Dovecote> dovecoteList = dovecoteService.list(wrapper1);
+            breedBaseVo.setNumberOfDovecote(dovecoteList.size());
+            breedBaseVo.setNumberOfBreeder(dovecoteList.size());
+            String theBestDovecote = breedBaseMapper.getTheBestDovecote(breedBaseVo.getId());
+            breedBaseVo.setTheBestDovecote(theBestDovecote);
+            arrayList.add(breedBaseVo);
+        },List::addAll);
+        Page page = PageUtil.list2Page(breedBaseVos1, pageNum, pageSize);
+        return page.getSize() > 0?Result.success("分页成功").data(page) : Result.error("分页失败");
     }
 
     @ApiOperation(value = "详情")

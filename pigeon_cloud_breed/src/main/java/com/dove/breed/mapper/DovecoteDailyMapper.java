@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -42,4 +43,7 @@ public interface DovecoteDailyMapper extends BaseMapper<DovecoteDaily> {
     DovecoteDaily get7DayOfOneDovecote(@Param("baseId") Long baseId,@Param("dovecoteNumber") String dovecoteNumber);
 
     List<DovecoteDaily> getDataOf7Day(@Param("baseId") Long baseId,@Param("dovecoteNumber") String dovecoteNumber);
+
+    //可视化用
+    List<Map<String,String>> getDoveAbnormal();
 }

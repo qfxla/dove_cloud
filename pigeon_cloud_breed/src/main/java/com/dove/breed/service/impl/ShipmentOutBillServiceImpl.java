@@ -13,6 +13,7 @@ import com.dove.breed.entity.dto.DovecoteOutBillDto;
 import com.dove.breed.entity.dto.ShipmentOutBillDto;
 import com.dove.breed.entity.vo.DovecoteOutBaseVo;
 import com.dove.breed.entity.vo.DovecoteOutBillVo;
+import com.dove.breed.entity.vo.ManualIncubationVo;
 import com.dove.breed.entity.vo.ShipmentOutBillVo;
 import com.dove.breed.mapper.DovecoteOutBaseMapper;
 import com.dove.breed.mapper.DovecoteOutBillMapper;
@@ -71,14 +72,14 @@ public class ShipmentOutBillServiceImpl extends ServiceImpl<ShipmentOutBillMappe
         //填写基地出库单
         ShipmentOutBill shipmentOutBill = convertUtil.convert(shipmentOutBillDto, ShipmentOutBill.class);
                     //生成批次号
-        String date = GetMonth.getDateToString(); //20211005
+        String date = GetMonth.getDateToString(shipmentOutBillDto.getOutTime()); //20211005
         DecimalFormat decimalFormat1 = new DecimalFormat("00");
         String format1 = decimalFormat1.format(shipmentOutBill.getBaseId());  //基地id
                                 //这是今天该类型的第几批
         int howManyOfToday = shipmentOutBillMapper.getHowManyOfToday(shipmentOutBill.getBaseId(), shipmentOutBill.getType());
         DecimalFormat decimalFormat2 = new DecimalFormat("000");
         String format2 = decimalFormat2.format(++howManyOfToday);  //几天该基地的第几批
-        shipmentOutBill.setFarmBatch(date + format1 + format2);
+        shipmentOutBill.setFarmBatch("Y" + date + format1 + format2);
                     //插入数据库
         int insert = shipmentOutBillMapper.insert(shipmentOutBill);
         if (insert == 0){
@@ -139,6 +140,7 @@ public class ShipmentOutBillServiceImpl extends ServiceImpl<ShipmentOutBillMappe
         QueryWrapper<ShipmentOutBill> wrapper = new QueryWrapper<>();
         wrapper.eq("base_id",baseId).eq("type",type).eq("is_deleted",0);
         List<ShipmentOutBill> list = shipmentOutBillService.list(wrapper);
+        list = list.stream().sorted(Comparator.comparing(ShipmentOutBill::getOutTime).reversed()).collect(Collectors.toList());
         List<ShipmentOutBillVo> shipmentOutBillVoList = convertUtil.convert(list, ShipmentOutBillVo.class);
         Page page = PageUtil.list2Page(shipmentOutBillVoList, pageNum, pageSize);
         List<ShipmentOutBillVo> records = page.getRecords();
@@ -217,7 +219,7 @@ public class ShipmentOutBillServiceImpl extends ServiceImpl<ShipmentOutBillMappe
     }
 
     @Override
-    public Map<String,JSONObject> getMonthly(Long baseId, String type,int year,int month) {
+    public List<JSONObject> getMonthly(Long baseId, String type,int year,int month) {
         //找这个月的鸽棚出库单
         List<DovecoteOutBill> dovecoteBills = shipmentOutBillMapper.getDovecoteBillThisMonth(baseId, type, year, month);
         //"A01":[{},{}]
@@ -229,7 +231,7 @@ public class ShipmentOutBillServiceImpl extends ServiceImpl<ShipmentOutBillMappe
         for (Map.Entry<String, List<DovecoteOutBill>> entrySet : map.entrySet()) {
             List<DovecoteOutBill> bills = entrySet.getValue();   //同一鸽棚不同订单
             JSONObject jsonObject = new JSONObject();
-            if (type == "肉鸽"){
+            if (type.equals("肉鸽") || type.equals("残次品")){
                 for (DovecoteOutBill bill : bills) {
                     int total = 0;
                     QueryWrapper<DovecoteOutBase> wrapper = new QueryWrapper<>();
@@ -268,14 +270,22 @@ public class ShipmentOutBillServiceImpl extends ServiceImpl<ShipmentOutBillMappe
             }
             res.put(entrySet.getKey(),jsonObject);
         }
-        return res;
+        List<JSONObject> jsonObjects = new ArrayList<>();
+        for (Map.Entry<String, JSONObject> map1 : res.entrySet()) {
+//            JSONObject jsonObject = new JSONObject();
+//            jsonObject.put("dovecoteNumber",map1.getKey());
+            JSONObject value = map1.getValue();
+            value.put("dovecoteNumber",map1.getKey());
+            jsonObjects.add(value);
+        }
+        return jsonObjects;
     }
 
     @Override
-    public ShipmentOutBillVo getByFarmBatch(String farmBatch,Long baseId,String type) {
+    public ShipmentOutBillVo getByFarmBatch(String farmBatch) {
 
         QueryWrapper<ShipmentOutBill> wrapper = new QueryWrapper<>();
-        wrapper.eq("farm_batch",farmBatch).eq("type",type).eq("base_id",baseId);
+        wrapper.eq("farm_batch",farmBatch).eq("type","肉鸽");
         List<ShipmentOutBill> list = shipmentOutBillService.list(wrapper);
         ShipmentOutBillVo shipmentOutBillVo = convertUtil.convert(list.get(0),ShipmentOutBillVo.class);
 
@@ -328,7 +338,6 @@ public class ShipmentOutBillServiceImpl extends ServiceImpl<ShipmentOutBillMappe
                 break;
                 case "残次品": jsonObject.put("disabledDove",Integer.valueOf(map.get("amount").toString()));
                 break;
-                default: throw new GlobalException(StatusCode.ERROR,"无该type");
             }
         }
         return list;

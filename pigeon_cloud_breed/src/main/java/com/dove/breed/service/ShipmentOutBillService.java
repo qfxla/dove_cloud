@@ -31,9 +31,9 @@ public interface ShipmentOutBillService extends IService<ShipmentOutBill> {
 
     int deletedBill(Long billId);
 
-    Map<String, JSONObject> getMonthly(Long baseId, String type, int year, int month);
+    List<JSONObject> getMonthly(Long baseId, String type, int year, int month);
 
-    ShipmentOutBillVo getByFarmBatch(String farmBatch,Long baseId,String type);
+    ShipmentOutBillVo getByFarmBatch(String farmBatch);
 
     List<JSONObject> getAllTypeAmountOfMonth(Long baseId,int year);
 

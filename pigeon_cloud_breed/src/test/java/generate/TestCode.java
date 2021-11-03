@@ -101,8 +101,6 @@ public class TestCode {
 
     @Test
     public void test() throws IOException, InterruptedException {
-        List<JSONObject> list = shipmentOutBillService.getKindOfMeetDoveAmountByDate(3L, 1, 10);
-        System.out.println(list);
     }
     @Test
     public void test1() throws Exception{

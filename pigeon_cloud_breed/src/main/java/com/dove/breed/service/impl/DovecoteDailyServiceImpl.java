@@ -1,6 +1,7 @@
 package com.dove.breed.service.impl;
 
 import com.alibaba.excel.EasyExcel;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dove.breed.entity.Dovecote;
 import com.dove.breed.entity.DovecoteDaily;
@@ -26,6 +27,7 @@ import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -146,6 +148,20 @@ public class DovecoteDailyServiceImpl extends ServiceImpl<DovecoteDailyMapper, D
     @Override
     public List<DovecoteDaily> getDataOf7Day(Long baseId, String dovecoteNumber) {
         List<DovecoteDaily> list = dovecoteDailyMapper.getDataOf7Day(baseId, dovecoteNumber);
+        return list;
+    }
+
+    @Override
+    public List<JSONObject> getDoveAbnormal(){
+        List<Map<String, String>> mapList = dovecoteDailyMapper.getDoveAbnormal();
+        List<JSONObject> list = new ArrayList<>(mapList.size());
+        for (Map<String, String> map : mapList) {
+            JSONObject jsonObject = new JSONObject();
+            for (Map.Entry<String, String> entry : map.entrySet()) {
+                jsonObject.put(entry.getKey(),entry.getValue());
+            }
+            list.add(jsonObject);
+        }
         return list;
     }
 
