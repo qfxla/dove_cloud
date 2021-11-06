@@ -35,6 +35,12 @@ public class FeedHistoryDto implements Serializable {
     @ApiModelProperty(value = "使用数量")
     private Integer number;
 
+    @ApiModelProperty(value = "开始时间")
+    private Date startTime;
+
+    @ApiModelProperty(value = "结束时间")
+    private Date endTime;
+
     @ApiModelProperty(value = "操作人")
     private String operator;
 

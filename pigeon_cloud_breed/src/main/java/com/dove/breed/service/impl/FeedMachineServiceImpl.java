@@ -68,6 +68,8 @@ public class FeedMachineServiceImpl extends ServiceImpl<FeedMachineMapper, FeedM
         feedHistory.setName(feedMachine.getName());
         feedHistory.setType(feedMachine.getType());
         feedHistory.setNumber(feedMachine.getNumber());
+        feedHistory.setStartTime(feedMachine.getStartTime());
+        feedHistory.setEndTime(feedMachine.getStopTime());
         feedHistory.setOperator(operator);
         feedHistory.setGuige(feedMachine.getGuige());
 
