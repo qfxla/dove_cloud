@@ -27,6 +27,11 @@ public class ShipmentEntryBillVo{
     @TableField("base_id")
     private Long baseId;
 
+    //进库时间
+    @ApiModelProperty(value = "进库时间")
+    @TableField("in_time")
+    private Date inTime;
+
     //基地名称
     @ApiModelProperty(value = "基地名称")
     @TableField("baseName")

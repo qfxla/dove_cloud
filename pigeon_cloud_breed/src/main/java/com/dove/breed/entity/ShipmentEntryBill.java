@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -37,6 +38,11 @@ public class ShipmentEntryBill extends Model<ShipmentEntryBill> {
     @ApiModelProperty(value = "领取基地id")
     @TableField("base_id")
     private Long baseId;
+
+    //进库时间
+    @ApiModelProperty(value = "进库时间")
+    @TableField("in_time")
+    private Date inTime;
 
     //基地名称
     @ApiModelProperty(value = "基地名称")

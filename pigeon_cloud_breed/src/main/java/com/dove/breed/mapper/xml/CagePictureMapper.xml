@@ -15,7 +15,7 @@
     </resultMap>
 
     <select id="getYesterdayUrl" resultType="java.lang.String">
-        SELECT pic
+        SELECT process_pic
         FROM t_cage_picture
         WHERE cage_id = #{cageId}
         AND DATEDIFF(gmt_create,NOW())=-1

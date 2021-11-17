@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * @author zcj
  * @creat 2021-08-20-20:49
@@ -21,6 +23,11 @@ public class ShipmentEntryBillDto {
     @ApiModelProperty(value = "基地名称")
     @TableField("base_name")
     private String baseName;
+
+    //进库时间
+    @ApiModelProperty(value = "进库时间")
+    @TableField("in_time")
+    private Date inTime;
 
     @ApiModelProperty(value = "类型")
     @TableField("type")

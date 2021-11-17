@@ -18,10 +18,15 @@ import okhttp3.ResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -41,6 +46,7 @@ public class CagePictureController {
     private CagePositionService cagePositionService;
 
     String UPLOAD_PATH = "http://120.77.156.205:9800/group1/upload";
+    String PROCESS_PATH = "http://120.77.156.205:9808/api/v1/detect";
 
     @PostMapping("/image_upload")
     public Result upload2(MultipartFile image, @RequestParam("location_code")Long location_code,
@@ -81,7 +87,38 @@ public class CagePictureController {
                     cagePicture.setPic(path);
                     cagePicture.setPicName(name);
                     cagePicture.setTime(time);
+
+
+                    MediaType JSON1 = MediaType
+                            .parse("application/json; charset=utf-8");
+                    JSONObject jsonObject1 = new JSONObject();
+                    jsonObject1.put("img_path",path);
+                    String s = JSON.toJSONString(jsonObject1);
+                    String processResult = "";
+                    Request processRequest = new Request.Builder()
+                            .url(PROCESS_PATH)
+                            .post(RequestBody.create(JSON1,s))
+                            .build();
+
+                    Response processResponse = httpClient.newCall(processRequest).execute();
+                    System.out.println(processResponse);
+                    System.out.println(processResponse.body());
+                    if (processResponse.isSuccessful()){
+                        ResponseBody processBody = processResponse.body();
+                        if (processBody != null){
+                            processResult = processBody.string();
+                            System.out.println("加工返回体：" + processResult);
+                            JSONObject jsonObject2 = JSON.parseObject(processResult);
+                            String processPath = (String)jsonObject2.get("img_save_path");
+                            System.out.println("加工路径" + processPath);
+                            cagePicture.setProcessPic(processPath);
+                        }
+                    }else {
+                        System.out.println("加工接口调用失败");
+                    }
+
                     boolean save = cagePictureService.save(cagePicture);
+
                     if (!save){
                         throw new GlobalException(StatusCode.ERROR,"图片存入出错");
                     }
@@ -91,7 +128,42 @@ public class CagePictureController {
             e.printStackTrace();
         }
 
+
         return result != ""? Result.success("保存图片成功").data(result) : Result.error(StatusCode.UPLOADERROT,"保存图片失败");
     }
+
+//    @GetMapping
+//    public Result process(String path) throws IOException {
+//
+//        MediaType JSON1 = MediaType
+//                .parse("application/json; charset=utf-8");
+//        JSONObject jsonObject = new JSONObject();
+//        jsonObject.put("img_path",path);
+//        String s = JSON.toJSONString(jsonObject);
+//        OkHttpClient httpClient = new OkHttpClient();
+//        String processResult = "";
+//        Request processRequest = new Request.Builder()
+//                .url(PROCESS_PATH)
+//                .post(RequestBody.create(JSON1,s))
+//                .build();
+//
+//        Response processResponse = httpClient.newCall(processRequest).execute();
+//        System.out.println(processResponse);
+//        System.out.println(processResponse.body());
+//        if (processResponse.isSuccessful()){
+//            ResponseBody processBody = processResponse.body();
+//            if (processBody != null){
+//                processResult = processBody.string();
+//                System.out.println("加工返回体：" + processResult);
+//                JSONObject jsonObject1 = JSON.parseObject(processResult);
+//                String processPath = (String)jsonObject1.get("img_save_path");
+//                System.out.println("加工路径" + processPath);
+//            }
+//        }else {
+//            System.out.println("加工接口调用失败");
+//        }
+//
+//        return Result.success("hh");
+//    }
 }
 

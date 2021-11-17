@@ -26,6 +26,11 @@ public class ShipmentEntryBaseVo {
     @TableField("shipment_entry_bill")
     private Long shipmentEntryBill;
 
+    //单位
+    @ApiModelProperty(value = "单位")
+    @TableField("unit")
+    private String unit;
+
     //类型
     @ApiModelProperty(value = "类型")
     @TableField("type")
