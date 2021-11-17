@@ -1,5 +1,6 @@
 package com.dove.breed.entity.dto;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -17,6 +18,11 @@ public class BaseStockDto {
 
     @ApiModelProperty(value = "基地名称")
     private String baseName;
+
+    //单位
+    @ApiModelProperty(value = "单位")
+    @TableField("unit")
+    private String unit;
 
     @ApiModelProperty(value = "类型")
     private String type;

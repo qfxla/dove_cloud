@@ -24,6 +24,11 @@ public class BaseStockVo {
     @ApiModelProperty(value = "基地id")
     private Long baseId;
 
+    //单位
+    @ApiModelProperty(value = "单位")
+    @TableField("unit")
+    private String unit;
+
     @ApiModelProperty(value = "基地名称")
     private String baseName;
 
