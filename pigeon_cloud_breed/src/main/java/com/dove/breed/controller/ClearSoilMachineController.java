@@ -98,9 +98,9 @@ public class ClearSoilMachineController {
     }
 
     @ApiOperation(value = "开机")
-    @PostMapping("/open/{id}")
-    public Result open(@PathVariable("id") Long id){
-        boolean open = clearSoilMachineService.open(id);
+    @PostMapping("/open")
+    public Result open(@RequestParam(value = "machineNumber") String machineNumber){
+        boolean open = clearSoilMachineService.open(machineNumber);
         return open? Result.success("启动成功") : Result.error("启动失败");
     }
 

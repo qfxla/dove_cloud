@@ -19,7 +19,7 @@ public interface FeedMachineService extends IService<FeedMachine> {
 
     List<FeedMachineVo> listByType(Long baseId, String dovecoteNumber, Integer open, Long enterpriseId);
 
-    boolean open(Long id, FeedMachineAddFeedDto feedMachineAddFeedDto);
+    boolean open(String machineNumber, FeedMachineAddFeedDto feedMachineAddFeedDto);
 
     boolean shutdown(String machineNumber, String operator, Integer number);
 }

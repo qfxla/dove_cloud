@@ -17,7 +17,7 @@ import java.util.List;
  */
 public interface ClearSoilMachineService extends IService<ClearSoilMachine> {
 
-    boolean open(Long id);
+    boolean open(String machineNumber);
 
     boolean shutdown(String machineNumber, Integer weight, String type, String operator);
 

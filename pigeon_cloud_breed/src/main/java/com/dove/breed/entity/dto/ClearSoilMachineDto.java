@@ -45,9 +45,4 @@ public class ClearSoilMachineDto implements Serializable {
     @ApiModelProperty(value = "发动机的转速(800/min)")
     private String rev;
 
-    //开关（0关，1开）
-    @ApiModelProperty(value = "开关")
-    @TableField("is_open")
-    private Boolean open;
-
 }

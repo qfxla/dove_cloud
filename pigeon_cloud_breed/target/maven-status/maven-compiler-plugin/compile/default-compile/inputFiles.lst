@@ -3,6 +3,7 @@ D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\d
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\controller\ui\MainInterfaceController.java
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\controller\ui\CountryController.java
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\service\impl\CageServiceImpl.java
+D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\controller\DrinkingMachineController.java
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\dto\ForecastWarningDto.java
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\config\ThreadPoolConfig.java
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\dto\DovecoteOutTypeDto.java
@@ -104,6 +105,7 @@ D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\d
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\mapper\DovecoteOutTypeMapper.java
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\mapper\BaseStockMapper.java
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\utils\MonitorEnum.java
+D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\mapper\DrinkingMachineMapper.java
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\service\impl\DovecoteEntryBillServiceImpl.java
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\BusinessBreeding.java
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\vo\ClearSoilMachineVo.java
@@ -149,6 +151,7 @@ D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\d
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\mapper\MonitorBaseMapper.java
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\service\impl\OperatorServiceImpl.java
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\controller\ui\ProvinceController.java
+D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\dto\DrinkingMachineDto.java
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\service\impl\IpServiceImpl.java
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\mapper\IpMapper.java
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\service\impl\ManualIncubationServiceImpl.java
@@ -182,6 +185,7 @@ D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\d
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\config\SwaggerConfig.java
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\dto\ShipmentOutBaseDto.java
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\service\impl\PictureServiceImpl.java
+D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\DrinkingMachine.java
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\Cage.java
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\controller\FeedHistoryController.java
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\controller\BaseStockController.java
@@ -218,6 +222,7 @@ D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\d
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\service\impl\ShipmentOutBillServiceImpl.java
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\controller\ui\DovecoteUiController.java
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\ShipmentOutType.java
+D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\vo\DrinkingMachineVo.java
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\service\impl\DovecoteServiceImpl.java
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\ShipmentEntryBase.java
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\Operator.java
@@ -238,6 +243,7 @@ D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\d
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\service\DovecoteEntryBillService.java
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\config\MyBatisPlusConfig.java
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\mapper\ClearSoilMachineMapper.java
+D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\service\DrinkingMachineService.java
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\dto\BreedBaseDto.java
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\service\BusinessBreedingService.java
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\controller\ui\SlaughtersController.java
@@ -250,6 +256,7 @@ D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\d
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\utils\GetFileData.java
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\ClearSoilMachine.java
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\controller\BreedBaseController.java
+D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\service\impl\DrinkingMachineServiceImpl.java
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\service\CageService.java
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\service\impl\FeedStockServiceImpl.java
 D:\大创比赛\后端项目\pigeon_cloud\pigeon_cloud_breed\src\main\java\com\dove\breed\entity\dto\DovecoteEntryBillDto.java

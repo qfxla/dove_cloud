@@ -28,6 +28,7 @@ com\dove\breed\controller\ManualIncubationController.class
 com\dove\breed\service\BusinessBreedingService.class
 com\dove\breed\utils\Image2Mp4.class
 com\dove\breed\controller\ShipmentEntryBaseController.class
+com\dove\breed\controller\DrinkingMachineController.class
 com\dove\breed\controller\ui\wareHouse.class
 com\dove\breed\controller\DrinkingController.class
 com\dove\breed\service\DovecoteDailyService.class
@@ -46,6 +47,7 @@ com\dove\breed\config\WebMvcConfig$String2DateConverter.class
 com\dove\breed\entity\dto\ForecastWarningDto.class
 com\dove\breed\service\impl\ClearSoilMachineServiceImpl.class
 com\dove\breed\service\impl\DovecoteEntryBillServiceImpl.class
+com\dove\breed\service\impl\DrinkingMachineServiceImpl.class
 com\dove\breed\controller\ClearSoilMachineController.class
 com\dove\breed\entity\dto\ManualIncubationDto.class
 com\dove\breed\mapper\CageDailyMapper.class
@@ -164,6 +166,7 @@ com\dove\breed\service\impl\BusinessBreedingServiceImpl.class
 com\dove\breed\service\impl\CagePositionServiceImpl.class
 com\dove\breed\utils\GetMonth.class
 com\dove\breed\service\ShipmentEntryTypeService.class
+com\dove\breed\entity\DrinkingMachine.class
 com\dove\breed\entity\vo\ClearSoilVo.class
 com\dove\breed\entity\vo\ShipmentOutBaseVo.class
 com\dove\breed\entity\dto\OperatorDto.class
@@ -177,6 +180,7 @@ com\dove\breed\entity\dto\DovecoteOutBaseDto.class
 com\dove\breed\entity\dto\ShipmentEntryBillDto.class
 com\dove\breed\entity\vo\BaseStockVo.class
 com\dove\breed\utils\ConvertUtil.class
+com\dove\breed\mapper\DrinkingMachineMapper.class
 com\dove\breed\service\PictureService.class
 com\dove\breed\entity\vo\FeedHistoryVo.class
 com\dove\breed\entity\Picture.class
@@ -199,6 +203,7 @@ com\dove\breed\service\impl\IpServiceImpl.class
 com\dove\breed\controller\CagePictureController.class
 com\dove\breed\service\ShipmentEntryBaseService.class
 com\dove\breed\controller\CageRealController.class
+com\dove\breed\entity\dto\DrinkingMachineDto.class
 com\dove\breed\entity\ManualIncubation.class
 com\dove\breed\service\impl\CagePictureServiceImpl.class
 com\dove\breed\controller\DovecoteEntryTypeController.class
@@ -217,6 +222,7 @@ com\dove\breed\entity\vo\AbnormalVo.class
 com\dove\breed\mapper\CageRealMapper.class
 com\dove\breed\controller\ui\SellController.class
 com\dove\breed\controller\DovecoteOutBaseController.class
+com\dove\breed\service\DrinkingMachineService.class
 com\dove\breed\mapper\CageMapper.class
 com\dove\breed\entity\dto\FeedMachineAddFeedDto.class
 com\dove\breed\service\impl\DovecoteOutTypeServiceImpl.class
@@ -260,6 +266,7 @@ com\dove\breed\entity\ShipmentOutType.class
 com\dove\breed\entity\vo\ShipmentOutBillVo.class
 com\dove\breed\entity\Operator.class
 com\dove\breed\entity\dto\BusinessBreedingDto.class
+com\dove\breed\entity\vo\DrinkingMachineVo.class
 com\dove\breed\service\MonitorBaseService.class
 com\dove\breed\controller\FeedMachineController.class
 com\dove\breed\entity\dto\FeedHistoryDto.class

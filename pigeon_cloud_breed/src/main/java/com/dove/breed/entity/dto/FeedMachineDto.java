@@ -54,10 +54,6 @@ public class FeedMachineDto implements Serializable {
     @ApiModelProperty(value = "转速")
     private String rev;
 
-    @ApiModelProperty(value = "开关")
-    @TableField("is_open")
-    private Boolean open;
-
     @ApiModelProperty(value = "方向")
     private Integer direction;
 

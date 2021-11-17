@@ -39,8 +39,13 @@ public class FeedMachineServiceImpl extends ServiceImpl<FeedMachineMapper, FeedM
     }
 
     @Override
-    public boolean open(Long id, FeedMachineAddFeedDto feedMachineAddFeedDto) {
-        FeedMachine feedMachine = feedMachineMapper.selectById(id);
+    public boolean open(String machineNumber, FeedMachineAddFeedDto feedMachineAddFeedDto) {
+        QueryWrapper<FeedMachine> wrapper = new QueryWrapper<>();
+        wrapper.eq("machine_number",machineNumber);
+        FeedMachine feedMachine = feedMachineMapper.selectOne(wrapper);
+        if(feedMachine == null || feedMachine.getOpen()) {
+            return false;
+        }
         if(feedMachineAddFeedDto != null) {
             feedMachine.setName(feedMachineAddFeedDto.getName());
             feedMachine.setType(feedMachineAddFeedDto.getType());
@@ -58,6 +63,9 @@ public class FeedMachineServiceImpl extends ServiceImpl<FeedMachineMapper, FeedM
         QueryWrapper<FeedMachine> wrapper = new QueryWrapper<>();
         wrapper.eq("machine_number",machineNumber);
         FeedMachine feedMachine = feedMachineMapper.selectOne(wrapper);
+        if(!feedMachine.getOpen()) {
+            return false;
+        }
         feedMachine.setStopTime(new Date());
         feedMachine.setOpen(false);
 

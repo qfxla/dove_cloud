@@ -1,10 +1,12 @@
 import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.GlobalConfig;
 import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
+import com.baomidou.mybatisplus.generator.config.po.TableFill;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.dove.breed.BreedApplication;
@@ -17,6 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -73,16 +76,25 @@ public class CodeGenerator {
         // 5、策略配置
         StrategyConfig strategy = new StrategyConfig();
 
-        strategy.setInclude("t_forecast_warning");
+        strategy.setInclude("t_drinking_machine");
 
+        strategy.setLogicDeleteFieldName("is_deleted");
+            // 自动填充配置
+        TableFill gmtCreate = new TableFill("gmt_create", FieldFill.INSERT);
+        TableFill gmtModified = new TableFill("gmt_modified",
+                    FieldFill.INSERT_UPDATE);
+        ArrayList<TableFill> tableFills = new ArrayList<>();
+        tableFills.add(gmtCreate);
+        tableFills.add(gmtModified);
+        strategy.setTableFillList(tableFills);
 
         strategy.setNaming(NamingStrategy.underline_to_camel);//数据库表映射到实体的命名策略
-        strategy.setTablePrefix("t_"); //生成实体时去掉表前缀
-
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);//数据库表字段映射到实体的命名策略
-        strategy.setEntityLombokModel(false); // lombok 模型 @Accessors(chain = true) setter链式操作
-        strategy.setVersionFieldName("version");
-        strategy.setLogicDeleteFieldName("isDeleted");
+        strategy.setEntityLombokModel(true); // lombok 模型 @Accessors(chain = true) setter链式操作
+        strategy.setVersionFieldName("version");// 乐观锁 @Version
+        strategy.setLogicDeleteFieldName("is_deleted"); // 逻辑删除 @TableLogic
+        strategy.setTablePrefix("t_"); //生成实体时去掉表前缀
+        strategy.setEntityBooleanColumnRemoveIsPrefix(true);//去掉布尔值的is_前缀（确保tinyint(1)） 加注解--@TableField("is_deleted")
         strategy.setRestControllerStyle(true); //restful api风格控制器
         strategy.setControllerMappingHyphenStyle(true); //url中驼峰转连字符
 
