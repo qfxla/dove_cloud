@@ -30,6 +30,11 @@ public class DovecoteEntryBaseDto {
     @TableField("type_name")
     private String typeName;
 
+    //单位
+    @ApiModelProperty(value = "单位")
+    @TableField("unit")
+    private String unit;
+
     //供应商id
     @ApiModelProperty(value = "供应商id")
     @TableField("supplier_id")

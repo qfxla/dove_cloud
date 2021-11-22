@@ -1,8 +1,12 @@
 package com.dove.breed.entity.dto;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 
 /**
  * @author zcj
@@ -26,6 +30,12 @@ public class DovecoteEntryBillDto {
     @TableField("handler")
     private String handler;
 
+    //入鸽棚时间
+    @ApiModelProperty(value = "进鸽棚时间")
+    @TableField("in_time")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    private Date inTime;
 
     //总数量
     @ApiModelProperty(value = "总数量")

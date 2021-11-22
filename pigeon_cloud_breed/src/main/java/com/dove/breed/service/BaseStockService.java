@@ -16,4 +16,5 @@ import java.util.Map;
  */
 public interface BaseStockService extends IService<BaseStock> {
     List<BaseStock> getStockByBaseIdAndType(Long baseId, String type);
+    List<BaseStock> fuzzyquery(String name);
 }

@@ -2,11 +2,13 @@ package com.dove.breed.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -42,6 +44,13 @@ public class DovecoteEntryBill extends Model<DovecoteEntryBill> {
     @ApiModelProperty(value = "所属基地id")
     @TableField("base_id")
     private Long baseId;
+
+    //入鸽棚时间
+    @ApiModelProperty(value = "进鸽棚时间")
+    @TableField("in_time")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    private Date inTime;
 
     //数量
     @ApiModelProperty(value = "数量")

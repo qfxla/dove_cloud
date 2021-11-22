@@ -7,7 +7,10 @@ import com.dove.breed.entity.DovecoteOutBill;
 import com.dove.breed.mapper.BaseStockMapper;
 import com.dove.breed.service.BaseStockService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.sun.org.apache.xml.internal.security.Init;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -23,6 +26,7 @@ import java.util.Map;
  * @since 2021-09-06
  */
 @Service
+@EnableScheduling
 public class BaseStockServiceImpl extends ServiceImpl<BaseStockMapper, BaseStock> implements BaseStockService {
     @Autowired
     private BaseStockMapper baseStockMapper;
@@ -31,5 +35,11 @@ public class BaseStockServiceImpl extends ServiceImpl<BaseStockMapper, BaseStock
     public List<BaseStock>  getStockByBaseIdAndType(Long baseId, String type) {
         List<BaseStock> baseStockList = baseStockMapper.getStockByBaseIdAndType(baseId, type);
         return baseStockList;
+    }
+
+    @Override
+    public List<BaseStock> fuzzyquery(String name) {
+        List<BaseStock> list = baseStockMapper.fuzzyquery(name);
+        return list;
     }
 }

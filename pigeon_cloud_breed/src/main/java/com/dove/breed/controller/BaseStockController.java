@@ -66,5 +66,13 @@ public class BaseStockController {
         Page page = PageUtil.list2Page(baseStockVoList, pageNum, pageSize);
         return Result.success("获取成功").data(page);
     }
+
+    @ApiOperation("模糊查询")
+    @GetMapping("/fuzzyquery")
+    public Result fuzzyquery(@RequestParam("name")String name){
+        List<BaseStock> list = baseStockService.fuzzyquery(name);
+        List<BaseStockVo> vo = convertUtil.convert(list, BaseStockVo.class);
+        return Result.success("获取成功").data(vo);
+    }
 }
 

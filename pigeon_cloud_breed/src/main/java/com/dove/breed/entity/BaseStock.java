@@ -34,6 +34,10 @@ public class BaseStock implements Serializable {
     @TableField("unit")
     private String unit;
 
+    @ApiModelProperty(value = "备注")
+    @TableField("remark")
+    private String remark;
+
         @ApiModelProperty(value = "基地名称")
         private String baseName;
 

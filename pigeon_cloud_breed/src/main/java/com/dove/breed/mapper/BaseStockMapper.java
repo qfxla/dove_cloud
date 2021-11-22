@@ -22,4 +22,6 @@ import java.util.List;
 public interface BaseStockMapper extends BaseMapper<BaseStock> {
     List<BaseStock> getStockByBaseIdAndType(@Param("baseId")Long baseId,
                                             @Param("type")String type);
+
+    List<BaseStock> fuzzyquery(@Param("name")String name);
 }

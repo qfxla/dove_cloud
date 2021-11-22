@@ -43,6 +43,11 @@ public class DovecoteEntryBase extends Model<DovecoteEntryBase> {
     @TableField("type")
     private String type;
 
+    //单位
+    @ApiModelProperty(value = "单位")
+    @TableField("unit")
+    private String unit;
+
     //产品编号
     @ApiModelProperty(value = "产品编号")
     @TableField("type_id")

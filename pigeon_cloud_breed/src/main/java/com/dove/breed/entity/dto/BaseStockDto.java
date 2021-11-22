@@ -24,6 +24,10 @@ public class BaseStockDto {
     @TableField("unit")
     private String unit;
 
+    @ApiModelProperty(value = "备注")
+    @TableField("remark")
+    private String remark;
+
     @ApiModelProperty(value = "类型")
     private String type;
 

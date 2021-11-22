@@ -22,4 +22,7 @@
         WHERE base_id = #{baseId}
         AND type = #{type}
     </select>
+    <select id="fuzzyquery" resultType="com.dove.breed.entity.BaseStock">
+        SELECT * FROM t_base_stock WHERE type_name LIKE CONCAT('%',#{name},'%')
+    </select>
 </mapper>
