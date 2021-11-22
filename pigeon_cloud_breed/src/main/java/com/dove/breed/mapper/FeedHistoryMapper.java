@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dove.breed.entity.FeedHistory;
 import com.dove.breed.entity.vo.FeedHistoryVo;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -18,4 +19,5 @@ public interface FeedHistoryMapper extends BaseMapper<FeedHistory> {
                                    @Param("startTime")String startTime, @Param("endTime")String endTime,
                                    @Param("enterpriseId")Long enterpriseId);
 
+    List<String> findDeviceName(@Param("baseId") Long baseId, @Param("dovecoteNumber")String dovecoteNumber);
 }

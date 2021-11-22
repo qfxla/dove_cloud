@@ -29,6 +29,12 @@ public class ClearSoilMachineDto implements Serializable {
     @ApiModelProperty(value = "清粪机编号")
     private String machineNumber;
 
+    @ApiModelProperty(value = "设备名称")
+    private String device_name;
+
+    @ApiModelProperty(value = "设备品牌")
+    private String brand;
+
     //行走速度
     @ApiModelProperty(value = "行走速度")
     private String speed;
@@ -44,10 +50,5 @@ public class ClearSoilMachineDto implements Serializable {
     //发动机的转速(800/min)
     @ApiModelProperty(value = "发动机的转速(800/min)")
     private String rev;
-
-    //开关（0关，1开）
-    @ApiModelProperty(value = "开关")
-    @TableField("is_open")
-    private Boolean open;
 
 }

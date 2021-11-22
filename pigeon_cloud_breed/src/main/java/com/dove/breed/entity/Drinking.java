@@ -33,7 +33,7 @@ public class Drinking implements Serializable {
     @ApiModelProperty(value = "基地编号")
     private Long baseId;
 
-    @ApiModelProperty(value = "投喂机编号,不能重复")
+    @ApiModelProperty(value = "饮水机编号,不能重复")
     private String machineNumber;
 
     @ApiModelProperty(value = "开始时间")

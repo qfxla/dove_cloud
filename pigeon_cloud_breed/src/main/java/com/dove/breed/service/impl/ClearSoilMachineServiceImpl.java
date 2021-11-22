@@ -35,8 +35,13 @@ public class ClearSoilMachineServiceImpl extends ServiceImpl<ClearSoilMachineMap
     private ClearSoilMapper clearSoilMapper;
 
     @Override
-    public boolean open(Long id) {
-        ClearSoilMachine clearSoilMachine = clearSoilMachineMapper.selectById(id);
+    public boolean open(String machineNumber) {
+        QueryWrapper<ClearSoilMachine> wrapper = new QueryWrapper<>();
+        wrapper.eq("machine_number",machineNumber);
+        ClearSoilMachine clearSoilMachine = clearSoilMachineMapper.selectOne(wrapper);
+        if(clearSoilMachine == null || clearSoilMachine.getOpen()) {
+            return false;
+        }
         clearSoilMachine.setStartTime(new Date());
         clearSoilMachine.setOpen(true);
         return clearSoilMachineMapper.updateById(clearSoilMachine) > 0;
@@ -48,6 +53,9 @@ public class ClearSoilMachineServiceImpl extends ServiceImpl<ClearSoilMachineMap
         QueryWrapper<ClearSoilMachine> wrapper = new QueryWrapper<>();
         wrapper.eq("machine_number",machineNumber);
         ClearSoilMachine clearSoilMachine = clearSoilMachineMapper.selectOne(wrapper);
+        if(!clearSoilMachine.getOpen()) {
+            return false;
+        }
         clearSoilMachine.setWeight(weight);
         clearSoilMachine.setType(type);
         clearSoilMachine.setStopTime(new Date());
