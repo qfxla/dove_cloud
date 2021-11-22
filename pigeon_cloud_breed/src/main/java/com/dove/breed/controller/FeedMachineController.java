@@ -4,6 +4,7 @@ package com.dove.breed.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.dove.breed.entity.DrinkingMachine;
 import com.dove.breed.entity.FeedMachine;
 import com.dove.breed.entity.dto.FeedMachineAddFeedDto;
 import com.dove.breed.entity.dto.FeedMachineDto;
@@ -108,5 +109,22 @@ public class FeedMachineController {
                            @RequestParam("number") Integer number){
         boolean shutdown = feedMachineService.shutdown(machineNumber,operator,number);
         return shutdown? Result.success("关机成功") : Result.error("关机失败");
+    }
+
+    @ApiOperation(value = "查询机器编号是否存在")
+    @GetMapping("/existMachineNumber/{machineNumber}")
+    public Result existMachineNumber(@PathVariable("machineNumber") String machineNumber){
+        QueryWrapper<FeedMachine> wrapper = new QueryWrapper<>();
+        wrapper.eq("machine_number",machineNumber);
+        FeedMachine one = feedMachineService.getOne(wrapper);
+        return one == null ? Result.success("可以使用") : Result.error("编号已存在，请重新填写");
+    }
+
+    @ApiOperation(value = "查找设备名称")
+    @GetMapping("/findDeviceName")
+    public Result findDeviceName(@RequestParam(value = "baseId", required = false) Long baseId,
+                                 @RequestParam(value = "dovecoteNumber", required = false) String dovecoteNumber){
+        List<String> list = feedMachineService.findDeviceName(baseId, dovecoteNumber);
+        return Result.success().data(list);
     }
 }

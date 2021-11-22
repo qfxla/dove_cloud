@@ -22,4 +22,6 @@ public interface FeedMachineService extends IService<FeedMachine> {
     boolean open(String machineNumber, FeedMachineAddFeedDto feedMachineAddFeedDto);
 
     boolean shutdown(String machineNumber, String operator, Integer number);
+
+    List<String> findDeviceName(Long baseId, String dovecoteNumber);
 }

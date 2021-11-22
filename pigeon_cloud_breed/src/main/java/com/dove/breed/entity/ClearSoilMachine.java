@@ -50,6 +50,12 @@ public class ClearSoilMachine implements Serializable {
     @ApiModelProperty(value = "清粪机编号,不能重复")
     private String machineNumber;
 
+    @ApiModelProperty(value = "设备名称")
+    private String device_name;
+
+    @ApiModelProperty(value = "设备品牌")
+    private String brand;
+
     //清理重量
     @ApiModelProperty(value = "清理重量")
     private Integer weight;

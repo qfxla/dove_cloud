@@ -11,6 +11,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dove.breed.utils.ConvertUtil;
 import com.dove.breed.utils.MonitorEnum;
 import com.dove.util.SecurityContextUtil;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpEntity;
@@ -20,12 +22,14 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+import sun.rmi.runtime.Log;
 
 import javax.annotation.Resource;
 import javax.swing.*;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 /**
  * <p>
@@ -37,6 +41,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Transactional()
 @Service
+@Slf4j
 public class MonitorBaseServiceImpl extends ServiceImpl<MonitorBaseMapper, MonitorBase> implements MonitorBaseService {
     @Resource
     private MonitorBaseMapper monitorBaseMapper;
@@ -77,6 +82,7 @@ public class MonitorBaseServiceImpl extends ServiceImpl<MonitorBaseMapper, Monit
         JSONObject s = client.postForObject(MonitorEnum.MONITOR_URL.getValue(), httpEntity, JSONObject.class);
         assert s != null;
         JSONObject data = s.getJSONObject("data");
+        log.info(data.toString());
         String accessToken = data.getString("accessToken");
         redisTemplate.opsForValue().set("accessToken",accessToken,7, TimeUnit.DAYS);
         return true;

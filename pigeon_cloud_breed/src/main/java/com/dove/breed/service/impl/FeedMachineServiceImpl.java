@@ -88,4 +88,9 @@ public class FeedMachineServiceImpl extends ServiceImpl<FeedMachineMapper, FeedM
         }
         return feedMachineMapper.updateById(feedMachine) > 0;
     }
+
+    @Override
+    public List<String> findDeviceName(Long baseId, String dovecoteNumber) {
+        return feedHistoryMapper.findDeviceName(baseId, dovecoteNumber);
+    }
 }

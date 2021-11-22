@@ -4,10 +4,10 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, base_id, dovecote_number, machine_number, `peak_head`, `peak_suction`, `peak_flow`, rev, start_time, stop_time, is_open AS `open`, guige, gmt_create, gmt_modified, is_deleted AS deleted, version
+        id, base_id, dovecote_number, machine_number, device_name, brand, `peak_head`, `peak_suction`, `peak_flow`, rev, start_time, stop_time, is_open AS `open`, guige, gmt_create, gmt_modified, is_deleted AS deleted, version
     </sql>
     <sql id="Vo_Column_List">
-        id, base_id, dovecote_number, machine_number, `peak_head`, `peak_suction`, `peak_flow`, rev, start_time, stop_time, is_open AS `open`
+        id, base_id, dovecote_number, machine_number, device_name, brand, `peak_head`, `peak_suction`, `peak_flow`, rev, start_time, stop_time, is_open AS `open`
     </sql>
 
     <select id="listByType" resultType="com.dove.breed.entity.vo.DrinkingMachineVo">

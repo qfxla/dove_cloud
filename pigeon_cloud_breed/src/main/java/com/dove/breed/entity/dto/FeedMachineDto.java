@@ -36,6 +36,12 @@ public class FeedMachineDto implements Serializable {
     @ApiModelProperty(value = "投喂机编号")
     private String machineNumber;
 
+    @ApiModelProperty(value = "设备名称")
+    private String device_name;
+
+    @ApiModelProperty(value = "设备品牌")
+    private String brand;
+
     @ApiModelProperty(value = "开始时间")
     private Date startTime;
 

@@ -35,4 +35,15 @@
         </if>
         ORDER by gmt_modified DESC
     </select>
+    <select id="findDeviceName" resultType="java.lang.String">
+        select device_name
+        from t_feed_history
+        where is_deleted = 0
+        <if test="baseId != null">
+            and base_id = #{baseId}
+        </if>
+        <if test="dovecoteNumber != null">
+            and dovecote_number = #{dovecoteNumber}
+        </if>
+    </select>
 </mapper>

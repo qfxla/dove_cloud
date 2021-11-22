@@ -1,6 +1,7 @@
 package com.dove.breed.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dove.breed.entity.DrinkingMachine;
 import com.dove.breed.entity.dto.DrinkingMachineDto;
@@ -101,6 +102,15 @@ public class DrinkingMachineController {
                            @RequestParam("operator") String operator){
         boolean shutdown = drinkingMachineService.shutdown(machineNumber,operator);
         return shutdown? Result.success("关机成功") : Result.error("关机失败");
+    }
+
+    @ApiOperation(value = "查询机器编号是否存在")
+    @GetMapping("/existMachineNumber/{machineNumber}")
+    public Result existMachineNumber(@PathVariable("machineNumber") String machineNumber){
+        QueryWrapper<DrinkingMachine> wrapper = new QueryWrapper<>();
+        wrapper.eq("machine_number",machineNumber);
+        DrinkingMachine one = drinkingMachineService.getOne(wrapper);
+        return one == null ? Result.success("可以使用") : Result.error("编号已存在，请重新填写");
     }
 }
 

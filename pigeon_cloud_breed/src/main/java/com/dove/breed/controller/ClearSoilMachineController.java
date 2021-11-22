@@ -3,6 +3,7 @@ package com.dove.breed.controller;
 
 
 import com.dove.breed.entity.ClearSoil;
+import com.dove.breed.entity.DrinkingMachine;
 import com.dove.breed.entity.dto.ClearSoilMachineDto;
 import com.dove.breed.entity.dto.FeedMachineAddFeedDto;
 import com.dove.breed.entity.vo.ClearSoilMachineVo;
@@ -114,5 +115,13 @@ public class ClearSoilMachineController {
         return shutdown? Result.success("关机成功") : Result.error("关机失败");
     }
 
+    @ApiOperation(value = "查询机器编号是否存在")
+    @GetMapping("/existMachineNumber/{machineNumber}")
+    public Result existMachineNumber(@PathVariable("machineNumber") String machineNumber){
+        QueryWrapper<ClearSoilMachine> wrapper = new QueryWrapper<>();
+        wrapper.eq("machine_number",machineNumber);
+        ClearSoilMachine one = clearSoilMachineService.getOne(wrapper);
+        return one == null ? Result.success("可以使用") : Result.error("编号已存在，请重新填写");
+    }
 
 }
