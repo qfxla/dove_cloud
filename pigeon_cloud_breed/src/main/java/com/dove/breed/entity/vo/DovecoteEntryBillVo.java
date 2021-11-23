@@ -35,8 +35,6 @@ public class DovecoteEntryBillVo {
     //入鸽棚时间
     @ApiModelProperty(value = "进鸽棚时间")
     @TableField("in_time")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date inTime;
 
     //类型
