@@ -94,9 +94,9 @@ public class MonitorBaseServiceImpl extends ServiceImpl<MonitorBaseMapper, Monit
         System.out.println("66");
         System.out.println(redisTemplate.hasKey("accessToken"));
         String accessToken = (String) redisTemplate.opsForValue().get("accessToken");
-        System.out.println("55");
-        String url = "https://open.ys7.com/ezopen/h5/iframe_se?url=ezopen://open.ys7.com/"+monitorBaseVo.getDeviceSerial()+"/"+monitorBaseVo.getAisle()+".live&autoplay=1&accessToken="+accessToken+"&templete=2";
-        monitorBaseVo.setVideoUrl(url);
+        monitorBaseVo.setUrl("ezopen://open.ys7.com/"+monitorBaseVo.getDeviceSerial()+"/"+monitorBaseVo.getAisle()+".live&autoplay=1");
+        monitorBaseVo.setAccessToken(accessToken);
+        monitorBaseVo.setTemplete(2);
         return monitorBaseVo;
     }
 }

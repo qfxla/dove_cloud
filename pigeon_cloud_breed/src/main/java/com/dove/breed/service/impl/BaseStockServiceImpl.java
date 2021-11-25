@@ -1,21 +1,14 @@
 package com.dove.breed.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+
 import com.dove.breed.entity.BaseStock;
-import com.dove.breed.entity.DovecoteOutBase;
-import com.dove.breed.entity.DovecoteOutBill;
 import com.dove.breed.mapper.BaseStockMapper;
 import com.dove.breed.service.BaseStockService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.sun.org.apache.xml.internal.security.Init;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>

@@ -53,10 +53,11 @@ public class MonitorBaseController {
         List<MonitorBaseVo> list = monitorBaseService.listByType(baseId, type, dovecoteNumber, statusCode, SecurityContextUtil.getUserDetails().getEnterpriseId());
         Page page = PageUtil.list2Page(list, current, size);
         List<MonitorBaseVo> records = page.getRecords();
+        String accessToken = (String) redisTemplate.opsForValue().get("accessToken");
         for (MonitorBaseVo record : records) {
-            String accessToken = (String) redisTemplate.opsForValue().get("accessToken");
-            String url = "https://open.ys7.com/ezopen/h5/iframe_se?url=ezopen://open.ys7.com/"+record.getDeviceSerial()+"/"+record.getAisle()+".live&autoplay=1&accessToken="+accessToken+"&templete=2";
-            record.setVideoUrl(url);
+            record.setUrl("ezopen://open.ys7.com/"+record.getDeviceSerial()+"/"+record.getAisle()+".live&autoplay=0");
+            record.setAccessToken(accessToken);
+            record.setTemplete(2);
         }
         return Result.success().data(page);
     }
