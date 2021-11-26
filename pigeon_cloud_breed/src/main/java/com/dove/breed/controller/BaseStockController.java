@@ -68,7 +68,7 @@ public class BaseStockController {
     }
 
     @ApiOperation("模糊查询")
-    @GetMapping("/test/fuzzyquery")
+    @GetMapping("/fuzzyquery")
     public Result fuzzyquery(@RequestParam("name")String name){
         List<BaseStock> list = null;
         if (name == "" || name.equals("")){
