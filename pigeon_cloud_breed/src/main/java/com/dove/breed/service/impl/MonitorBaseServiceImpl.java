@@ -1,7 +1,6 @@
 package com.dove.breed.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.dove.breed.entity.MonitorBase;
 import com.dove.breed.entity.dto.MonitorBaseDto;
 import com.dove.breed.entity.vo.MonitorBaseVo;
@@ -11,7 +10,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dove.breed.utils.ConvertUtil;
 import com.dove.breed.utils.MonitorEnum;
 import com.dove.util.SecurityContextUtil;
-import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -22,14 +20,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-import sun.rmi.runtime.Log;
 
 import javax.annotation.Resource;
-import javax.swing.*;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
 
 /**
  * <p>
