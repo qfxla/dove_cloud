@@ -1,6 +1,5 @@
 server:
   port: 9804
-
 spring:
   application:
     name: pigeon-breed-service
@@ -97,3 +96,4 @@ BASE_UI_URL:
   homePage: /root/dove/pigeon_cloud_breed/json文件/主页/
   breedPage: /root/dove/pigeon_cloud_breed/json文件/养殖主页/
   wareHouse: /root/dove/pigeon_cloud_breed/json文件/仓储图/
+  aiForecast: /root/dove/pigeon_cloud_breed/json文件/AI预测报警/

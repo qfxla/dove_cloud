@@ -1,5 +1,6 @@
 package com.dove.breed.controller.ui;
 
+import com.dove.breed.entity.ShipmentOutBill;
 import com.dove.breed.entity.vo.CageRealVo;
 import com.dove.breed.mapper.CageRealMapper;
 import com.dove.breed.mapper.ManualIncubationMapper;
@@ -79,14 +80,15 @@ public class homePageController {
     public Result doveStatus() {
         String path = baseUrl + "鸽笼状态.txt";
         System.out.println(path);
-        List<CageRealVo> layEggsTime = cageRealMapper.getLayEggsTime(3L, "A01");
-        List<CageRealVo> hatchTime = cageRealMapper.getHatchTime(3L, "A01");
-        List<CageRealVo> feedTime = cageRealMapper.getFeedTime(3L, "A01");
-        HashMap<String, Integer> map = new HashMap<>();
-        map.put("layTime",layEggsTime.size());
-        map.put("hatchTime",hatchTime.size());
-        map.put("feedTime",feedTime.size());
-        return Result.success("获取成功").data(map);
+//        List<CageRealVo> layEggsTime = cageRealMapper.getLayEggsTime(3L, "A01");
+//        List<CageRealVo> hatchTime = cageRealMapper.getHatchTime(3L, "A01");
+//        List<CageRealVo> feedTime = cageRealMapper.getFeedTime(3L, "A01");
+//        HashMap<String, Integer> map = new HashMap<>();
+//        map.put("layTime",layEggsTime.size());
+//        map.put("hatchTime",hatchTime.size());
+//        map.put("feedTime",feedTime.size());
+        List<Object> jsonObject = GetFileData.getJsonObject(path);
+        return Result.success("获取成功").data(jsonObject);
     }
 
     @ApiOperation("孵化机记录分布")
@@ -94,14 +96,33 @@ public class homePageController {
     public Result incubatorData(){
         String path = baseUrl + "孵化机记录.txt";
         System.out.println(path);
-        Map<String, Integer> map = manualIncubationMapper.uiGetDataOfShipToday(3L);
-        return Result.success("获取成功").data(map);
+//        Map<String, Integer> map = manualIncubationMapper.uiGetDataOfShipToday(3L);
+        List<Object> jsonObject = GetFileData.getJsonObject(path);
+        return Result.success("获取成功").data(jsonObject);
     }
 
     @ApiOperation("基地人员分布")
     @GetMapping("personAttribute")
     public Result personAttribute(){
         String path = baseUrl + "基地人员分布.txt";
+        System.out.println(path);
+        List<Object> jsonObject = GetFileData.getJsonObject(path);
+        return jsonObject.size() > 0?Result.success("获取成功").data(jsonObject) : Result.error(StatusCode.ERROR,"文件不存在或无数据");
+    }
+
+    @ApiOperation("告警记录")
+    @GetMapping("alarmRecord")
+    public Result alarmRecord(){
+        String path = baseUrl + "告警记录.txt";
+        System.out.println(path);
+        List<Object> jsonObject = GetFileData.getJsonObject(path);
+        return jsonObject.size() > 0?Result.success("获取成功").data(jsonObject) : Result.error(StatusCode.ERROR,"文件不存在或无数据");
+    }
+
+    @ApiOperation("风险评估")
+    @GetMapping("riskAssessment")
+    public Result riskAssessment(){
+        String path = baseUrl + "风险评估.txt";
         System.out.println(path);
         List<Object> jsonObject = GetFileData.getJsonObject(path);
         return jsonObject.size() > 0?Result.success("获取成功").data(jsonObject) : Result.error(StatusCode.ERROR,"文件不存在或无数据");

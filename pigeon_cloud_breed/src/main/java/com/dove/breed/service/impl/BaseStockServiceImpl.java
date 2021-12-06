@@ -7,7 +7,6 @@ import com.dove.breed.entity.DovecoteOutBill;
 import com.dove.breed.mapper.BaseStockMapper;
 import com.dove.breed.service.BaseStockService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.sun.org.apache.xml.internal.security.Init;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
