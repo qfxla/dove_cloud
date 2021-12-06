@@ -38,7 +38,13 @@ public class MonitorBaseVo {
     private String monitoringLocation;
 
     @ApiModelProperty(value = "视频路径")
-    private String videoUrl;
+    private String url;
+
+    @ApiModelProperty(value = "视频路径")
+    private String accessToken;
+
+    @ApiModelProperty(value = "视频路径")
+    private Integer templete;
 
     @ApiModelProperty(value = "创建者")
     private String createBy;

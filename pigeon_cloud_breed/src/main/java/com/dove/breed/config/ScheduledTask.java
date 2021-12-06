@@ -1,5 +1,6 @@
 package com.dove.breed.config;
 
+import com.alibaba.fastjson.JSONObject;
 import com.dove.breed.entity.BreedBase;
 import com.dove.breed.entity.Dovecote;
 import com.dove.breed.mapper.BreedBaseMapper;
@@ -12,11 +13,19 @@ import com.dove.breed.utils.Image2Mp4;
 import lombok.extern.slf4j.Slf4j;
 import org.bytedeco.javacv.FrameRecorder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author zcj
@@ -25,6 +34,7 @@ import java.util.List;
 @Component
 @Slf4j
 public class ScheduledTask {
+    RestTemplate client = new RestTemplate();
     @Autowired
     private DovecoteDailyService dovecoteDailyService;
     @Autowired
@@ -35,6 +45,10 @@ public class ScheduledTask {
     private Image2Mp4 image2Mp4;
     @Autowired
     private MonitorBaseService monitorBaseService;
+    @Resource
+    private RedisTemplate redisTemplate;
+
+    private String IETokenUrl = "https://admin.stdag.cn/back3Api/auth/oauth/token?grant_type=web_farm";
     /**
      * 自动扫描，启动时间点之后每天11.30执行一次,鸽笼日结
      */
@@ -76,5 +90,31 @@ public class ScheduledTask {
     @Scheduled(cron = "0 0 0 ? * 1")
     public void updateVideoToken(){
         monitorBaseService.updateToken();
+    }
+
+    /**
+     * 自动扫描，启动时间点之后每12个小时执行一次
+     */
+    @Scheduled(cron = "0 0 00,12 * * ?")
+    public void updateInternetEquipmentToken(){
+        log.info("物联设备token更新时间:" + new Date());
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization","Basic d2ViOnN0ZGFnd2Vi");
+        headers.add("Content-Type","multipart/form-data");
+
+        MultiValueMap<String,Object> map = new LinkedMultiValueMap<>();
+        map.add("phone",13428947489L);
+        map.add("password","jinlv12345");
+        map.add("login_from",2);
+        map.add("platform_type",2);
+
+        HttpEntity<MultiValueMap<String,Object>> httpEntity = new HttpEntity<>(map,headers);
+
+        JSONObject jsonObject = client.postForObject(IETokenUrl, httpEntity, JSONObject.class);
+
+        String InternetEquipmentToken = jsonObject.getString("access_token");
+
+        redisTemplate.opsForValue().set("InternetEquipmentToken",InternetEquipmentToken,12, TimeUnit.HOURS);
+
     }
 }
