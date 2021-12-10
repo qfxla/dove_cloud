@@ -3,6 +3,7 @@ package com.dove.breed.config;
 import com.alibaba.fastjson.JSONObject;
 import com.dove.breed.entity.BreedBase;
 import com.dove.breed.entity.Dovecote;
+import com.dove.breed.entity.EnvirMonGraphLogin;
 import com.dove.breed.mapper.BreedBaseMapper;
 import com.dove.breed.mapper.DovecoteDailyMapper;
 import com.dove.breed.mapper.DovecoteMapper;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
@@ -24,6 +26,7 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -115,6 +118,35 @@ public class ScheduledTask {
         String InternetEquipmentToken = jsonObject.getString("access_token");
 
         redisTemplate.opsForValue().set("InternetEquipmentToken",InternetEquipmentToken,12, TimeUnit.HOURS);
+
+    }
+
+    /**
+     * 自动扫描，启动时间点之后每12个小时执行一次
+     */
+    @Scheduled(cron = "0 0 0 ? * 1")
+    public void updateEnvirMonGraphToken(){
+        log.info("环境监控图标token更新时间:" + new Date());
+        String url = "https://backend.farmapi.xiaomaiot.com/v2/user/login?group={group}";
+
+        HttpHeaders headers = new HttpHeaders();
+        MediaType type = MediaType.parseMediaType("application/json;charset=UTF-8");
+        headers.setContentType(type);
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("group", "51trace");
+
+        EnvirMonGraphLogin login = new EnvirMonGraphLogin();
+        login.setUser_name("15610501500");
+        login.setPassword("123456");
+
+        HttpEntity<String> request = new HttpEntity<>(JSONObject.toJSON(login).toString(), headers);
+
+        JSONObject entity = client.postForObject(url, request, JSONObject.class, map);
+
+        String InternetEquipmentToken = entity.getJSONObject("data").getString("token");
+
+        redisTemplate.opsForValue().set("EnvirMonGraphToken",InternetEquipmentToken,7, TimeUnit.DAYS);
 
     }
 }
