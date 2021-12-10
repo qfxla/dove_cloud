@@ -1,22 +1,26 @@
 package com.dove.breed.controller.ui;
 
+import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.dove.breed.entity.CagePosition;
 import com.dove.breed.entity.ShipmentOutBill;
 import com.dove.breed.entity.vo.CageRealVo;
 import com.dove.breed.mapper.CageRealMapper;
 import com.dove.breed.mapper.ManualIncubationMapper;
+import com.dove.breed.service.CagePositionService;
+import com.dove.breed.service.CageRealService;
 import com.dove.breed.utils.GetFileData;
 import com.dove.entity.Result;
 import com.dove.entity.StatusCode;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +42,65 @@ public class homePageController {
     private CageRealMapper cageRealMapper;
     @Autowired
     private ManualIncubationMapper manualIncubationMapper;
+    @Autowired
+    private CagePositionService cagePositionService;
+    @Autowired
+    private CageRealService cageRealService;
+
+    @ApiOperation("六个鸽笼")
+    @GetMapping("doveCage")
+    public Result doveCage(){
+        List<JSONObject> list = new ArrayList<>();
+        JSONObject jsonObject1 = new JSONObject();
+        jsonObject1.put("status","未产卵");
+        jsonObject1.put("pic","/group1/ui/未产卵.png");
+        jsonObject1.put("video","/group1/ui/未产卵.mp4");
+        JSONObject jsonObject2 = new JSONObject();
+        jsonObject2.put("status","孵化中");
+        jsonObject2.put("pic","/group1/ui/孵化中.png");
+        jsonObject2.put("video","/group1/ui/孵化中.mp4");
+        JSONObject jsonObject3 = new JSONObject();
+        jsonObject3.put("status","产蛋中");
+        jsonObject3.put("pic","/group1/ui/产蛋中.png");
+        jsonObject3.put("video","/group1/ui/产蛋中.mp4");
+        JSONObject jsonObject4 = new JSONObject();
+        jsonObject4.put("status","哺育1天");
+        jsonObject4.put("pic","/group1/ui/哺育1天.png");
+        jsonObject4.put("video","/group1/ui/哺育1天.mp4");
+        JSONObject jsonObject5 = new JSONObject();
+        jsonObject5.put("status","哺育3天");
+        jsonObject5.put("pic","/group1/ui/哺育3天.png");
+        jsonObject5.put("video","/group1/ui/哺育3天.mp4");
+        JSONObject jsonObject6 = new JSONObject();
+        jsonObject6.put("status","哺育7天");
+        jsonObject6.put("pic","/group1/ui/哺育7天.png");
+        jsonObject6.put("video","/group1/ui/哺育7天.mp4");
+        JSONObject jsonObject7 = new JSONObject();
+        jsonObject7.put("status","哺育15天");
+        jsonObject7.put("pic","/group1/ui/哺育15天.png");
+        jsonObject7.put("video","/group1/ui/哺育15天.mp4");
+        JSONObject jsonObject8 = new JSONObject();
+        jsonObject8.put("status","哺育20天");
+        jsonObject8.put("pic","/group1/ui/哺育20天.png");
+        jsonObject8.put("video","/group1/ui/哺育20天.mp4");
+        JSONObject jsonObject9 = new JSONObject();
+        jsonObject9.put("status","哺育25天");
+        jsonObject9.put("pic","/group1/ui/哺育25天.png");
+        jsonObject9.put("video","/group1/ui/哺育25天.mp4");
+
+        list.add(jsonObject1);
+        list.add(jsonObject2);
+        list.add(jsonObject3);
+        list.add(jsonObject4);
+        list.add(jsonObject5);
+        list.add(jsonObject6);
+        list.add(jsonObject7);
+        list.add(jsonObject8);
+        list.add(jsonObject9);
+
+        List<JSONObject> randoms = createRandoms(list, 6);
+        return Result.success("获取成功").data(randoms);
+    }
 
     @ApiOperation("肉鸽出栏曲线图")
     @GetMapping("outOfMeetDove")
@@ -78,7 +141,7 @@ public class homePageController {
     @ApiOperation("鸽笼状态分布")
     @GetMapping("doveStatus")
     public Result doveStatus() {
-        String path = baseUrl + "鸽笼状态.txt";
+        String path = baseUrl + "鸽笼状态分布.txt";
         System.out.println(path);
 //        List<CageRealVo> layEggsTime = cageRealMapper.getLayEggsTime(3L, "A01");
 //        List<CageRealVo> hatchTime = cageRealMapper.getHatchTime(3L, "A01");
@@ -126,5 +189,22 @@ public class homePageController {
         System.out.println(path);
         List<Object> jsonObject = GetFileData.getJsonObject(path);
         return jsonObject.size() > 0?Result.success("获取成功").data(jsonObject) : Result.error(StatusCode.ERROR,"文件不存在或无数据");
+    }
+
+    protected List<JSONObject> createRandoms(List<JSONObject> list, int n) {
+        Map<Integer,String> map = new HashMap();
+        List<JSONObject> news = new ArrayList();
+        if (list.size() <= n) {
+            return list;
+        } else {
+            while (map.size() < n) {
+                int random = (int)(Math.random() * list.size());
+                if (!map.containsKey(random)) {
+                    map.put(random, "");
+                    news.add(list.get(random));
+                }
+            }
+            return news;
+        }
     }
 }
