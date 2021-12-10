@@ -93,9 +93,12 @@ public class Image2Mp4 {
             System.out.println(cageId);
             //弄好之后，把路径存进数据库
             String videoPath = "/group1/" + file1.getPath().substring(28);
+            System.out.println("存入数据库的路径为：" + videoPath);
             CageVideo cageVideo = new CageVideo(cageId, videoPath);
             boolean save = cageVideoService.save(cageVideo);
             if (save){
+                System.out.println("toMp4成功！");
+            }else{
                 System.out.println("toMp4失败！");
             }
         } catch (Exception e) {

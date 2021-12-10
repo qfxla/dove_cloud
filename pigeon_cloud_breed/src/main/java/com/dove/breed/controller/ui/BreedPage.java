@@ -1,5 +1,6 @@
 package com.dove.breed.controller.ui;
 
+import cn.hutool.json.JSONObject;
 import com.dove.breed.entity.vo.CageRealVo;
 import com.dove.breed.mapper.CageRealMapper;
 import com.dove.breed.service.CageRealService;
@@ -17,6 +18,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -90,11 +94,14 @@ public class BreedPage {
         return jsonObject.size() > 0?Result.success("获取成功").data(jsonObject) : Result.error(StatusCode.ERROR,"文件不存在或无数据");
     }
 
-    @ApiOperation("异常板单")
+    @ApiOperation("异常排序")
     @GetMapping("getMaxAbnormal")
     public Result getMaxAbnormal() throws InterruptedException {
-        List<CageRealVo> list = dovecoteService.getMaxAbnormal(3L, "A01", 1, 3);
-        return Result.success("获取成功").data(list);
+//        List<CageRealVo> list = dovecoteService.getMaxAbnormal(3L, "A01", 1, 3);
+        String path = baseUrl + "异常排序.txt";
+        System.out.println(path);
+        List<Object> jsonObject = GetFileData.getJsonObject(path);
+        return jsonObject.size() > 0?Result.success("获取成功").data(jsonObject) : Result.error(StatusCode.ERROR,"文件不存在或无数据");
     }
 
     @ApiOperation("鸽笼图")
