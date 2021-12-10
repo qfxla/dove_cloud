@@ -22,6 +22,12 @@ public class GetMonth {
         return mon;
     }
 
+    public static String getTimeExactSecond(Date date){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String now = format.format(date);
+        return now;
+    }
+
     public static String getDateToString(Date date){
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
         Calendar c = Calendar.getInstance();
