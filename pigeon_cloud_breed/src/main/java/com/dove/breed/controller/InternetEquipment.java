@@ -2,6 +2,7 @@ package com.dove.breed.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.dove.breed.entity.vo.InternetDeviceData;
+import com.dove.breed.utils.GetMonth;
 import com.dove.entity.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -73,10 +75,13 @@ public class InternetEquipment {
         HttpHeaders headers1 = new HttpHeaders();
         headers1.add("token", access_token);
 
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date());
+        c.add(Calendar.DATE, -7);
         Map<String, Object> map = new HashMap<>();
-        map.put("start_time", "2021-12-08T20:20:00");
-        map.put("stop_time", "2021-12-09T20:30:54");
-        map.put("time_interval", "20m");
+        map.put("start_time", GetMonth.getTimeExactSecond(c.getTime()));
+        map.put("stop_time", GetMonth.getTimeExactSecond(new Date()));
+        map.put("time_interval", "1h");
 
         HttpEntity<Map<String,Object>> mapHttpEntity = new HttpEntity<>(headers1);
 
@@ -96,10 +101,13 @@ public class InternetEquipment {
         HttpHeaders headers1 = new HttpHeaders();
         headers1.add("token", access_token);
 
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date());
+        c.add(Calendar.DATE, -1);
         Map<String, Object> map = new HashMap<>();
-        map.put("start_time", "2021-12-08T20:20:00");
-        map.put("stop_time", "2021-12-09T20:30:54");
-        map.put("time_interval", "1h");
+        map.put("start_time", GetMonth.getTimeExactSecond(c.getTime()));
+        map.put("stop_time", GetMonth.getTimeExactSecond(new Date()));
+        map.put("time_interval", "20m");
 
         HttpEntity<Map<String,Object>> mapHttpEntity = new HttpEntity<>(headers1);
 
