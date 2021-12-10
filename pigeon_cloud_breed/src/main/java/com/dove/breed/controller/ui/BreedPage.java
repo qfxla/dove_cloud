@@ -73,16 +73,17 @@ public class BreedPage {
     @ApiOperation("鸽笼状态分布")
     @GetMapping("doveStatus")
     public Result doveStatus() {
-        String path = baseUrl + "鸽笼状态.txt";
+        String path = baseUrl + "鸽笼状态分布.txt";
         System.out.println(path);
-        List<CageRealVo> layEggsTime = cageRealMapper.getLayEggsTime(3L, "A01");
-        List<CageRealVo> hatchTime = cageRealMapper.getHatchTime(3L, "A01");
-        List<CageRealVo> feedTime = cageRealMapper.getFeedTime(3L, "A01");
-        HashMap<String, Integer> map = new HashMap<>();
-        map.put("layTime",layEggsTime.size());
-        map.put("hatchTime",hatchTime.size());
-        map.put("feedTime",feedTime.size());
-        return Result.success("获取成功").data(map);
+//        List<CageRealVo> layEggsTime = cageRealMapper.getLayEggsTime(3L, "A01");
+//        List<CageRealVo> hatchTime = cageRealMapper.getHatchTime(3L, "A01");
+//        List<CageRealVo> feedTime = cageRealMapper.getFeedTime(3L, "A01");
+//        HashMap<String, Integer> map = new HashMap<>();
+//        map.put("layTime",layEggsTime.size());
+//        map.put("hatchTime",hatchTime.size());
+//        map.put("feedTime",feedTime.size());
+        List<Object> jsonObject = GetFileData.getJsonObject(path);
+        return jsonObject.size() > 0?Result.success("获取成功").data(jsonObject) : Result.error(StatusCode.ERROR,"文件不存在或无数据");
     }
 
     @ApiOperation("操作提醒列表")

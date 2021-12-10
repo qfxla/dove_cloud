@@ -157,6 +157,26 @@
     <packaging>jar</packaging>
     <build>
         <plugins>
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-compiler-plugin</artifactId>-->
+<!--                <configuration>-->
+<!--                    <source>1.8</source>-->
+<!--                    <target>1.8</target>-->
+<!--                    <encoding>UTF-8</encoding>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+<!--            <plugin>-->
+<!--                <groupId>org.springframework.boot</groupId>-->
+<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <goals>-->
+<!--                            <goal>repackage</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -169,6 +189,18 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.dove.breed.BreedApplication</mainClass><!--  springboot启动类-->
+                    <!-- 我开启会报错 所以注释了 -->
+<!--                    <layout>ZIP</layout>-->
+                    <includes>
+                        <include>
+                            <!-- 排除所有Jar -->
+                            <groupId>nothing</groupId>
+                            <artifactId>nothing</artifactId>
+                        </include>
+                    </includes>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>
@@ -177,33 +209,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-            </plugin>
-<!--            <plugin>-->
-<!--                <groupId>org.springframework.boot</groupId>-->
-<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
-<!--                <configuration>-->
-<!--                    <mainClass>com.dove.breed.BreedApplication</mainClass>&lt;!&ndash;  springboot启动类&ndash;&gt;-->
-<!--                    &lt;!&ndash; 我开启会报错 所以注释了 &ndash;&gt;-->
-<!--&lt;!&ndash;                    <layout>ZIP</layout>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <includes>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <include>&ndash;&gt;-->
-<!--&lt;!&ndash;                            &lt;!&ndash; 排除所有Jar &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;                            <groupId>nothing</groupId>&ndash;&gt;-->
-<!--&lt;!&ndash;                            <artifactId>nothing</artifactId>&ndash;&gt;-->
-<!--&lt;!&ndash;                        </include>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </includes>&ndash;&gt;-->
-<!--                </configuration>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <goals>-->
-<!--                            <goal>repackage</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
         </plugins>
         <resources>
             <resource>
