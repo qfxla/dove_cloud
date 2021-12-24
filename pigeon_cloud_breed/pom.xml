@@ -192,7 +192,7 @@
                 <configuration>
                     <mainClass>com.dove.breed.BreedApplication</mainClass><!--  springboot启动类-->
                     <!-- 我开启会报错 所以注释了 -->
-<!--                    <layout>ZIP</layout>-->
+                    <layout>ZIP</layout>
                     <includes>
                         <include>
                             <!-- 排除所有Jar -->
