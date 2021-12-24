@@ -40,7 +40,7 @@ public class CageRealController {
     private CageRealService cageRealService;
 
     @ApiOperation("获取所有鸽笼")
-    @GetMapping("/list/{pageNum}/{pageSize}")
+    @GetMapping("/getAllDove/{pageNum}/{pageSize}")
     public Result list(@PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize,
                        @RequestParam("baseId") Long baseId, @RequestParam("dovecoteNumber") String dovecoteNumber) throws InterruptedException {
         long start = System.currentTimeMillis();
