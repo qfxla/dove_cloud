@@ -95,6 +95,15 @@ public class BreedPage {
         return jsonObject.size() > 0?Result.success("获取成功").data(jsonObject) : Result.error(StatusCode.ERROR,"文件不存在或无数据");
     }
 
+    @ApiOperation("传感器数据")
+    @GetMapping("sensorData")
+    public Result sensorData(){
+        String path = baseUrl + "传感器信息.txt";
+        System.out.println(path);
+        List<Object> jsonObject = GetFileData.getJsonObject(path);
+        return jsonObject.size() > 0?Result.success("获取成功").data(jsonObject) : Result.error(StatusCode.ERROR,"文件不存在或无数据");
+    }
+
     @ApiOperation("异常排序")
     @GetMapping("getMaxAbnormal")
     public Result getMaxAbnormal() throws InterruptedException {
