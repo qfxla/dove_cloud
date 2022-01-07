@@ -13,7 +13,7 @@
     <modules>
         <module>pigeon_cloud_common</module>
         <module>pigeon_cloud_breed</module>
-<!--        <module>pigeon_cloud_processing</module>-->
+        <!--        <module>pigeon_cloud_processing</module>-->
     </modules>
 
     <properties>
@@ -44,7 +44,7 @@
 
     <dependencyManagement>
         <dependencies>
-<!--            <dependency>-->
+            <!--            <dependency>-->
             <!--                <groupId>org.apache.maven.plugins</groupId>-->
             <!--                <artifactId>maven-project-info-reports-plugin</artifactId>-->
             <!--                <version>3.0.0</version>-->
@@ -185,16 +185,16 @@
     </dependencyManagement>
 
     <build>
-<!--        <plugins>-->
-<!--            <plugin>-->
-<!--                <groupId>org.springframework.boot</groupId>-->
-<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
-<!--                <configuration>-->
-<!--                    <fork>true</fork>-->
-<!--                    <addResources>true</addResources>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
-<!--        </plugins>-->
+        <!--        <plugins>-->
+        <!--            <plugin>-->
+        <!--                <groupId>org.springframework.boot</groupId>-->
+        <!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+        <!--                <configuration>-->
+        <!--                    <fork>true</fork>-->
+        <!--                    <addResources>true</addResources>-->
+        <!--                </configuration>-->
+        <!--            </plugin>-->
+        <!--        </plugins>-->
         <resources>
             <resource>
                 <directory>src/main/java</directory>
