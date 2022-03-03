@@ -33,6 +33,8 @@ public class CageReal implements Serializable {
 
     private Integer xf;
 
+    private String bcNo;
+
     private Date updateTime;
 
     private Integer isDeleted;

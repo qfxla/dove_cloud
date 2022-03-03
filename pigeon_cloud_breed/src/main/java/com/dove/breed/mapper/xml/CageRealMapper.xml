@@ -13,48 +13,52 @@
     </resultMap>
 
     <sql id="cageRealVo">
-        r.cage_Id,r.state,r.abnormal,r.xf,r.update_time,p.bc_no,p.row_no,p.line,p.column_no
+        r.state,r.abnormal,r.xf,r.update_time,p.bc_no,p.row_no,p.line,p.column_no
     </sql>
 
     <select id="getAllCage" resultType="com.dove.breed.entity.vo.CageRealVo">
-        SELECT
-        <include refid="cageRealVo"></include>
-        FROM t_cage_real r LEFT JOIN t_cage_position p
-        ON r.cage_id = p.cage_id
-        WHERE p.base_id = #{baseId}
-        AND p.shack = #{dovecoteNumber}
+            SELECT
+            <include refid="cageRealVo"></include>
+            FROM t_cage_real r LEFT JOIN t_cage_position p
+            ON r.bc_no = p.bc_no
+            WHERE p.base_id = #{baseId}
+            AND p.shack = #{dovecoteNumber}
+            order by bc_no
     </select>
     <select id="getLayEggsTime" resultType="com.dove.breed.entity.vo.CageRealVo">
         SELECT
         <include refid="cageRealVo"></include>
         FROM t_cage_real r LEFT JOIN t_cage_position p
-        ON r.cage_id = p.cage_id
+        ON r.bc_no = p.bc_no
         WHERE p.base_id = #{baseId}
         AND p.shack = #{dovecoteNumber}
         AND r.state = 0
+        order by bc_no
     </select>
     <select id="getHatchTime" resultType="com.dove.breed.entity.vo.CageRealVo">
         SELECT
         <include refid="cageRealVo"></include>
         FROM t_cage_real r LEFT JOIN t_cage_position p
-        ON r.cage_id = p.cage_id
+        ON r.bc_no = p.bc_no
         WHERE p.base_id = #{baseId}
         AND p.shack = #{dovecoteNumber}
         AND r.state != 0 AND r.state != 5
+        order by bc_no
     </select>
     <select id="getFeedTime" resultType="com.dove.breed.entity.vo.CageRealVo">
         SELECT
         <include refid="cageRealVo"></include>
         FROM t_cage_real r LEFT JOIN t_cage_position p
-        ON r.cage_id = p.cage_id
+        ON r.bc_no = p.bc_no
         WHERE p.base_id = #{baseId}
         AND p.shack = #{dovecoteNumber}
         AND r.state = 5
+        order by bc_no
     </select>
 
     <select id="addAbnormalData" resultType="com.dove.breed.entity.vo.CageRealVo">
         SELECT * FROM t_cage
-        WHERE cage_id = #{cageId}
+        WHERE bc_no = #{cageId}
         AND create_time >= DATE_SUB(NOW(),INTERVAL 30 DAY )
         AND LEFT(abnormal,1) IN ('1','2','3','4','5')
     </select>
@@ -62,7 +66,7 @@
         SELECT
         <include refid="cageRealVo"></include>
         FROM t_cage_real r LEFT JOIN t_cage_position p
-        ON r.cage_id = p.cage_id
+        ON r.bc_no = p.bc_no
         WHERE p.base_id = #{baseId}
         AND p.shack = #{dovecoteNumber}
         AND r.state = #{state}
@@ -71,21 +75,21 @@
     <select id="uiGetLayEggsTimeAmount" resultType="java.lang.Integer">
         SELECT COUNT(*)
         FROM t_cage_real r LEFT JOIN t_cage_position p
-        ON r.cage_id = p.cage_id
+        ON r.bc_no = p.bc_no
         WHERE p.base_id = #{baseId}
         AND r.state = 0
     </select>
     <select id="uiGetHatchTime" resultType="java.lang.Integer">
         SELECT count(*)
         FROM t_cage_real r LEFT JOIN t_cage_position p
-        ON r.cage_id = p.cage_id
+        ON r.bc_no = p.bc_no
         WHERE p.base_id = #{baseId}
         AND r.state != 0 AND r.state != 5
     </select>
     <select id="uiGetFeedTime" resultType="java.lang.Integer">
         SELECT count(*)
         FROM t_cage_real r LEFT JOIN t_cage_position p
-        ON r.cage_id = p.cage_id
+        ON r.bc_no = p.bc_no
         WHERE p.base_id = #{baseId}
         AND r.state = 5
     </select>
@@ -93,7 +97,7 @@
         SELECT
         <include refid="cageRealVo"></include>
         FROM t_cage_real r LEFT JOIN t_cage_position p
-        ON r.cage_id = p.cage_id
+        ON r.bc_no = p.bc_no
         WHERE r.cage_id = #{cageId}
     </select>
 </mapper>

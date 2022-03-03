@@ -32,7 +32,7 @@
 <!--        AND p.shack = #{dovecoteNumber}-->
 <!--    </select>-->
     <select id="getAllCageId" resultType="java.lang.Long">
-        SELECT cage_id
+        SELECT bc_no
         FROM t_cage_position
     </select>
 

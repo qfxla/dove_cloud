@@ -26,7 +26,7 @@ public class CagePictureServiceImpl extends ServiceImpl<CagePictureMapper, CageP
 
     @Override
     public void addCagePic(CageRealVo cageRealVo) {
-        CagePicture cagePic = cagePictureMapper.getCageVideoByCageId(cageRealVo.getCageId());
+        CagePicture cagePic = cagePictureMapper.getCageVideoByCageId(cageRealVo.getBcNo());
         if (cagePic != null){
             cageRealVo.setPicUrl(cagePic.getPic());
         }else {

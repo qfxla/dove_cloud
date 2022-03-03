@@ -28,7 +28,7 @@ public class CagePicture implements Serializable {
     private Long id;
 
         @ApiModelProperty(value = "鸽笼id")
-        private Long cageId;
+        private String cageId;
 
         @ApiModelProperty(value = "图片地址")
         private String pic;

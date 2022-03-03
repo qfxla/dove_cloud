@@ -15,5 +15,5 @@ import org.apache.ibatis.annotations.Param;
  */
 @Mapper
 public interface CageVideoMapper extends BaseMapper<CageVideo> {
-    CageVideo getCageVideoByCageId(@Param("cageId")Long cageId);
+    CageVideo getCageVideoByCageId(@Param("cageId")String cageId);
 }

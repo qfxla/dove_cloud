@@ -31,5 +31,5 @@ public interface CagePositionMapper extends BaseMapper<CagePosition> {
 //    List<Long> getAllCageIdOfDovecote(@Param("baseId")Long baseId,@Param("dovecoteNumber")String dovecoteNumber);
 
     //获取所有cageId
-    List<Long> getAllCageId();
+    List<String> getAllCageId();
 }

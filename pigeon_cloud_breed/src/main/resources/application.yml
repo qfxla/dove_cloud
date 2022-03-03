@@ -1,5 +1,6 @@
 server:
   port: 9804
+#  port: 9805
 spring:
   application:
     name: pigeon-breed-service
@@ -8,11 +9,11 @@ spring:
     active: dev
 
     ## 服务注册发现
-  cloud:
-    nacos:
-      discovery:
-        server-addr: 39.99.247.58:8848
-        ip: 120.77.156.205
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: 839.99.247.58:884
+#        ip: 120.77.156.205
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -26,6 +27,7 @@ spring:
   jackson:
       date-format: yyyy-MM-dd HH:mm:ss
       time-zone: GMT+8
+
 
   redis:
     host: 120.77.156.205

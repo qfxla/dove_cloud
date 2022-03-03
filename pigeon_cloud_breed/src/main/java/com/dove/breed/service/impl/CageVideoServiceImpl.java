@@ -23,7 +23,7 @@ public class CageVideoServiceImpl extends ServiceImpl<CageVideoMapper, CageVideo
 
     @Override
     public void addCageVideo(CageRealVo cageRealVo) {
-        CageVideo cageVideo = cageVideoMapper.getCageVideoByCageId(cageRealVo.getCageId());
+        CageVideo cageVideo = cageVideoMapper.getCageVideoByCageId(cageRealVo.getBcNo());
         if (cageVideo != null){
             cageRealVo.setVideoUrl(cageVideo.getVideo());
         }else {

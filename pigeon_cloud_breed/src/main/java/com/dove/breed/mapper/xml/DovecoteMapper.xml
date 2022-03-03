@@ -45,7 +45,7 @@
         SELECT
         COUNT(*)
         FROM t_cage_real c LEFT JOIN t_cage_position p
-        ON c.cage_id = p.cage_id
+        ON c.bc_no = p.bc_no
         WHERE base_id = #{baseId}
           AND shack = #{dovecoteNumber}
     </sql>
@@ -55,7 +55,7 @@
         insert into t_dovecote (dovecote_id, dovecote_number, base_id, enterprise_id, director, contact_number, living_conditions, picture, video, into_production, cage_amount, cage_empty, guige)values
     </insert>
     <sql id="cageRealVo">
-        r.cage_Id,r.state,r.abnormal,r.xf,r.update_time,p.bc_no,p.row_no,p.line,p.column_no
+        r.bc_no,r.state,r.abnormal,r.xf,r.update_time,p.bc_no,p.row_no,p.line,p.column_no
     </sql>
 
 
@@ -78,7 +78,7 @@
         SELECT
         COUNT(*)
         FROM t_cage c LEFT JOIN t_cage_position p
-        ON c.cage_id = p.cage_id
+        ON c.bc_no = p.bc_no
         WHERE TO_DAYS(NOW()) - TO_DAYS(c.create_time) = 1
         AND p.base_id = #{baseId}
         AND p.shack = #{dovecoteNumber}
@@ -90,7 +90,7 @@
         SELECT
         COUNT(*) amount, state, abnormal
         FROM t_cage c LEFT JOIN t_cage_position p
-        ON c.cage_id = p.cage_id
+        ON c.bc_no = p.bc_no
         WHERE TO_DAYS(NOW()) - TO_DAYS(c.create_time) = 1
         AND p.base_id = #{baseId}
         AND p.shack = #{dovecoteNumber}
@@ -107,7 +107,7 @@
         SELECT
         <include refid="cageRealVo"></include>
         FROM t_cage_real r LEFT JOIN t_cage_position p
-                                     ON r.cage_id = p.cage_id
+                                     ON r.bc_no = p.bc_no
         WHERE p.base_id = #{baseId}
           AND p.shack = #{dovecoteNumber}
           AND state = 5

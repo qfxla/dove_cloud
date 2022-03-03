@@ -28,7 +28,7 @@ public class CageVideo implements Serializable {
     private Long id;
 
         @ApiModelProperty(value = "鸽笼id")
-        private Long cageId;
+        private String cageId;
 
         @ApiModelProperty(value = "视频路径")
         private String video;
@@ -49,7 +49,7 @@ public class CageVideo implements Serializable {
         @TableLogic
         private Boolean deleted;
 
-    public CageVideo(Long cageId, String video) {
+    public CageVideo(String cageId, String video) {
         this.cageId = cageId;
         this.video = video;
     }

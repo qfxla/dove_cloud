@@ -18,7 +18,7 @@ import java.util.List;
 @Mapper
 public interface CagePictureMapper extends BaseMapper<CagePicture> {
     //根据cageId获取前一天的图片路径
-    List<String> getYesterdayUrl(@Param("cageId")Long cageId);
+    List<String> getYesterdayUrl(@Param("cageId")String cageId);
 
-    CagePicture getCageVideoByCageId(@Param("cageId") Long cageId);
+    CagePicture getCageVideoByCageId(@Param("cageId") String cageId);
 }

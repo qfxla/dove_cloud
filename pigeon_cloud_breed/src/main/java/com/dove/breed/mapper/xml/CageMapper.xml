@@ -16,7 +16,7 @@
     <select id="getLastOneLayEggsByCageId" resultType="java.util.Date">
         SELECT create_time
         FROM t_cage
-        WHERE cage_id = #{cageId}
+        WHERE bc_no = #{cageId}
         AND state in (1,2)
         ORDER BY create_time DESC
         LIMIT 0,1
@@ -24,7 +24,7 @@
     <select id="getLastTwoLayEggsByCageId" resultType="java.util.Date">
         SELECT create_time
         FROM t_cage
-        WHERE cage_id = #{cageId}
+        WHERE bc_no = #{cageId}
         AND state in (1,2)
         ORDER BY create_time DESC
         LIMIT 1,1

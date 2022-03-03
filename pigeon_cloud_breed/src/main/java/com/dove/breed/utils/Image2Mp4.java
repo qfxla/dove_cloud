@@ -47,9 +47,9 @@ public class Image2Mp4 {
     //定时器要调用的方法，遍历所有鸽笼，把图片转为视频
     public void updateMp4() throws FrameRecorder.Exception {
         //获取所有鸽笼
-            List<Long> cageIds = cagePositionMapper.getAllCageId();
+            List<String> cageIds = cagePositionMapper.getAllCageId(); //实际上是bc_no
             //遍历所有鸽笼
-            for (Long cageId : cageIds) {
+            for (String cageId : cageIds) {
                 //根据cageId获取该cage前一天的24张图片
                 List<String> urls = cagePictureMapper.getYesterdayUrl(cageId);
                 if (urls.size() != 0){
@@ -69,7 +69,7 @@ public class Image2Mp4 {
         }
     }
 
-    protected void createMp4(File file1, Map<Integer, File> imgMap, int width, int height, Long cageId) throws FrameRecorder.Exception {
+    protected void createMp4(File file1, Map<Integer, File> imgMap, int width, int height, String cageId) throws FrameRecorder.Exception {
         //视频宽高最好是按照常见的视频的宽高  16：9  或者 9：16
         FFmpegFrameRecorder recorder = new FFmpegFrameRecorder(file1, width, height);
         //设置视频编码层模式

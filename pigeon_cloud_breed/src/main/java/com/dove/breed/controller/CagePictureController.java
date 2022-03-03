@@ -51,6 +51,7 @@ public class CagePictureController {
     @PostMapping("/image_upload")
     public Result upload2(MultipartFile image, @RequestParam("location_code")Long location_code,
                           @RequestParam("name")String name, @RequestParam("time")Date time) {
+        String location_code2 = Long.toString(location_code);
         QueryWrapper<CagePosition> wrapper = new QueryWrapper<>();
         wrapper.eq("cage_id",location_code);
         List<CagePosition> list = cagePositionService.list(wrapper);
@@ -83,7 +84,7 @@ public class CagePictureController {
                     JSONObject jsonObject = JSON.parseObject(result);
                     String path = (String)jsonObject.get("path");
                     CagePicture cagePicture = new CagePicture();
-                    cagePicture.setCageId(location_code);
+                    cagePicture.setCageId(location_code2);
                     cagePicture.setPic(path);
                     cagePicture.setPicName(name);
                     cagePicture.setTime(time);

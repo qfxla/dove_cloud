@@ -83,7 +83,7 @@ public class CageVideoController {
 
 
     @GetMapping("/getVideoByCageId")
-    public Result getVideoByCageId(@RequestParam("cageId")Long cageId){
+    public Result getVideoByCageId(@RequestParam("cageId")String cageId){
         CageVideo cageVideo = cageVideoMapper.getCageVideoByCageId(cageId);
         if (cageVideo == null){
             return Result.error("无该cageId");
