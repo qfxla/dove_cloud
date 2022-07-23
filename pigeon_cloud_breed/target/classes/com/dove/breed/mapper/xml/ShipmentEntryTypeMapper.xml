@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dove.breed.mapper.ShipmentEntryTypeMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.dove.breed.entity.ShipmentEntryType">
+        <id column="type_id" property="typeId" />
+        <result column="base_id" property="baseId"/>
+        <result column="product_number" property="productNumber"/>
+        <result column="name" property="name" />
+        <result column="type" property="type"/>
+        <result column="specifications" property="specifications" />
+        <result column="guige" property="guige" />
+        <result column="gmt_create" property="gmtCreate" />
+        <result column="gmt_modified" property="gmtModified" />
+        <result column="is_deleted" property="deleted" />
+        <result column="version" property="version" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        type_id, name,type, specifications, guige, gmt_create, gmt_modified, is_deleted, version
+    </sql>
+
+    <sql id="ShipmentEntryTypeVo">
+        type_id,name,type,specifications,gmt_create,gmt_modified
+    </sql>
+    <select id="getTypeNameByType" resultType="com.dove.breed.entity.vo.ShipmentEntryTypeVo">
+        SELECT
+        <include refid="ShipmentEntryTypeVo"/>
+        FROM t_shipment_entry_type
+        WHERE type = #{type}
+    </select>
+
+    <select id="getMaxProductNumber" resultType="java.lang.Integer">
+        SELECT MAX(product_number)
+        FROM t_shipment_out_type
+        WHERE base_id = #{baseId}
+          AND is_deleted = 0
+    </select>
+
+
+</mapper>

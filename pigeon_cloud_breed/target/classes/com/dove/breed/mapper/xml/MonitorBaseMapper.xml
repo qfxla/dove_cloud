@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dove.breed.mapper.MonitorBaseMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.dove.breed.entity.MonitorBase">
+        <id column="id" property="id" />
+        <result column="base_id" property="baseId" />
+        <result column="dovecote_number" property="dovecoteNumber" />
+        <result column="video_name" property="videoName" />
+        <result column="type" property="type" />
+        <result column="monitoring_location" property="monitoringLocation" />
+        <result column="create_by" property="createBy" />
+        <result column="device_serial" property="deviceSerial" />
+        <result column="validate_code" property="validateCode" />
+        <result column="status_code" property="statusCode" />
+        <result column="guige" property="guige"/>
+        <result column="gmt_create" property="gmtCreate" />
+        <result column="gmt_modified" property="gmtModified" />
+        <result column="is_deleted" property="deleted" />
+        <result column="version" property="version" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, base_id, video_name, `type`, monitoring_location, create_by, device_serial, validate_code, status_code, guige, gmt_create, gmt_modified, is_deleted, version
+    </sql>
+    <sql id="Vo_Column_List">
+        id, base_id, dovecote_number, video_name, `type`, monitoring_location, status_code, create_by, device_serial, aisle, validate_code, gmt_modified
+    </sql>
+    <!--    <select id="selectList" resultType="com.dove.breed.entity.vo.MonitorBaseVo">-->
+    <!--        select <include refid="Vo_Column_List"/>-->
+    <!--        from t_monitor_base-->
+    <!--        where guige = #{enterpriseId}-->
+    <!--        and is_deleted = 0-->
+    <!--    </select>-->
+    <select id="listByType" resultType="com.dove.breed.entity.vo.MonitorBaseVo">
+        select <include refid="Vo_Column_List"/>
+        from t_monitor_base
+        where guige = #{enterpriseId}
+        and is_deleted = 0
+        <if test="baseId != null">
+            and base_id = #{baseId}
+        </if>
+        <if test="type != null">
+            and `type` = #{type}
+        </if>
+        <if test="type == 3 and dovecoteNumber != null">
+            and dovecote_number = #{dovecoteNumber}
+        </if>
+        <if test="statusCode != null">
+            and status_code = #{statusCode}
+        </if>
+    </select>
+    <select id="getVoById" resultType="com.dove.breed.entity.vo.MonitorBaseVo">
+        select <include refid="Vo_Column_List"/>
+        from t_monitor_base
+        where id = #{id}
+        and is_deleted = 0
+    </select>
+
+</mapper>

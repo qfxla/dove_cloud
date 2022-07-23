@@ -11,10 +11,7 @@
       </configuration>
     </facet>
     <facet type="Spring" name="Spring">
-      <configuration>
-        <fileset id="spring-boot-dispatcherServletAutoConfiguration-mvc" profiles="test" autodetected="true" />
-        <fileset id="spring_boot_com.dove.breed.BreedApplication" profiles="dev" autodetected="true" />
-      </configuration>
+      <configuration />
     </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">

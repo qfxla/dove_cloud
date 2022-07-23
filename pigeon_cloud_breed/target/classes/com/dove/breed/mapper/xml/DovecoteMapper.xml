@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dove.breed.mapper.DovecoteMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.dove.breed.entity.Dovecote">
+        <id column="dovecote_id" property="dovecoteId" />
+        <result column="dovecote_number" property="dovecoteNumber" />
+        <result column="base_id" property="baseId" />
+        <result column="enterprise_id" property="enterpriseId" />
+        <result column="director" property="director" />
+        <result column="contact_number" property="contactNumber" />
+        <result column="living_conditions" property="livingConditions" />
+        <result column="picture" property="picture" />
+        <result column="video" property="video"/>
+        <result column="into_production" property="intoProduction" />
+        <result column="cage_amount" property="cageAmount" />
+        <result column="cage_empty" property="cageEmpty" />
+        <result column="guige" property="guige" />
+        <result column="gmt_create" property="gmtCreate" />
+        <result column="gmt_modified" property="gmtModified" />
+        <result column="is_deleted" property="deleted" />
+        <result column="version" property="version" />
+    </resultMap>
+
+    <resultMap id="AbnormalMap" type="com.dove.breed.entity.vo.AbnormalVo">
+        <id column="amount" property="amount"/>
+        <id column="state" property="state"/>
+        <id column="abnormal" property="abnormal"/>
+    </resultMap>
+
+
+    <resultMap id="DoveAmountOfStateMap" type="com.dove.breed.entity.vo.DoveAmountOfStateVo">
+        <id column="state" property="state"/>
+        <id column="amount" property="amount"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        dovecote_id, dovecote_number, base_id, enterprise_id, director, contact_number, living_conditions, picture, video, into_production, cage_amount, cage_empty, guige, gmt_create, gmt_modified, is_deleted, version
+    </sql>
+
+    <!-- 调用当天需要完成的任务 -->
+    <sql id="IntraDay_Need_Work">
+        SELECT
+        COUNT(*)
+        FROM t_cage_real c LEFT JOIN t_cage_position p
+        ON c.bc_no = p.bc_no
+        WHERE base_id = #{baseId}
+          AND shack = #{dovecoteNumber}
+    </sql>
+
+
+    <insert id="insert">
+        insert into t_dovecote (dovecote_id, dovecote_number, base_id, enterprise_id, director, contact_number, living_conditions, picture, video, into_production, cage_amount, cage_empty, guige)values
+    </insert>
+    <sql id="cageRealVo">
+        r.bc_no,r.state,r.abnormal,r.xf,r.update_time,p.bc_no,p.row_no,p.line,p.column_no
+    </sql>
+
+
+    <select id="getNeedPictureEggs" resultType="java.lang.Integer">
+        <include refid="IntraDay_Need_Work"></include>
+          AND c.xf = 1
+    </select>
+
+    <select id="getNeedCheckDoves" resultType="java.lang.Integer">
+        <include refid="IntraDay_Need_Work"></include>
+          AND c.xf = 3
+    </select>
+
+    <select id="getNeedTakeEggs" resultType="java.lang.Integer">
+        <include refid="IntraDay_Need_Work"></include>
+          AND c.xf = 2
+    </select>
+
+    <select id="getMatEggsOfYesterday" resultType="java.lang.Integer">
+        SELECT
+        COUNT(*)
+        FROM t_cage c LEFT JOIN t_cage_position p
+        ON c.bc_no = p.bc_no
+        WHERE TO_DAYS(NOW()) - TO_DAYS(c.create_time) = 1
+        AND p.base_id = #{baseId}
+        AND p.shack = #{dovecoteNumber}
+        AND c.state in (1,2)
+        AND c.xf = 0
+    </select>
+
+    <select id="getAbnormalVoOfYesterday" resultType="com.dove.breed.entity.vo.AbnormalVo" resultMap="AbnormalMap">
+        SELECT
+        COUNT(*) amount, state, abnormal
+        FROM t_cage c LEFT JOIN t_cage_position p
+        ON c.bc_no = p.bc_no
+        WHERE TO_DAYS(NOW()) - TO_DAYS(c.create_time) = 1
+        AND p.base_id = #{baseId}
+        AND p.shack = #{dovecoteNumber}
+        AND c.`abnormal` IS NOT NULL
+        GROUP BY state , abnormal
+    </select>
+    <select id="getAllDovecoteNumber" resultType="java.lang.String">
+        SELECT
+        dovecote_number
+        FROM t_dovecote
+        WHERE base_id = #{baseId}
+    </select>
+    <select id="getCheckEggsToNow" resultType="com.dove.breed.entity.vo.CageRealVo">
+        SELECT
+        <include refid="cageRealVo"></include>
+        FROM t_cage_real r LEFT JOIN t_cage_position p
+                                     ON r.bc_no = p.bc_no
+        WHERE p.base_id = #{baseId}
+          AND p.shack = #{dovecoteNumber}
+          AND state = 5
+          AND TO_DAYS(NOW()) - TO_DAYS(r.update_time) = #{days}
+    </select>
+
+    <select id="getMaxAbnormal" resultType="com.dove.breed.entity.vo.CageRealVo">
+        SELECT * FROM (SELECT COUNT(*) totalAbnormal ,cage_id FROM (
+        SELECT c.id id,c.cage_id,c.state,c.abnormal,c.create_time FROM t_cage c                                             LEFT JOIN t_cage_position p ON c.`cage_id` = p.`cage_id`
+        WHERE c.create_time >= DATE_SUB(NOW(),INTERVAL 30 DAY )
+        AND p.`base_id` = #{baseId} AND p.`shack` = #{dovecoteNumber}
+        AND LEFT(c.abnormal,1) IN ('1','2','3','4','5')) t GROUP BY cage_id
+        ) t2 ORDER BY totalAbnormal DESC
+        LIMIT #{start},#{pageSize}
+    </select>
+    <select id="getAmountOfState" resultType="com.dove.breed.entity.vo.DoveAmountOfStateVo" resultMap="DoveAmountOfStateMap">
+        SELECT r.state state ,COUNT(*) amount
+        FROM t_cage_real r LEFT JOIN t_cage_position p
+        ON r.cage_id = p.cage_id
+        WHERE p.base_id = #{baseId}
+        AND p.shack = #{dovecoteNumber}
+        GROUP BY r.state
+    </select>
+    <select id="uiGetAbnormalOfShipment" resultType="java.util.Map">
+        select sum(single_eggs) single_eggs,sum(unfertilized_eggs) unfertilized_eggs,
+               sum(damaged_eggs) damaged_eggs,sum(bad_eggs) bad_eggs,DATE_FORMAT(gmt_create,'%Y-%m') gmt_create
+        from t_dovecote_daily
+        where base_id = #{baseId}
+        group by DATE_FORMAT(gmt_create,'%Y-%m')
+            limit 6
+    </select>
+
+</mapper>

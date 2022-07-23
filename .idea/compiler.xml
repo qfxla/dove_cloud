@@ -12,7 +12,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="pigeon_cloud" target="8" />
+      <module name="pigeon_cloud" target="1.1" />
       <module name="pigeon_cloud_breed" target="1.8" />
       <module name="pigeon_cloud_common" target="1.8" />
     </bytecodeTargetLevel>
